@@ -102,3 +102,16 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Vim files
+*.swp
+*.swo
+
+# DS_Store
+.DS_Store
+
+# Backups 
+backups/
+
+# Designs
+designs/
