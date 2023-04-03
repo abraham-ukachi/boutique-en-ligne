@@ -159,7 +159,7 @@ These are some of the things we did or plan to do, in addition to this project's
 | 7 | *`Slide Right - Animation`* | **slide-right-animation.css** | Pending |
 | 8 | *`Slide From Right - Animation`* | **slide-from-right-animation.css** | Pending |
 | 9 | *`Manifest - JSON File`* | **manifest.json** | [Done](./manifest.json) |
-| 10 | *`Package - JSON File`* | **package.json** | _*In progress*_ |
+| 10 | *`Package - JSON File`* | **package.json** | [Done](./package.json) |
 
 
 
