@@ -37,33 +37,54 @@ So, we've decided to name our online shop 🥁... "**`MaxaBoom`**" (♾💥), an
 The following tables (including a couple of TRIGGERS) were created in our **`db_maxaboom.sql`** database:
 
 - [*`users`*](#users---MySQL-Table): All currently registered users.
-- [*`images`*](#images---MySQL-Table): All images used by this online shop.
-- [*`products`*](#articles---MySQL-Table): All producs created by a seller.
+- [*`products`*](#products---MySQL-Table): All producs created by the seller or administrator.
 - [*`categories`*](#categories---MySQL-Table): All categories of corresponding products.
-- [*`tags`*](#tags---MySQL-Table): All tags of corresponding products.
-- [*`saves`*](#saves---MySQL-Table): All saves of corresponding products.
-- [*`comments`*](#comments---MySQL-Table): All comments of corresponding products.
+- [*`sub_categories`*](#sub_categories---MySQL-Table): All sub-categories related to product categories.
+- [*`tags`*](#tags---MySQL-Table): All tags applied to each product.
+- [*`addresses`*](#addresses---MySQL-Table): All addresses of the registered users.
+- [*`comments`*](#comments---MySQL-Table): All comments (or reviews) made by users (or reviews) on all products.
+- [*`orders`*](#orders---MySQL-Table): All orders of users.
+- [*`likes`*](#likes---MySQL-Table): All likes of corresponding products.
 
 > NOTE: For more info, [read the Database section](#Database) of this *README*. 
 
 
 ## Description 
-> Original text in French:  
+> Original text in French: Votre entreprise décide de mettre en place une boutique en ligne (Thème et produits au choix).
 
-
+Your company decides to set up an online shop (Theme and products to choose from).
 
 ## Requirements
 
 These are a couple of the main requirements for this school project:
 
-1. **A home page**: 
+1. An well-designed / attractive **homepage** with several sections including a **highlighting of flagship products** on the homepage / latest products put online.
 
+2. Contemporary design and respecting the **graphic charter** of your company
+3. The site must be **responsive**!
+4. Product **search bar** with autocompletion in asynchronous javascript
+5. Access to the shop presenting all the products with the possibility of **filtering them by category / subcategories without page reloading**.
+6. On clicking on each product: a complete **“detail” page** dynamically generated (name, image, price, description, add to cart button, etc.)
+7. A system for creating **user accounts**:
+    - Registration / Connection module **_(Use of Javascript and Asynchronous mandatory in this part)_**
+    - User profile management page (Summary and possibility to modify information, view purchase history, basket consultation, etc.)
+8. **Administrator dashboard area**:
+    - Product management using back office (Addition / Deletion / Modification of products, stocks, etc.)
+    - Management of categories and subcategories of products (Addition / Deletion / Modifications…)
+9. **Cart / basket validation system** (You do not have to implement a real payment solution, a simulation of the process is enough)
 
-> NOTE:  
+> NOTE: 
 
 ## Target Skills
 
-- 
+- Project / application modeling
+- MCD / MLD database design
+- Object Oriented Programming: use of Classes
+- Detail a user journey on a “business” feature of your site (purchase action…)
+- Structuring a project and thinking about its architecture
+- Do asynchronous with JS
+- Pitching a project: oral expression / production of presentation slides 
+
 
 ## Jobs
 > MOTTO: We'll always do [**more**](#More) 😜
@@ -77,7 +98,7 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 3 | *`Index / Home - Page`* | **index.php** | *_In progress_* |
 | 4 | *`Maxaboom Database - SQL`* | **db_maxaboom.sql** | Pending |
 | 5 | *`Shop - Page`* | **shop.php** | Pending |
-| 6 | *`Category - Page`* | **category.php** | Pending |
+| 6 | *`Product - Page`* | **product.php** | Pending |
 | 7 | *`Color - Theme`* | **color.css** | Pending |
 | 8 | *`Typography - Theme`* | **typography.css** | Pending |
 | 9 | *`Styles - Theme`* | **styles.css** | Pending |
@@ -181,37 +202,25 @@ The following tables were created in a MySQL database named **`db_maxaboom.sql`*
 
 ### `users` - MySQL Table
 
-This table has a [**one-to-many**](https://www.metabase.com/learn/databases/table-relationships#one-to-many-relationship) relationship with [*`products`*](#`todolists`---MySQL-Table).
+This table has a [**one-to-many**](https://www.metabase.com/learn/databases/table-relationships#one-to-many-relationship) relationship with [*`addresses`*](#`addresses`---MySQL-Table).
 
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
 | 1 | *`id`* 🔑 | **INT** | 255 | No | None | **AUTO_INCREMENT** | 
-| 2 | *`username`* | **VARCHAR** | 30 | No | None | - | 
-| 3 | *`email`* | **VARCHAR** | 60 | No | None | - | 
-| 4 | *`password`* | **VARCHAR** | 255 | No | None | - | 
-| 5 | *`firstname`* | **VARCHAR** | 30 | No | None | - | 
-| 6 | *`lastname`* | **VARCHAR** | 30 | No | None | - | 
+| 2 | *`firstname`* | **VARCHAR** | 30 | No | None | - | 
+| 3 | *`lastname`* | **VARCHAR** | 30 | No | None | - | 
+| 4 | *`email`* | **VARCHAR** | 60 | No | None | - | 
+| 5 | *`dob`* | **VARCHAR** | 255 | No | None | - | 
+| 6 | *`role`* | **VARCHAR** | 255 | No | None | - |  
 | 7 | *`created_at`* | **DATETIME** | - | Yes | NULL | - |  
 
 
 > NOTE: 
 
 
-
-### `images` - MySQL Table
-
-| No. | Name | Type | Length | Null | Default | Extra |
-|:----|:-----|:-----|:-------|:-----|:--------|:-------|
-| 1 | *`id`* 🔑  | **INT** | 255 | No | None | **AUTO_INCREMENT** |
-| 2 | *`width`* | **TINYINT** | 5 | No | None | - |
-| 3 | *`height`* | **TINYINT** | 5 | No | None | - |
-| 4 | *`type`* | **VARCHAR** | 10 | No | None | - |
-| 5 | *`blob`* | **MEDIUMBLOB** | 2000000 | No | None | - |
-
-
 ### `products` - MySQL Table
 
-This table has a [**many-to-one**](https://www.metabase.com/learn/databases/table-relationships#many-to-one-relationship) relationship with [*`users`*](#`users`---MySQL-Table) table.
+This table has a [**many-to-one**](https://www.metabase.com/learn/databases/table-relationships#many-to-one-relationship) relationship with [*`categories`*](#`categories`---MySQL-Table) table.
 
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
@@ -228,32 +237,55 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 > NOTE:
 
 
+### `addresses` - MySQL Table
 
-### `categories` - MySQL Table
-> ⚠️  WARNING: This table may be used by one or more TRIGGERs from the `articles` table.
+This table has a [**many-to-one**](https://www.metabase.com/learn/databases/table-relationships#one-to-many-relationship) relationship with [*`users`*](#`users`---MySQL-Table).
 
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
-| 1 | *`id`* 🔑  | **TINYINT** | 10 | No | None | **AUTO_INCREMENT** |
-| 2 | *`name`* ⨁ | **INT** | 255 | No | None | - |
-| 3 | *`image_id`* ⨁ | **INT** | 255 | Yes | NULL | - |
+| 1 | *`id`* 🔑 | **INT** | 255 | No | None | **AUTO_INCREMENT** | 
+| 2 | *`type`* | **VARCHAR** | 30 | No | None | - | 
+| 3 | *`address`* | **VARCHAR** | 255 | No | None | - | 
+| 4 | *`address_complement`* | **VARCHAR** | 255 | No | None | - | 
+| 5 | *`postal_code`* | **INT** | 30 | No | None | - | 
+| 6 | *`city`* | **VARCHAR** | 255 | No | None | - | 
+| 7 | *`country`* | **VARCHAR** | 255 | No | None | - | 
+| 8 | *`user_id`* | **INT** | 30 | No | None | - | 
+
+
+
+### `categories` - MySQL Table
+> ⚠️  WARNING: This table may be used by one or more TRIGGERs from the `products` table.
+
+| No. | Name | Type | Length | Null | Default | Extra |
+|:----|:-----|:-----|:-------|:-----|:--------|:-------|
+| 1 | *`id`* 🔑  | **INT** | 10 | No | None | **AUTO_INCREMENT** |
+| 2 | *`name`* | **VARCHAR** | 255 | No | None | - |
 
 > NOTE:
 
 
+### `sub_categories` - MySQL Table
+> ⚠️  WARNING: This table may be used by one or more TRIGGERs from the `products` table.
+
+| No. | Name | Type | Length | Null | Default | Extra |
+|:----|:-----|:-----|:-------|:-----|:--------|:-------|
+| 1 | *`id`* 🔑  | **INT** | 10 | No | None | **AUTO_INCREMENT** |
+| 2 | *`name`* | **VARCHAR** | 255 | No | None | - |
+
+> NOTE:
 ### `tags` - MySQL Table
 > ⚠️  WARNING: This table may contain one or more TRIGGERs
 
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
 | 1 | *`id`* 🔑  | **INT** | 255 | No | None | **AUTO_INCREMENT** |
-| 2 | *`name`* ⨁ | **INT** | 255 | No | None | - |
-| 3 | *`product_id`* ⨁ | **VARCHAR** | 30 | No | None | - |
+| 2 | *`name`*  | **VARCHAR** | 255 | No | None | - |
 
 > NOTE:
 
 
-### `saves` - MySQL Table
+### `likes` - MySQL Table
 > ⚠️  WARNING: This table may contain one or more TRIGGERs
 
 | No. | Name | Type | Length | Null | Default | Extra |
@@ -261,7 +293,6 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 | 1 | *`id`* 🔑  | **INT** | 255 | No | None | **AUTO_INCREMENT** |
 | 2 | *`user_id`* ⨁ | **INT** | 255 | No | None | - |
 | 3 | *`product_id`* ⨁ | **VARCHAR** | 30 | No | None | - |
-| 4 | *`saved_at`* | **DATETIME** | - | Yes | NULL | - |
 
 > NOTE:
 
@@ -273,12 +304,11 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
 | 1 | *`id`* 🔑  | **INT** | 255 | No | None | **AUTO_INCREMENT** |
 | 2 | *`user_id`* ⨁ | **INT** | 255 | No | None | - |
-| 3 | *`text`* | **TEXT** | 500 | No | None | - |
-| 4 | *`product_id`* ⨁ | **VARCHAR** | 30 | No | None | - |
+| 3 | *`comment`* | **TEXT** | 500 | No | None | - |
+| 4 | *`product_id`* ⨁ | **INT** | 30 | No | None | - |
 | 5 | *`created_at`* | **DATETIME** | - | Yes | NULL | - |
-| 6 | *`edited_at`*   | **DATETIME** | - | Yes | NULL | - |
 
-> NOTE:
+> NOTE: 
 
 
 ---
@@ -370,5 +400,11 @@ open http://localhost/boutique-en-ligne
 
 ### Others
 
-Initial Entity Relationship Diagram of Maxaboom Database 
-![Maxaboom - Database](./.github/screenshots/maxaboom_db.png) 
+**MCD** / Initial Database Concept
+![MCD - Maxaboom - Database](./.github/screenshots/maxaboom_mcd.png)
+ 
+**MLD** / Logical Database Model ?
+![MLD - Maxaboom - Database](./.github/screenshots/maxaboom_mld.png) 
+
+**MPD** / Entity Relationship Diagram of Maxaboom Database 
+![MLD - Maxaboom - Database](./.github/screenshots/maxaboom_db.png) 
