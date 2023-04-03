@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  The number <strong>#1</strong>🏆 online store for all your musical needs 🎶 🎸 🎹 🎺 🪘 <br> MIT licensed and currently under development.
+  The number <strong>#1</strong>🏆  online store for all your musical needs 🎶 🎸 🎹 🎺 🪘 <br> MIT licensed and currently under development.
 </p>
 
 <p align="center">
@@ -29,9 +29,9 @@ A school project to create an **online shop** using `JavaScript` with a fully fu
 
 This project is to be done by a group of 3, and my partners / collaborators for the next three weeks are [Axel Vair](https://github.com/axel-vair) et [Morgane Marechal](https://github.com/morgane-marechal). 
 
-So, we've decided to name our online shop 🥁... "**`MaxaBoom`**" (♾💥), and will a MySQL Database named **`???`**. 
+So, we've decided to name our online shop 🥁... "**`MaxaBoom`**" (♾💥), and will a MySQL Database named **`db_maxaboom.sql`**. 
 
-**Why `MaxaBoom` you might ask?** #GoodQuestion !-: This is just a play-on-words with our first names and/or nicknames: *Ax*el + *Ab*raham + *Momo* (Morgane) === **MaxaBoom** 😜
+**Why `MaxaBoom` you might ask?** #GoodQuestion !-: This is just a play-on-words with our first names and/or nicknames: **Ax**el + **Ab**raham + **Momo** (Morgane) === **MaxaBoom** 😜
 
 
 The following tables (including a couple of TRIGGERS) were created in our **`??`** database:
@@ -75,7 +75,7 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 1 | *`Splash - Screen`* | **splash.php** | Pending |
 | 2 | *`Welcome - Screen`* | **welcome.php** | Pending |
 | 3 | *`Home - Page`* | **index.php** | Pending |
-| 4 | *`Peace & Love - Database - SQL`* | **???.sql** | Pending |
+| 4 | *`Maxaboom Database - SQL`* | **db_maxaboom.sql** | Pending |
 
 > WARNING: This list is a working progress and will change soon
 
@@ -95,11 +95,11 @@ The folder & file structure of this project:
 - - * *User.php*
 - - * *auth.php*
 - - * ...
-- - [**article**](./api/article/)
-- - * *Article.php*
+- - [**product**](./api/product/)
+- - * *Product.php*
 - - * ...
-- - [**comment**](./api/comment/)
-- - * *Comment.php*
+- - [**review**](./api/review/)
+- - * *Review.php*
 - - * ...
 - [**assets**](./assets/)
 - - [**logos**](./assets/logos/)
@@ -126,7 +126,7 @@ The folder & file structure of this project:
 - - [**helpers**](./src/helpers/)
 - - * *mediawatcher.js*
 - - * *...*
-- - [**scripts**](./src/screens/)
+- - [**scripts**](./src/scripts/)
 - - * *home.js*
 - - * *checkout.js*
 - - ...
@@ -138,7 +138,7 @@ The folder & file structure of this project:
 - **index.php**
 - **splash.php**
 - **welcome.php**
-- **???.sql**
+- **db_maxaboom.sql**
 
 
 > NOTE: This is just a looong snippet ;)
@@ -158,6 +158,9 @@ These are some of the things we did or plan to do, in addition to this project's
 | 6 | *`Slide From Left - Animation`* | **slide-from-left-animation.css** | Pending |
 | 7 | *`Slide Right - Animation`* | **slide-right-animation.css** | Pending |
 | 8 | *`Slide From Right - Animation`* | **slide-from-right-animation.css** | Pending |
+| 9 | *`Manifest - JSON File`* | **manifest.json** | _*In progress*_ |
+| 10 | *`Package - JSON File`* | **package.json** | Pending |
+
 
 
 > NOTE: (\*) = still needs to be updated. <br>
@@ -166,7 +169,7 @@ These are some of the things we did or plan to do, in addition to this project's
 ## Database
 > HEADS-UP: We do love me some TRIGGERS, so do not be shocked to see a couple in this database #LOL
 
-The following tables were created in a MySQL database named **`???`** via [PDO](https://www.php.net/manual/en/class.pdo.php) on [phpmyadmin](http://localhost/phpmyadmin):
+The following tables were created in a MySQL database named **`db_maxaboom.sql`** via [PDO](https://www.php.net/manual/en/class.pdo.php) on [phpmyadmin](http://localhost/phpmyadmin):
 
 
 > NOTE: **`⨁`** = _FOREIGN_KEY_
