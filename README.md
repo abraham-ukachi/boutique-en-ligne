@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  The number <strong>#1</strong>🏆  online store for all your musical needs 🎶 🎸 🎹 🎺 🪘 <br> MIT licensed and currently under development.
+  The number <strong>#1</strong>🏆  online store for all your musical needs or instruments 🎶 🎸 🎹 🎺 🪘 <br> MIT licensed and currently under development.
 </p>
 
 <p align="center">
@@ -34,7 +34,7 @@ So, we've decided to name our online shop 🥁... "**`MaxaBoom`**" (♾💥), an
 **Why `MaxaBoom` you might ask?** #GoodQuestion !-: This is just a play-on-words with our first names and/or nicknames: **Ax**el + **Ab**raham + **Momo** (Morgane) === **MaxaBoom** 😜
 
 
-The following tables (including a couple of TRIGGERS) were created in our **`??`** database:
+The following tables (including a couple of TRIGGERS) were created in our **`db_maxaboom.sql`** database:
 
 - [*`users`*](#users---MySQL-Table): All currently registered users.
 - [*`images`*](#images---MySQL-Table): All images used by this online shop.
@@ -74,8 +74,13 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 |:----|:-----|:-----|:-------|
 | 1 | *`Splash - Screen`* | **splash.php** | Pending |
 | 2 | *`Welcome - Screen`* | **welcome.php** | Pending |
-| 3 | *`Home - Page`* | **index.php** | Pending |
+| 3 | *`Index / Home - Page`* | **index.php** | *_In progress_* |
 | 4 | *`Maxaboom Database - SQL`* | **db_maxaboom.sql** | Pending |
+| 5 | *`Shop - Page`* | **shop.php** | Pending |
+| 6 | *`Category - Page`* | **category.php** | Pending |
+| 7 | *`Color - Theme`* | **color.css** | Pending |
+| 8 | *`Typography - Theme`* | **typography.css** | Pending |
+| 9 | *`Styles - Theme`* | **styles.css** | Pending |
 
 > WARNING: This list is a working progress and will change soon
 
@@ -329,6 +334,7 @@ open http://localhost/boutique-en-ligne
 
 ## TODOs
 
+- [ ] Create a navigation flow diagram with FigJam.
 - [ ] Create a project-specific logo 
 - [ ] Add localization / internationalization (at least: **english** & **french**)
 - [ ] Add mobile compatibility to all pages (i.e. make it responsive)
@@ -360,3 +366,9 @@ open http://localhost/boutique-en-ligne
 | 1. | ![Splash Screen - Desktop](./.github/screenshots/splash-screen-desktop.png) | N/A | Splash Screen - Desktop - Design Concept |
 | 2. | ![Welcome Page - Desktop](./.github/screenshots/welcome-page-desktop.png) | N/A | Welcome Page - Desktop - Design Concept |
 | 3. | N/A | N/A | - |
+
+
+### Others
+
+Initial Entity Relationship Diagram of Maxaboom Database 
+![Maxaboom - Database](./.github/screenshots/maxaboom_db.png) 
