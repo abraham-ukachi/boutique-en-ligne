@@ -12,11 +12,11 @@
 </p>
 
 <p align="center">
-  The number <strong>#1</strong>🏆 online store for all your sporting needs 🏃‍♂️ 🚴🏼‍♀️ 🧗🏼‍♀️. <br> MIT licensed and currently under development.
+  The number <strong>#1</strong>🏆 online store for all your musical needs 🎶 🎸 🎹 🎺 🪘 <br> MIT licensed and currently under development.
 </p>
 
 <p align="center">
-    <a href="https://abraham-ukachi.github.io/boutique-en-ligne" target="_blank"><b>maxaboom &rarr;</b></a>
+    <a href="https://abraham-ukachi.students-laplateforme.io/boutique-en-ligne" target="_blank"><b>maxaboom &rarr;</b></a>
 </p>
 
 ---
@@ -292,11 +292,12 @@ git clone https://github.com/abraham-ukachi/boutique-en-ligne.git
 
 ```sh
 ln -s "$(pwd)/boutique-en-ligne" /Applications/XAMPP/htdocs/boutique-en-ligne
-
+```
 -   **On Linux**
 
 ```sh
 ln -s "$(pwd)/boutique-en-ligne" /opt/lampp/htdocs/boutique-en-ligne
+```
 
 3. Open the **boutique-en-ligne** folder in your default browser:
 
@@ -344,8 +345,8 @@ open http://localhost/boutique-en-ligne
 
 | No. |Light Mode | Dark Mode | Note |
 |:----|:-----------|:----------|:-----|
-| 1. | [Splash Screen - Mobile](./.github/screenshots/splash-screen-mobile.png) | N/A | Splash Screen - Mobile - Design Concept |
-| 2. | [Welcome Page - Mobile](./.github/screenshots/welcome-page-mobile.png) | N/A | Welcome Page - Mobile - Design Concept |
+| 1. | ![Splash Screen - Mobile](./.github/screenshots/splash-screen-mobile.png) | N/A | Splash Screen - Mobile - Design Concept |
+| 2. | ![Welcome Page - Mobile](./.github/screenshots/welcome-page-mobile.png) | N/A | Welcome Page - Mobile - Design Concept |
 | 3. | N/A | N/A | - |
 
 
@@ -353,6 +354,6 @@ open http://localhost/boutique-en-ligne
 
 | No. |Light Mode | Dark Mode | Note |
 |:----|:----------|:----------|:-----|
-| 1. | [Splash Screen - Desktop](./.github/screenshots/splash-screen-desktop.png) | N/A | Splash Screen - Desktop - Design Concept |
-| 2. | [Welcome Page - Desktop](./.github/screenshots/welcome-page-desktop.png) | N/A | Welcome Page - Desktop - Design Concept |
+| 1. | ![Splash Screen - Desktop](./.github/screenshots/splash-screen-desktop.png) | N/A | Splash Screen - Desktop - Design Concept |
+| 2. | ![Welcome Page - Desktop](./.github/screenshots/welcome-page-desktop.png) | N/A | Welcome Page - Desktop - Design Concept |
 | 3. | N/A | N/A | - |
