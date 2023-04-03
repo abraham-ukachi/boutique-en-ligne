@@ -335,7 +335,7 @@ open http://localhost/boutique-en-ligne
 ## TODOs
 
 - [ ] Create a navigation flow diagram with FigJam.
-- [ ] Create a project-specific logo 
+- [x] Create a project-specific logo 
 - [ ] Add localization / internationalization (at least: **english** & **french**)
 - [ ] Add mobile compatibility to all pages (i.e. make it responsive)
 - [ ] Optimize `.svg` doodles
