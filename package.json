@@ -1,0 +1,46 @@
+{
+  "name": "maxaboom",
+  "version": "0.0.1",
+  "description": "A school project to create an online shop using JavaScrip with a fully functioning MySQL database",
+  "main": "index.php",
+  "scripts": {
+    "test": "open http://localhost/boutique-en-ligne"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abraham-ukachi/boutique-en-ligne.git"
+  },
+  "keywords": [
+    "online-shop",
+    "ecommerce",
+    "php",
+    "maxaboom",
+    "shopping",
+    "javascript",
+    "pdo",
+    "sql"
+  ],
+  "author": "Abraham Ukachi <abraham.ukachi@laplateforme.io>",
+  "contributors": [
+    {
+      "name": "Axel Vair",
+      "email": "axel.vair@laplateforme.io",
+      "url": "https://axel-vair.students-laplateforme.io"
+    },
+    {
+      "name": "Morgane Marechal",
+      "email": "morgane.marechal@laplateforme.io",
+      "url": "https://morgane-marechal.students-laplateforme.io"
+    }
+
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abraham-ukachi/boutique-en-ligne/issues"
+  },
+  "homepage": "https://github.com/abraham-ukachi/boutique-en-ligne#readme",
+
+  "devDependencies": {},
+
+  "dependencies": {}
+}
