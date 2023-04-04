@@ -99,8 +99,8 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 4 | *`Maxaboom Database - SQL`* | **db_maxaboom.sql** | Pending |
 | 5 | *`Shop - Page`* | **shop.php** | Pending |
 | 6 | *`Product - Page`* | **product.php** | Pending |
-| 7 | *`Color - Theme`* | **color.css** | Pending |
-| 8 | *`Typography - Theme`* | **typography.css** | Pending |
+| 7 | *`Color - Theme`* | **color.css** | [Done](./assets/theme/color.css)\* |
+| 8 | *`Typography - Theme`* | **typography.css** | *_In progress_* |
 | 9 | *`Styles - Theme`* | **styles.css** | Pending |
 
 > WARNING: This list is a working progress and will change soon
