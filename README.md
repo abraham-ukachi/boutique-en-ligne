@@ -179,8 +179,8 @@ These are some of the things we did or plan to do, in addition to this project's
 | 1 | *`Pop In - Animation`* | **pop-in-animation.css** | [Done](./assets/animations/pop-in-animation.css) |
 | 2 | *`Fade In - Animation`* | **fade-in-animation.css** | [Done](./assets/animations/fade-in-animation.css) |
 | 3 | *`Slide From Down - Animation`* | **slide-from-down-animation.css** | [Done](./assets/animations/slide-from-down-animation.css) |
-| 4 | *`Slide From Up - Animation`* | **slide-from-up-animation.css** | Pending |
-| 5 | *`Slide Left - Animation`* | **slide-left-animation.css** | Pending |
+| 4 | *`Slide From Up - Animation`* | **slide-from-up-animation.css** | [Done](./assets/animations/slide-from-up-animation.css) |
+| 5 | *`Slide Left - Animation`* | **slide-left-animation.css** | *_In progress_* |
 | 6 | *`Slide From Left - Animation`* | **slide-from-left-animation.css** | Pending |
 | 7 | *`Slide Right - Animation`* | **slide-right-animation.css** | Pending |
 | 8 | *`Slide From Right - Animation`* | **slide-from-right-animation.css** | Pending |
