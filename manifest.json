@@ -1,7 +1,7 @@
 {
   "name": "Maxaboom",
   "short_name": "maxaboom",
-  "description": "The number #1 online store for all your musical needs. Discover your perfect instrument, and get it delivered at your doorstep with a 100% money-back guarantee",
+  "description": "A fun and dynamic online store that offers a wide variety of musical instruments. From guitars and drums to keyboards, microphones and trumpets.",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#FFDCBA",
