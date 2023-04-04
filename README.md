@@ -12,11 +12,11 @@
 </p>
 
 <p align="center">
-  The number <strong>#1</strong>🏆  online store for all your musical needs or instruments 🎶 🎸 🎹 🎺 🪘 <br> MIT licensed and currently under development.
+  Maxaboom 🎶 is a <b>fun</b> and <b>dynamic</b> online store that offers a wide variety of musical instruments. <br> From guitars 🎸 and drums 🥁 to keyboards 🎹, microphones 🎙 and trumpets 🎺, Maxaboom has everything a musician needs to create their own unique sound. With high-quality products and exceptional customer service. <br> Maxaboom is the perfect destination for anyone looking to unleash their inner rockstar.
 </p>
 
 <p align="center">
-    <a href="https://abraham-ukachi.students-laplateforme.io/boutique-en-ligne" target="_blank"><b>maxaboom &rarr;</b></a>
+    <a href="https://abraham-ukachi.students-laplateforme.io/boutique-en-ligne" target="_blank"><b>Checkout Maxaboom &rarr;</b></a>
 </p>
 
 ---
