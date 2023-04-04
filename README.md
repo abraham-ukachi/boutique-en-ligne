@@ -186,6 +186,9 @@ These are some of the things we did or plan to do, in addition to this project's
 | 8 | *`Slide From Right - Animation`* | **slide-from-right-animation.css** | [Done](./assets/animations/slide-from-right-animation.css) |
 | 9 | *`Manifest - JSON File`* | **manifest.json** | [Done](./manifest.json) |
 | 10 | *`Package - JSON File`* | **package.json** | [Done](./package.json) |
+| 11 | *`Fade Out - Animation`* | **fade-out-animation.css** | Pending |
+| 12 | *`Slide Down - Animation`* | **slide-down-animation.css** | Pending |
+| 13 | *`Slide Up - Animation`* | **slide-up-animation.css** | Pending |
 
 
 
