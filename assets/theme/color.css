@@ -1,0 +1,280 @@
+/* 
+* @license MIT
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @name: Theme
+* @type: Color
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+*/
+
+
+/* ==== COLOR - THEME STYLES ==== */
+
+/* Default Theme */
+.theme {
+  /* Key Colors */
+   --key-primary-color: #A67C52; /* Melanin */
+   --key-secondary-color: #FFD700; /* Gold */
+   --key-tertiary-color: #21FFFF; /* Cyan */
+   --key-neutral-color: #211A16; /*  Mud */
+
+  /* Accessibility Colors */
+  --a11y-primary-light-color: #D9AB7F; /* Primary Light Color */
+  --a11y-primary-dark-color: #755028; /* Primary Dark Color */
+  --a11y-secondary-light-color: #FFFF52; /* Secondary Light Color */
+  --a11y-secondary-dark-color: #C7A600; /* Secondary Dark Color */
+  --a11y-text-on-primary-color: #2D1600; /* Text On Primary Color */
+  --a11y-text-on-secondary-color: #000000; /* Text On Secondary Color */ 
+
+}
+
+
+/* Light Theme */
+.theme.light {
+  /* Primary */
+  --primary-color: #8B5000;
+  --on-primary-color: #FFFFFF; 
+  --primary-container-color: #FFDCBA; 
+  --on-primary-container-color: #2D1600; 
+  
+  /* Secondary */
+  --secondary-color: #715D00; 
+  --on-secondary-color: #FFFFFF; 
+  --secondary-container-color: #FFE15E; 
+  --on-secondary-container-color: #231B00; 
+  
+  /* Tertiary */
+  --tertiary-color: #006A6B; 
+  --on-tertiary-color: #FFFFFF; 
+  --tertiary-container-color: #14FBFB; 
+  --on-tertiary-container-color: #002020; 
+  
+  /* Error */
+  --error-color: #BA1B1B; 
+  --error-container-color: #FFDAD4; 
+  --on-error-color: #FFFFFF; 
+  --on-error-container-color: #410001; 
+  
+  /* Background */
+  --background-color: #FCFCFC; 
+  --on-background-color: #201A17; 
+  
+  /* Surface */
+  --surface-color: #FCFCFC; 
+  --on-surface-color: #201A17; 
+  --surface-variant-color: #F2DFD1; 
+  --on-surface-variant-color: #51453A; 
+  
+  /* Outline */
+  --outline-color: #837569; 
+  --inverse-on-surface-color: #FAEEE8; 
+  --inverse-surface-color: #362F2B; 
+  --primary-inverse-color: #FFB86B;
+
+  
+  /* Icon Opacity for Light Theme */
+  --opacity-icon-disabled: 0.26;
+  --opacity-icon-inactive: 0.54;
+  --opacity-icon-active: 0.68;
+
+  /* Text Opacity for Light Theme */
+  --opacity-text-disabled: 0.34;
+  --opacity-text-inactive: 0.68;
+  --opacity-text-active: 0.9;
+ 
+  /* Material Icon Opacity for Light Theme */
+  --opacity-md-icon-disabled: 0.26;
+  --opacity-md-icon-inactive: 0.3;
+  --opacity-md-icon-active: 0.8;
+
+}
+
+
+
+/* Dark Theme */
+.theme.dark {
+  /* Primary */
+  --primary-color: #FFB86B;
+  --on-primary-color: #4A2800;
+  --primary-container-color: #6A3C00;
+  --on-primary-container-color: #FFDCBA;
+  
+  /* Secondary */
+  --secondary-color: #EAC400;
+  --on-secondary-color: #3A3000;
+  --secondary-container-color: #554600;
+  --on-secondary-container-color: #FFE15E;
+  
+  /* Tertiary */
+  --tertiary-color: #02DCDC;
+  --on-tertiary-color: #003738;
+  --tertiary-container-color: #004F50;
+  --on-tertiary-container-color: #14FBFB;
+  
+  /* Error */
+  --error-color: #FFB4A9;
+  --error-container-color: #930006;
+  --on-error-color: #680003;
+  --on-error-container-color: #FFDAD4;
+  
+  /* Background */
+  --background-color: #201A17;
+  --on-background-color: #ECE0DB;
+  
+  /* Surface */
+  --surface-color: #201A17;
+  --on-surface-color: #ECE0DB;
+  --surface-variant-color: #51453A;
+  --on-surface-variant-color: #D4C3B5;
+  
+  /* Outline */
+  --outline-color: #9E8E81;
+  --inverse-on-surface-color: #201A17;
+  --inverse-surface-color: #ECE0DB;
+  --primary-inverse-color: #8B5000;
+
+
+  /* Icon Opacity for Dark Theme */
+  --opacity-icon-disabled: 0.3;
+  --opacity-icon-inactive: 0.68;
+  --opacity-icon-active: 0.8;
+
+  /* Text Opacity for Dark Theme */
+  --opacity-text-disabled: 0.28;
+  --opacity-text-inactive: 0.54;
+  --opacity-text-active: 0.86;
+
+  /* Material Icon Opacity for Dark Theme */
+  --opacity-md-icon-disabled: 0.18;
+  --opacity-md-icon-inactive: 0.26;
+  --opacity-md-icon-active: 0.68;
+
+}
+
+
+/* == MATERIAL ICONS == */
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark, 
+.material-icons-round.md-dark,
+.theme.light .material-icons,
+.theme.light .material-icons-round {
+  color: var(--material-icon-color, rgba(0, 0, 0, 0.68)); 
+  fill: var(--material-icon-color, rgba(0, 0, 0, 0.68)); 
+} /* b4: 0.54 */
+
+.material-icons.md-dark.md-inactive,
+.material-icons-round.md-dark.md-inactive { 
+  color: var(--material-icon-color, rgba(0, 0, 0, 0.26));
+  fill: var(--material-icon-color, rgba(0, 0, 0, 0.26));
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light, 
+.material-icons-round.md-light,
+.theme.dark .material-icons,
+.theme.dark .material-icons-round { 
+  color: var(--material-icon-color, rgba(255, 255, 255, 0.8));
+  fill: var(--material-icon-color, rgba(255, 255, 255, 0.8));
+
+  /* opacity: var(--opacity-md-light-active, 0.8); */
+  /* opacity: var(--opacity-md-light-inactive, 0.3); */
+}
+
+.material-icons.md-light.md-inactive,
+.material-icons-round.md-light.md-inactive { 
+  color: var(--material-icon-color, rgba(255, 255, 255, 0.3));
+  fill: var(--material-icon-color, rgba(255, 255, 255, 0.3));
+
+  /* opacity: var(--opacity-md-light-inactive, 0.3); */
+}
+
+/* == END of MATERIAL ICONS == */
+
+
+
+
+
+
+
+/* ====<< OTHER COLORS STYLES >>==== */
+
+/* Error Color */
+.error {
+  color: var(--error-color);
+  fill: var(--error-color);
+}
+
+/* ====>> END of OTHER COLOR STYLES <<==== */
+
+
+
+
+
+
+
+/* Overriding Browser's Default TEXT HIGHTLIGHT COLOR... */
+
+/* For Brave / Chrome browsers*/
+::selection {
+  background: var(--surface-variant-color); /* b4: secondary-color */
+  color: var(--on-surface-variant-color); /* b4: on-secondary-color */
+}
+
+/* For Firefox browsers */
+::-moz-selection {
+  background: var(--surface-variant-color);
+  color: var(--on-surface-variant-color);
+}
+
+/* 
+ * --> Wide - Layout <--
+ * Phone: ? (Responsive)
+ * Dimension: 460px+ (width)
+ *
+ * ***************************************
+ * when the viewport is bigger than 460px,
+ * layout changes to wide-layout.
+ * ***************************************
+ */
+@media (min-width: 460px) {}
+
+
+
+/* 
+ * --> Tablet - Device <--
+ * Phone: ? (Responsive)
+ * Width: 768px <-to-> 1024px
+ */
+@media (min-width: 768px) and (max-width: 1024px) {}
+
+
+/* 
+ * --> Laptop - Device <--
+ * Phone: ? (Responsive)
+ * Width: 1024px <-to-> 2560px
+ */
+@media (min-width: 1024px) and (max-width: 2560px) {}
+
+/* ==== END of COLOR - THEME STYLES ==== */
