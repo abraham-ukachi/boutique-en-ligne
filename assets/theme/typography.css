@@ -1,0 +1,450 @@
+/*
+* @license
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @name: Theme
+* @type: Typography
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+*/
+
+/* @import 'color.css'; */
+
+
+/* ====<<< Mulish Font >>>=== */
+
+
+/* Mulish - ExtraLight (200) */
+@font-face {
+  font-family: 'Mulish-ExtraLight';
+  font-weight: 200;
+  font-style: normal;
+  src: url('../fonts/mulish/static/Mulish-ExtraLight.ttf') format('truetype');
+}
+
+/* Mulish - Light (300) */
+@font-face {
+  font-family: 'Mulish-Light';
+  font-weight: 300;
+  font-style: normal;
+  src: url('../fonts/mulish/static/Mulish-Light.ttf') format('truetype');
+}
+
+
+/* Mulish - Regular (400) */
+@font-face {
+  font-family: 'Mulish-Regular';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../fonts/mulish/static/Mulish-Regular.ttf') format('truetype');
+}
+
+/* Mulish - Medium (500) */
+@font-face {
+  font-family: 'Mulish-Medium';
+  font-weight: 500;
+  font-style: normal;
+  src: url('../fonts/mulish/static/Mulish-Medium.ttf') format('truetype');
+}
+
+/* Mulish - SemiBold (600) */
+@font-face {
+  font-family: 'Mulish-SemiBold';
+  font-weight: 600;
+  font-style: normal;
+  src: url('../fonts/mulish/static/Mulish-SemiBold.ttf') format('truetype');
+}
+
+/* Mulish - Bold (700) */
+@font-face {
+  font-family: 'Mulish-Bold';
+  font-weight: 700;
+  font-style: normal;
+  src: url('../fonts/mulish/static/Mulish-Bold.ttf') format('truetype');
+}
+
+/* Mulish - ExtraBold (800) */
+@font-face {
+  font-family: 'Mulish-ExtraBold';
+  font-weight: 700;
+  font-style: normal;
+  src: url('../fonts/mulish/static/Mulish-ExtraBold.ttf') format('truetype');
+}
+
+/* Mulish - Black (900) */
+@font-face {
+  font-family: 'Mulish-Black';
+  font-weight: 900;
+  font-style: normal;
+  src: url('../fonts/mulish/static/Mulish-Black.ttf') format('truetype');
+}
+
+
+
+/* ====>>> End of Mulish Font <<<=== */
+
+
+
+
+/* ====<<< Material Icons >>>==== */
+/* https://developers.google.com/fonts/docs/material_icons#icon_font_for_the_web */
+
+/* Material Icons */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+    local('MaterialIconsOutlined-Regular'),
+    url('../material-icons/MaterialIconsOutlined-Regular.otf') format('opentype');
+}
+
+
+/* Round Material Icons */
+@font-face {
+  font-family: 'Material Icons Round';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons Round'),
+    local('MaterialIconsRound-Regular'),
+    url('../material-icons/MaterialIconsRound-Regular.otf') format('opentype');
+}
+
+/* ====>>> End of Material Icons <<<==== */
+
+
+
+
+/***** CSS rules for Mulish Font *****/
+
+/* Light - Mulish Font */
+.font.mulish.light {
+  font-family: 'Mulish-Light';
+}
+
+/* Medium - Mulish Font */
+.font.mulish.medium {
+  font-family: 'Mulish-Medium';
+}
+
+/* Regular - Mulish Font */
+.font.mulish.regular {
+  font-family: 'Mulish-Regular';
+}
+
+/* Bold - Mulish Bold */
+.font.mulish.bold {
+  font-family: 'Mulish-Bold';
+}
+
+/* ===>>> End of Mulish Font <<<=== */
+
+
+
+/* 
+ * --> Narrow - Device <--
+ * Phone: ? (Responsive)
+ * Dimension: ~460px (width)
+ *
+ * ***************************************
+ * when the viewport is lesser than 460px,
+ * layout changes to a narrow-layout.
+ * ***************************************
+ */
+
+/* Applying the Mulish, 'Mulish-Regular', system-ui, etc
+ * font to all key elements by default... */
+body, h1, h2, h3, p, button, span, input {
+  font-family: Mulish, 'Mulish-Regular', system-ui, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+}
+
+
+/* Body & paragraph */
+body, p {
+  font-size: 16px; /* b4: 24px */
+  line-height: 24px; /* b4: 30px */
+  letter-spacing: 0.20px;
+  word-spacing: 1.5px;
+}
+
+
+/* H1 - default text styles */
+h1 {
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: normal;
+  word-spacing: normal;
+  margin: 24px 0;
+}
+
+/* H2 - default text styles */
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 30px;
+  letter-spacing: 0.8px;
+  word-spacing: normal;
+  margin: 20px 0;
+
+}
+
+
+/* H3 - default text styles */
+h3 {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0.7px;
+  word-spacing: normal;
+  margin: 16px 0;
+}
+
+/* Button - default text styles */
+button {
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+/* Span - default text styles */
+span {
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+}
+
+
+/* Form */
+form {
+  font-size: 16px;
+  letter-spacing: 1.2px;
+}
+
+
+/* SPAN Caption */
+span.caption {
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+/* Input & Label Styles */
+input, label {
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.4px;
+}
+
+/* Label Styles */
+label {
+  /* font-size: 14px; */
+  text-transform: capitalize;
+  opacity: var(--opacity-text-inactive);
+}
+
+
+/* Password Input */
+input[type="password"] {
+  letter-spacing: 4px;
+}
+
+/* Submit Input && Button */
+input[type="submit"], button[type="submit"] {
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Links as BUTTON */
+a[role="button"] {
+  width: var(--button-width, fit-content);
+  height: var(--button-height, auto);
+  padding: 8px 16px;
+  min-width: 50px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 1px;
+  user-select: none;
+  box-sizing: border-box;
+  margin: var(--button-margin, 12px 0);
+}
+
+/* Caption - Text */
+.txt.caption {
+ font-size: 12px;
+ line-height: 18px;
+ letter-spacing: normal;
+ word-spacing: normal;
+}
+
+/* UPPERCASE - TEXT */
+.txt.upper {
+  text-transform: uppercase;
+}
+
+/* lowercase - text */
+.txt.lower {
+  text-transform: lowercase;
+}
+
+/* Capitalize - Text */
+.txt.capitalize {
+  text-transform: capitalize;
+}
+
+/* Disabled - Text */
+.txt.md-disabled {
+  opacity: var(--opacity-text-disabled);
+}
+
+/* Inactive - Text */
+.txt.md-inactive {
+  opacity: var(--opacity-text-inactive);
+}
+
+/* Active - Text */
+.txt.md-active {
+  opacity: var(--opacity-text-active);
+}
+
+/* ==== MATERIAL ICONS ==== */
+
+/* Material Icons / Outlined + Round */
+.material-icons, .material-icons-outlined, .material-icons-round {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: var(--material-icon-size, 24px); /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all Webkit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+/* Round Material Icons */
+.material-icons-round {
+  font-family: 'Material Icons Round' !important;
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18, .material-icons-round.md-18 { font-size: 18px; }
+.material-icons.md-24, .material-icons-round.md-24 { font-size: 24px; }
+.material-icons.md-36, .material-icons-round.md-36 { font-size: 36px; }
+.material-icons.md-48, .material-icons-round.md-48 { font-size: 48px; }
+
+
+
+
+/* 
+ * --> Wide - Layout <--
+ * Phone: ? (Responsive)
+ * Dimension: 460px+ (width)
+ *
+ * ***************************************
+ * when the viewport is bigger than 460px,
+ * layout changes to wide-layout.
+ * ***************************************
+ */
+@media (min-width: 460px) {
+
+  /* ==== TYPOGRAPHY === */
+
+  /* Body & paragraph */
+  body, p {
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: normal;
+    word-spacing: normal;
+  }
+
+  /* H1 - default text styles */
+  h1 {
+    font-size: 48px;
+    line-height: 54px;
+    letter-spacing: normal;
+    word-spacing: normal;
+  }
+
+  /* H2 - default text styles */
+  h2 {
+    font-size: 34px;
+    line-height: 40px; 
+    letter-spacing: normal;
+    word-spacing: normal;
+  }
+
+  /* Button - default text styles */
+  button {
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: normal;
+    word-spacing: normal;
+  }
+
+  /* Span - default text styles */
+  span {
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    word-spacing: inherit;
+  }
+
+
+}
+
+
+
+/* 
+ * --> Tablet - Device <--
+ * Phone: ? (Responsive)
+ * Width: 768px <-to-> 1024px
+ */
+@media (min-width: 768px) and (max-width: 1024px) {}
+
+
+/* 
+ * --> Laptop - Device <--
+ * Phone: ? (Responsive)
+ * Width: 1024px <-to-> 2560px
+ */
+@media (min-width: 1024px) and (max-width: 2560px) {}
+
+
+/* ==== END of TYPOGRAPHY - THEME STYLES ==== */
