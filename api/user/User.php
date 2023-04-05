@@ -119,8 +119,7 @@ class User
                     return true;
                 }else{
                     return false;
-                }
-                
+                }               
             } else {
                 return false;
             }
@@ -135,7 +134,6 @@ class User
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([
             'mail' => $mail,
-
         ]);
         $results = $sql_exe->fetch(PDO::FETCH_ASSOC);
         if ($results) {
@@ -143,10 +141,11 @@ class User
             if (password_verify($password, $hashed_password)) {
                 session_start();
                 $_SESSION['id'] = $results['id'];
+                $_SESSION['firstname'] = $results['firstname'];
+                $_SESSION['lastname'] = $results['lastname'];
                 $_SESSION['user_role'] = $results['user_role'];
                 echo json_encode(['response' => 'ok', 'reussite' => 'connexion réussie']);
                 die();
-
             }else{
                 echo json_encode(['response' => 'bad password', "password" => "mot de passe incorrect"]);
             }
@@ -155,8 +154,51 @@ class User
         }
     }
 
+    //methods for update info user
+
+        // update lastname
+        public function updateLastname($newlastname){
+            $lastname=$_SESSION['lastname'];
+            $sqlupdate = $this -> db -> prepare("UPDATE users SET lastname = '$newlastname' WHERE lastname = :lastname ");
+            $sqlupdate->execute([
+                'lastname' => $lastname,
+            ]);
+            $_SESSION['lastname'] = $lastname;
+            return "Vous avez changer votre nom et mis à jour votre profil.<br>";
+        }
+
+        // update firstname
+        public function updateFirstname($newfirstname){
+            $firstname=$_SESSION['firstname'];
+            $sqlupdate = $this -> db -> prepare("UPDATE users SET firstname = '$newfirstname' WHERE firstname = :firstname ");
+            $sqlupdate->execute([
+                'firstname' => $firstname,
+            ]);
+            $_SESSION['firstname'] = $firstname;
+            return "Vous avez changer votre prénom et mis à jour votre profil.<br>";
+        } 
+
+        public function updateMail($newmail){
+            $mail=$_SESSION['mail'];
+            $sqlupdate = $this -> db -> prepare("UPDATE users SET mail = '$newmail' WHERE mail = :mail ");
+            $sqlupdate->execute([
+                'mail' => $mail,
+            ]);
+            $_SESSION['mail'] = $mail;
+            return "Vous avez changer votre email et mis à jour votre profil.<br>";
+        }
+
+
+    //display all users for admin
+        public function displayUsers(){
+            $displayUsers = $this->db->prepare("SELECT * FROM users");
+            $displayUsers->execute([
+            ]);
+            $result = $displayUsers->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
 
 
 
 }
-?>
