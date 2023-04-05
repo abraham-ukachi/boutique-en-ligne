@@ -30,5 +30,61 @@ class User
             die();
         }
     }
+
+    public function register($firstname, $lastname, $mail, $password)
+    {
+        if (!$this->verifUser()) {
+            $sql = "INSERT INTO utilisateurs (firstname, lastname, mail, password)
+                    VALUES (:login, :prenom, :nom, :password, :rangs, :bio)";
+            $sql_exe = $this->db->prepare($sql);
+            $sql_exe->execute([
+                'login' => htmlspecialchars($login),
+                'prenom' => htmlspecialchars($prenom),
+                'nom' => htmlspecialchars($nom),
+                'password' => password_hash($password, PASSWORD_BCRYPT),
+                'rangs' => htmlspecialchars($rangs),
+                'bio' => htmlspecialchars($bio),
+            ]);
+
+            if ($sql_exe) {
+                header("Refresh:2; url=connexion.php");
+                echo json_encode(['response' => 'ok', 'reussite' => 'Inscription réussie.']);
+            } else {
+                echo json_encode(['response' => 'not ok', 'echoue' => 'L\'inscription a échoué.']);
+            }
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'L\'utilisateur existe déjà']);
+        }
+    }
+
+    /* Méthode qui permet de vérifier que l'utilisateur existe ou non en BDD
+        On vérifie si le login est déjà présent dans la base de données
+        Si $results possède une correspondance on return true sinon false
+        On appelle la fonction dans la fonction register pour vérifier avant d'insérer ou non
+    */
+    public function verifUser()
+    {
+        if ($_POST['prenom'] > 3 && $_POST['nom'] > 3 && $_POST['login'] > 3) {
+            $prenom = htmlspecialchars($_POST['prenom']);
+            $nom = htmlspecialchars($_POST['nom']);
+            $login = htmlspecialchars($_POST['login']);
+            $sql = "SELECT * 
+                    FROM utilisateurs
+                    WHERE login = :login";
+            $sql_exe = $this->db->prepare($sql);
+            $sql_exe->execute([
+                'login' => $login,
+            ]);
+            $results = $sql_exe->fetch(PDO::FETCH_ASSOC);
+            if ($results) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+
+
 }
 ?>
