@@ -9,6 +9,7 @@ class User
     public ?string $password = null;
     public ?string $dob = null;
     public ?string $created_at = null;
+    public ?string $user_role = null;
     private PDO $db;
 
     public function __construct()
@@ -31,19 +32,18 @@ class User
         }
     }
 
-    public function register($firstname, $lastname, $mail, $password)
+    public function register($firstname, $lastname, $mail, $password, $user_role)
     {
         if (!$this->verifUser()) {
-            $sql = "INSERT INTO utilisateurs (firstname, lastname, mail, password)
-                    VALUES (:login, :prenom, :nom, :password, :rangs, :bio)";
+            $sql = "INSERT INTO utilisateurs (firstname, lastname, mail, password, user_role)
+                    VALUES (:firstname, :lastname, :mail, :password, :user_role)";
             $sql_exe = $this->db->prepare($sql);
             $sql_exe->execute([
-                'login' => htmlspecialchars($login),
-                'prenom' => htmlspecialchars($prenom),
-                'nom' => htmlspecialchars($nom),
+                'firstname' => htmlspecialchars($firstname),
+                'lastname' => htmlspecialchars($lastname),
+                'mail' => htmlspecialchars($mail),
                 'password' => password_hash($password, PASSWORD_BCRYPT),
-                'rangs' => htmlspecialchars($rangs),
-                'bio' => htmlspecialchars($bio),
+                'user_role' => htmlspecialchars($user_role),
             ]);
 
             if ($sql_exe) {
@@ -53,27 +53,21 @@ class User
                 echo json_encode(['response' => 'not ok', 'echoue' => 'L\'inscription a échoué.']);
             }
         } else {
-            echo json_encode(['response' => 'not ok', 'echoue' => 'L\'utilisateur existe déjà']);
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Vous vous êtes déjà inscrit avec ce mail']);
         }
     }
 
-    /* Méthode qui permet de vérifier que l'utilisateur existe ou non en BDD
-        On vérifie si le login est déjà présent dans la base de données
-        Si $results possède une correspondance on return true sinon false
-        On appelle la fonction dans la fonction register pour vérifier avant d'insérer ou non
-    */
+    /* Check if user in DB */
+
     public function verifUser()
     {
-        if ($_POST['prenom'] > 3 && $_POST['nom'] > 3 && $_POST['login'] > 3) {
-            $prenom = htmlspecialchars($_POST['prenom']);
-            $nom = htmlspecialchars($_POST['nom']);
-            $login = htmlspecialchars($_POST['login']);
+            $mail = htmlspecialchars($_POST['mail']);
             $sql = "SELECT * 
-                    FROM utilisateurs
-                    WHERE login = :login";
+                    FROM users
+                    WHERE mail = :mail";
             $sql_exe = $this->db->prepare($sql);
             $sql_exe->execute([
-                'login' => $login,
+                'mail' => $mail,
             ]);
             $results = $sql_exe->fetch(PDO::FETCH_ASSOC);
             if ($results) {
@@ -81,8 +75,86 @@ class User
             } else {
                 return false;
             }
+    }
+
+    //call registerGuest() if no SESSION_ID when pay product
+    
+    public function registerGuest($firstname, $lastname, $mail, $user_role)
+    {
+        if (!$this->verifGuest()) {
+            $sql = "INSERT INTO utilisateurs (firstname, lastname, mail, user_role)
+                    VALUES (:firstname, :lastname, :mail, :user_role)";
+            $sql_exe = $this->db->prepare($sql);
+            $sql_exe->execute([
+                'firstname' => htmlspecialchars($firstname),
+                'lastname' => htmlspecialchars($lastname),
+                'mail' => htmlspecialchars($mail),
+                'user_role' => htmlspecialchars($user_role),
+            ]);
+
+            if ($sql_exe) {
+                header("Refresh:2; url=connection.php");
+                echo json_encode(['response' => 'ok', 'reussite' => 'Inscription réussie.']);
+            } else {
+                echo json_encode(['response' => 'not ok', 'echoue' => 'L\'inscription a échoué.']);
+            }
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Vous avez un compte utilisateur, vous devez vous connecter']);
         }
     }
+
+    public function verifGuest()
+    {
+            $mail = htmlspecialchars($_POST['mail']);
+            $sql = "SELECT * 
+                    FROM users
+                    WHERE mail = :mail";
+            $sql_exe = $this->db->prepare($sql);
+            $sql_exe->execute([
+                'mail' => $mail,
+            ]);
+            $results = $sql_exe->fetch(PDO::FETCH_ASSOC);
+            if ($results) {
+                if ($results["user_role"]==="customer"){
+                    return true;
+                }else{
+                    return false;
+                }
+                
+            } else {
+                return false;
+            }
+    }
+    
+
+    public function connection($mail, $password)
+    {
+        $sql = "SELECT * 
+                FROM users
+                WHERE mail = :mail ";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'mail' => $mail,
+
+        ]);
+        $results = $sql_exe->fetch(PDO::FETCH_ASSOC);
+        if ($results) {
+            $hashed_password = $results['password'];
+            if (password_verify($password, $hashed_password)) {
+                session_start();
+                $_SESSION['id'] = $results['id'];
+                $_SESSION['user_role'] = $results['user_role'];
+                echo json_encode(['response' => 'ok', 'reussite' => 'connexion réussie']);
+                die();
+
+            }else{
+                echo json_encode(['response' => 'bad password', "password" => "mot de passe incorrect"]);
+            }
+        } else {
+            echo json_encode(['response' => 'not ok', 'echec' => 'connexion refusée']);
+        }
+    }
+
 
 
 
