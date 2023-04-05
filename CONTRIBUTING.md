@@ -11,14 +11,14 @@ The following is a set of guidelines for contributing to Maxaboom and subsequent
 2. [Styleguides](#styleguides)
     - [Git Commit Messages](#git-commit-messages)
     - [HTML Styleguide](#html-styleguide)
-        - [Head (`<head>`) Template](#head-\<head\>-template)
-        - [Body (`<body>`) Template](#body-\<body\>-template)
-        - [Main (`<main>`) Template](#main-\<main\>-template)
-        - [Aside (`<aside>`) Template](#aside-\<aside\>-template)
-        - [App-Layout (`.app-layout`) Template](#app-layout-.app-layout-template)
-        - [Header (`<header>`) Template](#header-\<header\>-template)
-        - [App-Bar (`.app-bar`) Template](#app-bar-.app-bar-template)
-        - [Nav-Bar (`.nav-bar`) Template](#nav-bar-.nav-bar-template)
+        - [Head (`<head>`) Template](#head-head-template)
+        - [Body (`<body>`) Template (with a Dark theme)](#body-body-template-with-a-dark-theme)
+        - [Main (`<main>`) Template](#main-main-template)
+        - [Aside (`<aside>`) Template](#aside-aside-template)
+        - [App-Layout (`.app-layout`) Template](#app-layout-app-layout-template)
+        - [Header (`<header>`) Template](#header-header-template)
+        - [App-Bar (`.app-bar`) Template](#app-bar-app-bar-template)
+        - [Nav-Bar (`.nav-bar`) Template](#nav-bar-nav-bar-template)
 3. [How to Use Maxaboom ?](#how-to-use-maxaboom-?)
     - [Installation](#installation)
     - [mbApp - JS](#mbApp---js)
@@ -234,7 +234,7 @@ Consider using the following default html templates, when creating a new **`.htm
 
 #### Header (`<header>`) Template
 
-* With one [**App Bar**](#app-bar-.app-bar-template) and a horizontal divider at the bottom:
+* With one [**App Bar**](#app-bar-app-bar-template) and a horizontal divider at the bottom:
 
 ```html
 <header>
@@ -355,7 +355,7 @@ open http://localhost/boutique-en-ligne
 
 #### Toasts
 
-Show a toast message in the [ASIDE](#aside-\<aside\>-template) part, with a **10 seconds** timeout:
+Show a toast message in the [ASIDE](#aside-aside-template) part, with a **10 seconds** timeout:
 ```js
 mbApp.showToast({message: 'Hello World'}, 'aside', 10);
 ```
