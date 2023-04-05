@@ -8,19 +8,20 @@ CREATE TABLE users
     lastname varchar(100),
     mail varchar(100),
     dob date,
-    created_at datetime
+    created_at datetime,
+    user_role varchar(100)
 );
 
 
-INSERT INTO users (firstname, lastname, mail, dob, created_at)
+INSERT INTO users (firstname, lastname, mail, dob, created_at, user_role)
  VALUES
- ('Rebecca', 'Armand', 'armand_lebeau@gmail.com', '1973-11-17',"2023-01-01 12:12:12"),
- ('Aymee', 'Hebert', 'vieilhomme@yahoo.fr', '1979-11-18',"2023-01-01 12:12:12"),
- ('Marielle', 'Ribeiro', 'mari123@gmail.com', '1983-01-31',"2023-01-01 12:12:12"),
- ('Hilaire', 'Savary', 'hilaire.savary@gmail.com', '2001-10-07',"2023-01-01 12:12:12");
+ ('Rebecca', 'Armand', 'armand_lebeau@gmail.com', '1973-11-17',"2023-01-01 12:12:12", 'customer'),
+ ('Aymee', 'Hebert', 'vieilhomme@yahoo.fr', '1979-11-18',"2023-01-01 12:12:12",'customer'),
+ ('Marielle', 'Ribeiro', 'mari123@gmail.com', '1983-01-31',"2023-01-01 12:12:12",'customer'),
+ ('Hilaire', 'Savary', 'hilaire.savary@gmail.com', '2001-10-07',"2023-01-01 12:12:12",'customer');
 
  /*------------------address table----------------*/
-CREATE TABLE address 
+CREATE TABLE addresses
 (
     id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
     address varchar(100),
@@ -32,7 +33,7 @@ CREATE TABLE address
     type varchar(100)
 );
 
-INSERT INTO address (address, address_complement, postal_code, city, country, user_id, type)
+INSERT INTO addresses (address, address_complement, postal_code, city, country, user_id, type)
  VALUES
  ('02 rue de la fontaine', '5e batiment', '13001', 'Marseille', 'FRANCE', 1, 'livraison'),
  ('69 rue Camas', '', '13006', 'Marseille', 'FRANCE', 2, 'livraison'),
