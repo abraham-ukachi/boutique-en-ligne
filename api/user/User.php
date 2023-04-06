@@ -132,7 +132,12 @@ class User
     public function getCurrentDate(){
         $mydate=getdate(date("U"));
         $myhour=date("H:i:s");
-        $date="$mydate[year]/$mydate[mon]/$mydate[mday] $myhour";
+        $monthdate=$mydate['mon'];
+        $dday=$mydate['mday'];
+        $mon = str_pad($monthdate, 2, "0", STR_PAD_LEFT);
+        $day = str_pad($dday, 2, "0", STR_PAD_LEFT);
+
+        $date="$mydate[year]-$mon-$day $myhour";
         return $date;
     }
 
