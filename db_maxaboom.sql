@@ -391,6 +391,8 @@ INSERT INTO comments (comment, user_id, product_id, ratings, created_at)
     created_at datetime,
     paid_at datetime,
     delivery varchar(15),
+    tax_amount int,
+    discount int null,
     total_price int
  );
 
@@ -401,8 +403,6 @@ INSERT INTO comments (comment, user_id, product_id, ratings, created_at)
     product_id int,
     quantity int,
     unit_price int,
-    tax_amount int,
-    discount_percentage int
  );
 
   /*-------------------table cart----------*/
