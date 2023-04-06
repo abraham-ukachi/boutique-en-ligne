@@ -1,6 +1,6 @@
 <?php
 
-class User
+class User 
 {
     public ?int $id = null;
     public ?string $firstname = null;
@@ -32,17 +32,20 @@ class User
         }
     }
 
+    //method for register user
     public function register($firstname, $lastname, $mail, $password, $user_role)
     {
         if (!$this->verifUser()) {
-            $sql = "INSERT INTO utilisateurs (firstname, lastname, mail, password, user_role)
-                    VALUES (:firstname, :lastname, :mail, :password, :user_role)";
+            $created_at = $this->getCurrentDate();
+            $sql = "INSERT INTO utilisateurs (firstname, lastname, mail, password, created_at, user_role)
+                    VALUES (:firstname, :lastname, :mail, :password, :created_at, :user_role)";
             $sql_exe = $this->db->prepare($sql);
             $sql_exe->execute([
                 'firstname' => htmlspecialchars($firstname),
                 'lastname' => htmlspecialchars($lastname),
                 'mail' => htmlspecialchars($mail),
                 'password' => password_hash($password, PASSWORD_BCRYPT),
+                'created_at' => $created_at,
                 'user_role' => htmlspecialchars($user_role),
             ]);
 
@@ -58,7 +61,6 @@ class User
     }
 
     /* Check if user in DB */
-
     public function verifUser()
     {
             $mail = htmlspecialchars($_POST['mail']);
@@ -77,23 +79,24 @@ class User
             }
     }
 
-    //call registerGuest() if no SESSION_ID when pay product
-    
-    public function registerGuest($firstname, $lastname, $mail, $user_role)
+    //call registerGuest() if no SESSION_ID when pay product   
+    public function registerGuest($firstname, $lastname, $mail)
     {
         if (!$this->verifGuest()) {
-            $sql = "INSERT INTO utilisateurs (firstname, lastname, mail, user_role)
-                    VALUES (:firstname, :lastname, :mail, :user_role)";
+            $created_at = $this->getCurrentDate();
+            $sql = "INSERT INTO utilisateurs (firstname, lastname, mail, user_role, created_at)
+                    VALUES (:firstname, :lastname, :mail, :user_role, :created_at)";
             $sql_exe = $this->db->prepare($sql);
             $sql_exe->execute([
                 'firstname' => htmlspecialchars($firstname),
                 'lastname' => htmlspecialchars($lastname),
                 'mail' => htmlspecialchars($mail),
-                'user_role' => htmlspecialchars($user_role),
+                'user_role' => 'guest',
+                'created_at' => $created_at
             ]);
 
             if ($sql_exe) {
-                header("Refresh:2; url=connection.php");
+                //header("Refresh:2; url=connection.php");
                 echo json_encode(['response' => 'ok', 'reussite' => 'Inscription réussie.']);
             } else {
                 echo json_encode(['response' => 'not ok', 'echoue' => 'L\'inscription a échoué.']);
@@ -124,6 +127,16 @@ class User
                 return false;
             }
     }
+
+    // method get current date
+    public function getCurrentDate(){
+        $mydate=getdate(date("U"));
+        $myhour=date("H:i:s");
+        $date="$mydate[year]/$mydate[mon]/$mydate[mday] $myhour";
+        return $date;
+    }
+
+    //method get lastGuestId
     
 
     public function connection($mail, $password)
@@ -163,7 +176,7 @@ class User
             $sqlupdate->execute([
                 'lastname' => $lastname,
             ]);
-            $_SESSION['lastname'] = $lastname;
+            $_SESSION['lastname'] = $newlastname;
             return "Vous avez changer votre nom et mis à jour votre profil.<br>";
         }
 
@@ -174,7 +187,7 @@ class User
             $sqlupdate->execute([
                 'firstname' => $firstname,
             ]);
-            $_SESSION['firstname'] = $firstname;
+            $_SESSION['firstname'] = $newfirstname;
             return "Vous avez changer votre prénom et mis à jour votre profil.<br>";
         } 
 
@@ -184,7 +197,7 @@ class User
             $sqlupdate->execute([
                 'mail' => $mail,
             ]);
-            $_SESSION['mail'] = $mail;
+            $_SESSION['mail'] = $newmail;
             return "Vous avez changer votre email et mis à jour votre profil.<br>";
         }
 
