@@ -31,7 +31,8 @@ CREATE TABLE addresses
     city varchar(100),
     country varchar(100),
     user_id int,
-    type varchar(100)
+    type varchar(100),
+    titre varchar (20)
 );
 
 INSERT INTO addresses (address, address_complement, postal_code, city, country, user_id, type)
