@@ -7,6 +7,7 @@ CREATE TABLE users
     firstname varchar(100),
     lastname varchar(100),
     mail varchar(100),
+    password varchar(255),
     dob date,
     created_at datetime,
     user_role varchar(100)
@@ -30,7 +31,8 @@ CREATE TABLE addresses
     city varchar(100),
     country varchar(100),
     user_id int,
-    type varchar(100)
+    type varchar(100),
+    titre varchar (20)
 );
 
 INSERT INTO addresses (address, address_complement, postal_code, city, country, user_id, type)
@@ -381,13 +383,14 @@ INSERT INTO comments (comment, user_id, product_id, ratings, created_at)
 
  
 
- /*-------------------tags orders----------*/
+ /*-------------------table orders----------*/
 
   CREATE TABLE orders(
     id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user_id int,
     created_at datetime,
     paid_at datetime,
+    delivery varchar(15),
     total_price int
  );
 
@@ -401,3 +404,20 @@ INSERT INTO comments (comment, user_id, product_id, ratings, created_at)
     tax_amount int,
     discount_percentage int
  );
+
+  /*-------------------table cart----------*/
+
+  CREATE TABLE cart(
+   product_id int,
+   unit_price int,
+   quantity int,
+   user_id int
+  );
+
+  CREATE TABLE cards(
+   user_id int,
+   card_no int,
+   expiry_month int,
+   expiry_year int,
+   CVV int
+  );
