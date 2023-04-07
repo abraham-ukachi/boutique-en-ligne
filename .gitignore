@@ -115,3 +115,7 @@ backups/
 
 # Designs
 designs/
+
+# PhpStorm
+.idea/
+.idea/php.xml
