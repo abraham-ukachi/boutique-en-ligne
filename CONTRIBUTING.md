@@ -47,7 +47,7 @@ This is a school project and as a result, everyone participating in it is expect
     * 🏁 `:checkered_flag:` when fixing something on Windows
     * 🐛 `:bug:` when fixing a bug
     * 🔥 `:fire:` when removing code or files
-    * 💚 `:green_heart:` when fixing the CI build
+    * 💚 `:green_heart:` when creating or adding a new file 
     * ✅ `:white_check_mark:` when adding tests
     * 🔒 `:lock:` when dealing with security
     * ⬆️  `:arrow_up:` when upgrading dependencies
