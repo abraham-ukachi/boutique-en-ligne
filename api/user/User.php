@@ -37,7 +37,7 @@ class User
     {
         if (!$this->verifUser()) {
             $created_at = $this->getCurrentDate();
-            $sql = "INSERT INTO utilisateurs (firstname, lastname, mail, password, created_at, user_role)
+            $sql = "INSERT INTO users (firstname, lastname, mail, password, created_at, user_role)
                     VALUES (:firstname, :lastname, :mail, :password, :created_at, :user_role)";
             $sql_exe = $this->db->prepare($sql);
             $sql_exe->execute([
@@ -165,7 +165,7 @@ class User
                 echo json_encode(['response' => 'ok', 'reussite' => 'connexion réussie']);
                 die();
             }else{
-                echo json_encode(['response' => 'bad password', "password" => "mot de passe incorrect"]);
+               echo json_encode(['response' => 'bad password', "password" => "mot de passe incorrect"]);
             }
         } else {
             echo json_encode(['response' => 'not ok', 'echec' => 'connexion refusée']);
