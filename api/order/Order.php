@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-Axel
-Hello
-=======
 <?php
 
 namespace Api\classOrder;
@@ -298,5 +294,3 @@ class Order extends Database
         return $this;
     }
 }
-
->>>>>>> ae57ad7 (add method createOrder, generateOrderId on class Order and getProductById on class Product)
