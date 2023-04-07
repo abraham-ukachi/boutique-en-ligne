@@ -386,7 +386,7 @@ INSERT INTO comments (comment, user_id, product_id, ratings, created_at)
  /*-------------------table orders----------*/
 
   CREATE TABLE orders(
-    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id int PRIMARY KEY NOT NULL,
     user_id int,
     created_at datetime,
     paid_at datetime,
