@@ -11,6 +11,18 @@ use pdo, PDOException;
 
 class Order
 {
+    /*
+        One order is composed of :
+            -one number of order
+            -one $id_user
+            -one total price
+            -one create time
+            -one paid time
+            -some products
+            -one address
+            -one delivery type
+    */
+
     private ?int $numberOfOrder = null;
     private ?int $id_user = null;
     private ?int $price = null;
