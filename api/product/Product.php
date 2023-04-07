@@ -2,33 +2,25 @@
 
 namespace Api\classProduct;
 
+require_once '/Applications/MAMP/htdocs/boutique-en-ligne/api/database/Database.php';
+
+use Api\classDatabase\Database;;
 use datetime;
 use PDO;
 use PDOException;
 
-class Product
+class Product extends Database
 {
-
-    private PDO $db;
 
     public function __construct()
     {
-        $db_dsn = 'mysql:host=localhost; dbname=db_maxaboom';
-        $username = 'root';
-        strpos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== false ? $password_db = 'root' : $password_db = '';
+        parent::__construct();
+        $this->setDatabasePort(8888);
+        $this->setDatabaseUsername('root');
+        $this->setDatabasePassword('root');
 
-        try {
-            $options =
-                [
-                    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8', // BE SURE TO WORK IN UTF8
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, //ERROR TYPE
-                    PDO::ATTR_EMULATE_PREPARES => false // FOR NO EMULATE PREPARE (SQL INJECTION)
-                ];
-            $this->db = new PDO($db_dsn, $username, $password_db, $options);
-        } catch (PDOException $e) {
-            print 'Erreur! :' . $e->getMessage() . '</br>';
-            die();
-        }
+        // connect to the database
+        $this->dbConnect();
     }
 
     /**

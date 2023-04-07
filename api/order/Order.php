@@ -5,11 +5,15 @@ Hello
 <?php
 
 namespace Api\classOrder;
+// require_once 'api/database/Database.php';
+require_once '/Applications/MAMP/htdocs/boutique-en-ligne/api/database/Database.php';
+// require_once 'api/database/Database.php';
 
+use Api\classDatabase\Database;;
 use datetime;
 use pdo, PDOException;
 
-class Order
+class Order extends Database
 {
     /*
         One order is composed of :
@@ -33,47 +37,39 @@ class Order
     private ?string $delivery = null;
 
 
-    private ?object $db = null;
+    // private ?object $db = null;
     private ?object $product = null;
 
     public function __construct($product)
     {
-       $this->product = $product;
+        parent::__construct();
+        $this->setDatabaseUsername('root');
+        $this->setDatabasePassword('root');
 
-        $db_dsn = 'mysql:host=localhost; dbname=db_maxaboom';
-        $username = 'root';
-        str_contains($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== false ? $password_db = 'root' : $password_db = '';
+        // connect to the database
+        $this->dbConnect();
 
-        try {
-            $options =
-                [
-                    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8', // BE SURE TO WORK IN UTF8
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, //ERROR TYPE
-                    PDO::ATTR_EMULATE_PREPARES => false // FOR NO EMULATE PREPARE (SQL INJECTION)
-                ];
-
-            $this->db = new PDO($db_dsn, $username, $password_db, $options);
-
-        } catch (PDOException $e) {
-            print 'Erreur! :' . $e->getMessage() . '</br>';
-            die();
-        }
+        // initialize the `product` variable
+        $this->product = $product;
     }
 
     /**
      * Method used to create and order with the given `userId` and `data`.
      *
-     * @param int $id_user  - the id of the user
-     * @param array $data   - a list of all the necessary data to create an order
+     * @param int $id_user - the id of the user
+     * @param array $data - a list of all the necessary data to create an order
      *
      * @return false|array - Returns TRUE if the order has been created successfully
      */
-    public function createOrder(int $id_user, array $data): false|array {
+    public function createOrder(int $id_user, array $data): false|array
+    {
         // initialize the `result` variable
         $result = ['success' => 'false', 'data' => []];
 
         // do nothing if there's no user id or if it is equal to -1
-        if ($id_user === -1) { return 'false'; }
+        if ($id_user === -1) {
+            return false;
+        }
 
         /**
          * IDEA:
@@ -101,12 +97,11 @@ class Order
 //            $pdo_stmt->bindParam(':total_price', $total_price);
 
             // execute the pdo statement
-            $pdo_stmt->execute(Array($id_user, $created_at, $paid_at, $data['totalPrice']));
+            $pdo_stmt->execute(array($id_user, $created_at, $paid_at, $data['totalPrice']));
 
             $rowCount = $pdo_stmt->rowCount();
 
             echo "Row Count =>>>> $rowCount" . "<br>";
-
 
 
             $result['success'] = 'true';
@@ -119,7 +114,6 @@ class Order
             echo $randomOrderId;
 
             $result['data'] = ['randomOrderId' => $randomOrderId, 'userId' => $id_user];
-
 
 
             //        foreach ($data['products'] as $productId => $productQty) {
@@ -136,7 +130,6 @@ class Order
         }
 
 
-
         return $result;
 
     }
@@ -147,14 +140,15 @@ class Order
      *
      * @return int
      */
-    private function generateOrderId(): int {
+    private function generateOrderId(): int
+    {
         // get current timestamp
         $timestamp = time();
         // convert timestamp from binary to hexadecimal value & stringify the number
         $hexTimestamp = strval(bin2hex($timestamp));
 
         // IDEA: Use the last 9 numbers from `hexTimestamp` as the randomly generated order id
-        return (int) substr($hexTimestamp, -9, 9);
+        return (int)substr($hexTimestamp, -9, 9);
 
     }
 

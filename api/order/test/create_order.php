@@ -38,9 +38,9 @@ include "../../product/Product.php";
  * });
  */
 
-$product = new \Api\classProduct\Product();
-$order = new \Api\classOrder\Order($product);
-$user = new User();
+$product = new Api\classProduct\Product();
+$order = new Api\classOrder\Order($product);
+$user = new Api\classUser\User();
 
 // $userId = $_GET['userId'];
 $isGuest = isset($_GET['guest']);

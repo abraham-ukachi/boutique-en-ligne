@@ -1,6 +1,15 @@
 <?php
 
-class User 
+namespace Api\classUser;
+
+require_once '/Applications/MAMP/htdocs/boutique-en-ligne/api/database/Database.php';
+
+use Api\classDatabase\Database;;
+use datetime;
+use PDO;
+use PDOException;
+
+class User extends Database
 {
     public ?int $id = null;
     public ?string $firstname = null;
@@ -10,26 +19,16 @@ class User
     public ?string $dob = null;
     public ?string $created_at = null;
     public ?string $user_role = null;
-    private PDO $db;
 
     public function __construct()
     {
-        $db_dsn = 'mysql:host=localhost; dbname=db_maxaboom';
-        $username = 'root';
-        strpos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== false ? $password_db = 'root' : $password_db = '';
+        parent::__construct();
+        $this->setDatabasePort(8888);
+        $this->setDatabaseUsername('root');
+        $this->setDatabasePassword('root');
 
-        try {
-            $options =
-                [
-                    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8', // BE SURE TO WORK IN UTF8
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, //ERROR TYPE
-                    PDO::ATTR_EMULATE_PREPARES => false // FOR NO EMULATE PREPARE (SQL INJECTION)
-                ];
-            $this->db = new PDO($db_dsn, $username, $password_db, $options);
-        } catch (PDOException $e) {
-            print "Erreur! :" . $e->getMessage() . "</br>";
-            die();
-        }
+        // connect to the database
+        $this->dbConnect();
     }
 
     //method for register user
@@ -108,7 +107,7 @@ class User
 
     public function verifGuest()
     {
-            $mail = htmlspecialchars($_POST['mail']);
+            $mail = htmlspecialchars($_POST['mail'] ?? '');
             $sql = "SELECT * 
                     FROM users
                     WHERE mail = :mail";
