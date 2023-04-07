@@ -92,7 +92,7 @@ use pdo;
 class Database {
 
   // private properties
-  private $db_host = 'localhost';// '127.0.0.1';
+  private $db_host = '127.0.0.1';
   private $db_username = 'abraham-ukachi';
   private $db_password = 'root';
   private $db_port = -1;

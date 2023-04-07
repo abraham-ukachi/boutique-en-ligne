@@ -55,7 +55,7 @@ require_once '../Database.php';
 // Instantiate an object of the `Database` class as `database`
 $database = new Api\classDatabase\Database();
 
-$database->setDatabaseUsername('root');
+database->setDatabaseUsername('abraham-ukachi');
 $database->setDatabasePassword('root');
 // $database->setDatabasePort(80);
 

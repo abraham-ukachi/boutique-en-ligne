@@ -83,8 +83,7 @@ class User extends Database
     {
         if (!$this->verifGuest()) {
             $created_at = $this->getCurrentDate();
-            $sql = "INSERT INTO users (firstname, lastname, mail, user_role, created_at)
-                    VALUES (:firstname, :lastname, :mail, :user_role, :created_at)";
+            $sql = "INSERT INTO users (firstname, lastname, mail, user_role, created_at) VALUES (:firstname, :lastname, :mail, :user_role, :created_at)";
             $sql_exe = $this->db->prepare($sql);
             $sql_exe->execute([
                 'firstname' => htmlspecialchars($firstname),
