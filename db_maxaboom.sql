@@ -14,12 +14,12 @@ CREATE TABLE users
 );
 
 
-INSERT INTO users (firstname, lastname, mail, dob, created_at, user_role)
+INSERT INTO users (firstname, lastname, mail, password, dob, created_at, user_role)
  VALUES
- ('Rebecca', 'Armand', 'armand_lebeau@gmail.com', '1973-11-17',"2023-01-01 12:12:12", 'customer'),
- ('Aymee', 'Hebert', 'vieilhomme@yahoo.fr', '1979-11-18',"2023-01-01 12:12:12",'customer'),
- ('Marielle', 'Ribeiro', 'mari123@gmail.com', '1983-01-31',"2023-01-01 12:12:12",'customer'),
- ('Hilaire', 'Savary', 'hilaire.savary@gmail.com', '2001-10-07',"2023-01-01 12:12:12",'customer');
+ ('Rebecca', 'Armand', 'armand_lebeau@gmail.com',PASSWORD('azerty'), '1973-11-17',"2023-01-01 12:12:12", 'customer'),
+ ('Aymee', 'Hebert', 'vieilhomme@yahoo.fr',PASSWORD('azerty'), '1979-11-18',"2023-01-01 12:12:12",'customer'),
+ ('Marielle', 'Ribeiro', 'mari123@gmail.com',PASSWORD('azerty'), '1983-01-31',"2023-01-01 12:12:12",'customer'),
+ ('Hilaire', 'Savary', 'hilaire.savary@gmail.com',PASSWORD('azerty'), '2001-10-07',"2023-01-01 12:12:12",'customer');
 
  /*------------------address table----------------*/
 CREATE TABLE addresses
@@ -386,11 +386,13 @@ INSERT INTO comments (comment, user_id, product_id, ratings, created_at)
  /*-------------------table orders----------*/
 
   CREATE TABLE orders(
-    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id int PRIMARY KEY NOT NULL,
     user_id int,
     created_at datetime,
     paid_at datetime,
     delivery varchar(15),
+    tax_amount int,
+    discount int,
     total_price int
  );
 
@@ -400,9 +402,7 @@ INSERT INTO comments (comment, user_id, product_id, ratings, created_at)
     orders_id int,
     product_id int,
     quantity int,
-    unit_price int,
-    tax_amount int,
-    discount_percentage int
+    unit_price int
  );
 
   /*-------------------table cart----------*/
