@@ -1,0 +1,54 @@
+{
+    "name": "boutique-en-ligne/maxaboom",
+    "description": "a fun and dynamic online store that offers a wide variety of musical instruments\u001b",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Maxaboom\\Api\\": "api/",
+            "Maxaboom\\Api\\Database\\": "api/database/",
+            "Maxaboom\\Api\\User\\": "api/user/",
+            "Maxaboom\\Api\\Product\\": "api/product/",
+            "Maxaboom\\Api\\Order\\": "api/order/",
+            "Maxaboom\\Api\\Cart\\": "api/cart/",
+            "Maxaboom\\Api\\Category\\": "api/category/",
+            "Maxaboom\\Api\\Review\\": "api/review/",
+
+            "Maxaboom\\Controllers\\": "controllers/", 
+            "Maxaboom\\Controllers\\Home\\": "controllers/home/",
+            "Maxaboom\\Controllers\\Admin\\": "controllers/admin/",
+            "Maxaboom\\Controllers\\Shop\\": "controllers/shop/",
+            "Maxaboom\\Controllers\\Product\\": "controllers/product/",
+            "Maxaboom\\Controllers\\Order\\": "controllers/order/",
+            "Maxaboom\\Controllers\\Cart\\": "controllers/cart/",
+            "Maxaboom\\Controllers\\Category\\": "controllers/category/",
+            "Maxaboom\\Controllers\\Checkout\\": "controllers/checkout/",
+            "Maxaboom\\Controllers\\Profile\\": "controllers/profile/",
+            "Maxaboom\\Controllers\\Settings\\": "controllers/settings/",
+            "Maxaboom\\Controllers\\Payment\\": "controllers/payment/",
+            "Maxaboom\\Controllers\\Address\\": "controllers/address/"
+
+        }
+    },
+    "authors": [
+        {
+            "name": "abraham-ukachi",
+            "email": "abraham.ukachi@laplateforme.io"
+        },
+        {
+            "name": "axel-vair",
+            "email": "axel.vair@laplateforme.io"
+        },
+        {
+            "name": "morgane-marechal",
+            "email": "morgane.marechal@laplateforme.io"
+        },
+        {
+            "name": "catherine-tranchand",
+            "email": "catherine.tranchand@laplateforme.io"
+        }
+    ],
+    "require": {
+        "altorouter/altorouter": "^2.0"
+    }
+}
