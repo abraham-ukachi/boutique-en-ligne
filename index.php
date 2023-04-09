@@ -58,7 +58,7 @@
 
 
 ?><!DOCTYPE html>
-
+    
 <!-- HTML -->
 <html lang="en">
 
@@ -139,7 +139,7 @@
     </script>
     
     <!-- Some more script for ya! #LOL -->
-    <script src="src/app.js" defer></script>
+    <script src="src/app.js" type="module" defer></script>
     <!-- <script src="src/script/home.js" defer></script> -->
     
   </head>
@@ -163,7 +163,7 @@
         $_GET['navbar_connected'] = 'false'; 
       ?>
 
-      <?php include 'components/nav-bar.php'; ?>
+      <?php // include 'components/nav-bar.php'; ?>
       <!-- End of Nav Bar -->
 
     </main>
