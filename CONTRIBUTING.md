@@ -28,7 +28,7 @@ The following is a set of guidelines for contributing to Maxaboom and subsequent
 
 ## Code of Conduct
 
-This is a school project and as a result, everyone participating in it is expected to uphold a certain code - i.e. make participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+This is a school project and as a result, everyone participating in it is expected to uphold a certain code - i.e. make participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation. For more information, read our [CODE_OF_CONDUCT.md](https://github.com/abraham-ukachi/boutique-en-ligne/CODE_OF_CONDUCT.md) `markdown` file ;)
 
 
 ## Styleguides
@@ -40,7 +40,7 @@ This is a school project and as a result, everyone participating in it is expect
 * Consider starting the commit message with an applicable emoji:
     * 🎨 `:art:` when improving the format/structure of the code or adding a stylesheet
     * 🐎 `:racehorse:` when improving performance
-    * 🚱 `:non-potable_water:` when plugging memory leaks
+    * 🚱 `:non-potable_water:` when ignoring folder and/or files 
     * 📝 `:memo:` when writing docs
     * 🐧 `:penguin:` when fixing something on Linux
     * 🍎 `:apple:` when fixing something on macOS
