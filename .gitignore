@@ -122,3 +122,5 @@ designs/
 
 # PyCharm
 .ipynb_checkpoints/
+
+/vendor/
