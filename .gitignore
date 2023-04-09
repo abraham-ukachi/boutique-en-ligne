@@ -119,3 +119,6 @@ designs/
 # PhpStorm
 .idea/
 .idea/php.xml
+
+# PyCharm
+.ipynb_checkpoints/
