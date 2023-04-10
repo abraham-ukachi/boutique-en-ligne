@@ -1,18 +1,31 @@
 {
-    "name": "boutique-en-ligne/maxaboom",
-    "description": "a fun and dynamic online store that offers a wide variety of musical instruments\u001b",
+    "name": "abraham-ukachi/boutique-en-ligne",
+    "description": "Maxaboom is a fun and dynamic online store that offers a wide variety of musical instruments\u001b",
     "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Maxaboom\\Api\\": "api/",
-            "Maxaboom\\Api\\Database\\": "api/database/",
-            "Maxaboom\\Api\\User\\": "api/user/",
-            "Maxaboom\\Api\\Product\\": "api/product/",
-            "Maxaboom\\Api\\Order\\": "api/order/",
-            "Maxaboom\\Api\\Cart\\": "api/cart/",
-            "Maxaboom\\Api\\Category\\": "api/category/",
-            "Maxaboom\\Api\\Review\\": "api/review/",
+            "Maxaboom\\Models\\": "models/",
+            "Maxaboom\\Models\\Helpers\\": "models/helpers/",
+
+            "Maxaboom\\Views\\": "views/",
+            "Maxaboom\\Views\\Components\\": "views/components/",
+
+            "Maxaboom\\Controllers\\": "controllers/",
+            "Maxaboom\\Controllers\\Helpers\\": "controllers/helpers/",
+            
+
+
+
+
+            
+            "Maxaboom\\Api\\modelDatabase\\": "api/database/",
+            "Maxaboom\\Api\\modelUser\\": "api/user/",
+            "Maxaboom\\Api\\modelProduct\\": "api/product/",
+            "Maxaboom\\Api\\modelOrder\\": "api/order/",
+            "Maxaboom\\Api\\modelCart\\": "api/cart/",
+            "Maxaboom\\Api\\modelCategory\\": "api/category/",
+            "Maxaboom\\Api\\modelReview\\": "api/review/",
 
             "Maxaboom\\Controllers\\": "controllers/", 
             "Maxaboom\\Controllers\\Home\\": "controllers/home/",
