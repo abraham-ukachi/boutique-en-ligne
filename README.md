@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  Maxaboom 🎶 is a <b>fun</b> and <b>dynamic</b> online store that offers a wide variety of musical instruments. <br> From guitars 🎸 and drums 🥁 to keyboards 🎹, microphones 🎙 and trumpets 🎺, Maxaboom has everything a musician needs to create their own unique sound. With high-quality products and exceptional customer service. <br> Maxaboom is the perfect destination for anyone looking to unleash their inner rockstar.
+  Maxaboom 🎶 is a <b>fun</b> and <b>dynamic</b> online store that offers a wide variety of musical instruments. <br> From guitars 🎸 and drums 🥁 to keyboards 🎹, microphones 🎙 and trumpets 🎺, Maxaboom has everything a musician needs to create their own unique sound. With high-quality products and exceptional customer service; a perfect destination for anyone looking to unleash their inner rockstar.
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@
 
 A school project to create an **online shop** using `JavaScript` with a fully functioning `MySQL` database.
 
-This project is to be done by a group of 3, and my partners / collaborators for the next three weeks are [Axel Vair](https://github.com/axel-vair) et [Morgane Marechal](https://github.com/morgane-marechal). 
+This project is to be done by a group of ~~3~~ 4 (including [me](https://github.com/abraham-ukachi)), and my partners / collaborators for the next 3-4 weeks are [Axel Vair](https://github.com/axel-vair), [Morgane Marechal](https://github.com/morgane-marechal) and [Catherine Tranchand](https://github.com/catherine-tranchand) (our latest member).
 
 So, we've decided to name our online shop 🥁... "**`MaxaBoom`**" (♾💥), and will a MySQL Database named **`db_maxaboom.sql`**. 
 
@@ -36,15 +36,16 @@ So, we've decided to name our online shop 🥁... "**`MaxaBoom`**" (♾💥), an
 
 The following tables (including a couple of TRIGGERS) were created in our **`db_maxaboom.sql`** database:
 
-- [*`users`*](#users---MySQL-Table): All currently registered users.
-- [*`products`*](#products---MySQL-Table): All producs created by the seller or administrator.
-- [*`categories`*](#categories---MySQL-Table): All categories of corresponding products.
-- [*`sub_categories`*](#sub_categories---MySQL-Table): All sub-categories related to product categories.
-- [*`tags`*](#tags---MySQL-Table): All tags applied to each product.
-- [*`addresses`*](#addresses---MySQL-Table): All addresses of the registered users.
-- [*`comments`*](#comments---MySQL-Table): All comments (or reviews) made by users (or reviews) on all products.
-- [*`orders`*](#orders---MySQL-Table): All orders of users.
-- [*`likes`*](#likes---MySQL-Table): All likes of corresponding products.
+1. [*`users`*](#users---MySQL-Table): All currently registered users.
+2. [*`products`*](#products---MySQL-Table): All producs created by the seller or administrator.
+3. [*`categories`*](#categories---MySQL-Table): All categories of corresponding products.
+4. [*`sub_categories`*](#sub_categories---MySQL-Table): All sub-categories related to product categories.
+5. [*`tags`*](#tags---MySQL-Table): All tags applied to each product.
+6. [*`addresses`*](#addresses---MySQL-Table): All addresses of the registered users.
+7. [*`comments`*](#comments---MySQL-Table): All comments (or reviews) made by users (or reviews) on all products.
+8. [*`orders`*](#orders---MySQL-Table): All orders of users.
+9. [*`likes`*](#likes---MySQL-Table): All likes of corresponding products.
+10. [*`cart`*](#): The customers' cart
 
 > NOTE: For more info, [read the Database section](#Database) of this *README*. 
 
@@ -93,15 +94,44 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 
 | No. | Name | File | Status |
 |:----|:-----|:-----|:-------|
-| 1 | *`Splash - Screen`* | **splash.php** | Pending |
-| 2 | *`Welcome - Screen`* | **welcome.php** | Pending |
-| 3 | *`Index / Home - Page`* | **index.php** | *_In progress_* |
+| 1 | *`Splash - View`* | **splash.php** | Pending |
+| 2 | *`Welcome - View`* | **welcome.php** | Pending |
+| 3 | *`Home - View`* | **home.php** | *_In progress_* |
 | 4 | *`Maxaboom Database - SQL`* | **db_maxaboom.sql** | Pending |
-| 5 | *`Shop - Page`* | **shop.php** | Pending |
-| 6 | *`Product - Page`* | **product.php** | Pending |
+| 5 | *`Shop - View`* | **shop.php** | Pending |
+| 6 | *`Product - View`* | **product.php** | Pending |
 | 7 | *`Color - Theme`* | **color.css** | [Done](./assets/theme/color.css)\* |
 | 8 | *`Typography - Theme`* | **typography.css** | [Done](./assets/theme/typography.css)\* |
 | 9 | *`Styles - Theme`* | **styles.css** | *_In progress_* |
+| 10 | *`Home - Controller`* | **HomeController.php** | *_In progress_* | 
+| 11 | *`Admin - Controller`* | **AdminController.php** | Pending | 
+| 12 | *`Shop - Controller`* | **ShopController.php** | Pending | 
+| 13 | *`Product - Controller`* | **ProductController.php** | Pending | 
+| 14 | *`Order - Controller`* | **OrderController.php** | Pending | 
+| 15 | *`Cart - Controller`* | **CartController.php** | Pending | 
+| 16 | *`Category - Controller`* | **CategoryController.php** | Pending | 
+| 17 | *`Checkout - Controller`* | **CheckoutController.php** | Pending | 
+| 18 | *`Profile - Controller`* | **ProfileController.php** | Pending | 
+| 19 | *`Product - Controller`* | **ProductController.php** | Pending | 
+| 20 | *`Settings - Controller`* | **SettingsController.php** | Pending | 
+| 21 | *`Payment - Controller`* | **PaymentController.php** | Pending | 
+| 22 | *`Address - Controller`* | **AddressController.php** | Pending | 
+| 23 | *`User - Model`* | **User.php** | Pending | 
+| 24 | *`Order - Model`* | **Order.php** | Pending | 
+| 25 | *`Review - Model`* | **Review.php** | Pending | 
+| 26 | *`Product - Model`* | **Product.php** | Pending | 
+| 27 | *`Cart - Model`* | **Cart.php** | Pending | 
+| 28 | *`Image - Model`* | **Image.php** | Pending | 
+| 29 | *`Category - Model`* | **Category.php** | Pending | 
+| 30 | *`Address - Model`* | **Address.php** | Pending | 
+| 31 | *`Tag - Model`* | **Tag.php** | Pending | 
+| 32 | *`Account - Controller`* | **AccountController.php** | Pending | 
+| 33 | *`API - Controller`* | **APIController.php** | Pending | 
+| 34 | *`Nav Bar - View Component`* | **nav-bar.php** | Pending | 
+| 35 | *`Footer - View Component`* | **footer.php** | Pending | 
+| 36 | *`App Bar - View Component`* | **app-bar.php** | Pending | 
+| 37 | *`Database - Model Helper`* | **Database.php** | [Done](./models/helpers/Database.php)\* | 
+| 38 | *`Response - Model Helper`* | **ResponseHandler.php** | Pending | 
 
 > WARNING: This list is a working progress and will change soon
 
@@ -110,23 +140,41 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 
 ## Structure
 
-The folder & file structure of this project:
+The **`MVC`** folder & file structure of this project:
 
-- [**api**](./api/)
-- - [**database**](./api/database/)
+- [**models**](./models/)
+- - [**helpers**](./models/helpers/)
 - - * *Database.php*
 - - * *ResponseHandler.php*
 - - * ...
-- - [**user**](./api/user/)
-- - * *User.php*
-- - * *auth.php*
-- - * ...
-- - [**product**](./api/product/)
-- - * *Product.php*
-- - * ...
-- - [**review**](./api/review/)
-- - * *Review.php*
-- - * ...
+- - *User.php*
+- - *Product.php*
+- - *Cart.php*
+- - *Order.php*
+- - ...
+- [**views**](./views/)
+- - [**components**](./views/components/)
+- - * *nav-bar.php*
+- - * *app-bar.php*
+- - * *footer.php*
+- - * ... 
+- - *splash.php*
+- - *welcome.php*
+- - *home.php*
+- - *shop.php*
+- - *cart.php*
+- - *checkout.php*
+- - *product.php*
+- - *admin.php*
+- - ...
+- [**controllers**](./controllers/)
+- - [**helpers**](./controllers/helpers/)
+- - *UserController.php*
+- - *HomeController.php*
+- - *ShopController.php*
+- - *ProductController.php*
+- - *CartController.php*
+- - ...
 - [**assets**](./assets/)
 - - [**logos**](./assets/logos/)
 - - [**images**](./assets/images/)
@@ -162,8 +210,6 @@ The folder & file structure of this project:
 - package.json
 - ...
 - **index.php**
-- **splash.php**
-- **welcome.php**
 - **db_maxaboom.sql**
 
 
