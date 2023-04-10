@@ -1,1 +1,6 @@
-# Deny for all
+# AltoRouter
+# rewriting all requests to index.php
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php [L]
