@@ -94,12 +94,12 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 
 | No. | Name | File | Status |
 |:----|:-----|:-----|:-------|
-| 1 | *`Splash - View`* | **splash.php** | Pending |
-| 2 | *`Welcome - View`* | **welcome.php** | Pending |
-| 3 | *`Home - View`* | **home.php** | *_In progress_* |
+| 1 | *`Splash Screen - View`* | **splash-screen.php** | Pending |
+| 2 | *`Welcome Screen - View`* | **welcome-screen.php** | Pending |
+| 3 | *`Home Page - View`* | **home-page.php** | *_In progress_* |
 | 4 | *`Maxaboom Database - SQL`* | **db_maxaboom.sql** | Pending |
-| 5 | *`Shop - View`* | **shop.php** | Pending |
-| 6 | *`Product - View`* | **product.php** | Pending |
+| 5 | *`Shop Page - View`* | **shop-page.php** | Pending |
+| 6 | *`Product Page - View`* | **product-page.php** | Pending |
 | 7 | *`Color - Theme`* | **color.css** | [Done](./assets/theme/color.css)\* |
 | 8 | *`Typography - Theme`* | **typography.css** | [Done](./assets/theme/typography.css)\* |
 | 9 | *`Styles - Theme`* | **styles.css** | *_In progress_* |
@@ -132,6 +132,10 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 36 | *`App Bar - View Component`* | **app-bar.php** | Pending | 
 | 37 | *`Database - Model Helper`* | **Database.php** | [Done](./models/helpers/Database.php)\* | 
 | 38 | *`Response - Model Helper`* | **ResponseHandler.php** | Pending | 
+| 39 | *`Home - Route`* | **home-route.php** | Pending | 
+| 40 | *`Shop - Route`* | **shop-route.php** | Pending | 
+| 41 | *`Order - Route`* | **order-route.php** | Pending | 
+| 42 | *`Product - Route`* | **product-route.php** | Pending | 
 
 > WARNING: This list is a working progress and will change soon
 
