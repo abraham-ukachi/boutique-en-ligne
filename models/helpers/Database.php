@@ -85,6 +85,7 @@ namespace Maxaboom\Models\Helpers;
 // Using some core PHP Classes...
 
 use pdo;
+use pdoexception;
 
 
 
