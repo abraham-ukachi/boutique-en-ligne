@@ -245,10 +245,10 @@ class Database {
   /**
    * Method used to connect to the database
    * 
-   * @return null|object $pdo - The PDO connection object to the database
+   * @return ?object $pdo - The PDO connection object to the database
    * @private
    */
-  public function dbConnect(): null|object {
+  public function dbConnect(): ?object {
     // initialize the `pdo` variable by setting it to null
     $pdo = null;
 
