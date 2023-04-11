@@ -1,14 +1,18 @@
 <?php
 
-// PRODUCT TEST
+// declare a namespace  
+namespace Maxaboom\Models\Test;
 
+include "../helpers/Database.php";
 include "../Product.php";
 
-use Api\classProduct as maxaboom;
 
-$product = new maxaboom\Product();
+use Maxaboom\Models\Helpers\Database;
+use Maxaboom\Models\Product;
 
-$productId = 3;
+$product = new Product();
+
+$productId = 4;
 
 // get product with the `productId`
 $productData = $product->getProductById($productId);

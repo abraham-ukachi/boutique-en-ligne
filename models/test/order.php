@@ -1,8 +1,24 @@
 <?php
 
+
+namespace Maxaboom\Models\Test;
+
+
+include "../helpers/Database.php";
 include "../Order.php";
-include "../../user/User.php";
-include "../../product/Product.php";
+include "../User.php";
+include "../Product.php";
+
+
+use Maxaboom\Models\Helpers\Database;
+use Maxaboom\Models\Order;
+use Maxaboom\Models\User;
+use Maxaboom\Models\Product;
+
+
+// use Maxaboom\Models;
+// use Maxaboom\Models\Helpers;
+
 
 /*
  * Code from JavaScript
@@ -38,9 +54,9 @@ include "../../product/Product.php";
  * });
  */
 
-$product = new Api\classProduct\Product();
-$order = new Api\classOrder\Order($product);
-$user = new Api\classUser\User();
+$product = new Product();
+$order = new Order($product);
+$user = new User();
 
 // $userId = $_GET['userId'];
 $isGuest = isset($_GET['guest']);

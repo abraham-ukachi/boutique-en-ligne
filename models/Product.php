@@ -1,10 +1,8 @@
 <?php
 
-namespace Api\classProduct;
+namespace Maxaboom\Models;
 
-require_once '/Applications/MAMP/htdocs/boutique-en-ligne/api/database/Database.php';
-
-use Api\classDatabase\Database;;
+use Maxaboom\Models\Helpers\Database;
 use datetime;
 use PDO;
 use PDOException;
@@ -15,9 +13,9 @@ class Product extends Database
     public function __construct()
     {
         parent::__construct();
-        $this->setDatabasePort(8888);
-        $this->setDatabaseUsername('root');
-        $this->setDatabasePassword('root');
+        // $this->setDatabasePort(8888);
+        // $this->setDatabaseUsername('root');
+        // $this->setDatabasePassword('root');
 
         // connect to the database
         $this->dbConnect();
