@@ -5,6 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
+            "Maxaboom\\Routes\\": "routes/",
+
             "Maxaboom\\Models\\": "models/",
             "Maxaboom\\Models\\Helpers\\": "models/helpers/",
 
@@ -12,35 +14,8 @@
             "Maxaboom\\Views\\Components\\": "views/components/",
 
             "Maxaboom\\Controllers\\": "controllers/",
-            "Maxaboom\\Controllers\\Helpers\\": "controllers/helpers/",
+            "Maxaboom\\Controllers\\Helpers\\": "controllers/helpers/"
             
-
-
-
-
-            
-            "Maxaboom\\Api\\modelDatabase\\": "api/database/",
-            "Maxaboom\\Api\\modelUser\\": "api/user/",
-            "Maxaboom\\Api\\modelProduct\\": "api/product/",
-            "Maxaboom\\Api\\modelOrder\\": "api/order/",
-            "Maxaboom\\Api\\modelCart\\": "api/cart/",
-            "Maxaboom\\Api\\modelCategory\\": "api/category/",
-            "Maxaboom\\Api\\modelReview\\": "api/review/",
-
-            "Maxaboom\\Controllers\\": "controllers/", 
-            "Maxaboom\\Controllers\\Home\\": "controllers/home/",
-            "Maxaboom\\Controllers\\Admin\\": "controllers/admin/",
-            "Maxaboom\\Controllers\\Shop\\": "controllers/shop/",
-            "Maxaboom\\Controllers\\Product\\": "controllers/product/",
-            "Maxaboom\\Controllers\\Order\\": "controllers/order/",
-            "Maxaboom\\Controllers\\Cart\\": "controllers/cart/",
-            "Maxaboom\\Controllers\\Category\\": "controllers/category/",
-            "Maxaboom\\Controllers\\Checkout\\": "controllers/checkout/",
-            "Maxaboom\\Controllers\\Profile\\": "controllers/profile/",
-            "Maxaboom\\Controllers\\Settings\\": "controllers/settings/",
-            "Maxaboom\\Controllers\\Payment\\": "controllers/payment/",
-            "Maxaboom\\Controllers\\Address\\": "controllers/address/"
-
         }
     },
     "authors": [
