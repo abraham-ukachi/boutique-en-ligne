@@ -89,7 +89,7 @@ class ShopController {
     // TODO: do something awesome here before showing the splash screen ;)
 
     // show the splash screen 
-    require_once __DIR__ . '/../Views/shop-page.php';
+    require_once __DIR__ . '/../views/shop-page.php';
   }
   
   
