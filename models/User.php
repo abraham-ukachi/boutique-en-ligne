@@ -76,7 +76,7 @@ class User extends Database
     //method for register user
     public function register($firstname, $lastname, $mail, $password, $user_role)
     {
-        if (!$this->verifUser()) {
+        if (!$this->verifUser($mail)) {
             $created_at = $this->getCurrentDate();
             $sql = "INSERT INTO users (firstname, lastname, mail, password, created_at, user_role)
                     VALUES (:firstname, :lastname, :mail, :password, :created_at, :user_role)";
@@ -102,9 +102,8 @@ class User extends Database
     }
 
     /* Check if user in DB */
-    public function verifUser()
+    public function verifUser($mail)
     {
-            $mail = htmlspecialchars($_POST['mail']);
             $sql = "SELECT * 
                     FROM users
                     WHERE mail = :mail";

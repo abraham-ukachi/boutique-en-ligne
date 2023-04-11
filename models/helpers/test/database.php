@@ -63,8 +63,8 @@ use Maxaboom\Models\Helpers as mmh;
 // Instantiate an object of the `Database` class as `database`
 $database = new mmh\Database();
 
-$database->setDatabaseUsername('abraham-ukachi');
-$database->setDatabasePassword('root');
+// $database->setDatabaseUsername('abraham-ukachi');
+// $database->setDatabasePassword('root');
 // $database->setDatabasePort(80);
 
 
