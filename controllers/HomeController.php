@@ -47,7 +47,8 @@
 namespace Maxaboom\Controllers;
 
 
-
+// use the `User` model
+use Maxaboom\Models\User;
 
 
 
@@ -75,6 +76,9 @@ class HomeController {
    */
   public function __construct() {
     // TODO: write something awesome code here ;)
+    $user = new User();
+    $users = $user->displayUsers();
+    var_dump($users);
   }
 
 
