@@ -45,15 +45,17 @@
 // error_reporting(E_ALL);
 // =============================================
 
+// autoloading all our classes
+// require_once '../../../vendor/composer/autoload_psr4.php';
 
 // Require the 'Database.php' file [once] ;)
-require_once '../Database.php';
+// require_once '../Database.php';
 
 // Create shortcut of the `Api\classDatabase` namespace as `mbDB` (maxaboom database #lol);
 // use Api\classDatabase as mbDB;
 
 // Instantiate an object of the `Database` class as `database`
-$database = new Api\classDatabase\Database();
+$database = new Maxaboom\Api\Database\Database();
 
 database->setDatabaseUsername('abraham-ukachi');
 $database->setDatabasePassword('root');

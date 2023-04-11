@@ -74,7 +74,7 @@
 
 
 // Declare a namespace named `Api\classDatabase`
-namespace Api\classDatabase;
+namespace Maxaboom\Api\classDatabase;
 
 
 // Using some core PHP Classes...
