@@ -47,5 +47,63 @@ class Product extends Database
         return $productData;
     }
 
+    public function getAllProducts(){
+        $allProducts = $this->db->prepare("SELECT * FROM products");
+        $allProducts->execute([
+        ]);
+        $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function productsCategories(int $idCategorie){
+        $productsCategories = $this->db->prepare("SELECT * FROM products WHERE categories_id=$idCategorie");
+        $productsCategories->execute([
+        ]);
+        $result = $productsCategories->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function subCategorie(int $idsubCategorie){
+        $subCategorie = $this->db->prepare("SELECT * FROM products WHERE sub_categories_id=$idsubCategorie");
+        $subCategorie->execute([]);
+        $result = $subCategorie->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    //get last id in DB for image name
+    public function getLastId(){
+        $getLastId = $this->db->prepare("SELECT MAX(id) FROM `products`");
+        $getLastId->execute([
+        ]);
+        $result = $getLastId->fetchAll(PDO::FETCH_ASSOC);
+        return $result[0]['MAX(id)'];        
+    }
+
+    public function registerProduct($name,$description, $price, $categories_id, $sub_categories_id, $stock){
+        $created_at = date('Y-m-d h:i:s');
+        $lastId = $this->getLastId()+1;
+        $sql = "INSERT INTO products (name, description, price, categories_id,
+        sub_categories_id, image, created_at, stock)
+                VALUES (:name, :description, :price, :categories_id, :sub_categories_id, :image, :created_at, :stock)";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'name' => htmlspecialchars($name),
+            'description' => htmlspecialchars($description),
+            'price' => htmlspecialchars($price),
+            'categories_id' => htmlspecialchars($categories_id),
+            'sub_categories_id' => htmlspecialchars($sub_categories_id),
+            'image' => 'img_'.$lastId.'.png',
+            'created_at' => $created_at,
+            'stock' => htmlspecialchars($stock)
+        ]); 
+        
+        if ($sql_exe) {
+            echo json_encode(['response' => 'ok', 'reussite' => 'Nouveau produit enregistré']);
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+        }
+
+    }
+
 }
 
