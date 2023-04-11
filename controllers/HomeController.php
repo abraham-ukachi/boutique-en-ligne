@@ -98,7 +98,7 @@ class HomeController {
     // TODO: do something awesome here before showing the splash screen ;)
 
     // show the splash screen 
-    require_once __DIR__ . '/../Views/splash-screen.php';
+    require_once __DIR__ . '/../views/splash-screen.php';
   }
 
 
@@ -114,7 +114,7 @@ class HomeController {
     // TODO: do something awesome here before showing the welcome screen ;)
     
     // show the welcome screen 
-    require_once __DIR__ . '/../Views/welcome-screen.php';
+    require_once __DIR__ . '/../views/welcome-screen.php';
   }
 
 
@@ -130,7 +130,7 @@ class HomeController {
     // TODO: do something awesome here before showing the home page ;)
     
     // show the home page 
-    require_once __DIR__ . '/../Views/home-page.php';
+    require_once __DIR__ . '/../views/home-page.php';
   }
 
 
