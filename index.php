@@ -51,7 +51,7 @@ ini_set("display_errors", 1);
 
 // require the autoloader
 require __DIR__ . '/vendor/autoload.php';
-
+//require __DIR__ . '/vendor/altorouter/';
 
 
 
@@ -89,6 +89,10 @@ include __DIR__ . '/routes/api-route.php'; // <- api route
 // match the current request url
 $match = $router->match();
 
+// var_dump($match);
+
+// echo "<br>";
+
 
 // call closure or throw 404 status
 if(is_array($match) && is_callable($match['target'])) {
@@ -99,5 +103,4 @@ if(is_array($match) && is_callable($match['target'])) {
 	// no route was matched
 	header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
 }
-
 
