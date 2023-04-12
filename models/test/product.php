@@ -34,18 +34,26 @@ $productPiano = $product->productsCategories(1);
 $productBass = $product->subCategorie(6);
 //var_dump($productBass);
 
+
+
 $name="Super Guitare";
 $description="C'est vraiment une belle guitare";
 $price=23400;
 $categories_id=2;
 $sub_categories_id=5;
-$image='newimage.png';
 $stock=3;
 
+
+/*
+//OK register product is working
 $product->registerProduct($name, $description, $price, $categories_id,
 $sub_categories_id, $stock);
-$lastId=$product->getLastId();
-var_dump($lastId);
-//echo $lastId[0]['MAX(id)'];
 
+//update img of last product
+$lastProduct=$product->getLastId();
+var_dump($lastProduct);
+echo $lastProduct;
+
+$product->updateImageProduct($lastProduct);
+*/
 
