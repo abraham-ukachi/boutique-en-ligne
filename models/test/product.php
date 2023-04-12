@@ -21,7 +21,7 @@ echo "TEST of <b>Product.php</b>" . "<br>";
 echo "<code>Get product data by id (i.e. product->getProductById())</code> <br>";
 
 // tell us about this product data
-print_r($productData);
+//print_r($productData);
 
 // get all infos of all products
 $allProducts = $product->getAllProducts();
@@ -57,3 +57,10 @@ echo $lastProduct;
 $product->updateImageProduct($lastProduct);
 */
 
+//check price filter
+$HpriceProducts = $product->getProductHigherPrice();
+$LpriceProducts = $product->getProductLowerPrice();
+$dateProducts = $product->getProductByDate();
+//var_dump($dateProducts);
+
+//check date filter

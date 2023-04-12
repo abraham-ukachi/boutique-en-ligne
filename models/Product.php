@@ -111,5 +111,30 @@ class Product extends Database
         ]);
     }
 
+    
+    function getProductByDate(){
+        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY created_at DESC");
+        $allProducts->execute([
+        ]);
+        $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    function getProductHigherPrice(){
+        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY price DESC");
+        $allProducts->execute([
+        ]);
+        $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    function getProductLowerPrice(){
+        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY price ASC");
+        $allProducts->execute([
+        ]);
+        $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 }
 
