@@ -61,6 +61,13 @@ $product->updateImageProduct($lastProduct);
 $HpriceProducts = $product->getProductHigherPrice();
 $LpriceProducts = $product->getProductLowerPrice();
 $dateProducts = $product->getProductByDate();
-//var_dump($dateProducts);
+//$deletedProduct = $product->deleteProductByID(90);
+//echo $deletedProduct;
 
 //check date filter
+
+$delpro1 = $product->deleteProductByID(10);
+echo $delpro1;
+//$verifDelete = $product->verifDeleteProduct(90);
+//var_dump($verifDelete);
+//echo $verifDelete['deleted_at'];

@@ -73,7 +73,7 @@ class Product extends Database
 
 
     public function registerProduct($name,$description, $price, $categories_id, $sub_categories_id, $stock){
-        $created_at = date('Y-m-d h:i:s');
+        $created_at = date('Y-m-d H:i:s');
         $sql = "INSERT INTO products (name, description, price, categories_id,
         sub_categories_id, created_at, stock)
                 VALUES (:name, :description, :price, :categories_id, :sub_categories_id, :created_at, :stock)";
@@ -112,28 +112,53 @@ class Product extends Database
     }
 
     
-    function getProductByDate(){
-        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY created_at DESC");
+    function getProductByDate(int $limit = 10){
+        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY created_at DESC LIMIT $limit");
         $allProducts->execute([
         ]);
         $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
-    function getProductHigherPrice(){
-        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY price DESC");
+    function getProductHigherPrice(int $limit = 10){
+        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY price DESC LIMIT $limit");
         $allProducts->execute([
         ]);
         $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
-    function getProductLowerPrice(){
-        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY price ASC");
+    function getProductLowerPrice(int $limit = 10){
+        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY price ASC LIMIT $limit");
         $allProducts->execute([
         ]);
         $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    function deleteProductByID($productId){
+        if ($this->verifDeleteProduct($productId)===NULL){
+            $deleted_at = date('Y-m-d H:i:s');
+            $sqlupdate = $this -> db -> prepare("UPDATE products SET deleted_at = '$deleted_at' WHERE id = :id ");
+            $sqlupdate->execute([
+            'id' => $productId,
+        ]);
+            if ($sqlupdate) {
+                echo json_encode(['response' => 'ok', 'reussite' => 'Produit supprimé']);
+            } 
+        }else {
+                echo json_encode(['response' => 'not ok', 'echoue' => 'Le produit a déjà été supprimé']);
+            }
+
+    }
+
+    function verifDeleteProduct($Id){
+        $sql = $this-> db -> prepare("SELECT deleted_at FROM products WHERE id = :id");
+        $sql->execute([
+            'id' => $Id
+        ]);
+        $results = $sql->fetch(PDO::FETCH_ASSOC); 
+        return $results['deleted_at'];     
     }
 
 }
