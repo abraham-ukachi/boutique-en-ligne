@@ -3,8 +3,8 @@
 // declare a namespace  
 namespace Maxaboom\Models\Test;
 
-include "../helpers/Database.php";
-include "../Product.php";
+include __DIR__ . "/../helpers/Database.php";
+include __DIR__ . "/../Product.php";
 
 
 use Maxaboom\Models\Helpers\Database;
