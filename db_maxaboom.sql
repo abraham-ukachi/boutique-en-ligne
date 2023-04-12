@@ -25,23 +25,23 @@ INSERT INTO users (firstname, lastname, mail, password, dob, created_at, user_ro
 CREATE TABLE addresses
 (
     id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    titre varchar(100),
     address varchar(100),
     address_complement varchar(100),
     postal_code int,
     city varchar(100),
     country varchar(100),
     user_id int,
-    type varchar(100),
-    titre varchar (20)
+    type varchar(100)
 );
 
-INSERT INTO addresses (address, address_complement, postal_code, city, country, user_id, type)
+INSERT INTO addresses (titre, address, address_complement, postal_code, city, country, user_id, type)
  VALUES
- ('02 rue de la fontaine', '5e batiment', '13001', 'Marseille', 'FRANCE', 1, 'livraison'),
- ('69 rue Camas', '', '13006', 'Marseille', 'FRANCE', 2, 'livraison'),
- ('155 rue des Rois', '', '51100', 'Reims', 'FRANCE', 3, 'facturation'),
- ('155 rue des Rois', '', '51100', 'Reims', 'FRANCE', 3, 'livraison'),
- ('67 rue Dudev', '4e batiment', '13002', 'Marseille', 'FRANCE', 4, 'livraison');
+ ('Maison', '02 rue de la fontaine', '5e batiment', '13001', 'Marseille', 'FRANCE', 1, 'livraison'),
+ ('Boulot', '69 rue Camas', '', '13006', 'Marseille', 'FRANCE', 2, 'livraison'),
+ ('Maison', '155 rue des Rois', '', '51100', 'Reims', 'FRANCE', 3, 'facturation'),
+ ('Boulot', '155 rue des Rois', '', '51100', 'Reims', 'FRANCE', 3, 'livraison'),
+ ('Maison', '67 rue Dudev', '4e batiment', '13002', 'Marseille', 'FRANCE', 4, 'livraison');
 
 
 /*-------------------categories tables----------*/
