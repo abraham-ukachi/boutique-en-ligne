@@ -70,21 +70,13 @@ class Product extends Database
         return $result;
     }
 
-    //get last id in DB for image name
-    public function getLastId(){
-        $getLastId = $this->db->prepare("SELECT MAX(id) FROM `products`");
-        $getLastId->execute([
-        ]);
-        $result = $getLastId->fetchAll(PDO::FETCH_ASSOC);
-        return $result[0]['MAX(id)'];        
-    }
+
 
     public function registerProduct($name,$description, $price, $categories_id, $sub_categories_id, $stock){
-        $created_at = date('Y-m-d h:i:s');
-        $lastId = $this->getLastId()+1;
+        $created_at = date('Y-m-d H:i:s');
         $sql = "INSERT INTO products (name, description, price, categories_id,
-        sub_categories_id, image, created_at, stock)
-                VALUES (:name, :description, :price, :categories_id, :sub_categories_id, :image, :created_at, :stock)";
+        sub_categories_id, created_at, stock)
+                VALUES (:name, :description, :price, :categories_id, :sub_categories_id, :created_at, :stock)";
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([
             'name' => htmlspecialchars($name),
@@ -92,17 +84,81 @@ class Product extends Database
             'price' => htmlspecialchars($price),
             'categories_id' => htmlspecialchars($categories_id),
             'sub_categories_id' => htmlspecialchars($sub_categories_id),
-            'image' => 'img_'.$lastId.'.png',
             'created_at' => $created_at,
             'stock' => htmlspecialchars($stock)
-        ]); 
-        
+        ]);         
         if ($sql_exe) {
             echo json_encode(['response' => 'ok', 'reussite' => 'Nouveau produit enregistré']);
         } else {
             echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
         }
+    }
 
+    //get last id in DB for image name
+    public function getLastId(){
+            $getLastId = $this->db->prepare("SELECT MAX(id) FROM `products`");
+            $getLastId->execute([
+            ]);
+            $result = $getLastId->fetchAll(PDO::FETCH_ASSOC);
+            return $result[0]['MAX(id)'];        
+    }
+
+    //ADD image name with ID of the product inside
+    function updateImageProduct($lastProductId){
+        $sqlupdate = $this -> db -> prepare("UPDATE products SET image = 'img_$lastProductId.png' WHERE id = :id ");
+        $sqlupdate->execute([
+            'id' => $lastProductId,
+        ]);
+    }
+
+    
+    function getProductByDate(int $limit = 10){
+        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY created_at DESC LIMIT $limit");
+        $allProducts->execute([
+        ]);
+        $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    function getProductHigherPrice(int $limit = 10){
+        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY price DESC LIMIT $limit");
+        $allProducts->execute([
+        ]);
+        $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    function getProductLowerPrice(int $limit = 10){
+        $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY price ASC LIMIT $limit");
+        $allProducts->execute([
+        ]);
+        $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    function deleteProductByID($productId){
+        if ($this->verifDeleteProduct($productId)===NULL){
+            $deleted_at = date('Y-m-d H:i:s');
+            $sqlupdate = $this -> db -> prepare("UPDATE products SET deleted_at = '$deleted_at' WHERE id = :id ");
+            $sqlupdate->execute([
+            'id' => $productId,
+        ]);
+            if ($sqlupdate) {
+                echo json_encode(['response' => 'ok', 'reussite' => 'Produit supprimé']);
+            } 
+        }else {
+                echo json_encode(['response' => 'not ok', 'echoue' => 'Le produit a déjà été supprimé']);
+            }
+
+    }
+
+    function verifDeleteProduct($Id){
+        $sql = $this-> db -> prepare("SELECT deleted_at FROM products WHERE id = :id");
+        $sql->execute([
+            'id' => $Id
+        ]);
+        $results = $sql->fetch(PDO::FETCH_ASSOC); 
+        return $results['deleted_at'];     
     }
 
 }
