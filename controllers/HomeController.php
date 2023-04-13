@@ -49,36 +49,56 @@ namespace Maxaboom\Controllers;
 
 // use the `User` model
 use Maxaboom\Models\User;
+use Maxaboom\Controllers\Helpers\I18n;
+
+
+// create an instance of the `I18n` class
+// $i18n = new I18n('ru');
+
+// get the browser's language as `browserLang`
+// $browserLang = $i18n->getBrowserLanguage();
 
 
 
 
 // declare the class
+// TODO: Create a `Controller` class that will be extended by all the controllers
 class HomeController {
 
   // declare some constants...
 
   const DEFAULT_THEME = 'light';
-
-
-
+  const DEFAULT_LANG = 'en';
+  
+  
 
   // declare some properties...
 
-
-
+  // private properties
+  private I18n $i18n;
+  private User $user;
 
 
 
   /**
    * Constructor of the class
    * This method is executed automatically whenever this class is instantiated
+   *
+   * @param I18n $i18n - an instance of the `I18n` class
+   * @param User $user - an instance of the `User` class
+   *
    */
-  public function __construct() {
+  public function __construct(I18n $i18n,  User $user) {
     // TODO: write something awesome code here ;)
-    $user = new User();
-    $users = $user->displayUsers();
-    var_dump($users);
+    
+    // initialize the `i18n` and `user` property
+    $this->i18n = $i18n;
+    $this->user = $user;
+    
+    // $user = new User();
+    // $users = $user->displayUsers();
+    // var_dump($users); 
+
   }
 
 
@@ -94,7 +114,7 @@ class HomeController {
    *
    * @return void
    */
-  public function showSplashScreen($theme = self::DEFAULT_THEME): void {
+  public function showSplashScreen($theme = self::DEFAULT_THEME, $lang = self::DEFAULT_LANG): void {
     // TODO: do something awesome here before showing the splash screen ;)
 
     // show the splash screen 
@@ -110,7 +130,7 @@ class HomeController {
    *
    * @return void 
    */
-  public function showWelcomeScreen($theme = self::DEFAULT_THEME): void {
+  public function showWelcomeScreen($theme = self::DEFAULT_THEME, $lang = self::DEFAULT_LANG): void {
     // TODO: do something awesome here before showing the welcome screen ;)
     
     // show the welcome screen 
@@ -126,9 +146,10 @@ class HomeController {
    *
    * @return void
    */
-  public function showHomePage($theme = self::DEFAULT_THEME): void {
+  public function showHomePage($theme = self::DEFAULT_THEME, $lang = self::DEFAULT_LANG): void {
     // TODO: do something awesome here before showing the home page ;)
-    
+
+
     // show the home page 
     require_once __DIR__ . '/../views/home-page.php';
   }

@@ -60,7 +60,7 @@
 ?><!DOCTYPE html>
     
 <!-- HTML -->
-<html lang="en">
+<html lang="<?= $lang ?>">
 
   <!-- HEAD -->
   <head>
@@ -153,9 +153,11 @@
     <main class="flex-layout vertical">
       <!-- App Layout - MAIN -->
       <div class="app-layout">
-        <h1>Welcome to Maxaboom</h1>
+        <h1><?= $this->i18n->getString('gm') ?>, welcome to Maxaboom</h1>
         <p>hello from <b>home page</b>&nbsp;👋!</p>
-        <a href="shop">Visit the <b>shop page</b></a>
+        <a href="shop">Visit the <b>shop page</b> <?= $lang ?></a>
+
+        <div id="content"><?= json_encode($this->user->displayUsers()) ?></div>
       </div>
       <!-- End of App Layout - MAIN -->
 
