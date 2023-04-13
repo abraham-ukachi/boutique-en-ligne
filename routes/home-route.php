@@ -49,7 +49,14 @@ namespace Maxaboom\Routes;
 // use maxaboom's `APIController` class
 use Maxaboom\Controllers\HomeController;
 
+// use these controller helpers
+use Maxaboom\Controllers\Helpers\I18n;
+// use these models
+use Maxaboom\Models\User;
 
+// $browserLanguage = I18n::getBrowserLanguage();
+
+// echo $browserLanguage;
 
 /** 
  * Home - Route 
@@ -65,14 +72,22 @@ use Maxaboom\Controllers\HomeController;
  * @echo string $splashScreen|$welcomeScreen|$homePage - the splash screen, welcome screen or home page
  */
 $router->map('GET', '/', function(): void {
+  // create an instance of the `I18n` class
+  $i18n = new I18n('fr');
+  // create an instance of the `User` class
+  $user = new User();
+
   // get the home controller
-  $homeController = new HomeController();
+  $homeController = new HomeController($i18n, $user);
   
   // show the splash screen
   // $homeController->showSplashScreen();
-
+  
+  // $i18n = new I18n('ru');
   // show the home page
-  $homeController->showHomePage();
+  $homeController->showHomePage('dark', 'fr');
+
+  echo I18n::getBrowserLanguage();
 
 });
 

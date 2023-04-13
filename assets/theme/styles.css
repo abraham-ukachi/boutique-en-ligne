@@ -1,0 +1,1388 @@
+/* 
+* @license
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software. 
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @name: Theme
+* @type: Styles 
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+*
+* Example usage:
+*
+*  1+|> // Default Body Template (with a Dark theme)
+*   -|>
+*   -|> <body class="theme dark" fullbleed>
+*   -|>
+*   -|>   <main class="flex-layout vertical">...</main>
+*   -|>
+*   -|>   <aside class="flex-layout vertical" hidden>...</aside>
+*   -|>
+*   -|>   <div id="backdrop" hidden></div>
+*   -|>
+*   -|>   <div id="menus" hidden></div>
+*   -|>
+*   -|>   <div id="dialogs" hidden></div>
+*   -|>
+*   -|>   <div id="toasts" hidden></div>
+*   -|>
+*   -|> </body>
+*
+*
+*
+*  2+|> // Default Main Template
+*   -|>
+*   -|> <main class="flex-layout vertical">
+*   -|>
+*   -|>   <div class="app-layout">...</div>
+*   -|>   
+*   -|>   <nav class="nav-bar">...</nav>
+*   -|>   
+*   -|>   <div class="backdrop" hidden></div>
+*   -|>   
+*   -|>   <div class="menus" hidden></div>
+*   -|>   
+*   -|>   <div class="dialogs" hidden></div>
+*   -|>   
+*   -|>   <div class="toasts" hidden></div>
+*   -|>
+*   -|> </main>
+*
+*
+*
+*  3+|> // Default Aside Template (same as main layout without the <nav> element)
+*   -|>
+*   -|> <aside class="flex-layout vertical">
+*   -|>
+*   -|>   <div class="app-layout">...</div>
+*   -|>   
+*   -|>   <div class="backdrop" hidden></div>
+*   -|>   
+*   -|>   <div class="menus" hidden></div>
+*   -|>   
+*   -|>   <div class="dialogs" hidden></div>
+*   -|>   
+*   -|>   <div class="toasts" hidden></div>
+*   -|> 
+*   -|> </aside>
+*
+*
+*
+*  4+|> // Default App-Layout Template
+*   -|>
+*   -|> <div class="app-layout">
+*   -|>  
+*   -|> </div>
+*/
+
+/* @import 'color.css'; */
+/* @import 'typography.css'; */
+/* @import '../animations/fade-in-animation.css'; */
+/* @import '../animations/slide-from-down-animation.css'; */
+
+
+/* ==== THEME STYLES ==== */
+
+
+/**** Rules for `light` and `dark` themes ****/
+
+/* Default Theme */
+.theme {}
+
+
+/* Light Theme */
+.theme.light {
+  --opacity-backdrop: 0.3;
+  --opacity-menu-item: 0.075;
+  --em-background: rgba(0,0,0,0.15);
+}
+
+/* Dark Theme */
+.theme.dark {
+  --opacity-backdrop: 0.7;
+  --opacity-menu-item: 0.15;
+  --em-background: rgba(255,255,255,0.1);
+}
+
+
+
+
+
+/* ==== FLEX LAYOUT ==== */
+
+/* Flex-Layout */
+.flex-layout {
+  display: flex;
+}
+
+
+/* Vertical Flex-Layout */
+.vertical.flex-layout {
+  flex-direction: column;
+}
+
+/* Horizontal Flex-Layout */
+.horizontal.flex-layout {
+  flex-direction: row;
+}
+
+/* Centered Flex-Layout */
+.centered.flex-layout {
+  justify-content: center;
+  align-items: center;
+}
+
+/* JustCenter Flex-Layout */
+.center.flex-layout {
+  align-items: center;
+}
+
+/* ==== END of FLEX LAYOUT ==== */
+
+
+
+/* Full Bleed */
+[fullbleed] {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Fit nicely into its container */
+[fit] {
+  position: absolute;
+  inset: 0; /* top, right, bottom & left */
+  width: 100%;
+  height: 100%;
+}
+
+/* Hidden */
+[hidden] {
+  display: none !important;
+}
+
+/* Disabled */
+[disabled] {
+  --nav-link-opacity: var(--opacity-icon-disabled);
+
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* Flex SPAN */
+span[flex] {
+  display: flex;
+  flex: 1;
+}
+
+/* Naked Buttons */
+button[naked] {
+  border: 0;
+  background: none;
+  list-style: none;
+}
+
+a[naked] {
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  outline: none;
+}
+
+/* Naked Lists */
+ul[naked], li[naked] {
+  padding: 0;
+  list-style: none;
+}
+
+
+/* Top Position  */
+.top { top: 0; }
+/* Right Position  */
+.right { right: 0; }
+/* Bottom Position  */
+.bottom { bottom: 0; }
+/* Left Position  */
+.left { left: 0; }
+
+
+
+/* 
+ * --> Narrow - Device <--
+ * Phone: ? (Responsive)
+ * Dimension: ~460px (width)
+ *
+ * ***************************************
+ * when the viewport is lesser than 460px,
+ * layout changes to a narrow-layout.
+ * ***************************************
+ */
+
+/* The Boss - html */
+/* TODO: use :root instead ? */
+html {
+  width: 100%;
+  height: 100%;
+}
+
+/* Body */
+body {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+  color: var(--on-background-color);
+  fill: var(--on-background-color);
+   
+  /* Support for all Webkit browsers. */
+  -webkit-font-smoothing: antialiased;
+  -webkit-transition: background-color 200ms ease;
+
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  transition: background-color 200ms ease;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  -moz-transition: background-color 200ms ease;
+  
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+
+  overflow: hidden;
+}
+
+
+/* MAIN part of the BODY */
+body > main {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* ASIDE part of the BODY */
+body > aside {
+  display: none;
+  position: relative;
+  width: var(--aside-width, 50%);
+  height: 100%;
+}
+
+
+
+/* --- [ App Layout ] --- */
+
+.app-layout {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  overflow: scroll;
+  scroll-behavior: smooth;
+}
+
+
+/* Header of App Layout */
+.app-layout > header {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+
+
+
+/* App Bars in Header */
+header > .app-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: var(--app-bar-size, 54px);
+  box-sizing: border-box;
+  padding: 0 var(--app-bar-padding, 16px);
+  background: var(--app-bar-color-background, inherit);
+  color: var(--app-bar-color-on-background, inherit);
+}
+
+
+/* Title Wrappers in App Bar */
+.app-bar .title-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0 8px;
+    height: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Links as Button in App Bar */
+.app-bar a[role="button"] {
+  margin: 0;
+  color: var(--on-background-color);
+  opacity: var(--opacity-md-icon-inactive);
+}
+
+.app-bar a[role="button"]:hover {
+  color: var(--primary-color);
+  opacity: var(--opacity-md-active);
+  text-decoration: none;
+}
+
+
+/* ---[ End of App Layout ]--- */
+
+
+
+
+
+
+
+/* ---[ Nav Bar ]--- */
+
+/* Nav Bar Styles */
+.nav-bar {
+  position: relative;
+  box-sizing: border-box;
+  background: var(--background-color);
+}
+
+/* Vertical Nav Bar */
+.nav-bar.vertical {
+  width: var(--nav-bar-size, 54px);
+  height: 100%;
+  padding: var(--nav-bar-padding-vertical, 0);
+}
+
+
+
+/* All horizontal dividers in vertical nav bar */
+.nav-bar.vertical span.divider.horizontal {
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+}
+
+/* Horizontal Nav Bar & Footer of Main */
+.nav-bar.horizontal, main > footer {
+  height: var(--nav-bar-size, 54px);
+}
+
+/* Horizontal Nav Bar */
+.nav-bar.horizontal {
+  padding: 0 var(--nav-bar-padding-horizontal, 48px);
+  width: 100%;
+}
+
+/* Nav Links in a Horizontal Nav Bar */
+.nav-bar.horizontal .nav-link {
+  width: var(--nav-bar-size, 54px);
+}
+
+
+/* App Logo | SPAN */
+span.app-logo {
+  display: block;
+  position: relative;
+  width: var(--app-logo-size, 32px);
+  height: var(--app-logo-size, 32px);
+  max-width: var(--app-logo-size-max, 512px);
+  max-height: var(--app-logo-size-max, 512px);
+  background-color: var(--app-logo-color, var(--on-background-color));
+  opacity: var(--app-logo-opacity, inherit);
+
+  -webkit-mask: url('../../assets/logos/logo-icon.svg') no-repeat 50% 50%;
+  -moz-mask: url('../../assets/logos/logo-icon.svg') no-repeat 50% 50%;
+  mask: url('../../assets/logos/logo-icon.svg') no-repeat 50% 50%;
+
+  -webkit-mask-size: cover;
+  -moz-mask-size: cover;
+  mask-size: cover;
+}
+
+
+/* ---[ Toast Styles ]--- */
+
+/* Toasts */
+#toasts {
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  pointer-events: none;
+  padding: 3rem 1rem;
+  box-sizing: border-box;
+
+  --fade-in-animation-duration: 700ms;
+}
+
+
+/* Toast */
+.toast {
+  background-color: var(--on-background-color);
+  color: var(--background-color);
+  padding: 0.5rem 1.25rem;
+  border-radius: 32px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  margin: 0 auto;
+  opacity: var(--opacity-md-active);
+}
+
+
+/* Toast Emojis */
+.toast-emoji {
+  width: 24px;
+  height: 24px;
+  display: block;
+  background-color: transparent;
+  background-image: var(--toast-emoji-image);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  margin-right: 0.25rem;
+}
+
+/* Success - Toast Emoji */
+.toast-emoji.success {
+  --toast-emoji-image: url('../images/gifs/emoji_thumbs_up.gif');
+}
+
+
+/* ==== End of Toasts Styles === */
+
+
+/* --- Dividers --- 
+ *
+ * NOTE: To change the diviers position, 
+ * you can apply either `.top`, `.right`, `.bottom` and/or `.left` classes
+ */
+
+/* Divider | SPAN */
+span.divider {
+  display: block;
+  position: absolute;
+  background: var(--divider-color, var(--outline-color));
+  opacity: var(--divider-opacity, var(--opacity-icon-disabled, 0.5));
+  pointer-events: none;
+}
+
+/* Horizontal Dividers */
+span.divider.horizontal {
+  width: 100%;
+  left: 0;
+  height: var(--divider-size, 1px);
+}
+
+/* Vertical Dividers */
+span.divider.vertical {
+  width: var(--divider-size, 1px);
+  top: 0;
+  height: 100%;
+}
+
+/* Icon-Button */
+button.icon-button, a[role="icon-button"] {
+  display: block;
+  position: relative;
+  width: var(--icon-button-size, 40px);
+  height: var(--icon-button-size, 40px);
+  background: none;
+  border: 0;
+  box-sizing: border-box;
+  padding: var(--icon-button-padding, 8px);
+  color: var(--icon-button-color, var(--on-background-color));
+  fill: var(--icon-button-color, var(--on-background-color));
+  opacity: var(--icon-button-opacity, var(--opacity-md-icon-inactive));
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Hover over Icon-Button */
+button.icon-button:not(:disabled):hover,
+a[role="icon-button"]:not(:disabled):hover {
+  opacity: var(--icon-button-hover-opacity, var(--opacity-md-active));
+}
+
+/* Whenever Icon-Buttons gain focus */
+button.icon-button:focus-visible,
+a[role="icon-button"]:focus-visible {
+  outline: none;
+  opacity: var(--icon-button-hover-opacity, var(--opacity-md-active));
+  color: var(--icon-button-color-focus, var(--tertiary-color));
+  fill: var(--icon-button-color-focus, var(--tertiary-color));
+}
+
+/* Icon in Icon-Button */
+button.icon-button .icon, a[role="icon-button"] .icon {
+  width: 100%;
+  height: 100%;
+
+  /* for `.material-icons` */
+  /* Calulate the font-size relative to the size of icon-button */
+  font-size: calc(var(--icon-button-size, 40px) - (var(--icon-button-padding, 8px) * 2));
+  color: inherit !important;
+  fill: inherit !important;
+  pointer-events: none;
+}
+
+/* active links of Icon Buttons  */
+a[active] .icon-button, a[role="icon-button"][active] {
+  --icon-button-opacity: 1;
+  --icon-button-color: var(--primary-color);
+}
+
+/* ------ */
+
+
+/* Content */
+div.content {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  overflow: scroll;
+  scroll-behavior: smooth;
+}
+
+/* Container of Content */
+div.content > .container {
+  width: 100%;
+  height: calc(100vh - var(--app-bar-size, 54px));
+  box-sizing: border-box;
+  padding: 8px 16px;
+}
+
+
+/* ===<<< Form ..+.. Input Default Styles >>>=== */
+
+/* Form Styles */
+form {
+  --icon-button-size: 30px;
+  --icon-button-padding: 4px;
+
+  width: 100%;
+  height: auto;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  max-width: var(--form-max-width, 450px);
+  margin: 24px auto;
+}
+
+
+/* All the children of form */
+form > * {
+  opacity: 0;
+  -webkit-animation: fadeIn 0.5s ease var(--form-animation-delay, 0.2s) forwards, slideFromDown 0.5s ease var(--form-animation-delay, 0.2s);
+  -moz-animation: fadeIn 0.5s ease var(--form-animation-delay, 0.2s) forwards, slideFromDown 0.5s ease var(--form-animation-delay, 0.2s);
+  animation: fadeIn 0.5s ease var(--form-animation-delay, 0.2s) forwards, slideFromDown 0.5s ease var(--form-animation-delay, 0.2s);
+}
+
+
+/* Let's gradually assign an animation delay to up to 10 children of `<form>` */
+/* TODO: Find a better way to do this :) */
+
+/* First child of form */
+form > *:nth-child(1) {
+  --form-animation-delay: 0.2s;
+}
+
+/* Second child of form */
+form > *:nth-child(2) {
+  --form-animation-delay: 0.3s; /* 0.2 + 0.1 */
+}
+
+
+/* Third child of form */
+form > *:nth-child(3) {
+  --form-animation-delay: 0.4s; /* 0.3 + */
+}
+
+/* Fourth child of form */
+form > *:nth-child(4) {
+  --form-animation-delay: 0.5s;
+}
+
+
+/* Fifth child of form */
+form > *:nth-child(5) {
+  --form-animation-delay: 0.6s;
+}
+
+
+/* First child of form */
+form > *:nth-child(6) {
+  --form-animation-delay: 0.7s;
+}
+
+/* Second child of form */
+form > *:nth-child(7) {
+  --form-animation-delay: 0.8s;
+}
+
+
+/* Third child of form */
+form > *:nth-child(8) {
+  --form-animation-delay: 0.9s;
+}
+
+/* Fourth child of form */
+form > *:nth-child(9) {
+  --form-animation-delay: 1s;
+}
+
+
+/* Fifth child of form */
+form > *:nth-child(10) {
+  --form-animation-delay: 1.1s;
+}
+
+/* all labels next to an input */
+label {
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  transform: translateY(0px);
+
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+
+/* Labels with [raised] attribute / property */
+label[raised] {
+  transform: translateY(-18px);
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 1.2px;
+}
+
+/* Input Wrapper */
+.input-wrapper {
+  position: relative;
+  margin: 12px 0 24px;
+  overflow: visible;
+
+  -webkit-transition: margin .2s ease;
+  -moz-transition: margin .2s ease;
+  transition: margin .2s ease;
+}
+
+/* If the Input Wrapper has an error */
+.input-wrapper[has-error] {
+  margin-bottom: var(--input-wrapper-error-margin, 48px);
+}
+
+/* Input Styles */
+input {
+  background: inherit;
+  color: inherit;
+  border: 0;
+  outline: 0;
+  flex: 1;
+  margin-bottom: 8px;
+}
+
+/* Password Input */
+input[type="password"] {}
+
+/* Submit Button / Inputs & Outlined Buttons */
+input[type="submit"], button[outlined], a[role="button"][outlined] {
+  border: 2px solid var(--outline-color);
+  border-radius: 8px;
+  padding: 8px 16px;
+  opacity: var(--opacity-text-inactive);
+  cursor: pointer;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  background: inherit;
+  color: inherit;
+
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+/* Hovered / Focused Submit Input & Outlined Buttons */
+input[type="submit"]:hover, input[type="submit"]:focus,
+button[outlined]:hover, a[role="button"][outlined]:focus {
+  opacity: 1;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* [contained] submit input  */
+input[type="submit"][contained] {
+  background: var(--primary-color);
+  color: var(--on-primary-color);
+  border: 0;
+}
+
+/* Contained Button */
+button[contained], a[role="button"][contained] {
+  background: var(--button-background-color, var(--primary-container-color));
+  color: var(--button-text-color, var(--on-primary-container-color));
+  padding: var(--button-padding, 6px 12px);
+  border-radius: 8px;
+  font-size: 18px; /* b4: 16px */
+  line-height: 32px;
+  width: var(--button-width, 100%);
+  height: var(--button-height, inherit);
+  border: 0;
+  outline: none;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  transform: scale(1);
+
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+
+/* Whenever a button that expands is hovered and/or gains focus */
+button[contained][expands]:hover, a[role="button"][contained][expands]:hover,
+button[contained][expands]:focus-visible, a[role="button"][contained][expands]:focus-visible {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+/* Whenever a button that shrinks is pressed */
+button[contained][shrinks]:active, a[role="button"][contained][shrinks]:active {
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  transform: scale(0.95);
+}
+
+
+
+/* Contained Button on hover */
+button[contained]:hover, a[role="button"][contained]:hover {
+  text-decoration: none;
+  background: var(--button-background-color-hover, var(--primary-color));
+  color: var(--button-text-color-hover, var(--on-primary-color));
+}
+
+/* Whenever a contained button gains focus */
+button[contained]:focus-visible, a[role="button"][contained]:focus-visible {
+  outline: none;
+  background: var(--button-color-focus, var(--tertiary-color));
+  color: var(--button-color-focus, var(--on-tertiary-color));
+}
+
+/* Iput Indicator */
+.input-indicator {
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+  /* margin: 8px 0; */
+}
+
+/* Error style of Input Indicator */
+.input-indicator.error {
+  --input-indicator-color: var(--error-color);
+}
+
+/* Bar of Input Indicator*/
+.input-indicator span[bar] {
+  width: inherit;
+  height: inherit;
+  background: var(--outline-color);
+  display: block;
+  opacity: var(--opacity-md-icon-inactive);
+}
+
+/* Value of Input Indicator */
+.input-indicator span[val] {
+  position: absolute;
+  top: 0;
+  margin: 0 auto;
+  height: inherit;
+  width: 0%;
+  background: var(--input-indicator-color, var(--primary-color));
+  opacity: 0;
+
+  -webkit-transition: width .2s ease, opacity .3s ease ;
+  -moz-transition: width .2s ease, opacity .3s ease;
+  transition: width .2s ease, opacity .3s ease;
+}
+
+
+/* Set the width of the indicator value (i.e. span[val]) to 100%:
+ * 1. whenever an input inside a form gains focus
+ * 2. if the input indicator has a `no-effect` attribute
+ * */
+input:focus ~ .input-indicator > span[val], .input-indicator[no-effect] span[val]  {
+  width: 100%;
+  opacity: 1;
+}
+
+
+/* Input Message */
+p.input-message {
+  margin: 8px 4px;
+  width: 100%;
+  height: 35px;
+  display: block;
+  position: absolute;
+  font-size: 12px;
+  bottom: 0;
+  box-sizing: border-box;
+  left: 0;
+  color: var(--error-color);
+  transform: translateY(150%);
+  line-height: 16px;
+  pointer-events: none;
+}
+
+/* ===>>> End of Form ..+.. Input Default Styles  <<<=== */
+
+
+/* === Dialog Styles === */
+
+/* Backdrop */
+#backdrop, .backdrop {
+  z-index: 100;
+  background: var(--backdrop-color, rgba(0, 0, 0, var(--opacity-backdrop, 0.7)));
+}
+
+
+/* Dialogs Container */
+#dialogContainer, .dialogs-container {
+  z-index: 101;
+  pointer-events: none;
+  box-sizing: border-box;
+  padding: var(--dialogs-container-padding, 24px);
+}
+
+
+/* Dialog */
+#dialog, .dialog {
+  position: relative;
+  user-select: none;
+  pointer-events: auto;
+  background: var(--dialog-color-background, var(--background-color));
+  color: var(--dialog-color-on-background, var(--on-background-color));
+  box-sizing: border-box;
+  padding: var(--dialog-padding, 8px 16px);
+  border-radius: var(--dialog-border-radius, 12px);
+  opacity: 0;
+  text-align: center;
+
+  --fade-in-animation-delay: var(--dialog-animation-delay, 200ms);
+}
+
+/* Dialog Title */
+.dialog-title {
+  margin: 16px 0;
+}
+
+/* Dialog Message */
+.dialog-message, .dialog-msg {
+  opacity: var(--opacity-text-inactive);
+}
+
+/* Dialog Buttons */
+.dialog-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Each Dialog Button */
+a.dialog-button, a[role="button"].dialog-button {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 8px 0;
+  background: var(--dialog-button-background-color, inherit);
+  color: var(--dialog-button-text-color, inherit);
+  font-size: 20px;
+  line-height: 50px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+}
+
+/* Dialog Button with default attribute */
+a.dialog-button[default], a[role="button"][default].dialog-button {
+  color: var(--dialog-button-color-default, var(--primary-color));
+}
+
+/* Hover on Dialog Button */
+a.dialog-button:hover, a[role="button"].dialog-button:hover {
+  background: var(--dialog-button-color-hover, var(--surface-variant-color));
+}
+
+a.dialog-button:focus, a[role="button"].dialog-button:focus {
+  outline: 3px solid;
+  outline-color: var(--tertiary-color);
+}
+
+/* === End of Dialog Styles === */
+
+
+/* === Menu Styles === */
+
+/* Menus Container */
+#menusContainer, .menus-container {
+  z-index: 102;
+  pointer-events: none;
+  justify-content: end;
+}
+
+/* Menu Items of Menus-Container */
+#menusContainer > menu, .menus-container > menu {
+  list-style: none;
+  pointer-events: auto;
+  box-sizing: border-box;
+  padding: 24px 0;
+  margin: 16px;
+  /* margin-bottom: calc(24px + var(--nav-bar-size, 54px)); */
+  border-radius: 24px;
+  background: var(--menu-background-color, var(--background-color));
+  color: var(--menu-text-color, var(--on-background-color));
+}
+
+/* Close-Menu Items */
+menu > li[role="close-menu"] {
+  margin-top: -12px;
+  padding-left: 12px;
+  display: flex;
+  justify-content: start;
+  margin-bottom: 12px;
+}
+
+/* Button of Close-Menu Items*/
+li[role="close-menu"] > button {
+  --icon-button-size: 32px;
+  --icon-button-opacity: 0.2;
+  background: var(--on-background-color);
+  color: var(--background-color);
+  border-radius: 40px;
+}
+
+/* Icon in Button of Close-Menu Items */
+li[role="close-menu"] > button span.icon {
+  transform: scale(1.2) rotate(-90deg) translateX(5px);
+}
+
+/* Menu-Items */
+menu > li.menu-item {
+  background: inherit;
+  color: var(--on-background-color);
+  opacity: var(--opacity-text-inactive);
+}
+
+menu > li.menu-item:hover {
+  background: rgba(0,0,0,var(--opacity-menu-item));
+  opacity: var(--opacity-text-active);
+}
+
+/* Button in Menu-Item */
+.menu-item button {
+  --material-icon-size: 24px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  border: 0;
+  background: inherit;
+  padding: 12px 24px;
+  font-size: 18px;
+  line-height: 30px;
+  color: inherit;
+  cursor: default;
+  user-select: none;
+  letter-spacing: 0.96px;
+}
+
+.menu-item button .icon {
+  margin-right: 12px;
+}
+
+.menu-item button :not(.icon) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* === End of Menu Styles === */
+
+
+/* ---[ Toast ]--- */
+
+/* Toast */
+#toast {}
+
+/* ---[ End of Toast ]--- */
+
+
+
+/* Default Links - A */
+a {
+  color: var(--link-color, var(--primary-color));
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Hover over default links - A */
+a:hover {
+  text-decoration: underline;
+}
+
+
+/* Icon Wrapper  & Nav Links  */
+a.icon-wrapper, a.nav-link {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--app-bar-size, 54px);
+  box-sizing: border-box;
+}
+
+/* Nav Links */
+a.nav-link {
+  width: var(--nav-link-width, 100%);
+  height: var(--nav-link-height, 60px);
+  margin: var(--nav-link-margin, 8px 0);
+  opacity: var(--nav-link-opacity, var(--opacity-icon-inactive));
+  user-select: none;
+
+  color: var(--nav-icon-color, var(--on-background-color));
+  fill: var(--nav-icon-color, var(--on-background-color));
+}
+
+/* App Logo in an Nav Link */
+a.nav-link span.app-logo {
+  opacity: inherit;
+}
+
+
+/* Initials in Nav Link */
+a.nav-link span.initials {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+  text-transform: uppercase;
+  border: 2px var(--on-background-color);
+  color: var(--on-background-color);
+  border-style: dotted dashed;
+  flex-direction: column;
+  font-weight: bold;
+  justify-content: center;
+  letter-spacing: 1px;
+  align-items: center;
+  border-radius: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+/* Active Initials */
+a.nav-link[active] span.initials {
+  border: 0;
+  background: var(--initials-background-color, var(--surface-variant-color));
+  color: var(--initials-text-color, var(--on-surface-variant-color));
+}
+
+/* Active Nav Links */
+a.nav-link[active] {
+  opacity: 1;
+  color: var(--nav-icon-color-active, var(--primary-color));
+  pointer-events: none; 
+}
+
+/* App Logo in an active Nav Link */
+a.nav-link[active] span.app-logo {
+  background-color: var(--app-logo-color-active, var(--primary-color));
+  opacity: inherit;
+}
+
+/* Material Icons in Nav Link */
+a.nav-link .material-icons {
+  color: inherit !important;
+  fill: inherit !important;
+}
+
+a.nav-link:hover, a.nav-link:focus {
+ --app-logo-opacity: 1;
+ opacity: var(--nav-icon-opacity, 1);
+ text-decoration: none;
+}
+
+/* Nav Icons */
+span.nav-icon {
+ font-size: var(--nav-icon-size, 24px);
+ color: inherit;
+ fill: inherit;
+}
+
+
+/* Emphasis */
+em {
+  background: var(--em-background, var(--surface-variant-color));
+  color: var(--on-background-color);
+  padding: 2px 4px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+
+/* 
+ * --> Wide - Layout <--
+ * Phone: ? (Responsive)
+ * Dimension: 460px+ (width)
+ *
+ * ***************************************
+ * when the viewport is bigger than 460px,
+ * layout changes to wide-layout.
+ * ***************************************
+ */
+@media (min-width: 460px) {
+  
+  /* Vertical Nav Bar */
+  .nav-bar.vertical {
+    width: var(--nav-bar-size, 78px); /* b4: 68px */
+  }
+
+
+  /* Responsive Vertical Nav Bar */
+  .nav-bar.vertical[responsive] {
+    display: flex;
+  }
+  
+  /* Horizontal Nav Bar & Footer of Main */
+  .nav-bar.horizontal, main > footer {
+    height: var(--nav-bar-size, 68px);
+  }
+
+  /* Responsive Horizontal Nav Bar */
+  /* HACK: allows me to display the nav bar in it's [demo page](component/demo/nav-bar.php) */
+  .nav-bar.horizontal[responsive] {
+    display: none !important;
+  }
+
+  /* Nav Links in a Horizontal Nav Bar */
+  .nav-bar.horizontal .nav-link {
+    width: var(--nav-bar-size, 68px);
+  }
+
+  /* all App Bars in a Header */
+  header > .app-bar {
+    height: var(--app-bar-size, 60px);
+  }
+
+  /* ASIDE part of BODY */
+  body > aside {
+    display: flex;
+  }
+
+  /* Icon-Button */
+  button.icon-button, a[role="icon-button"] {
+    width: var(--icon-button-size, 48px);
+    height: var(--icon-button-size, 48px); 
+  }
+
+ 
+
+  /* Icon in Icon-Button */
+  button.icon-button .icon, a[role="icon-button"] .icon {
+    font-size: calc(var(--icon-button-size, 48px) - (var(--icon-button-padding, 8px) * 2)); 
+  }
+
+  /* Icon Wrapper Links */
+  a.icon-wrapper {
+    height: var(--app-bar-size, 60px);
+  }
+
+  input[type="submit"], button[outlined], a[role="button"][outlined] {
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  /* Container of Content */
+  div.content > .container {
+    padding: 24px;
+  }
+
+  /* Contained Button */
+  button[contained] {
+    font-size: 20px;
+    padding: 8px 16px; /* b4: 12px 16px */
+  }
+
+  /* Menu of Menus-Container */
+  #menusContainer > menu, .menus-container > menu {
+    margin: 24px;
+  }
+  
+  /* Button in Menu-Item */
+  .menu-item button {
+    font-size: 20px;
+  }
+
+  .menu-item button .icon {
+    margin-right: 16px;
+  }
+
+
+
+}
+
+
+
+/* 
+ * --> Tablet - Device <--
+ * Phone: ? (Responsive)
+ * Width: 768px <-to-> 1024px
+ */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  /* Dialog */
+  .dialog {
+    text-align: left;
+  }
+
+  /* Divider of Dialog */
+  .dialog span.divider {
+    display: none;
+  }
+
+  /* Dialog Title */
+  .dialog-title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  /* Dialog Message */
+  .dialog-message, .dialog-msg {
+    font-size: 20px;
+    line-height: 26px;
+    margin: 12px 0;
+  }
+
+  /* Dialog Buttons */
+  .dialog-buttons {
+    flex-direction: row;
+  }
+
+}
+
+
+/* 
+ * --> Laptop - Device <--
+ * Phone: ? (Responsive)
+ * Width: 1024px <-to-> 2560px
+ */
+@media (min-width: 1024px) and (max-width: 2560px) {
+
+  /* ASIDE part of BODY */
+  body > aside {
+    width: 60%;
+  }
+
+  /* Dialog Container */
+  #dialogsContainer, .dialogs-container {
+    padding: var(--dialogs-container-padding, 24px 48px);
+  }
+
+  /* Dialog */
+  .dialog {
+    padding: 12px 24px;
+    text-align: left;
+  }
+
+  /* Divider of Dialog */
+  .dialog span.divider {
+    display: none;
+  }
+
+  /* Dialog Title */
+  .dialog-title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  /* Dialog Message */
+  .dialog-message, .dialog-msg {
+    font-size: 20px;
+    line-height: 26px;
+    margin: 12px 0;
+  }
+
+  /* Dialog Buttons */
+  .dialog-buttons {
+    flex-direction: row;
+  }
+
+  /* === Toasts */
+  #toasts {
+    padding: 5rem;
+  }
+
+  /* Toast Emojies */
+  .toast-emoji {
+    width: var(--toast-emoji-size, 42px);
+    height: var(--toast-emoji-size, 42px);
+  }
+
+}
+
+
+/* ==== END of THEME STYLES ==== */
