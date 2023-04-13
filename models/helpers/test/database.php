@@ -55,7 +55,7 @@ require '../Database.php';
 // Create a shortcut of the `Maxaboom\Models\Helpers` namespace as `mmh` (i.e. m = maxaboom & m = models & h = helpers)
 use Maxaboom\Models\Helpers as mmh;
 // use some PHP core classes
-// use pdo;
+use pdo;
 // use pdoexception;
 
 
