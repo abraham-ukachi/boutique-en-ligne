@@ -201,13 +201,12 @@ class User extends Database
                 $_SESSION['firstname'] = $results['firstname'];
                 $_SESSION['lastname'] = $results['lastname'];
                 $_SESSION['user_role'] = $results['user_role'];
-                echo json_encode(['response' => 'ok', 'reussite' => 'connexion réussie']);
-                die();
+                return true;
             }else{
-               echo json_encode(['response' => 'bad password', "password" => "mot de passe incorrect"]);
+                return false;
             }
         } else {
-            echo json_encode(['response' => 'not ok', 'echec' => 'connexion refusée']);
+            return false;
         }
     }
 
