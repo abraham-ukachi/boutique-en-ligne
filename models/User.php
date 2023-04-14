@@ -85,7 +85,7 @@ class User extends Database
                 'firstname' => htmlspecialchars($firstname),
                 'lastname' => htmlspecialchars($lastname),
                 'mail' => htmlspecialchars($mail),
-                'password' => password_hash($password, PASSWORD_BCRYPT),
+                'password' => password_hash($password, PASSWORD_DEFAULT),
                 'created_at' => $created_at,
                 'user_role' => htmlspecialchars($user_role),
             ]);
