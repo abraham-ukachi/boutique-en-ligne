@@ -2,11 +2,11 @@
 namespace Maxaboom\Controllers;
 use Maxaboom\Models\User;
 
-class LoginController{
+class RegisterController{
 
-    public function connectUser($mail, $password){
+    public function registerUser($firstname, $lastname, $mail, $password, $passwordConfirm){
         $user = New User();
-        $success = $user->connection($mail, $password);
+        $success = $user->register($firstname, $lastname, $mail, $password, $passwordConfirm);
 
         return ['success' => $success];
 

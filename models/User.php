@@ -91,13 +91,12 @@ class User extends Database
             ]);
 
             if ($sql_exe) {
-                header("Refresh:2; url=connexion.php");
-                echo json_encode(['response' => 'ok', 'reussite' => 'Inscription réussie.']);
+               return true;
             } else {
-                echo json_encode(['response' => 'not ok', 'echoue' => 'L\'inscription a échoué.']);
+                return false;
             }
         } else {
-            echo json_encode(['response' => 'not ok', 'echoue' => 'Vous vous êtes déjà inscrit avec ce mail']);
+            return false;
         }
     }
 
