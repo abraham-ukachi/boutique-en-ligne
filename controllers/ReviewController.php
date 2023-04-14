@@ -9,14 +9,14 @@ class ReviewController{
 
     public object $reviewModel;
 
-    public function __constructor($productId) {
+    public function __construct($productId) {
         $this->productId = $productId;
 
         $this->reviewModel = new Review();
 
     }
 
-    public function showPage(){
+    public function showPage($reviews){
         require __DIR__ . '/../views/review-page.php';
     }
 

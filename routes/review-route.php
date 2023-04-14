@@ -3,9 +3,12 @@
 namespace Maxaboom\Routes;
 use Maxaboom\Controllers\ReviewController;
 
+use Maxaboom\Models\Review;
 use Maxaboom\Models\User;
 
 $router->map( 'GET', '/review/test', function() {
+    $review = new Review();
+    $review->getReviewsByProductId(1);
     require __DIR__ . '/../models/test/review.php';
 });
 
@@ -21,6 +24,8 @@ $router->map( 'GET', '/review/[i:productId]', function($productId) {
 
     $reviews = $reviewController->getAllReviews();
 
-    $reviewController->showPage();
+    //echo "reviews = " . json_encode($reviews);
+
+    $reviewController->showPage($reviews);
 
 });

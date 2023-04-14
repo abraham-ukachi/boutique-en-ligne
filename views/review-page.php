@@ -85,7 +85,23 @@
 <!-- Main part -->
 <main class='flex-layout vertical'>
     <h1>    Hello from review page !</h1>
-    <p> <?= print_r($reviews) ?></p>
+
+
+
+    <ul style="overflow:scroll">
+
+    <?php foreach ($reviews as $review): ?>
+
+        <li>
+        <?php foreach ($review as $key => $value): ?>
+
+         <p><?= $key ?>&nbsp; <strong><?= $value ?></strong></p>
+
+        <?php endforeach; ?>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+
 </main>
 
 <!-- Aside part -->
