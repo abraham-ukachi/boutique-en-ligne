@@ -83,6 +83,7 @@ include __DIR__ . '/routes/home-route.php'; // <- home route
 include __DIR__ . '/routes/shop-route.php'; // <- shop route
 include __DIR__ . '/routes/api-route.php'; // <- api route
 include __DIR__ . '/routes/product-route.php'; // <- product route
+include __DIR__ . '/routes/login-route.php'; //<- login route
 
 
 
