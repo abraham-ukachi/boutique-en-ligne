@@ -21,12 +21,23 @@ class Review extends Database
      * @return array $result
      */
     public function getReviewsByProductId($productId){
-        $sql = "SELECT * FROM comments WHERE product_id = $productId";
+        $sql = "SELECT * 
+                FROM comments  
+                INNER JOIN users 
+                ON  users.id = comments.user_id
+                INNER JOIN products
+                ON products.id = comments.product_id
+                WHERE product_id = $productId";
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute();
         $result = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
         foreach ($result as $comment){
+            print_r($comment['firstname']);
+            print_r($comment['lastname']);
+            print_r($comment['name']);
             print_r($comment['comment']);
+            print_r($comment['ratings']);
+            print_r($comment['created_at']);
         }
     }
 
