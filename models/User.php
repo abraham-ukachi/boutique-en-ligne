@@ -91,13 +91,12 @@ class User extends Database
             ]);
 
             if ($sql_exe) {
-                header("Refresh:2; url=connexion.php");
-                echo json_encode(['response' => 'ok', 'reussite' => 'Inscription réussie.']);
+               return true;
             } else {
-                echo json_encode(['response' => 'not ok', 'echoue' => 'L\'inscription a échoué.']);
+                return false;
             }
         } else {
-            echo json_encode(['response' => 'not ok', 'echoue' => 'Vous vous êtes déjà inscrit avec ce mail']);
+            return false;
         }
     }
 
@@ -201,13 +200,12 @@ class User extends Database
                 $_SESSION['firstname'] = $results['firstname'];
                 $_SESSION['lastname'] = $results['lastname'];
                 $_SESSION['user_role'] = $results['user_role'];
-                echo json_encode(['response' => 'ok', 'reussite' => 'connexion réussie']);
-                die();
+                return true;
             }else{
-               echo json_encode(['response' => 'bad password', "password" => "mot de passe incorrect"]);
+                return false;
             }
         } else {
-            echo json_encode(['response' => 'not ok', 'echec' => 'connexion refusée']);
+            return false;
         }
     }
 
