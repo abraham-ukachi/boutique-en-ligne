@@ -74,32 +74,32 @@
   
   <!-- Some more script for ya! #LOL -->
   <script src="src/app.js" defer></script>
-  <script src="src/scripts/register.js" defer></script>
+  <script src="src/scripts/admin-product.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
 <body class="theme dark" fullbleed>
 
   <!-- Main part -->
-<form  id='registerProductForm' action='' method='post'>
+<form  id='registerProductForm' action='admin/product/create' method='post'>
     <div class="input-form-container">
         <div class="form-control">
             <label for="productname">Nom du produit</label>
-            <input id="product-name" class="productinput" name="productname" type="text" value="">
+            <input id="product-name" class="productinput" name="productname" type="text" value="" required>
         </div>
         <div class="form-control">
             <label for="productdescription">Description du produit</label>
-            <input id="product-description" class="productdescription" name="productdescription" type="text" value="">
+            <input id="product-description" class="productdescription" name="productdescription" type="text" value="" required>
         </div>
 
         <div class="form-control">
             <label for="price">Prix du produit</label>
-            <input id="product-price" class="productprice" name="productprice" type="integer" value="">
+            <input id="product-price" class="productprice" name="productprice" type="integer" value="" required>
         </div>
 
         <div class="form-control">
-            <label for='categorie'></label>
-                 <select name='categorie' id='categorie'>
+            <label for='category'></label>
+                 <select name='category' id='category'>
                      <option value=''>Choisir une catégorie :</option>
                      <option value='1'>Pianos</option>
                      <option value='2'>Guitares</option>
@@ -111,8 +111,8 @@
         </div>
 
         <div class="form-control">
-            <label for='subcategorie'></label>
-                 <select name='subcategorie' id='subcategorie'>
+            <label for='subcategories'></label>
+                 <select name='subcategories' id='subcategories'>
                      <option value=''>Choisir une sous-catégorie :</option>
                      <option value='1'>Pianos droits</option>
                      <option value='2'>Piano à queue</option>
@@ -141,10 +141,15 @@
 
         <div class="form-control">
             <label for="stock">Produits en stock</label>
-            <input id="product-stock" class="productstock" name="productstock" type="integer" value="">
+            <input id="product-stock" class="productstock" name="productstock" type="integer" value="" required>
         </div>
 
-        <button type="submit" class="register_form_button" id="envoie" name="envoie">S'enregistrer</button>
+        <div class="form-control">
+                <label for="file">Importez votre image</label>
+                <input type="file" name="image" >
+        </div>
+
+        <button type="submit" class="register_form_button" id="envoie" name="envoie">Enregistrer le produit</button>
     </div>
     </form>
    

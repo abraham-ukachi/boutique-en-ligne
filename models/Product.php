@@ -70,6 +70,10 @@ class Product extends Database
         return $result;
     }
 
+    public function getSubcategoriesByCategory(int $category){
+        
+    }
+
 
 
     public function registerProduct($name,$description, $price, $categories_id, $sub_categories_id, $stock){
