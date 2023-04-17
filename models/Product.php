@@ -72,6 +72,8 @@ class Product extends Database
 
 
 
+
+
     public function registerProduct($name,$description, $price, $categories_id, $sub_categories_id, $stock){
         $created_at = date('Y-m-d H:i:s');
         $sql = "INSERT INTO products (name, description, price, categories_id,
