@@ -53,14 +53,15 @@ use PDO;
 
 // declare the class
 class ShopController extends Database {
-
   // declare some constants...
 
   const DEFAULT_THEME = 'light';
 
   // declare some properties...
     public object $ProductModel;
-    public int $categoryId;
+    public ?int $category;
+    public ?string $categoryName;
+    public ?int $subCategory;
 
 
 
@@ -69,9 +70,11 @@ class ShopController extends Database {
    * Constructor of the class
    * This method is executed automatically whenever this class is instantiated
    */
-   public function __construct($categoryId) {
+   public function __construct(?int $category = null, ?int $subCategory = null, ?string $categoryName = null) {
+       $this->category = $category;
+       $this->subCategory = $subCategory;
+       $this->categoryName = $categoryName;
        $this->ProductModel = new Product();
-       $this->categoryId = $categoryId;
   }
 
 
@@ -89,7 +92,8 @@ class ShopController extends Database {
    */
   public function showPage($theme = self::DEFAULT_THEME): void {
     // TODO: do something awesome here before showing the splash screen ;)
-      $products = $this->getAllProducts();
+      $products = !!$this->category ? $this->getProductByCategoryId() : $this->getAllProducts();
+      $categories = $this->getAllCategories();
 
       // show the splash screen
     require_once __DIR__ . '/../views/shop-page.php';
@@ -100,10 +104,16 @@ class ShopController extends Database {
   }
 
   public function getAllCategories(){
-      return $this->ProductModel->getProductsByCategoryId($categoryId);
+      return $this->ProductModel->getAllCategories();
   }
-  
-  
+
+  public function getProductByCategory(){
+      return $this->ProductModel->getProductsByCategoryId($this->category);
+  }
+
+  public function getProductByCategoryName(){
+      return $this->ProductModel->getProductsByCategory($this->categoryName);
+  }
   
   // PRIVATE SETTERS
   // PRIVATE GETTERS

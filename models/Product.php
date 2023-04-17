@@ -56,6 +56,14 @@ class Product extends Database
         return $allProducts;
     }
 
+    public function getAllCategories(){
+        $categories = $this->db->prepare("SELECT name FROM categories");
+        $categories->execute([]);
+        $result = $categories->fetchAll(PDO::FETCH_ASSOC);
+        $allCategories = $result;
+        return $allCategories;
+    }
+
     public function getProductsByCategoryId(int $categoryId){
         $productsCategories = $this->db->prepare("SELECT * FROM products WHERE categories_id=$categoryId");
         $productsCategories->execute([
@@ -64,13 +72,22 @@ class Product extends Database
         return $result;
     }
 
+    public function getProductsByCategory(string $categoryName){
+        $categoriesName = $this->db->prepare("SELECT * FROM categories");
+        $categoriesName->execute([]);
+        $result = $categoriesName->fetch(PDO::FETCH_ASSOC);
+        $name = $result['name'];
+        $filterByCategoryName = $this->db->prepare("SELECT * FROM products WHERE categories_id=$name");
+        $resultFilter = $filterByCategoryName->fetchAll(PDO::FETCH_ASSOC);
+        return $resultFilter;
+    }
+
     public function getProductsBySubCategoryId(int $categoryId, $subCategoryId){
         $subCategorie = $this->db->prepare("SELECT * FROM products WHERE sub_categories_id=$subCategoryId AND categories_id = $categoryId");
         $subCategorie->execute([]);
         $result = $subCategorie->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-
 
 
     public function registerProduct($name,$description, $price, $categories_id, $sub_categories_id, $stock){
