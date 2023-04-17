@@ -74,46 +74,95 @@
   
   <!-- Some more script for ya! #LOL -->
   <script src="src/app.js" defer></script>
-  <script src="src/scripts/login.js" defer></script>
+  <script src="src/scripts/register.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
 <body class="theme dark" fullbleed>
 
   <!-- Main part -->
-  <main class="flex-layout vertical">
-  <form  id='connectionForm' action='' method='get'>
+<form  id='registerProductForm' action='' method='post'>
     <div class="input-form-container">
         <div class="form-control">
-            <label for="mail">mail</label>
-            <input id="mail" class="connect" name="mail" type="email" value="">
-            <small>Erreur</small>
+            <label for="productname">Nom du produit</label>
+            <input id="product-name" class="productinput" name="productname" type="text" value="">
+        </div>
+        <div class="form-control">
+            <label for="productdescription">Description du produit</label>
+            <input id="product-description" class="productdescription" name="productdescription" type="text" value="">
         </div>
 
         <div class="form-control">
-            <label for="password">Mot de passe</label>
-            <input id="password" class="connect" name="password" type="password" value="">
-            <small>Erreur</small>
+            <label for="price">Prix du produit</label>
+            <input id="product-price" class="productprice" name="productprice" type="integer" value="">
         </div>
-        <button type="submit" class="connection_form_button" id="envoie" name="envoie">Se connecter</button>
+
+        <div class="form-control">
+            <label for='categorie'></label>
+                 <select name='categorie' id='categorie'>
+                     <option value=''>Choisir une catégorie :</option>
+                     <option value='1'>Pianos</option>
+                     <option value='2'>Guitares</option>
+                     <option value='3'>Percussions</option>
+                     <option value='4'>Lutherie</option>
+                     <option value='5'>DJ</option>
+                     <option value='6'>Vents</option>
+                 </select>        
+        </div>
+
+        <div class="form-control">
+            <label for='subcategorie'></label>
+                 <select name='subcategorie' id='subcategorie'>
+                     <option value=''>Choisir une sous-catégorie :</option>
+                     <option value='1'>Pianos droits</option>
+                     <option value='2'>Piano à queue</option>
+                     <option value='3'>Pianos numériques</option>
+                     <option value='4'>Synthétiseurs</option>
+                     <option value='5'>Guitare</option>
+                     <option value='6'>Basse</option>
+                     <option value='7'>Guitare electrique</option>
+                     <option value='8'>Ampli guitare</option>
+                     <option value='9'>Batterie</option>
+                     <option value='10'>Cymbale</option>
+                     <option value='11'>Tambours et autres</option>
+                     <option value='12'>Violon</option>
+                     <option value='13'>Contrebasse</option>
+                     <option value='14'>Accessoire de violon</option>
+                     <option value='15'>Platines</option>
+                     <option value='16'>Boîte à rythme</option>
+                     <option value='17'>Accessoire DJ</option>
+                     <option value='18'>Saxophone</option>
+                     <option value='19'>Flûte</option>
+                     <option value='20'>Trompette</option>
+                     <option value='21'>Gros cuivre</option>
+
+                 </select>        
+        </div>
+
+        <div class="form-control">
+            <label for="stock">Produits en stock</label>
+            <input id="product-stock" class="productstock" name="productstock" type="integer" value="">
+        </div>
+
+        <button type="submit" class="register_form_button" id="envoie" name="envoie">S'enregistrer</button>
     </div>
     </form>
-  </main>
+   
 
-  <!-- Aside part -->
+   <!-- Aside part -->
   <aside class="flex-layout vertical" hidden>...</aside>
 
-  <!-- Default Backdrop -->
-  <div id="backdrop" hidden></div>
+<!-- Default Backdrop -->
+<div id="backdrop" hidden></div>
 
-  <!-- Default Menus -->
-  <div id="menus" hidden></div>
+<!-- Default Menus -->
+<div id="menus" hidden></div>
 
-  <!-- Default Dialogs -->
-  <div id="dialogs" hidden></div>
+<!-- Default Dialogs -->
+<div id="dialogs" hidden></div>
 
-  <!-- Default Toasts -->
-  <div id="toasts" hidden></div>
+<!-- Default Toasts -->
+<div id="toasts" hidden></div>
 
 </body>
 
