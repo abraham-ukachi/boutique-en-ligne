@@ -70,9 +70,7 @@ class Product extends Database
         return $result;
     }
 
-    public function getSubcategoriesByCategory(int $category){
-        
-    }
+
 
 
 
