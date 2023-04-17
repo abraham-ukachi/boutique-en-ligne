@@ -49,6 +49,8 @@ namespace Maxaboom\Routes;
 
 // use maxaboom's `ShopController` class
 use Maxaboom\Controllers\ShopController;
+use Maxaboom\Models\Product;
+
 
 
 
@@ -68,12 +70,16 @@ use Maxaboom\Controllers\ShopController;
 $router->map('GET', '/shop', function(): void {
   // instantiate the `ShopController` class as `$shopController`
   $shopController = new ShopController();
+
   
   // TODO: do something awesome here before showing the shop page ;)
 
   // show the shop page
-  $shopController->showPage();
-  
+  $shopController->showPage($allProducts = $shopController->getAllProducts());
+
+
+  // TODO path /shop/category or /shop/category/sub-category that must be optional
+
 
 });
 

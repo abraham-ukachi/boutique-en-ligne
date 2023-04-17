@@ -52,19 +52,20 @@ class Product extends Database
         $allProducts->execute([
         ]);
         $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        $allProducts = $result;
+        return $allProducts;
     }
 
-    public function productsCategories(int $idCategorie){
-        $productsCategories = $this->db->prepare("SELECT * FROM products WHERE categories_id=$idCategorie");
+    public function getProductsByCategoryId(int $categoryId){
+        $productsCategories = $this->db->prepare("SELECT * FROM products WHERE categories_id=$categoryId");
         $productsCategories->execute([
         ]);
         $result = $productsCategories->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
-    public function subCategorie(int $idsubCategorie){
-        $subCategorie = $this->db->prepare("SELECT * FROM products WHERE sub_categories_id=$idsubCategorie");
+    public function getProductsBySubCategoryId(int $categoryId, $subCategoryId){
+        $subCategorie = $this->db->prepare("SELECT * FROM products WHERE sub_categories_id=$subCategoryId AND categories_id = $categoryId");
         $subCategorie->execute([]);
         $result = $subCategorie->fetchAll(PDO::FETCH_ASSOC);
         return $result;

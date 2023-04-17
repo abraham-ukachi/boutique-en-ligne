@@ -169,7 +169,18 @@
 
       <?php // include 'components/nav-bar.php'; ?>
       <!-- End of Nav Bar -->
+      <ul style='overflow:scroll'>
+        <?php foreach ($products as $product): ?>
 
+        <li>
+          <?php foreach ($product as $key => $value): ?>
+            <p><?= $key ?>&nbsp; <strong><?= $value ?></strong></p>
+
+          <?php endforeach; ?>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+      ?>
     </main>
     <!-- End of MAIN -->
 

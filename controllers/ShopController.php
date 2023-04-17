@@ -46,20 +46,21 @@
 // declare a namespace
 namespace Maxaboom\Controllers;
 
+use Maxaboom\Models\Helpers\Database;
+use Maxaboom\Models\Product;
+use PDO;
+
 
 // declare the class
-class ShopController {
+class ShopController extends Database {
 
   // declare some constants...
 
   const DEFAULT_THEME = 'light';
 
-
-
-
   // declare some properties...
-
-
+    public object $ProductModel;
+    public int $categoryId;
 
 
 
@@ -68,8 +69,9 @@ class ShopController {
    * Constructor of the class
    * This method is executed automatically whenever this class is instantiated
    */
-  public function __construct() {
-    // TODO: write something awesome code here ;)
+   public function __construct($categoryId) {
+       $this->ProductModel = new Product();
+       $this->categoryId = $categoryId;
   }
 
 
@@ -87,13 +89,19 @@ class ShopController {
    */
   public function showPage($theme = self::DEFAULT_THEME): void {
     // TODO: do something awesome here before showing the splash screen ;)
+      $products = $this->getAllProducts();
 
-    // show the splash screen 
+      // show the splash screen
     require_once __DIR__ . '/../views/shop-page.php';
   }
-  
-  
-  
+
+  public function getAllProducts(){
+      return $this->ProductModel->getAllProducts();
+  }
+
+  public function getAllCategories(){
+      return $this->ProductModel->getProductsByCategoryId($categoryId);
+  }
   
   
   
