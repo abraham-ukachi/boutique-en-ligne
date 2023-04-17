@@ -439,7 +439,8 @@ open http://localhost/boutique-en-ligne
 |:----|:-----------|:----------|:-----|
 | 1. | ![Splash Screen - Mobile](./.github/screenshots/splash-screen-mobile.png) | N/A | Splash Screen - Mobile - Design Concept |
 | 2. | ![Welcome Page - Mobile](./.github/screenshots/welcome-page-mobile.png) | N/A | Welcome Page - Mobile - Design Concept |
-| 3. | N/A | N/A | - |
+| 3. | ![Account Page - Overview - Mobile - Light](./.github/screenshots/account-overview_mobile-light.png) | ![Account Page - Overview - Mobile - Dark](./.github/screenshots/account-overview_mobile-dark.png) | Account Overview Page - Mobile - Design Concept |
+| 4. | N/A | N/A | - |
 
 
 ### On Laptop
