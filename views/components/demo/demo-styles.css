@@ -1,0 +1,155 @@
+/* 
+* @license
+* ddd / module-connexion
+* Copyright (c) 2022 Abraham Ukachi
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @name: Demo
+* @type: Styles 
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+*/
+
+
+/* ==== DEMO STYLES ==== */
+
+
+/* Controls Section */
+section.controls {
+  width: 100%;
+  height: auto;
+  position: relative;
+  box-sizing: border-box;
+  padding: 24px;
+  overflow: scroll;
+}
+
+
+/* Control */
+.control {
+  margin: 24px;
+  margin-bottom: 48px;
+}
+
+/* H4 Labels of Control */
+.control > h4 {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 12px 0;
+  opacity: var(--opacity-text-inactive);
+}
+
+/* Control Buttons */
+.control-buttons {
+  border: 1px solid var(--outline-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  color: inherit;
+  overflow: hidden;
+}
+
+/* Links in Control Buttons */
+
+/* Hover over buttons in Control Buttons */
+.control-buttons button:not([active]):hover {
+  background: var(--surface-variant-color);
+}
+
+/* Active buttons in Control Buttons */
+.control-buttons button[active] {
+  background: var(--primary-container-color);
+  color: var(--on-primary-container-color);
+}
+
+/* Buttons in Control Buttons */
+.control-buttons button {
+  width: auto;
+  height: 80px;
+  background: transparent;
+  border: 0;
+  padding: 12px 24px;
+  cursor: pointer;
+  color: inherit;
+}
+
+
+#content {
+  display: flex;
+  padding: 48px;
+  box-sizing: border-box;
+  position: relative;
+  background-image: url('pattern.svg');
+}
+
+
+/* 
+ * --> Narrow - Device <--
+ * Phone: ? (Responsive)
+ * Dimension: ~460px (width)
+ *
+ * ***************************************
+ * when the viewport is lesser than 460px,
+ * layout changes to a narrow-layout.
+ * ***************************************
+ */
+
+
+
+
+/* 
+ * --> Wide - Layout <--
+ * Phone: ? (Responsive)
+ * Dimension: 460px+ (width)
+ *
+ * ***************************************
+ * when the viewport is bigger than 460px,
+ * layout changes to wide-layout.
+ * ***************************************
+ */
+@media (min-width: 460px) {
+ 
+}
+
+
+
+/* 
+ * --> Tablet - Device <--
+ * Phone: ? (Responsive)
+ * Width: 768px <-to-> 1024px
+ */
+@media (min-width: 768px) and (max-width: 1024px) {}
+
+
+/* 
+ * --> Laptop - Device <--
+ * Phone: ? (Responsive)
+ * Width: 1024px <-to-> 2560px
+ */
+@media (min-width: 1024px) and (max-width: 2560px) {
+
+  /* ASIDE part of App Layout */
+  #appLayout > aside {
+    width: 60%;
+  }
+}
+
+
+/* ==== END of THEME STYLES ==== */

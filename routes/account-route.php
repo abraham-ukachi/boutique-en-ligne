@@ -24,16 +24,15 @@
 * SOFTWARE.
 *
 * @project boutique-en-ligne
-* @name Main / Router - Maxaboom
-* @file index.php
+* @name Account - Route
+* @file account-route.php
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
 * @version: 0.0.1
 * 
 * Usage:
-*   1+|> // how-to route with AltoRouter ;)
-*    -|>
-*
+*   1+|> //  
+*    -|> 
 */
 
 
@@ -43,22 +42,17 @@
 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 
-// ---===--- enabling error reporting ---====---
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-// ---===---===---===---===---===---===---===---
 
+// declare the `routes` namespace
+namespace Maxaboom\Routes;
 
-// require the autoloader
-require __DIR__ . '/vendor/autoload.php';
-//require __DIR__ . '/vendor/altorouter/';
+// use maxaboom's `AccountController` class
+use Maxaboom\Controllers\AccountController;
 
-
-
-// defining some constants...
-
-// home or base directory of Maxaboom
-const MAXABOOM_HOME_DIR = '/boutique-en-ligne';
+// use these controller helpers
+// use Maxaboom\Controllers\Helpers\I18n;
+// use these models
+// use Maxaboom\Models\User;
 
 
 
@@ -67,48 +61,38 @@ const MAXABOOM_HOME_DIR = '/boutique-en-ligne';
 
 
 
-// Create an altorouter instance named `$router`
-$router = new AltoRouter();
-
-// Set the base path of the router
-$router->setBasePath(MAXABOOM_HOME_DIR);
 
 
 
-// Now, let's add some routes to our router ;)
-
-
-// Include these routes
-include __DIR__ . '/routes/home-route.php'; // <- home route
-include __DIR__ . '/routes/shop-route.php'; // <- shop route
-include __DIR__ . '/routes/api-route.php'; // <- api route
-include __DIR__ . '/routes/product-route.php'; // <- product route
-
-include __DIR__ . '/routes/login-route.php'; //<- login route
-include __DIR__ . '/routes/register-route.php'; //<- register route
-
-include __DIR__ . '/routes/address-route.php'; // <- address route
-include __DIR__ . '/routes/review-route.php'; // <- review route
-
-include __DIR__ . '/routes/account-route.php'; // <- account route
+/**
+ * ============================
+ *  Account Routes
+ * ============================
+ */
 
 
 
-// match the current request url
-$match = $router->match();
-
-// var_dump($match);
-
-// echo "<br>";
 
 
-// call closure or throw 404 status
-if(is_array($match) && is_callable($match['target'])) {
-  call_user_func_array($match['target'], $match['params']);
-} else {
-  // TODO: Create a 404 view / page to handle this
+/**
+ * Route used to display the account related pages
+ * 
+ * @method GET
+ * @url /account
+ *
+ * @echo string $accountPage - the account page
+ */
+$router->map('GET', '/account', function(): void {
 
-	// no route was matched
-	header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
-}
+  // create an object of `AccountController` class
+  $accountController = new AccountController();
+
+  // show the default page
+  $accountController->showPage();
+
+
+});
+
+
+
 

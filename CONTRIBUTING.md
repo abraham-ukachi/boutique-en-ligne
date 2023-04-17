@@ -139,7 +139,7 @@ Consider using the following default html templates, when creating a new **`.htm
   
 </head>
 <!-- End of HEAD -->
- ```
+```
 
 
 #### Body (`<body>`) Template (with a Dark theme)
@@ -206,7 +206,7 @@ Consider using the following default html templates, when creating a new **`.htm
   <!-- Backdrop of ASIDE -->
   <div class="backdrop" hidden></div>
   
-  <!-- Menus of ASIDE -->
+  <!-- Menus of ASIDE -->s
   <div class="menus" hidden></div>
   
   <!-- Dialogs of ASIDE -->
@@ -360,5 +360,4 @@ Show a toast message in the [ASIDE](#aside-aside-template) part, with a **10 sec
 mbApp.showToast({message: 'Hello World'}, 'aside', 10);
 ```
 > NOTE:  
-
 

@@ -208,6 +208,16 @@ h2 {
 
 }
 
+/* H2 - app title */
+h2.app-title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 26px;
+  opacity: var(--opacity-text-active);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* H3 - default text styles */
 h3 {
@@ -217,6 +227,18 @@ h3 {
   letter-spacing: 0.7px;
   word-spacing: normal;
   margin: 16px 0;
+}
+
+/* H3 - app subtitle */
+h3.app-subtitle {
+  margin: 0;
+  font-size: 12px;
+  opacity: var(--opacity-text-inactive);
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
 }
 
 /* Button - default text styles */
@@ -410,6 +432,11 @@ a[role="button"] {
     word-spacing: normal;
   }
 
+  /* H2 - app title */
+  h2.app-title {
+    font-size: 20px;
+  }
+  
   /* Button - default text styles */
   button {
     font-size: 24px;

@@ -24,16 +24,15 @@
 * SOFTWARE.
 *
 * @project boutique-en-ligne
-* @name Main / Router - Maxaboom
-* @file index.php
+* @name Account - Controller 
+* @file AccountController.php
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
 * @version: 0.0.1
 * 
 * Usage:
-*   1+|> // how-to route with AltoRouter ;)
-*    -|>
-*
+*   1+|> //
+*    -|> 
 */
 
 
@@ -43,72 +42,94 @@
 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 
-// ---===--- enabling error reporting ---====---
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-// ---===---===---===---===---===---===---===---
+
+// declare a namespace
+namespace Maxaboom\Controllers;
 
 
-// require the autoloader
-require __DIR__ . '/vendor/autoload.php';
-//require __DIR__ . '/vendor/altorouter/';
-
-
-
-// defining some constants...
-
-// home or base directory of Maxaboom
-const MAXABOOM_HOME_DIR = '/boutique-en-ligne';
+// use the `User` model
+use Maxaboom\Models\User;
+// use the `I18n` helper class
+use Maxaboom\Controllers\Helpers\I18n;
 
 
 
 
+// declare the class
+// TODO: Create a `Controller` class that will be extended by all the controllers
+class AccountController {
+
+  // declare some constants...
+
+  const DEFAULT_THEME = 'light';
+  const DEFAULT_LANG = 'en';
+  
+  
+
+  // declare some properties...
+
+  // private properties
+  private I18n $i18n;
+  private User $user;
+
+  
+  
+  /**
+   * Constructor of the class
+   * This method is executed automatically whenever this class is instantiated
+   */
+  public function __construct() {
+    // TODO: write something awesome code here ;)
+    
+    // initialize the `i18n` and `user` property
+    $this->i18n = new I18n(self::DEFAULT_LANG);
+    $this->user = new User();
+    
+     
+    // $user = new User();
+    // $users = $user->displayUsers();
+    // var_dump($users);
+
+  }
+
+
+  // PUBLIC SETTERS
+  // PUBLIC GETTERS
+  // PUBLIC METHODS
+
+
+
+  /**
+   * Shows the default account page
+   *
+   * @param string $theme - the theme of the page
+   * @param string $lang - the language of the page
+   *
+   * @return void
+   */
+  public function showPage($theme = self::DEFAULT_THEME, $lang = self::DEFAULT_LANG): void {
+    // TODO: do something awesome here before showing the home page ;)
+
+
+    // show the home page 
+    require_once __DIR__ . '/../views/account-page.php';
+  }
+
+
+  
+  
+  
+  
+  
+  
+  // PRIVATE SETTERS
+  // PRIVATE GETTERS
+  // PRIVATE METHODS
+
+
+};
 
 
 
 
-// Create an altorouter instance named `$router`
-$router = new AltoRouter();
-
-// Set the base path of the router
-$router->setBasePath(MAXABOOM_HOME_DIR);
-
-
-
-// Now, let's add some routes to our router ;)
-
-
-// Include these routes
-include __DIR__ . '/routes/home-route.php'; // <- home route
-include __DIR__ . '/routes/shop-route.php'; // <- shop route
-include __DIR__ . '/routes/api-route.php'; // <- api route
-include __DIR__ . '/routes/product-route.php'; // <- product route
-
-include __DIR__ . '/routes/login-route.php'; //<- login route
-include __DIR__ . '/routes/register-route.php'; //<- register route
-
-include __DIR__ . '/routes/address-route.php'; // <- address route
-include __DIR__ . '/routes/review-route.php'; // <- review route
-
-include __DIR__ . '/routes/account-route.php'; // <- account route
-
-
-
-// match the current request url
-$match = $router->match();
-
-// var_dump($match);
-
-// echo "<br>";
-
-
-// call closure or throw 404 status
-if(is_array($match) && is_callable($match['target'])) {
-  call_user_func_array($match['target'], $match['params']);
-} else {
-  // TODO: Create a 404 view / page to handle this
-
-	// no route was matched
-	header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
-}
 
