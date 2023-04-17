@@ -82,9 +82,9 @@ $router->map('GET', '/shop', function (): void {
  *
  */
 
-$router->map('GET', '/shop/[a:category]', function ($category){
-    $filterByCategory = new ShopController();
-    $filterByCategory->showPage();
+$router->map('GET', '/shop/[a:categoryName]', function ($categoryName){
+    $filterByCategory = new ShopController($categoryName);
+    $filterByCategory->showPageByCategory();
 
 });
 

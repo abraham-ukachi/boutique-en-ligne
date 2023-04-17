@@ -72,15 +72,14 @@ class Product extends Database
         return $result;
     }
 
-    public function getProductsByCategory(string $categoryName){
-        $categoriesName = $this->db->prepare("SELECT * FROM categories");
-        $categoriesName->execute([]);
-        $result = $categoriesName->fetch(PDO::FETCH_ASSOC);
-        $name = $result['name'];
-        $filterByCategoryName = $this->db->prepare("SELECT * FROM products WHERE categories_id=$name");
-        $resultFilter = $filterByCategoryName->fetchAll(PDO::FETCH_ASSOC);
-        return $resultFilter;
+    public function getCategoryIdByName(string $categoryName){
+        $selectNameCategory = $this->db->prepare("SELECT id FROM categories WHERE name = '$categoryName'");
+        $selectNameCategory->execute([]);
+        $result = $selectNameCategory->fetch(PDO::FETCH_ASSOC);
+        return $result['id'];
     }
+
+
 
     public function getProductsBySubCategoryId(int $categoryId, $subCategoryId){
         $subCategorie = $this->db->prepare("SELECT * FROM products WHERE sub_categories_id=$subCategoryId AND categories_id = $categoryId");
