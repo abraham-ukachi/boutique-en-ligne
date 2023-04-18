@@ -84,7 +84,8 @@ $router->map('GET', '/shop', function (): void {
 
 
 $router->map('GET', '/shop/[a:categoryName]/[:subCategoryName]', function ($categoryName, $subCategoryName){
-    $shopController = new ShopController();
+    $subCategoryName = str_replace('-', ' ', $subCategoryName);
+    $shopController = new ShopController($categoryName, $subCategoryName);
     $shopController->showPageBySubCategory();
 });
 

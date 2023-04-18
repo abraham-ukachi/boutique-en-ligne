@@ -48,6 +48,7 @@ namespace Maxaboom\Controllers;
 
 use Maxaboom\Models\Helpers\Database;
 use Maxaboom\Models\Product;
+use Maxaboom\Models\Category;
 use PDO;
 
 
@@ -59,20 +60,26 @@ class ShopController extends Database
     const DEFAULT_THEME = 'light';
 
     // declare some properties...
-    public object $ProductModel;
+    public object $productModel;
+    public object $categoryModel;
     public ?string $categoryName;
-    public ?int $subCategory;
+    public ?string $subCategoryName;
+    public ?int $categoryId = null;
+    public ?int $subCategoryId = null;
+
 
 
     /**
      * Constructor of the class
      * This method is executed automatically whenever this class is instantiated
      */
-    public function __construct(?string $categoryName = null, ?int $subCategory = null)
+    public function __construct(?string $categoryName = null, ?string $subCategoryName = null)
     {
         $this->categoryName = $categoryName;
-        $this->subCategory = $subCategory;
-        $this->ProductModel = new Product();
+        $this->subCategoryName = $subCategoryName;
+
+        $this->productModel = new Product();
+        $this->categoryModel = new Category();
 
     }
 
@@ -105,8 +112,8 @@ class ShopController extends Database
 
     public function showPageByCategory($theme = self::DEFAULT_THEME): void
     {
-        $categoryId = $this->ProductModel->getCategoryIdByName($this->categoryName); // returns ex: 1
-        $products = $this->ProductModel->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
+        $categoryId = $this->productModel->getCategoryIdByName($this->categoryName); // returns ex: 1
+        $products = $this->productModel->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
         $categories = $this->getAllCategories();
         $subCategories = $this->getAllSubCategories();
 
@@ -117,8 +124,9 @@ class ShopController extends Database
 
     public function showPageBySubCategory($theme = self::DEFAULT_THEME): void
     {
-        $subCategoryId = $this->ProductModel->getSubCategoryIdByName($this->subCategory);
-        $products = $this->ProductModel->getProductsBySubCategoryId($subCategoryId);
+        var_dump($this->subCategoryName);
+        $subCategoryId = $this->categoryModel->getSubcategoryIdByName($this->subCategoryName);
+        $products = $this->productModel->getProductsBySubCategoryId($subCategoryId);
         $categories = $this->getAllCategories();
         $subCategories = $this->getAllSubCategories();
 
@@ -127,22 +135,22 @@ class ShopController extends Database
 
     public function getAllProducts()
     {
-        return $this->ProductModel->getAllProducts();
+        return $this->productModel->getAllProducts();
     }
 
     public function getAllCategories()
     {
-        return $this->ProductModel->getAllCategories();
+        return $this->productModel->getAllCategories();
     }
 
     public function getProductByCategory($category)
     {
-        return $this->ProductModel->getCategoryIdByName($category);
+        return $this->productModel->getCategoryIdByName($category);
     }
 
     public function getAllSubCategories()
     {
-        return $this->ProductModel->getAllSubCategories();
+        return $this->productModel->getAllSubCategories();
     }
 
 

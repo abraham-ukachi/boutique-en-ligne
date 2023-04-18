@@ -142,7 +142,12 @@
     <!-- Some more script for ya! #LOL -->
     <script src="src/app.js" type="module" defer></script>
     <!-- <script src="src/script/home.js" defer></script> -->
-    
+
+    <style>
+      [active] {
+        color: red;
+      }
+    </style>
   </head>
   <!-- End of HEAD -->
   
@@ -177,7 +182,7 @@
         <?php foreach ($categories as $category): ?>
         <li>
           <?php foreach ($category as $key => $value): ?>
-          <p><strong><a href="shop/<?=$value ?>"> <?=$value ?></a></strong></p>
+          <p><strong><a href="shop/<?=$value ?>" <?= ($value === $this->categoryName) ? 'active': '' ?>> <?=$value ?></a></strong></p>
           <?php endforeach; ?>
         </li>
         <?php endforeach; ?>
@@ -190,7 +195,7 @@
           <li>
             <?php foreach ($subCategory as $key => $value): ?>
               <?php $valueChange = str_replace(' ', '-', $value) ?>
-              <p><strong><a href="shop/<?= $valueChange ?>"><?= $value ?></a></strong></p>
+              <p><strong><a href="shop/<?= $this->categoryName . '/' . $valueChange ?>"><?= $value ?></a></strong></p>
             <?php endforeach; ?>
           </li>
         <?php endforeach; ?>
