@@ -117,7 +117,8 @@
     <!-- Theme -->
     <link rel="stylesheet" href="assets/theme/color.css">
     <link rel="stylesheet" href="assets/theme/typography.css">
-    <link rel="stylesheet" href="assets/theme/styles.css">
+
+    <!-- <link rel="stylesheet" href="assets/theme/styles.css"> -->
     
     
     <!-- Animations -->
@@ -169,6 +170,49 @@
 
       <?php // include 'components/nav-bar.php'; ?>
       <!-- End of Nav Bar -->
+
+      <ul style='overflow:scroll'>
+        <!--  CATEGORIES LIST HERE -->
+
+        <?php foreach ($categories as $category): ?>
+        <li>
+          <?php foreach ($category as $key => $value): ?>
+          <p><strong><a href="shop/<?=$value ?>"> <?=$value ?></a></strong></p>
+          <?php endforeach; ?>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+
+      <ul style='overflow:scroll'>
+        <!-- TODO : PUT SUB CATEGORIES LIST HERE -->
+
+        <?php foreach ($subCategories as $subCategory): ?>
+          <li>
+            <?php foreach ($subCategory as $key => $value): ?>
+              <?php $valueChange = str_replace(' ', '-', $value) ?>
+              <p><strong><a href="shop/<?= $valueChange ?>"><?= $value ?></a></strong></p>
+            <?php endforeach; ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+
+
+<!-- <?php if(!isset($_GET['a:category'])): ?> -->
+      <ul style='overflow:scroll'>
+        <!-- LIST PRODUCT -->
+        <?php foreach ($products as $product): ?>
+
+        <li>
+          <?php foreach ($product as $key => $value): ?>
+            <p><?= $key ?>&nbsp; <strong><?= $value ?></strong></p>
+
+          <?php endforeach; ?>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+      <!--  <?php else :?> -->
+      <!--  <?= "Hello" ?> -->
+      <!--  <?php endif; ?> -->
 
     </main>
     <!-- End of MAIN -->
