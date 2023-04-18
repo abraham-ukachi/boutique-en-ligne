@@ -126,7 +126,6 @@ class ShopController extends Database
 
     public function showPageBySubCategory($theme = self::DEFAULT_THEME): void
     {
-        var_dump($this->subCategoryName);
         $subCategoryId = $this->categoryModel->getSubcategoryIdByName($this->subCategoryName);
         $products = $this->productModel->getProductsBySubCategoryId($subCategoryId);
         $categories = $this->getAllCategories();

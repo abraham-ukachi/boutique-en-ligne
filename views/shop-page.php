@@ -197,12 +197,11 @@
       <ul style='overflow:scroll'>
         <!-- LIST PRODUCT -->
         <?php foreach ($products as $product): ?>
-
         <li>
-          <?php foreach ($product as $key => $value): ?>
-            <p><strong><?= $value ?></strong></p>
-
-          <?php endforeach; ?>
+          <img src="assets/images/products/<?=$product['image']?>"/>
+          <p><?= $product['name']?></p>
+          <p><?= $product['description']?></p>
+          <p>Prix : <?= $product['price']?></p>
         </li>
         <?php endforeach; ?>
       </ul>
