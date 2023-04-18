@@ -19,6 +19,7 @@ The following is a set of guidelines for contributing to Maxaboom and subsequent
         - [Header (`<header>`) Template](#header-header-template)
         - [App-Bar (`.app-bar`) Template](#app-bar-app-bar-template)
         - [Nav-Bar (`.nav-bar`) Template](#nav-bar-nav-bar-template)
+        - [Side-Bar (`#sideBar`) Template](#side-bar-sidebar-template)
 3. [How to Use Maxaboom ?](#how-to-use-maxaboom-?)
     - [Installation](#installation)
     - [mbApp - JS](#mbApp---js)
@@ -139,13 +140,16 @@ Consider using the following default html templates, when creating a new **`.htm
   
 </head>
 <!-- End of HEAD -->
- ```
+```
 
 
 #### Body (`<body>`) Template (with a Dark theme)
 
 ```html
 <body class="theme dark" fullbleed>
+
+  <!-- Side Bar -->
+  <nav id="sideBar">...</nav>
 
   <!-- Main part -->
   <main class="flex-layout vertical">...</main>
@@ -177,7 +181,7 @@ Consider using the following default html templates, when creating a new **`.htm
   <div class="app-layout">...</div>
   
   <!-- Nav Bar -->
-  <nav class="nav-bar">...</nav>
+  <nav id="navBar">...</nav>
   
   <!-- Backdrop of MAIN -->
   <div class="backdrop" hidden></div>
@@ -206,7 +210,7 @@ Consider using the following default html templates, when creating a new **`.htm
   <!-- Backdrop of ASIDE -->
   <div class="backdrop" hidden></div>
   
-  <!-- Menus of ASIDE -->
+  <!-- Menus of ASIDE -->s
   <div class="menus" hidden></div>
   
   <!-- Dialogs of ASIDE -->
@@ -313,6 +317,25 @@ Consider using the following default html templates, when creating a new **`.htm
 <!-- End of Nav Bar -->
 ```
 
+#### Side Bar (`#sideBar`) Template
+
+Use the following code to include a side bar in your `.html` or `.php` page:
+
+```html
+<!-- Side Bar -->
+<!-- PHP: Include the `sideBar` component -->
+<?php 
+  $_GET['sidebar_route'] = 'home'; 
+  $_GET['sidebar_init'] = 'au'; 
+  $_GET['sidebar_connected'] = false; // TRUE if the user is connected
+  $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin 
+
+  require __DIR__ . 'components/side-bar.php';
+?>
+<!-- End of Side Bar -->
+
+```
+
 ## How to use Maxaboom ?
 
 ### Installation
@@ -360,5 +383,4 @@ Show a toast message in the [ASIDE](#aside-aside-template) part, with a **10 sec
 mbApp.showToast({message: 'Hello World'}, 'aside', 10);
 ```
 > NOTE:  
-
 

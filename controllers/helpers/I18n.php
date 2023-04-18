@@ -298,7 +298,7 @@ class I18n {
     $localeFile = $this::LOCALE_DIR . "/" . $type . "/" . $this->lang . '.json'; // <- returns eg.: 'assets/locale/strings/en.json'
 
     // DEBUG [4dbsmaster](1): tell me about it :) 
-    echo "localFile => " . $localeFile . "<br>";
+    // echo "localFile => " . $localeFile . "<br>";
     
     // get the json data of the locale file
     $jsonData = file_get_contents($localeFile);

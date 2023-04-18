@@ -91,6 +91,9 @@ include __DIR__ . '/routes/address-route.php'; // <- address route
 include __DIR__ . '/routes/review-route.php'; // <- review route
 
 include __DIR__ . '/routes/admin-route.php'; // <- admin route
+include __DIR__ . '/routes/account-route.php'; // <- account route
+include __DIR__ . '/routes/component-route.php'; // <- component route
+
 
 
 // match the current request url
