@@ -172,7 +172,7 @@
       <!-- End of Nav Bar -->
 
       <ul style='overflow:scroll'>
-        <!-- TODO : PUT CATEGORIES LIST HERE -->
+        <!--  CATEGORIES LIST HERE -->
 
         <?php foreach ($categories as $category): ?>
         <li>
@@ -182,6 +182,20 @@
         </li>
         <?php endforeach; ?>
       </ul>
+
+      <ul style='overflow:scroll'>
+        <!-- TODO : PUT SUB CATEGORIES LIST HERE -->
+
+        <?php foreach ($subCategories as $subCategory): ?>
+          <li>
+            <?php foreach ($subCategory as $key => $value): ?>
+              <?php $valueChange = str_replace(' ', '-', $value) ?>
+              <p><strong><a href="shop/<?= $valueChange ?>"><?= $value ?></a></strong></p>
+            <?php endforeach; ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+
 
 <!-- <?php if(!isset($_GET['a:category'])): ?> -->
       <ul style='overflow:scroll'>

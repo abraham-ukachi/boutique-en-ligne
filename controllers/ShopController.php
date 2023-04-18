@@ -92,7 +92,10 @@ class ShopController extends Database
     public function showPage($theme = self::DEFAULT_THEME): void
     {
         // TODO: do something awesome here before showing the splash screen ;)
-        $products = !!$this->category ? $this->getProductByCategory($this->category) : $this->getAllProducts();
+
+        $products = !!$this->categoryName ? $this->getProductByCategory($this->categoryName) : $this->getAllProducts(); // if CategoryName is not null then filter products by categoryName, else display all products
+        //$productsBySubCategory = !!$this->subCategory ? $this->getProductByCategory($this->categoryName) : $this->getAllProducts();
+        $subCategories = $this->getAllSubCategories();
         $categories = $this->getAllCategories();
 
         // show the splash screen
@@ -100,15 +103,25 @@ class ShopController extends Database
     }
 
 
-
     public function showPageByCategory($theme = self::DEFAULT_THEME): void
     {
         $categoryId = $this->ProductModel->getCategoryIdByName($this->categoryName); // returns ex: 1
         $products = $this->ProductModel->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
-
         $categories = $this->getAllCategories();
+        $subCategories = $this->getAllSubCategories();
 
         // show the splash screen
+        require_once __DIR__ . '/../views/shop-page.php';
+    }
+
+
+    public function showPageBySubCategory($theme = self::DEFAULT_THEME): void
+    {
+        $subCategoryId = $this->ProductModel->getSubCategoryIdByName($this->subCategory);
+        $products = $this->ProductModel->getProductsBySubCategoryId($subCategoryId);
+        $categories = $this->getAllCategories();
+        $subCategories = $this->getAllSubCategories();
+
         require_once __DIR__ . '/../views/shop-page.php';
     }
 
@@ -127,15 +140,18 @@ class ShopController extends Database
         return $this->ProductModel->getCategoryIdByName($category);
     }
 
+    public function getAllSubCategories()
+    {
+        return $this->ProductModel->getAllSubCategories();
+    }
+
 
     // PRIVATE SETTERS
     // PRIVATE GETTERS
     // PRIVATE METHODS
 
 
-}
-
-;
+};
 
 
 

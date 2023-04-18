@@ -82,11 +82,19 @@ $router->map('GET', '/shop', function (): void {
  *
  */
 
+
+$router->map('GET', '/shop/[a:categoryName]/[:subCategoryName]', function ($categoryName, $subCategoryName){
+    $shopController = new ShopController();
+    $shopController->showPageBySubCategory();
+});
+
 $router->map('GET', '/shop/[a:categoryName]', function ($categoryName){
     $filterByCategory = new ShopController($categoryName);
     $filterByCategory->showPageByCategory();
 
 });
+
+
 
 
 
