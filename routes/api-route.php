@@ -65,6 +65,7 @@ namespace Maxaboom\Routes;
 // use maxaboom's `APIController` class
 use Maxaboom\Controllers\APIController;
 
+use Maxaboom\Models\Category;
 
 
 /** 
@@ -98,6 +99,17 @@ $router->map('GET', '/api/user/auth/[a:email]/[a:password]', function(string $em
 $router->map('GET', '/test/[a:name]?', function($name) {
   echo "<p><b>TEST</b>: <code>name: $name</code></p>";
 });
+
+//url exemple : '/api/sub_categories/2'
+$router->map('GET', '/api/sub_categories/[i:categoryId]', function(int $categoryId){
+  $categoryModel = new Category();
+  $subCategories = $categoryModel->getSubcategoriesByCategoryId($categoryId);
+  echo json_encode($subCategories);
+});
+
+
+
+
 
 
 

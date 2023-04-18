@@ -44,10 +44,19 @@ class Category extends Database
 
 
     public function getSubcategoriesByCategoryId(int $categoryId){
-        $subCategorie = $this->db->prepare("SELECT name FROM sub_categories WHERE category_id=$categoryId");
+        $subCategorie = $this->db->prepare("SELECT id, name FROM sub_categories WHERE category_id=$categoryId");
         $subCategorie->execute([]);
         $result = $subCategorie->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public function getSubcategoryIdByName(string $subCategoryName){
+        $allProducts = $this->db->prepare("SELECT id FROM sub_categories WHERE name = '$subCategoryName'");
+        $allProducts->execute([
+        ]);
+        $result = $allProducts->fetch(PDO::FETCH_ASSOC);
+        var_dump($result);
+        return $result['id'];
     }
 
 }

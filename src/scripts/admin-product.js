@@ -51,8 +51,24 @@ let submitButton = document.getElementById('envoie');
 categorySelect.addEventListener('change', async (event) => {
     let categoryId = event.currentTarget.value;
     console.log(categoryId);
+
+    let response = await fetch(`api/sub_categories/${categoryId}`);
+    let subcategories = await response.json();
+    console.log(subcategories);
+
+    let subCategoriesElement = document.getElementById('subcategories');
+    subCategoriesElement.innerHTML = "<option value=''>Choisissez une sous-categorie</option>";
+
+    subcategories.forEach(subcategory => {
+        let optionTemplate = `<option value='${subcategory.id}'>${subcategory.name}</option>`;
+        subCategoriesElement.insertAdjacentHTML('beforeend', optionTemplate);
+        console.log(subcategory.name);
+    });
 });
 
+// faire un fetch de toutes les sous categorie avec category Id
+//creer une route api-subcategory/
+// fetch url
 
 formRegisterProduct.addEventListener('submit', async (event) => {
     event.preventDefault();
