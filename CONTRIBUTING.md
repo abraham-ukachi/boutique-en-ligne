@@ -18,7 +18,7 @@ The following is a set of guidelines for contributing to Maxaboom and subsequent
         - [App-Layout (`.app-layout`) Template](#app-layout-app-layout-template)
         - [Header (`<header>`) Template](#header-header-template)
         - [App-Bar (`.app-bar`) Template](#app-bar-app-bar-template)
-        - [Nav-Bar (`.nav-bar`) Template](#nav-bar-nav-bar-template)
+        - [Nav-Bar (`#navBar`) Template](#nav-bar-navbar-template)
         - [Side-Bar (`#sideBar`) Template](#side-bar-sidebar-template)
 3. [How to Use Maxaboom ?](#how-to-use-maxaboom-?)
     - [Installation](#installation)
@@ -136,7 +136,7 @@ Consider using the following default html templates, when creating a new **`.htm
   
   <!-- Some more script for ya! #LOL -->
   <script src="src/app.js" defer></script>
-  <!-- <script src="src/script/home.js" defer></script> -->
+  <!-- <script src="src/scripts/home.js" defer></script> -->
   
 </head>
 <!-- End of HEAD -->
@@ -300,21 +300,30 @@ Consider using the following default html templates, when creating a new **`.htm
 </div>
 ```
 
-#### Nav Bar (`.nav-bar`) Template
+#### Nav Bar (`#navBar`) Template
+
+Use the following code to include a nav bar in your `.html` or `.php` page:
 
 ```html
 <!-- Nav Bar -->
-<!-- PHP: Include the `nav-bar` component -->
+<!-- PHP: Include the `navBar` component -->
 <?php 
-  $_GET['navbar_orientation'] = 'veritcal'; 
-  $_GET['navbar_page'] = 'home'; 
+  $_GET['navbar_route'] = 'home'; 
   $_GET['navbar_init'] = 'au'; 
-  $_GET['navbar_profile_pic'] = 'iVBORw0K'; // data:image/png;base64,iVBORw0K
-  $_GET['navbar_connected'] = 'false'; 
-?>
+  $_GET['navbar_connected'] = false; // TRUE if the user is connected
+  $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin 
 
-<?php include 'components/nav-bar.php'; ?>
+  require __DIR__ . 'components/nav-bar.php';
+?>
 <!-- End of Nav Bar -->
+
+```
+
+##### Demo - Nav Bar - PHP Component
+
+Run the code below in your terminal, to see a demo of **nav-bar** component
+```zsh
+open http://localhost/boutique-en-ligne/component/demo/nav-bar
 ```
 
 #### Side Bar (`#sideBar`) Template
@@ -334,6 +343,13 @@ Use the following code to include a side bar in your `.html` or `.php` page:
 ?>
 <!-- End of Side Bar -->
 
+```
+
+##### Demo - Side Bar - PHP Component
+
+Run the code below in your terminal, to see a demo of **side-bar** component
+```zsh
+open http://localhost/boutique-en-ligne/component/demo/side-bar
 ```
 
 ## How to use Maxaboom ?
