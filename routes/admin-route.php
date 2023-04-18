@@ -1,5 +1,6 @@
 <?php
 use Maxaboom\Controllers\AdminController;
+
 $router->map( 'GET', '/admin/product/create', function() {
     require __DIR__ . '/../views/admin-product-page.php';
 });
@@ -32,23 +33,30 @@ $router->map( 'GET', '/admin/product/create', function() {
 $router->map('POST', '/admin/product/create', function() {
 
     $productName = $_POST['productname'];
+    $description = $_POST['productdescription'];
+    $price = $_POST['productprice'];
+    $categories_id = $_POST['category'];
+    $sub_categories_id = $_POST['subcategories'];
+    $stock = $_POST['productstock'];
 
-    $fileName = isset($_FILES['image']) ? $_FILES['image']['name'] : '';
+     $image = isset($_FILES['image']) ? $_FILES['image'] : '';
 
 
-    $data = [
-        'productName' => $productName,
-        'fileName' => $fileName
-    ];
 
+    // créer l'objet de la class adminController comme 'adminController'
 
-    $response = array(
-        'success' => true, 
-        'data' => $data
-    );
+     $adminController = new AdminController();
 
+    //create product est la method du controller à ne pas confondre avec registerProduct de la Class Product
+     $response = $adminController->createProduct($productName,$description, $price, $categories_id, $sub_categories_id, $stock, $image);
+
+    // var_dump($response);
+
+    $response = [ 'success' => true ];
+  
     echo json_encode($response);
 });
+
 
 
 

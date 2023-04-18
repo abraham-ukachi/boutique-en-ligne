@@ -85,7 +85,7 @@ formRegisterProduct.addEventListener('submit', async (event) => {
     });
 
     let response = await fetch(request);
-    let responseData = await response.json();
+    let responseData = await response.text();
 
     console.log(`form => `, form);
     console.log(`responseData => `, responseData);
