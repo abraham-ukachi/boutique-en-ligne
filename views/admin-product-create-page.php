@@ -81,16 +81,57 @@
 <body class="theme dark" fullbleed>
 
   <!-- Main part -->
-<h1>Gestion des produits</h1>
-<?php
-//var_dump($products);
-//echo $products[0]['name'];
+<form  id='registerProductForm' action='admin/product/create' method='post'>
+    <div class="input-form-container">
+        <div class="form-control">
+            <label for="productname">Nom du produit</label>
+            <input id="product-name" class="productinput" name="productname" type="text" value="" required>
+        </div>
+        <div class="form-control">
+            <label for="productdescription">Description du produit</label>
+            <input id="product-description" class="productdescription" name="productdescription" type="text" value="" required>
+        </div>
 
-for ($i = 0; $i <count($products); $i++) {
-    echo "<div id=".$i." class='update-product'>".$products[$i]['id']." ".$products[$i]['name']." Prix : ".$products[$i]['price']." Stock : ".$products[$i]['stock'].
-    " <button id='update".$i."'>Modifier</button><br>";
-}
-?>
+        <div class="form-control">
+            <label for="price">Prix du produit</label>
+            <input id="product-price" class="productprice" name="productprice" type="integer" value="" required>
+        </div>
+
+        <div class="form-control">
+            <label for='category'></label>
+                 <select name='category' id='category'>
+                     <option value=''>Choisir une catégorie :</option>
+                     <option value='1'>Pianos</option>
+                     <option value='2'>Guitares</option>
+                     <option value='3'>Percussions</option>
+                     <option value='4'>Lutherie</option>
+                     <option value='5'>DJ</option>
+                     <option value='6'>Vents</option>
+                 </select>        
+        </div>
+
+        <div class="form-control">
+            <label for='subcategories'></label>
+                 <select name='subcategories' id='subcategories'>
+                     <option value=''>Choisir une sous-catégorie :</option>
+                     
+
+                 </select>        
+        </div>
+
+        <div class="form-control">
+            <label for="stock">Produits en stock</label>
+            <input id="product-stock" class="productstock" name="productstock" type="integer" value="" required>
+        </div>
+
+        <div class="form-control">
+                <label for="file">Importez votre image</label>
+                <input type="file" name="image" >
+        </div>
+
+        <button type="submit" class="register_form_button" id="envoie" name="envoie">Enregistrer le produit</button>
+    </div>
+    </form>
    
 
    <!-- Aside part -->
@@ -110,4 +151,4 @@ for ($i = 0; $i <count($products); $i++) {
 
 </body>
 
-</html>   
+</html>         

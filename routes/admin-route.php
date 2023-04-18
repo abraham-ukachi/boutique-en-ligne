@@ -2,20 +2,15 @@
 use Maxaboom\Controllers\AdminController;
 
 $router->map( 'GET', '/admin/product/create', function() {
-    require __DIR__ . '/../views/admin-product-page.php';
+    require __DIR__ . '/../views/admin-product-create-page.php';
 });
-
 
 // $router->map('POST', '/admin/product/create', function() {
 //     $bodyJSONString = file_get_contents('php://input');
-
 //     $bodyJSON = json_decode($bodyJSONString);
-
 //     $bodyData = (array) $bodyJSON;
-
 //     $productImage = $bodyData['image'] ?? [];
 //     $productImageName = $productImage['name'] ?? 'nn';
-
 
 //     $data = [
 //         'name' => $bodyData['name'],
@@ -29,7 +24,6 @@ $router->map( 'GET', '/admin/product/create', function() {
 // });
 
 
-
 $router->map('POST', '/admin/product/create', function() {
 
     $productName = $_POST['productname'];
@@ -40,7 +34,6 @@ $router->map('POST', '/admin/product/create', function() {
     $stock = $_POST['productstock'];
 
      $image = isset($_FILES['image']) ? $_FILES['image'] : '';
-
 
 
     // créer l'objet de la class adminController comme 'adminController'
@@ -57,6 +50,17 @@ $router->map('POST', '/admin/product/create', function() {
     echo json_encode($response);
 });
 
+
+
+$router->map('GET', '/admin/product', function () {
+    $adminController = new AdminController();
+
+    // TODO: do something awesome here before showing the shop page ;)
+
+    // show the shop page
+    $adminController->showProductPage();
+
+});
 
 
 

@@ -4,6 +4,14 @@ use Maxaboom\Models\Product;
 
 class AdminController{
 
+
+    public object $productModel;
+
+    public function __construct() {
+        $this->productModel = new Product();
+    }
+
+    //pour enregistrer un nouveau produit
     public function createProduct($productname,$description, $price, $categories_id, $sub_categories_id, $stock, $image){
         $newproduct = New Product();
         $success = $newproduct->registerProduct($productname,$description, $price, $categories_id, $sub_categories_id, $stock);
@@ -22,6 +30,15 @@ class AdminController{
          ];
 
          return ['success' => $success, 'data' => $data];
-
     }
+
+    //pour afficher tous les produits
+    public function showProductPage() :void {
+
+        $products = $this->productModel->getAllProducts();
+
+        require __DIR__ . '/../views/admin-product-page.php';
+    }
+
+
 }
