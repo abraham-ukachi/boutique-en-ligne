@@ -141,7 +141,7 @@
     
     <!-- Some more script for ya! #LOL -->
     <script src="src/app.js" type="module" defer></script>
-    <!-- <script src="src/script/home.js" defer></script> -->
+    <script src="src/scripts/shop.js" defer></script>
 
     <style>
       [active] {
@@ -153,7 +153,11 @@
   
   
   <!-- BODY | Default Theme: light -->
-  <body class="theme <?= $theme ?>" fullbleed>
+  <body class="theme <?= $theme ?>" fullbleed
+        data-category-name="<?= $this->categoryName?>"
+        data-category-id="<?= $this->categoryId?>"
+        data-sub-category-name="<?= $this->subCategoryName?>"
+        >
 
     <!-- MAIN -->
     <main class="flex-layout vertical">
@@ -188,18 +192,7 @@
         <?php endforeach; ?>
       </ul>
 
-      <ul style='overflow:scroll'>
-        <!-- SUB CATEGORIES LIST HERE -->
-
-        <?php foreach ($subCategories as $subCategory): ?>
-          <li>
-            <?php foreach ($subCategory as $key => $value): ?>
-              <?php $valueChange = str_replace(' ', '-', $value) ?>
-              <p><strong><a href="shop/<?= $this->categoryName . '/' . $valueChange ?>"><?= $value ?></a></strong></p>
-            <?php endforeach; ?>
-          </li>
-        <?php endforeach; ?>
-      </ul>
+      <nav id="subCategoriesList"></nav>
 
       <ul style='overflow:scroll'>
         <!-- LIST PRODUCT -->
@@ -207,7 +200,6 @@
 
         <li>
           <?php foreach ($product as $key => $value): ?>
-          <img src="assets/images/products/<?=`${value}` . '.png'?>">
             <p><strong><?= $value ?></strong></p>
 
           <?php endforeach; ?>
