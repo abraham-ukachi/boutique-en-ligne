@@ -50,11 +50,12 @@ class Category extends Database
         return $result;
     }
 
-    public function getSubcategoryIdByName(int $subCategoryName){
-        $allProducts = $this->db->prepare("SELECT id FROM subcategories WHERE name = '$subCategoryName'");
+    public function getSubcategoryIdByName(string $subCategoryName){
+        $allProducts = $this->db->prepare("SELECT id FROM sub_categories WHERE name = '$subCategoryName'");
         $allProducts->execute([
         ]);
         $result = $allProducts->fetch(PDO::FETCH_ASSOC);
+        var_dump($result);
         return $result['id'];
     }
 
