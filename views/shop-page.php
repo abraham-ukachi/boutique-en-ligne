@@ -189,7 +189,7 @@
       </ul>
 
       <ul style='overflow:scroll'>
-        <!-- TODO : PUT SUB CATEGORIES LIST HERE -->
+        <!-- SUB CATEGORIES LIST HERE -->
 
         <?php foreach ($subCategories as $subCategory): ?>
           <li>
@@ -201,23 +201,20 @@
         <?php endforeach; ?>
       </ul>
 
-
-<!-- <?php if(!isset($_GET['a:category'])): ?> -->
       <ul style='overflow:scroll'>
         <!-- LIST PRODUCT -->
         <?php foreach ($products as $product): ?>
 
         <li>
           <?php foreach ($product as $key => $value): ?>
-            <p><?= $key ?>&nbsp; <strong><?= $value ?></strong></p>
+          <img src="assets/images/products/<?=`${value}` . '.png'?>">
+            <p><strong><?= $value ?></strong></p>
 
           <?php endforeach; ?>
         </li>
         <?php endforeach; ?>
       </ul>
-      <!--  <?php else :?> -->
-      <!--  <?= "Hello" ?> -->
-      <!--  <?php endif; ?> -->
+
 
     </main>
     <!-- End of MAIN -->
