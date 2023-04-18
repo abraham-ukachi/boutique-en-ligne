@@ -83,17 +83,35 @@ $LogoIsHome = $_GET['logo_is_home'] ?? false;
 
 $cartTotal = $_GET['cart_total'] ?? 0;
 
-// Create a default array of titles for the side bar as `defaultSidebarTitles`
-$defaultSidebarTitles = [
+// Create a default array of titles for the nav bar as `defaultNavbarTitles`
+$defaultNavbarTitles = [
+  'dashboard' => 'Open your Dashboard',
+  'home' => 'Go to Home',
+  'account' => 'See your Account',
+  'cart' => 'View Cart',
+  'likes' => 'Checkout Likes',
+  'users' => 'See all Users',
+  'products' => 'See all Products'
+];
+
+
+
+// Create a default array of labels for the nav bar as `defaultNavbarLabels`
+$defaultNavbarLabels = [
   'dashboard' => 'Dashboard',
   'home' => 'Home',
   'account' => 'Account',
   'cart' => 'Cart',
-  'likes' => 'Likes'
+  'likes' => 'Likes',
+  'users' => 'Users',
+  'products' => 'Products'
 ];
 
 // Get the titles
-$navbarTitles = $_GET['navbar_titles'] ?? $defaultSidebarTitles;
+$navbarTitles = $_GET['navbar_titles'] ?? $defaultNavbarTitles;
+
+// Get the labels 
+$navbarLabels = $_GET['navbar_labels'] ?? $defaultNavbarLabels;
 
 // DEBUG [4dbsmaster]: tell me about it :)
 // echo "navbarIsConnected ? " . json_encode($navbarIsConnected) . "<br>";
@@ -111,32 +129,32 @@ $navbarTitles = $_GET['navbar_titles'] ?? $defaultSidebarTitles;
 <nav id="navBar" class="admin nav-bar flex-layout horizontal">
 
   <!-- Dashboard - Nav-Link [disabled] -->
-  <a title="Dashboard" href="dashboard" class="nav-link" <?= ($navbarRoute == 'dashboard') ? 'active' : '' ?>>
+  <a title="<?= $navbarTitles['dashboard'] ?>" href="dashboard" class="nav-link" <?= ($navbarRoute == 'dashboard') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">dashboard</span>
-    <span class="nav-label">Dashboard</span>
+    <span class="nav-label"><?= $navbarLabels['dashboard'] ?></span>
   </a>
   <!-- End of Dashboard Nav-Link -->
 
   <!-- Users - Nav-Link -->
-  <a title="Users" href="users" class="nav-link" <?= ($navbarRoute == 'users') ? 'active' : '' ?>>
+  <a title="<?= $navbarTitles['users'] ?>" href="users" class="nav-link" <?= ($navbarRoute == 'users') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">people</span>
-    <span class="nav-label">Users</span>
+    <span class="nav-label"><?= $navbarLabels['users'] ?></span>
   </a>
   <!-- End of Users Nav-Link -->
 
 
   <!-- Products - Nav-Link -->
-  <a title="Products" href="products" class="nav-link" <?= ($navbarRoute == 'products') ? 'active' : '' ?>>
+  <a title="<?= $navbarTitles['products'] ?>" href="products" class="nav-link" <?= ($navbarRoute == 'products') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">shopping_bag</span>
-    <span class="nav-label">Products</span>
+    <span class="nav-label"><?= $navbarLabels['products'] ?></span>
   </a>
   <!-- End of Products Nav-Link -->
 
   
   <!-- Account - Nav-Link -->
-  <a title="Account" href="account" class="nav-link" <?= ($navbarRoute == 'account') ? 'active' : '' ?>>
+  <a title="<?= $navbarTitles['account'] ?>" href="account" class="nav-link" <?= ($navbarRoute == 'account') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">settings</span>
-    <span class="nav-label">Account</span>
+    <span class="nav-label"><?= $navbarLabels['account'] ?></span>
   </a>
   <!-- End of Account Nav-Link -->
 
@@ -157,24 +175,24 @@ $navbarTitles = $_GET['navbar_titles'] ?? $defaultSidebarTitles;
 <nav id="navBar" class="nav-bar flex-layout horizontal" <?= ($navbarIsConnected) ? 'connected' : '' ?>>
 
   <!-- Home - Nav-Link -->
-  <a title="Home" href="/" class="nav-link" <?= ($navbarRoute == 'home') ? 'active' : '' ?>>
+  <a title="<?= $navbarTitles['home'] ?>" href="home" class="nav-link" <?= ($navbarRoute == 'home') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">home</span>
-    <span class="nav-label">Home</span>
+    <span class="nav-label"><?= $navbarLabels['home'] ?></span>
   </a>
   <!-- End of Home Nav-Link -->
   
   <!-- Likes - Nav-Link -->
-  <a title="Liked products" href="likes" class="nav-link" <?= ($navbarRoute == 'likes') ? 'active' : '' ?>>
+  <a title="<?= $navbarTitles['likes'] ?>" href="likes" class="nav-link" <?= ($navbarRoute == 'likes') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">favorite_outline</span>
-    <span class="nav-label">Likes</span>
+    <span class="nav-label"><?= $navbarLabels['likes'] ?></span>
   </a>
   <!-- End of Likes Nav-Link -->
 
 
   <!-- Cart - Nav-Link -->
-  <a title="Cart" href="cart" class="nav-link" <?= ($navbarRoute == 'cart') ? 'active' : '' ?>>
+  <a title="<?= $navbarTitles['cart'] ?>" href="cart" class="nav-link" <?= ($navbarRoute == 'cart') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">shopping_cart</span>
-    <span class="nav-label">Cart</span>
+    <span class="nav-label"><?= $navbarLabels['cart'] ?></span>
     <!-- Badge -->
     <span class="badge" <?= (!$cartTotal) ? 'hidden' : ''?>><?= $cartTotal ?></span>
   </a>
@@ -182,9 +200,9 @@ $navbarTitles = $_GET['navbar_titles'] ?? $defaultSidebarTitles;
  
   
   <!-- Account - Nav-Link -->
-  <a title="Account" href="account" class="nav-link" <?= ($navbarRoute == 'account') ? 'active' : '' ?>>
+  <a title="<?= $navbarTitles['account'] ?>" href="account" class="nav-link" <?= ($navbarRoute == 'account') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">settings</span>
-    <span class="nav-label">Account</span>
+    <span class="nav-label"><?= $navbarLabels['account'] ?></span>
   </a>
   <!-- End of Account Nav-Link -->
 

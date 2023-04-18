@@ -72,7 +72,7 @@ section.controls {
   display: flex;
   flex-direction: row;
   color: inherit;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 /* Links in Control Buttons */

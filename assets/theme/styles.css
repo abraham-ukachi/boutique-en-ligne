@@ -374,6 +374,29 @@ header > .app-bar {
   background: var(--background-color);
 }
 
+/* Badges in Nav Link */
+.nav-link .badge {
+  position: absolute;
+  background: var(--nav-badge-background-color, var(--primary-container-color, darkred));
+  color: var(--nav-badge-text-color, var(--on-primary-container-color, white));
+  font-size: 0.6rem;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  padding: 2px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  margin: 0 auto;
+  margin-left: 24px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 /* Vertical Nav Bar - or - Side Bar */
 .nav-bar.vertical, #sideBar {
   position: relative;
@@ -410,30 +433,44 @@ header > .app-bar {
 }
 
 /* Horizontal Nav Bar & Footer of Main */
-.nav-bar.horizontal, main > footer {
+.nav-bar.horizontal, #navBar, main > footer {
   height: var(--nav-bar-size, 54px);
+  opacity: var(--nav-bar-opacity, 1);
 }
 
 /* Horizontal Nav Bar */
-.nav-bar.horizontal {
-  padding: 0 var(--nav-bar-padding-horizontal, 48px);
+.nav-bar.horizontal, #navBar {
+  justify-content: space-around;
+  padding: 0 var(--nav-bar-padding, 0.5rem);
   width: 100%;
 }
 
 /* Nav Links in a Horizontal Nav Bar */
-.nav-bar.horizontal .nav-link {
+.nav-bar.horizontal .nav-link,
+#navBar .nav-link{
+  --nav-link-opacity: var(--nav-bar-link-opacity, var(--opacity-text-active));
   width: var(--nav-bar-size, 54px);
 }
 
 .nav-link.profile {
-  background: rgba(0,0,0,0.1);
-  color: var(--on-background-color);
-  width: 48px;
-  height: 48px;
+  width: var(--profile-size, 48px);
+  height: var(--profile-size, 48px);
   border-radius: 50%;
-  margin: 8px auto;
+  /* margin: 8px auto; */
+
+  background: rgba(0,0,0,0.1); 
+  color: var(--on-background-color); 
+
+  opacity: 1;
+  /* color: red; */
+  margin: 1rem auto;
 }
 
+
+.nav-link.profile.initials {
+  background: var(--tertiary-container-color);
+  color: var(--on-tertiary-container-color);
+}
 
 /* App Logo | SPAN */
 span.app-logo {
@@ -1153,11 +1190,11 @@ a.nav-link span[initials] {
   display: flex;
   width: 32px;
   height: 32px;
-  font-size: 12px;
+  /* font-size: 12px; */
   text-transform: uppercase;
   border: 2px var(--on-background-color);
   color: var(--on-background-color);
-  border-style: dotted dashed;
+  /* border-style: dotted dashed; */
   flex-direction: column;
   font-weight: bold;
   justify-content: center;
@@ -1166,13 +1203,20 @@ a.nav-link span[initials] {
   border-radius: 100%;
   padding: 4px;
   box-sizing: border-box;
+
+  opacity: 1;
+  border: 0;
+  font-size: 1rem;
+  color: inherit;
 }
 
 /* Active Initials */
 a.nav-link[active] span[initials] {
   border: 0;
-  background: var(--initials-background-color, var(--surface-variant-color));
-  color: var(--initials-text-color, var(--on-surface-variant-color));
+  border-style: solid;
+  border-color: var(--primary-color);
+  /* background: var(--initials-background-color, var(--surface-variant-color));
+  color: var(--initials-text-color, var(--on-surface-variant-color)); */
 }
 
 /* Active Nav Links */
@@ -1237,24 +1281,25 @@ em {
 
 
   /* Responsive Vertical Nav Bar */
-  .nav-bar.vertical[responsive],
+  .nav-bar.vertical[responsive], #navBar[responsive],
   #sideBar[responsive] {
     display: flex;
   }
   
   /* Horizontal Nav Bar & Footer of Main */
-  .nav-bar.horizontal, main > footer {
+  .nav-bar.horizontal, #navBar, main > footer {
     height: var(--nav-bar-size, 68px);
   }
 
   /* Responsive Horizontal Nav Bar */
   /* HACK: allows me to display the nav bar in it's [demo page](component/demo/nav-bar.php) */
-  .nav-bar.horizontal[responsive] {
+  .nav-bar.horizontal[responsive], #navBar[responsive] {
     display: none !important;
   }
 
   /* Nav Links in a Horizontal Nav Bar */
-  .nav-bar.horizontal .nav-link {
+  .nav-bar.horizontal .nav-link,
+  #navBar .nav-link {
     width: var(--nav-bar-size, 68px);
   }
 
