@@ -86,20 +86,22 @@
 <main class='flex-layout vertical'>
     <h1>    Hello from review page !</h1>
 
+// add
 
-    <?php
-    require_once('models/Review.php');
-    $review = new \Maxaboom\Models\Review();
-    $review->getReview(1);
+    <ul style="overflow:scroll">
 
-    $comment = "jadore ce produit !";
-    $user_id = 1;
-    $product_id = 1;
-    $ratings = 4.0;
-    $insertReview = new Maxaboom\Models\Review();
-    $created_at = date('Y-m-d H:i:s');
-    $insertReview->insertReview($comment, $user_id, $product_id, $ratings, $created_at);
-    ?>
+    <?php foreach ($reviews as $review): ?>
+
+        <li>
+        <?php foreach ($review as $key => $value): ?>
+
+         <p><?= $key ?>&nbsp; <strong><?= $value ?></strong></p>
+
+        <?php endforeach; ?>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+
 </main>
 
 <!-- Aside part -->
