@@ -33,11 +33,19 @@ class AdminController{
     }
 
     //pour afficher tous les produits
-    public function showProductPage() :void {
+    public function showProductsPage(): void {
 
         $products = $this->productModel->getAllProducts();
 
-        require __DIR__ . '/../views/admin-product-page.php';
+        require __DIR__ . '/../views/admin-products-page.php';
+    }
+
+
+    public function showOneProductPage($productId): void {
+
+        $theProduct = $this->productModel->getProductById($productId);
+
+        require __DIR__ . '/../views/admin-product-details-page.php';
     }
 
 

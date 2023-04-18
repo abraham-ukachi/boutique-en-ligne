@@ -52,14 +52,19 @@ $router->map('POST', '/admin/product/create', function() {
 
 
 
-$router->map('GET', '/admin/product', function () {
+$router->map('GET', '/admin/products', function () {
     $adminController = new AdminController();
 
     // TODO: do something awesome here before showing the shop page ;)
 
     // show the shop page
-    $adminController->showProductPage();
+    $adminController->showProductsPage();
 
+});
+
+$router->map('GET', '/admin/product/[i:productId]', function($productId) {
+    $adminController = new AdminController();
+    $adminController->showOneProductPage($productId);
 });
 
 

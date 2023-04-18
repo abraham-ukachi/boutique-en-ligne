@@ -1,0 +1,144 @@
+<?php
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Our 4 VIP metas -->
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="Maxaboom is a fun and dynamic online store that offers a wide variety of musical instruments. From guitars and drums to keyboards, microphones and trumpets.">
+  
+  <!-- Title -->
+  <title>Welcome to maxaboom | The #1 online store for all your musical needs</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Mulish - Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Material Icons - https://github.com/google/material-design-icons/tree/master/font -->
+  <!-- https://material.io/resources/icons/?style=baseline -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Base -->
+  <base href="/boutique-en-ligne/">
+
+  <!-- Logo - Icon -->
+  <link rel="icon" href="assets/images/favicon.ico">
+
+  <!-- See https://goo.gl/OOhYW5 -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- See https://goo.gl/qRE0vM -->
+  <meta name="theme-color" content="#FFDCBA">
+
+  <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Maxaboom">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Maxaboom">
+
+  <!-- Homescreen icons -->
+  <link rel="apple-touch-icon" href="assets/images/manifest/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="assets/images/manifest/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="assets/images/manifest/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/images/manifest/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/images/manifest/icon-192x192.png">
+
+  <!-- Theme -->
+  <link rel="stylesheet" href="assets/theme/color.css">
+  <link rel="stylesheet" href="assets/theme/typography.css">
+  <!-- <link rel="stylesheet" href="assets/theme/styles.css"> -->
+  
+  <!-- Animations -->
+  <!-- <link rel="stylesheet" href="assets/animations/fade-in-animation.css"> -->
+  <!-- <link rel="stylesheet" href="assets/animations/slide-from-down-animation.css"> -->
+
+  <!-- Stylesheet -->
+  <!-- <link rel="stylesheet" href="assets/stylesheets/home-styles.css"> -->
+
+  <!-- Script -->
+  <script>
+
+    // Let's do some stuff when this page loads...
+    window.addEventListener('load', (event) => { 
+      // ...do something awesome here ;)
+    });
+    
+  </script>
+  
+  <!-- Some more script for ya! #LOL -->
+  <script src="src/app.js" defer></script>
+  <script src="src/scripts/admin-product.js" defer></script>
+  
+</head>
+<!-- End of HEAD -->
+<body class="theme dark" fullbleed>
+
+  <!-- Main part -->
+<h1><?php echo $theProduct['name'] ?></h1>
+<?php
+//var_dump($products);
+//echo $products[0]['name'];
+
+var_dump($theProduct);
+
+?>
+<form  id='productUpdateForm' action='' method='post'>
+    <div class="input-form-container">
+        <div class="form-control">
+            <label for="productname">Nom</label>
+            <input id="productname" class="productupdate" name="productname" type="text" value="<?php echo $theProduct['name'] ?>">
+        </div>
+        <div class="form-control">
+            <label for="productdescription">Description</label>
+            <input id="productdescription" class="productupdate" name="productdescription" type="text" value="<?php echo $theProduct['description'] ?>">
+        </div>
+
+        <div class="form-control">
+            <label for="price">Prix</label>
+            <input id="productprice" class="productupdate" name="productprice" type="integer" value="<?php echo $theProduct['price'] ?>">
+        </div>
+
+        <div class="form-control">
+            <label for="categorie">Catégorie</label>
+            <input id="productcategorie" class="productupdate" name="productcategorie" type="text" value="">
+        </div>
+
+        <div class="form-control">
+            <label for="subcategorie">Sous-catégorie</label>
+            <input id="productsubcategorie" class="productupdate" name="productupdate" type="text" value="">
+        </div>
+
+        <div class="form-control">
+            <label for="stock">Stock</label>
+            <input id="productstock" class="productupdate" name="productstock" type="integer" value="<?php echo $theProduct['stock'] ?>">
+        </div>
+        <button type="submit" class="register_form_button" id="envoie" name="envoie">S'enregistrer</button>
+    </div>
+    </form>
+   
+
+   <!-- Aside part -->
+  <aside class="flex-layout vertical" hidden>...</aside>
+
+<!-- Default Backdrop -->
+<div id="backdrop" hidden></div>
+
+<!-- Default Menus -->
+<div id="menus" hidden></div>
+
+<!-- Default Dialogs -->
+<div id="dialogs" hidden></div>
+
+<!-- Default Toasts -->
+<div id="toasts" hidden></div>
+
+</body>
+
+</html>   
