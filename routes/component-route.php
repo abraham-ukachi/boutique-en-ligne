@@ -24,8 +24,8 @@
 * SOFTWARE.
 *
 * @project boutique-en-ligne
-* @name Account - Route
-* @file account-route.php
+* @name Component - Route
+* @file component-route.php
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
 * @version: 0.0.1
@@ -46,15 +46,6 @@
 // declare the `routes` namespace
 namespace Maxaboom\Routes;
 
-// use maxaboom's `AccountController` class
-use Maxaboom\Controllers\AccountController;
-
-// use these controller helpers
-// use Maxaboom\Controllers\Helpers\I18n;
-// use these models
-// use Maxaboom\Models\User;
-
-
 
 
 
@@ -66,7 +57,7 @@ use Maxaboom\Controllers\AccountController;
 
 /**
  * ============================
- *  Account Routes
+ *  Component Demo Routes
  * ============================
  */
 
@@ -75,23 +66,37 @@ use Maxaboom\Controllers\AccountController;
 
 
 /**
- * Route used to display the account related pages
+ * Route used to display the demo page of the given `componentName`
  * 
  * @method GET
- * @url /account
+ * @url /component/demo/[*:componentName]
  *
- * @echo string $accountPage - the account page
+ * @echo string $componentName - the name of the component to display
  */
-$router->map('GET', '/account', function(): void {
+$router->map('GET', '/component/demo/[*:componentName]', function($componentName) {
 
-  // create an object of `AccountController` class
-  $accountController = new AccountController();
-
-  // show the default page
-  $accountController->showPage();
-
+  require_once __DIR__ . '/../views/components/demo/' . $componentName . '.php';
 
 });
+
+
+/**
+ * Route used to get the given `componentName`
+ * 
+ * @method GET
+ * @url /component/[*:componentName]
+ *
+ * @echo string $componentName - the name of the component to display
+ */
+$router->map('GET', '/component/[*:componentName]', function($componentName) {
+
+  require_once __DIR__ . '/../views/components/' . $componentName . '.php';
+
+});
+
+
+
+
 
 
 

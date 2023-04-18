@@ -32,16 +32,15 @@
 * @version: 0.0.1
 * 
 * Usage:
-*   1-|> <?php define('__BASE__', 'components'); ?>
+*   1-|> // Use the following code to include the side bar in your page
 *    -|>
 *    -|> <?php 
 *    -|>    $_GET['sidebar_route'] = 'account';
-*    -|>    $_GET['sidebar_subroute'] = '';
 *    -|>    $_GET['sidebar_init'] = 'au'; 
-*    -|>    $_GET['sidebar_connected'] = true; 
-*    -|>    $_GET['sidebar_forAdmin'] = true; 
+*    -|>    $_GET['sidebar_connected'] = false; 
+*    -|>    $_GET['sidebar_for_admin'] = true; 
 *    -|>    
-*    -|>    include __BASE__ . 'side-bar.php'; 
+*    -|>    require __DIR__ . 'components/side-bar.php'; 
 *    -|> ?>
 *    -|>
 *
@@ -70,17 +69,16 @@
 // Using our lovely null coalescing operator (i.e. ??):
 
 // Get the route of side bar as `sidebarRoute`
-$sidebarRoute = $_GET['sidebar-route'] ?? 'home';
-// Get the sub-route of side bar as `sidebarSubRoute`
-$sidebarSubRoute = $_GET['sidebar-subroute'] ?? '';
+$sidebarRoute = $_GET['sidebar_route'] ?? 'home';
 // Get the sidebar initials as `sidebarInit`
 $sidebarInit = $_GET['sidebar_init'] ?? '';
 
 // Check if the side bar is for an administrator
-$sidebarForAdmin = $_GET['sidebar_forAdmin'] ?? false;
+$sidebarForAdmin = $_GET['sidebar_for_admin'] ?? false;
 // Check if the side bar is connected
 $sidebarIsConnected = $_GET['sidebar_connected'] ?? false;
 
+$LogoIsHome = $_GET['logo_is_home'] ?? false;
 
 // Create a default array of titles for the side bar as `defaultSidebarTitles`
 $defaultSidebarTitles = [
@@ -95,22 +93,23 @@ $defaultSidebarTitles = [
 $sidebarTitles = $_GET['sidebar_titles'] ?? $defaultSidebarTitles;
 
 // DEBUG [4dbsmaster]: tell me about it :)
-echo "sidebarForAdmin? " . json_encode($sidebarForAdmin) . "<br>";
-echo "sidebarRoute = " . $sidebarRoute . "<br>";
+// echo "sidebarIsConnected ? " . json_encode($sidebarIsConnected) . "<br>";
+// echo "sidebarForAdmin ? " . json_encode($sidebarForAdmin) . "<br>";
+// echo "sidebarRoute = " . $sidebarRoute . "<br>";
 
 ?>
 
 
 <!-- PHP (1): If this sideBar is for an administrator... -->
-<?php if ($sidebarForAdmin) : ?>
+<?php if ($sidebarForAdmin): ?>
 <!-- PHP (1): ...show an admin side-bar -->
 
 <!-- Admin Side Bar -->
 <nav id="sideBar" class="admin flex-layout vertical">
   <!-- Icon-Wrapper -->
   <a title="Dashboard" 
-    href="admin/dashboard" 
-    class="nav-link icon-wrapper" <?= (($sidebarRoute == 'home') || ($sidebarRoute == 'dashboard'))  ? 'active' : '' ?>>
+    href="admin/dashboard"
+    class="nav-link icon-wrapper" <?= ($LogoIsHome && (($sidebarRoute == 'home') || ($sidebarRoute == 'dashboard')))  ? 'active' : '' ?>>
 
     <!-- App-Logo -->
     <span class="app-logo"></span> <!-- UX: Use `home` material-icon instead ? -->
@@ -148,7 +147,7 @@ echo "sidebarRoute = " . $sidebarRoute . "<br>";
   
   
   <!-- Account - Nav-Link -->
-  <a title="Account" href="account" class="nav-link" <?= $sidebarRoute == 'account') ? 'active' : '' ?>>
+  <a title="Account" href="account" class="nav-link" <?= ($sidebarRoute == 'account') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">settings</span>
     <span class="nav-label">Account</span>
   </a>
@@ -172,7 +171,7 @@ echo "sidebarRoute = " . $sidebarRoute . "<br>";
 
 
 <!-- + PHP (1): If this sideBar *IS NOT FOR ADMIN*... -->
-<?php else if (!$sidebarForAdmin): ?>
+<?php else: ?>
 <!-- + PHP (1): ...show the normal / default side-bar -->
 
 
@@ -199,10 +198,10 @@ echo "sidebarRoute = " . $sidebarRoute . "<br>";
     <span class="nav-label">Home</span>
   </a>
   <!-- End of Home Nav-Link -->
-
+  
   <!-- Likes - Nav-Link -->
   <a title="Liked products" href="likes" class="nav-link" <?= ($sidebarRoute == 'likes') ? 'active' : '' ?>>
-    <span class="material-icons nav-icon">heart</span>
+    <span class="material-icons nav-icon">favorite_outline</span>
     <span class="nav-label">Likes</span>
   </a>
   <!-- End of Likes Nav-Link -->
@@ -220,7 +219,7 @@ echo "sidebarRoute = " . $sidebarRoute . "<br>";
   
   
   <!-- Account - Nav-Link -->
-  <a title="Account" href="account" class="nav-link" <?= $sidebarRoute == 'account') ? 'active' : '' ?>>
+  <a title="Account" href="account" class="nav-link" <?= ($sidebarRoute == 'account') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">settings</span>
     <span class="nav-label">Account</span>
   </a>
@@ -245,7 +244,7 @@ echo "sidebarRoute = " . $sidebarRoute . "<br>";
   <?php else: ?>
   <!-- + PHP(2): ...show person icon with link to 'auth' page -->
 
-  <a title="Login / Register" href="auth" class="nav-link">
+  <a title="Login / Register" href="auth" class="nav-link profile">
     <span class="material-icons nav-icon">person</span>
   </a>
 

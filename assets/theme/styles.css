@@ -374,17 +374,36 @@ header > .app-bar {
   background: var(--background-color);
 }
 
-/* Vertical Nav Bar */
-.nav-bar.vertical {
-  width: var(--nav-bar-size, 54px);
+/* Vertical Nav Bar - or - Side Bar */
+.nav-bar.vertical, #sideBar {
+  position: relative;
+  width: var(--side-bar-size, 54px);
   height: 100%;
-  padding: var(--nav-bar-padding-vertical, 0);
+  min-height: var(--side-bar-min-height, 700px);
+  padding: var(--side-bar-padding-vertical, 0);
+  background-color: var(--side-bar-background-color, var(--background-color));
+}
+
+/* Nav Labels */
+.nav-label {
+  opacity: var(--opacity-text-inactive);
+  font-weight: bold;
+}
+
+/* Nav Labels of SideBar */
+#sideBar .nav-label {
+  font-size: var(--side-bar-label-size, 0.8rem);
+}
+
+/* Nav Labels of NavBar */
+#navBar .nav-label, nav-bar .nav-label {
+  font-size: var(--nav-bar-label-size, 0.75rem);
 }
 
 
-
 /* All horizontal dividers in vertical nav bar */
-.nav-bar.vertical span.divider.horizontal {
+.nav-bar.vertical span.divider.horizontal,
+#sideBar span.divider.horizontal {
   position: relative;
   width: 70%;
   margin: 0 auto;
@@ -404,6 +423,15 @@ header > .app-bar {
 /* Nav Links in a Horizontal Nav Bar */
 .nav-bar.horizontal .nav-link {
   width: var(--nav-bar-size, 54px);
+}
+
+.nav-link.profile {
+  background: rgba(0,0,0,0.1);
+  color: var(--on-background-color);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin: 8px auto;
 }
 
 
@@ -1108,14 +1136,20 @@ a.nav-link {
   fill: var(--nav-icon-color, var(--on-background-color));
 }
 
+a.nav-link.icon-wrapper {
+  opacity: var(--side-bar-logo-opacity, 0.98);
+}
+
 /* App Logo in an Nav Link */
 a.nav-link span.app-logo {
-  opacity: inherit;
+  --app-logo-size: var(--side-bar-logo-size, 48px);
+  --app-logo-color: var(--side-bar-logo-color, var(--primary-color));
+  --app-logo-opacity: inherit;
 }
 
 
 /* Initials in Nav Link */
-a.nav-link span.initials {
+a.nav-link span[initials] {
   display: flex;
   width: 32px;
   height: 32px;
@@ -1135,7 +1169,7 @@ a.nav-link span.initials {
 }
 
 /* Active Initials */
-a.nav-link[active] span.initials {
+a.nav-link[active] span[initials] {
   border: 0;
   background: var(--initials-background-color, var(--surface-variant-color));
   color: var(--initials-text-color, var(--on-surface-variant-color));
@@ -1197,13 +1231,14 @@ em {
 @media (min-width: 460px) {
   
   /* Vertical Nav Bar */
-  .nav-bar.vertical {
-    width: var(--nav-bar-size, 78px); /* b4: 68px */
+  .nav-bar.vertical, #sideBar {
+    width: var(--side-bar-size, 90px); /* b4: 78px */
   }
 
 
   /* Responsive Vertical Nav Bar */
-  .nav-bar.vertical[responsive] {
+  .nav-bar.vertical[responsive],
+  #sideBar[responsive] {
     display: flex;
   }
   

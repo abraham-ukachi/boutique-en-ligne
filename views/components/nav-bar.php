@@ -1,8 +1,9 @@
 <?php
 /**
-* @license
-* ddd / module-connexion
-* Copyright (c) 2022 Abraham Ukachi
+* @license MIT
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal, Catherine Tranchand. The Maxaboom Project Contributors.
+* All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -22,27 +23,36 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
-* @project module-connexion
-* @name Nav Bar Component - ddd
+* @project boutique-en-ligne
+* @name Nav Bar - Component
 * @file nav-bar.php
 * @demo demo/nav-bar.php
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
 * @version: 0.0.1
 * 
 * Usage:
-*   1-|> <?php define('__BASE__', 'components'); ?>
+*   1-|> // Use the following code to include the side bar in your page
 *    -|>
 *    -|> <?php 
-*    -|>    $_GET['navbar_type'] = 'horizontal'; 
-*    -|>    $_GET['navbar_page'] = 'profil';
-*    -|>    $_GET['navbar_init'] = 'ab'; 
-*    -|>    $_GET['navbar_connected'] = 'true'; 
-*    -|>    $_GET['navbar_res'] = 'false'; 
+*    -|>    $_GET['navbar_route'] = 'account';
+*    -|>    $_GET['navbar_init'] = 'au'; 
+*    -|>    $_GET['navbar_connected'] = false; 
+*    -|>    $_GET['navbar_for_admin'] = true; 
+*    -|>    $_GET['cart_total'] = 20; 
+*    -|>    
+*    -|>    require __DIR__ . 'components/nav-bar.php'; 
 *    -|> ?>
 *    -|>
-*    -|> <?php include __BASE__ . 'nav-bar.php'; ?>
 *
-*   2-|> open http://localhost/module-connexion/components/demo/nav-bar.php
+*   2-|> open http://localhost/boutique-en-ligne/components/demo/nav-bar
+* 
+* 
+* 
+* ============================
+* IMPORTANT: This is a working progress and subject to major changes ;)
+* ============================
+*
 * 
 */
 
@@ -56,210 +66,133 @@
 
 // Let's define some constant variables, shall we ?
 
-// NAVBAR_TYPE 
-define('NAVBAR_TYPE', 'navbar_type');
-// NAVBAR_TYPE DEFAULT
-define('NAVBAR_TYPE_DEFAULT', 'horizontal');
 
+// Using our lovely null coalescing operator (i.e. ??):
 
+// Get the route of side bar as `navbarRoute`
+$navbarRoute = $_GET['navbar_route'] ?? 'home';
+// Get the navbar initials as `navbarInit`
+$navbarInit = $_GET['navbar_init'] ?? '';
 
-// Using our beloved / basic ternary statment:
- 
-// Get the type of navbar as `navbarType`,
-// but assign the `NAVBAR_TYPE_DEFAULT` value to `navbarType` variable, if there's no `type` parameter
-$navbarType = isset($_GET[NAVBAR_TYPE]) ? $_GET[NAVBAR_TYPE] : NAVBAR_TYPE_DEFAULT;
+// Check if the side bar is for an administrator
+$navbarForAdmin = $_GET['navbar_for_admin'] ?? false;
+// Check if the side bar is connected
+$navbarIsConnected = $_GET['navbar_connected'] ?? false;
 
-// Check if this navbar is `horizontal`
-$isNavbarHorizontal = ($navbarType == 'horizontal') ? true : false;
-// Check if navbar is `vertical`
-$isNavbarVertical = ($navbarType == 'vertical') ? true : false;
+$LogoIsHome = $_GET['logo_is_home'] ?? false;
 
+$cartTotal = $_GET['cart_total'] ?? 0;
+
+// Create a default array of titles for the side bar as `defaultSidebarTitles`
+$defaultSidebarTitles = [
+  'dashboard' => 'Dashboard',
+  'home' => 'Home',
+  'account' => 'Account',
+  'cart' => 'Cart',
+  'likes' => 'Likes'
+];
+
+// Get the titles
+$navbarTitles = $_GET['navbar_titles'] ?? $defaultSidebarTitles;
 
 // DEBUG [4dbsmaster]: tell me about it :)
-// echo "navbarType => $navbarType <br/> ";
-// echo "isNavbarHorizontal ? " . json_encode($isNavbarHorizontal) . "<br>";
-// echo "isVertical ? " . json_encode($isNavbarVertical) . "<br>";
+// echo "navbarIsConnected ? " . json_encode($navbarIsConnected) . "<br>";
+// echo "navbarForAdmin ? " . json_encode($navbarForAdmin) . "<br>";
+// echo "navbarRoute = " . $navbarRoute . "<br>";
+
 ?>
 
 
-<!-- PHP (1): If the nav bar should be vertical... -->
-<?php if ($isNavbarVertical) : ?>
-<!-- PHP (1): ...show the vertical nav-bar -->
+<!-- PHP (1): If this navBar is for an administrator... -->
+<?php if ($navbarForAdmin): ?>
+<!-- PHP (1): ...show an admin side-bar -->
 
-<!-- Vertical Nav Bar -->
-<nav class="nav-bar vertical flex-layout" <?php echo ($_GET['navbar_res'] == 'true') ? 'responsive' : '' ?>>
-  <!-- Icon-Wrapper -->
-  <a title="Home" 
-    href="<?php echo ($_GET['navbar_page'] == 'admin') ? 'admin.php' : 'index.php' ?>" 
-    class="nav-link icon-wrapper" <?php echo (($_GET['navbar_page'] == 'home') || ($_GET['navbar_page'] == 'admin'))  ? 'active' : '' ?>>
-    <!-- App-Logo -->
-    <span class="app-logo"></span> <!-- UX: Use `home` material-icon instead ? -->
-    <!-- End of App-Logo -->
-  </a>
-  <!-- End of Icon-Wrapper -->
-  
-  <span flex></span>
-
-
-  <!-- PHP (3): If the current page is `admin` ... -->
-  <?php if ($_GET['navbar_page'] == 'admin') : ?>
-  <!-- PHP (3): ...show the users and dashboard nav-links -->
-
-  <!-- Users - Nav-Link -->
-  <a title="Users" href="admin.php?route=users" class="nav-link" <?php echo ($_GET['navbar_route'] == 'users') ? 'active' : '' ?>>
-    <span class="material-icons nav-icon">people</span>
-  </a>
-  <!-- End of Users Nav-Link -->
-
+<!-- Admin Nav Bar -->
+<nav id="navBar" class="admin nav-bar flex-layout horizontal">
 
   <!-- Dashboard - Nav-Link [disabled] -->
-  <a title="Dashboard" href="admin.php?route=dashboard" class="nav-link" <?php echo ($_GET['navbar_route'] == 'dashboard') ? 'active' : '' ?> disabled>
+  <a title="Dashboard" href="dashboard" class="nav-link" <?= ($navbarRoute == 'dashboard') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">dashboard</span>
+    <span class="nav-label">Dashboard</span>
   </a>
   <!-- End of Dashboard Nav-Link -->
 
-  <!-- PHP (else): Current page *IS NOT* `admin`...  -->
-  <?php else : ?> 
-  <!-- PHP (else): ...show the DDD Studio - Nav-Link  -->
-
-
-  <!-- DDD Studio - Nav-Link -->
-  <a title="DDD Studio" href="ddd-studio.php" class="nav-link" <?php echo ($_GET['navbar_page'] == 'ddd-studio') ? 'active' : '' ?>>
-    <span class="material-icons nav-icon">view_in_ar</span>
-  </a>
-  <!-- End of DDD Studio Nav-Link -->
-
-  <?php endif; ?>
-  <!-- End of PHP (3) -->
-
-
-  
-  <!-- Profile - Nav-Link -->
-  <a title="Profile" href="profil.php" class="nav-link" <?php echo ($_GET['navbar_page'] == 'profil') ? 'active' : '' ?>>
-    
-    <!-- PHP: If the navbar *IS* connected ... -->
-    <?php if ($_GET['navbar_connected'] == 'true'): ?>
-    <!-- PHP: ...show the initials -->
-    
-    <!-- Initials -->
-    <span class="initials nav-icon"><?php echo $_GET['navbar_init'] ?></span>
-
-    <!-- PHP: If the navbar *IS NOT* connected ... -->
-    <?php else: ?>
-    <!-- PHP: ...show the `account_circle` icon -->
-
-    <span class="material-icons nav-icon">account_circle</span>
-
-    <?php endif; ?>
-    <!-- End of PHP: If the navbar *IS* or *IS NOT* connected -->
-
-  </a>
-  <!-- End of Profile Nav-Link -->
-
-  <span class="divider horizontal"></span>
-
-  
-  <!-- Settings - Nav-Link -->
-  <a title="Settings" href="settings.php" class="nav-link" <?php echo ($_GET['navbar_page'] == 'settings') ? 'active' : '' ?>>
-    <span class="material-icons">settings</span>
-  </a>
-  <!-- End of Settings Nav-Link -->
-  
-
-  <span flex></span>
-
-
-  <!-- PHP: If the nav bar *IS CONNECTED* ...-->
-  <?php if ($_GET['navbar_connected'] == 'true'): ?>
-  <!-- PHP: ...show the log out nav-link -->
-
-  <!-- LogOut - Nav-Link -->
-  <a title="Log out" href="logout.php" class="nav-link">
-    <span class="material-icons nav-icon">power_settings_new</span>
-  </a>
-  <!-- End of Profile Nav-Link -->
-
-  <?php endif; ?>
-  <!-- End of PHP: If the nav bar *IS CONNECTED* -->
-
-  <!-- Horizontal Divider -->
-  <span class="divider vertical right"></span>
-</nav>
-<!-- End of Vertical Nav Bar -->
-
-<?php endif; ?>
-<!-- End of PHP (1) -->
-
-
-<!-- PHP (2): If the nav bar should be horizontal... -->
-<?php if ($isNavbarHorizontal) : ?>
-<!-- PHP (2): ...show the horizontal nav-bar -->
-
-<!-- Horizontal Nav Bar -->
-<nav class="nav-bar horizontal flex-layout center" <?php echo ($_GET['navbar_res'] == 'true') ? 'responsive' : '' ?>>
-  <span class="divider horizontal top"></span>
-
-  <!-- PHP (4): If the current page is `admin` ... -->
-  <?php if ($_GET['navbar_page'] == 'admin') : ?>
-  <!-- PHP (4): ...show the Users Nav-Link -->
-
   <!-- Users - Nav-Link -->
-  <a title="Users" href="admin.php?route=users" class="nav-link" <?php echo ($_GET['navbar_route'] == 'users') ? 'active' : '' ?>>
+  <a title="Users" href="users" class="nav-link" <?= ($navbarRoute == 'users') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">people</span>
+    <span class="nav-label">Users</span>
   </a>
   <!-- End of Users Nav-Link -->
 
-  <!-- PHP (else): Current page *IS NOT* `admin`...  -->
-  <?php else : ?> 
-  <!-- PHP (else): ...show the DDD Studio - Nav-Link  -->
 
-  <!-- DDD Studio - Nav-Link -->
-  <a title="DDD Studio" href="ddd-studio.php" class="nav-link" <?php echo ($_GET['navbar_page'] == 'ddd-studio') ? 'active' : '' ?>>
-    <span class="material-icons nav-icon">view_in_ar</span>
+  <!-- Products - Nav-Link -->
+  <a title="Products" href="products" class="nav-link" <?= ($navbarRoute == 'products') ? 'active' : '' ?>>
+    <span class="material-icons nav-icon">shopping_bag</span>
+    <span class="nav-label">Products</span>
   </a>
-  <!-- End of DDD Studio - Nav-Link -->
-
-  <?php endif; ?>
-  <!-- End of PHP (4) -->
+  <!-- End of Products Nav-Link -->
 
   
-  <span flex></span> <!-- HACK: Just a temp. fix :) -->
-
-  <!-- Icon-Wrapper -->
-  <a title="Home" 
-    href="<?php echo ($_GET['navbar_page'] == 'admin') ? 'admin.php' : 'index.php' ?>" 
-    class="nav-link icon-wrapper" <?php echo (($_GET['navbar_page'] == 'home') || ($_GET['navbar_page'] == 'admin'))  ? 'active' : '' ?> >
-    <!-- App-Logo -->
-    <span class="app-logo"></span> <!-- UX: Use `home` material-icon instead ? -->
-    <!-- End of App-Logo -->
+  <!-- Account - Nav-Link -->
+  <a title="Account" href="account" class="nav-link" <?= ($navbarRoute == 'account') ? 'active' : '' ?>>
+    <span class="material-icons nav-icon">settings</span>
+    <span class="nav-label">Account</span>
   </a>
-  <!-- End of Icon-Wrapper -->
+  <!-- End of Account Nav-Link -->
 
 
-  <span flex></span> <!-- HACK: Just a temp. fix :) -->
-  
-  <!-- Profile - Nav-Link -->
-  <a title="Profile" href="profil.php" class="nav-link" <?php echo ($_GET['navbar_page'] == 'profil') ? 'active' : '' ?>>
-    <!-- PHP: If the navbar *IS* connected ... -->
-    <?php if ($_GET['navbar_connected'] == 'true'): ?>
-    <!-- PHP: ...show the initials -->
-    
-    <!-- Initials -->
-    <span class="initials"><?php echo $_GET['navbar_init'] ?></span>
-
-    <!-- PHP: If the navbar *IS NOT* connected ... -->
-    <?php else: ?>
-    <!-- PHP: ...show the `account_circle` icon -->
-
-    <span class="material-icons nav-icon">account_circle</span>
-
-    <?php endif; ?>
-    <!-- End of PHP: If the navbar *IS* or *IS NOT* connected -->
-  </a>
-  <!-- End of Profile Nav-Link -->
-  
+  <!-- Horizontal Divider -->
+  <span class="divider horizontal top"></span>
 </nav>
-<!-- End of Horizontal Nav Bar -->
+<!-- End of Admin Nav Bar -->
+
+
+<!-- + PHP (1): If this navBar *IS NOT FOR ADMIN*... -->
+<?php else: ?>
+<!-- + PHP (1): ...show the normal / default side-bar -->
+
+
+
+<!-- Default Nav Bar -->
+<nav id="navBar" class="nav-bar flex-layout horizontal" <?= ($navbarIsConnected) ? 'connected' : '' ?>>
+
+  <!-- Home - Nav-Link -->
+  <a title="Home" href="/" class="nav-link" <?= ($navbarRoute == 'home') ? 'active' : '' ?>>
+    <span class="material-icons nav-icon">home</span>
+    <span class="nav-label">Home</span>
+  </a>
+  <!-- End of Home Nav-Link -->
+  
+  <!-- Likes - Nav-Link -->
+  <a title="Liked products" href="likes" class="nav-link" <?= ($navbarRoute == 'likes') ? 'active' : '' ?>>
+    <span class="material-icons nav-icon">favorite_outline</span>
+    <span class="nav-label">Likes</span>
+  </a>
+  <!-- End of Likes Nav-Link -->
+
+
+  <!-- Cart - Nav-Link -->
+  <a title="Cart" href="cart" class="nav-link" <?= ($navbarRoute == 'cart') ? 'active' : '' ?>>
+    <span class="material-icons nav-icon">shopping_cart</span>
+    <span class="nav-label">Cart</span>
+    <!-- Badge -->
+    <span class="badge" <?= (!$cartTotal) ? 'hidden' : ''?>><?= $cartTotal ?></span>
+  </a>
+  <!-- End of Products Nav-Link -->
+ 
+  
+  <!-- Account - Nav-Link -->
+  <a title="Account" href="account" class="nav-link" <?= ($navbarRoute == 'account') ? 'active' : '' ?>>
+    <span class="material-icons nav-icon">settings</span>
+    <span class="nav-label">Account</span>
+  </a>
+  <!-- End of Account Nav-Link -->
+
+
+  <!-- Horizontal Divider -->
+  <span class="divider horizontal top"></span>
+</nav>
+<!-- End of Nav Bar -->
 
 <?php endif; ?>
-<!-- End of PHP (2) -->
+<!-- End of PHP (1) -->

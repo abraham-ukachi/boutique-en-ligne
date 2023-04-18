@@ -1,8 +1,9 @@
 <?php
 /**
-* @license
-* ddd / module-connexion
-* Copyright (c) 2022 Abraham Ukachi
+* @license MIT
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal, Catherine Tranchand. The Maxaboom Project Contributors.
+* All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +23,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
-* @project module-connexion
+* @project boutique-en-ligne 
 * @name Nav Bar - PHP Component Demo
 * @file nav-bar.php
 * @demo components/demo/nav-bar.php
@@ -30,8 +31,7 @@
 * @version: 0.0.1
 * 
 * Usage:
-*   1-|> open http://localhost/module-connexion/components/demo/nav-bar.php
-* 
+*   1-|> open http://localhost/boutique-en-ligne/component/demo/nav-bar 
 */
 
 
@@ -42,39 +42,40 @@
 */
 
 // Define some constant variables
-// Types
-define('TYPE_VERTICAL', 'vertical');
-define('TYPE_HORIZONTAL', 'horizontal');
 // Pages
-define('PAGE_HOME', 'home');
-define('PAGE_DDD', 'ddd');
-define('PAGE_PROFILE', 'profil');
-define('PAGE_SETTINGS', 'settings');
-define('PAGE_ADMIN', 'admin');
-// Routes
-define('ROUTE_USERS', 'users');
+define('ROUTE_HOME', 'home');
+define('ROUTE_LIKES', 'likes');
+define('ROUTE_CART', 'cart');
+define('ROUTE_ACCOUNT', 'account');
+
 define('ROUTE_DASHBOARD', 'dashboard');
+define('ROUTE_USERS', 'users');
+define('ROUTE_PRODUCTS', 'products');
+
 // toggles
 define('ACTIVE', 'active');
 
-// get the value of `type` parameter from PHP's global variable - GET
-$type = isset($_GET['type']) ?  $_GET['type'] : '';
 
-// get the value of `page` parameter from PHP's global variable - GET
-$page = isset($_GET['page']) ?  $_GET['page'] : '';
 
 // get the value of `route` parameter from PHP's global variable - GET
-$route = isset($_GET['route']) ?  $_GET['route'] : '';
+$route = $_GET['route'] ?? '';
+
+
+// get the value of `init` parameter from PHP's global variable - GET
+$init = $_GET['init'] ?? '';
 
 // get the value of `connected` parameter from PHP's global variable - GET
-$connected = isset($_GET['connected']) ?  $_GET['connected'] : 'false';
+$connected = isset($_GET['connected']) ? filter_var($_GET['connected'], FILTER_VALIDATE_BOOLEAN) : false;
 
-// get the value of `init` (initials) parameter from PHP's global variable - GET
-$init = isset($_GET['init']) ?  $_GET['init'] : 'ab';
+// get the value of `forAdmin` parameter from PHP's global variable - GET
+$forAdmin = isset($_GET['for_admin']) ? filter_var($_GET['for_admin'], FILTER_VALIDATE_BOOLEAN) : false;
 
-// set `navbarResponsive` variable to 'false'
-// because we are in DEMO mode ;) #LOL
-$navbarResponsive = 'false';
+// get the value of `cartTotal` parameter from PHP's global variable - GET
+$cartTotal = isset($_GET['cart_total']) ? (int) $_GET['cart_total'] : 0;
+
+// DEBUG [4dbsmaster]: tell me about it ;)
+// echo "route: $route" . PHP_EOL;
+// echo "connected: " . json_encode($connected) . PHP_EOL;
 
 ?><!DOCTYPE html>
 
@@ -87,10 +88,10 @@ $navbarResponsive = 'false';
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="PHP Component Demo of Nav Bar from module-connexion">
+    <meta name="description" content="PHP Component Demo of Nav Bar - Maxaboom">
     
     <!-- Title -->
-    <title>Nav Bar - PHP Component Demo | Abraham Ukachi</title>
+    <title>Nav Bar - PHP Component Demo | Maxaboom</title>
      
     
     <!-- Fonts -->
@@ -105,7 +106,7 @@ $navbarResponsive = 'false';
   
      
     <!-- Base -->
-    <base href="../../">
+    <base href="/boutique-en-ligne/">
 
     <!-- Logo - Icon -->
     <link rel="icon" href="assets/images/favicon.ico">
@@ -114,7 +115,7 @@ $navbarResponsive = 'false';
     <link rel="manifest" href="manifest.json">
 
     <!-- See https://goo.gl/qRE0vM -->
-    <meta name="theme-color" content="#A67C52">
+    <meta name="theme-color" content="#FFDCBA">
 
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -141,139 +142,24 @@ $navbarResponsive = 'false';
     <link rel="stylesheet" href="assets/theme/styles.css">
     
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="assets/stylesheets/profile-styles.css">
+    <!-- <link rel="stylesheet" href="assets/stylesheets/profile-styles.css"> -->
 
     <!-- Demo Styles -->
-    <link rel="stylesheet" href="components/demo/demo-styles.css">
+    <link rel="stylesheet" href="views/components/demo/demo-styles.css">
     
-    <!-- Animations -->
-    <!-- <link rel="stylesheet" href="assets/animations/fade-in-animation.css"> -->
-    <!-- <link rel="stylesheet" href="assets/animations/slide-from-down-animation.css"> -->
 
 
     <!-- Script -->
-    <!-- ^^^^^^ Like previously stated, "A little JS doesn't hurt ;)" -->
     <script>
-      /*
-       * Once again, I'm well aware that this project doesn't require a script but
-       * I couldn't help myself. So.... Bite me twice!! ;)
-       */
-
-      // Create `ddd` object variable with a `isReady` key 
-      var ddd = { 
-        isReady: false,
-        onReady: () => {} 
-      }; // <- `false` 'cause duh!! We ain't ready yet!! 
-
 
       // Let's do some stuff when this page loads...
       // NOTE: This is again, just a simulation!
       window.addEventListener('load', (event) => { 
         // ...get the document as doc
-        let doc = event.target;
-
-
-        // Get the app layout element as `appLayoutEl`
-        let appLayoutEl = doc.getElementById('appLayout');
-
-
-        // if the browser supports it...
-        if (typeof(Storage) !== 'undefined') {
-          // ...get the theme from local storage as `theme`
-          let theme = localStorage.getItem('theme');
-          // DEBUG [4dbsmaster]: tell me about it :)
-          console.log(`[_progressHandler]: theme => ${theme}`);
-         
-          // if a theme was found in storage...
-          if (typeof(theme) == 'string') {
-            // ...remove all the themes in body
-            doc.body.classList.remove('classic', 'light', 'dark');
-            // update the theme
-            doc.body.classList.add(theme);
-          }
-        
-        }
-
-
-        // ddd is READY!!!
-        ddd.isReady = true;
-
-        // call the `onReady` function of `ddd`
-        ddd.onReady('demo');
-        
+        let doc = event.target; 
         
       });
 
-
-      /*
-       * Toggles the password's visibility of password-input element with the given id.
-       *
-       * @param { String } id
-       */
-      let togglePassword = (id) => {
-        // get the password input element as `passwordInputEl`
-        let passwordInputEl = document.getElementById(id);
-
-        // Do nothing if `passwordInputEl` doesn't exist
-        if (!passwordInputEl) { return }
-        
-        // toggle the `type` of `passwordInputEl` between 'text' and 'password',
-        // using our beloved ternary statement :)
-        passwordInputEl.type = (passwordInputEl.type == 'password') ? 'text' : 'password';
-
-        // restore the focus of `passwordInputEl`
-        passwordInputEl.focus();
-
-        // DEBUG [4dbsmaster]: tell me about it :)
-        console.log(`[togglePassword](1): passwordInputEl.type => ${passwordInputEl.type}`);
-        console.log(`[togglePassword](2): passwordInputEl => `, passwordInputEl);
-
-      };
-
-
-      /**
-        * Handler that is called whenever the `value` of the given `inputEl` changes 
-        * 
-        * @param { Element } inputEl
-       */
-      let handleInputValue = (inputEl) => {
-        // Do nothing if there's no inputEl
-        if (typeof(inputEl) == 'undefined' || !inputEl) { return }
-
-        // get the value from the input element
-        let value = inputEl.value;
-        // get the label of this input element using its id
-        let labelEl = document.querySelector(`label[for="${inputEl.id}"]`);
-
-        // if the input has some value...
-        if (value.length) {
-          //...create and attribute named 'has-value'
-          // and add it to the given input element (i.e. `inputEl`)
-          inputEl.setAttribute('has-value', ''); // <- An empty value should turn our attribute into a 'property'
-            
-          // HACK: If this input element has an element...
-          if (labelEl) {
-            // ...set an attribute `raised` to the label element
-            labelEl.setAttribute('raised', '');
-          }
-
-        } else { // <- no value was found in input
-          // So, remove the 'has-value' attribute from `inputEl`
-          inputEl.removeAttribute('has-value');
-
-          // HACK: If this input element has an element...
-          if (labelEl) {
-            // ...remove the attribute `raised` from the label element
-            labelEl.removeAttribute('raised');
-          }
-
-        }
-
-        // DEBUG [4dbsmaster]: tell me about it :)
-        console.log(`[handleInputValue](1): value => ${value}`);
-        // console.log(`[handleInputValue](2): inputEl => `, inputEl);
-
-      };
 
 
       /**
@@ -300,31 +186,23 @@ $navbarResponsive = 'false';
     </script>
     
     <!-- Double Psych!!! Some more script for ya! #LOL -->
-    <script src="script/app.js"></script>
+    <!-- <script src="script/app.js"></script> -->
     
   </head>
   <!-- End of HEAD -->
   
   
   <!-- BODY | Default Theme: light -->
-  <body class="theme light" fullbleed>
-
-    <!-- App Layout -->
-    <div id="appLayout" class="flex-layout horizontal" fit>
+  <body class="theme dark" fullbleed>
+    <!-- MAIN -->
+    <main class="flex-layout vertical">
       
+      <!-- App-layout of MAIN -->
+      <div class="app-layout">
 
-      <!-- PHP: Include the vertical `nav-bar` component here -->
-      <?php include 'components/nav-bar.php?type=vertical'; ?>
-
-      <!-- MAIN - App Layout -->
-      <main class="flex-layout vertical">
-
-        <!-- App Header -->
-        <div id="appHeader">
-
-          <!-- App Bar -->
-          <div id="appBar" class="app-bar">
-
+        <!-- Header of App-Layout -->
+        <header>
+          <div class="app-bar">
             <!-- App Icon -->
             <a href="" title="Go to Home Page">
               <button id="returnIconButton" class="icon-button">
@@ -336,9 +214,9 @@ $navbarResponsive = 'false';
             <!-- Title Wrapper -->
             <div class="title-wrapper">   
               <!-- App Title -->
-              <h2 id="appTitle" class="app-title">PHP Component Demo</h2>
+              <h2 id="appTitle" class="app-title">Nav Bar - Component Demo</h2>
               <!-- App Subtitle -->
-              <h3 id="appSubtitle" class="app-subtitle">nav-bar &bull; module-connexion</h3> 
+              <h3 id="appSubtitle" class="app-subtitle">maxaboom &bull; boutique-en-ligne</h3> 
             </div>
             <!-- End of Title Wrapper -->
             
@@ -353,184 +231,226 @@ $navbarResponsive = 'false';
             <!-- Horizontal Divider -->
             <span class="divider horizontal bottom"></span>
           </div>
-          <!-- End of App Bar -->
+        </header>
+        <!-- End of Header of App-Layout -->
 
-
-
-        </div>
-        <!-- End of App Header -->
-
-        <!-- Content - App Layout -->
-        <div id="content" class="vertical flex-layout centered">
+        <!-- [content] of App Layout -->
+        <div content class="vertical flex-layout centered">
 
           <!-- PHP: Require / Include the `nav-bar` component here -->
           
-          <?php define('__BASE__', '../../'); ?>
-          
           <?php
-            $_GET['navbar_type'] = $type;
-            $_GET['navbar_page'] = $page;
+            
+            //define('__BASE__', '/component/');
+
             $_GET['navbar_route'] = $route;
             $_GET['navbar_init'] = $init;
             $_GET['navbar_connected'] = $connected;
-            $_GET['navbar_res'] = $navbarResponsive;
+            $_GET['navbar_for_admin'] = $forAdmin;
           ?>
           
-          <?php include __BASE__ . "components/nav-bar.php"; ?>
+          <?php require __DIR__ . "/../nav-bar.php"; ?>
            
         </div>
         <!-- End of Content - App Layout -->
 
-        
-      </main>
-      <!-- End of MAIN - App Layout -->
+      </div>
+      <!-- End of App-Layout of MAIN -->
 
-      <!-- Details Container | ASIDE -->
-      <aside id="detailsContainer" class="vertical flex-layout centered">
+      
+    </main>
+    <!-- End of MAIN -->
 
-        <!-- Controls - SECTION -->
-        <section class="controls">
-          <!-- Types Controls -->
-          <div id="typesControl" class="control">
-            <h4>Types</h4>
-            <!-- Control Buttons -->
-            <div class="control-buttons">
-              <!-- Vertical -->
-              <button onclick="updateSearch('type', 'vertical')" <?php echo ($type === TYPE_VERTICAL) ? ACTIVE : '' ; ?>>
-                <span>Vertical</span>
-              </button>
+    <!-- Details Container | ASIDE -->
+    <aside id="detailsContainer" class="vertical flex-layout centered">
 
-              <!-- Horizontal -->
-              <button onclick="updateSearch('type', 'horizontal')" <?php echo ($type === TYPE_HORIZONTAL) ? ACTIVE : '' ; ?>>
-               <span>Horizontal</span> 
-              </button>
-            </div>
-            <!-- End of Control Buttons -->
+      <!-- Controls - SECTION -->
+      <section class="controls">
+
+        <!-- Routes Controls -->
+        <div id="routesControl" class="control">
+          <h4>Default Routes</h4>
+          <!-- Control Buttons -->
+          <div class="control-buttons">
+            <!-- Home - Route - Button -->
+            <button onclick="updateSearch('route', 'home')" <?= ($route === ROUTE_HOME) ? ACTIVE : '' ; ?>>
+              <span>Home</span>
+            </button>
+
+            <!-- Likes - Route - Button -->
+            <button onclick="updateSearch('route', 'likes')" <?= ($route === ROUTE_LIKES) ? ACTIVE : '' ; ?>>
+              <span>Likes</span>
+            </button>
+
+            <!-- Cart - Route - Button -->
+            <button onclick="updateSearch('route', 'cart')" <?= ($route === ROUTE_CART) ? ACTIVE : '' ; ?>>
+              <span>Cart</span>
+            </button>
+
+            <!-- Account - Route - Button -->
+            <button onclick="updateSearch('route', 'account')" <?= ($route === ROUTE_ACCOUNT) ? ACTIVE : '' ; ?>>
+              <span>Account</span>
+            </button>
+            
           </div>
-          <!-- End of Types Controls -->
-
-          <!-- Pages Controls -->
-          <div id="pagesControl" class="control">
-            <h4>Pages</h4>
-            <!-- Control Buttons -->
-            <div class="control-buttons">
-              <!-- Home - Page - Button -->
-              <button onclick="updateSearch('page', 'home')" <?php echo ($page === PAGE_HOME) ? ACTIVE : '' ; ?>>
-                <span>Home</span>
-              </button>
+          <!-- End of Control Buttons -->
+        </div>
+        <!-- End of Routes Controls -->
 
 
-              <!-- DDD - Page - Button -->
-              <button onclick="updateSearch('page', 'ddd')" <?php echo ($page === PAGE_DDD) ? ACTIVE : '' ; ?>>
-               <span>DDD</span> 
-              </button>
 
-              <!-- Profil - Page - Button -->
-              <button onclick="updateSearch('page', 'profil')" <?php echo ($page === PAGE_PROFILE) ? ACTIVE : '' ; ?>>
-               <span>Profil</span> 
-              </button>
+        <!-- Admin Routes Controls -->
+        <div id="adminRoutesControl" class="control">
+          <h4>Admin Routes</h4>
+          <!-- Control Buttons -->
+          <div class="control-buttons">
+            <!-- Dashboard - Route - Button -->
+            <button onclick="updateSearch('route', 'dashboard')" <?= ($route === ROUTE_DASHBOARD) ? ACTIVE : '' ; ?>>
+              <span>Dashboard</span>
+            </button>
 
+            <!-- Users - Route - Button -->
+            <button onclick="updateSearch('route', 'users')" <?= ($route === ROUTE_USERS) ? ACTIVE : '' ; ?>>
+              <span>Users</span>
+            </button>
 
-              <!-- Settings - Page - Button -->
-              <button onclick="updateSearch('page', 'settings')" <?php echo ($page === PAGE_SETTINGS) ? ACTIVE : '' ; ?>>
-               <span>Settings</span> 
-              </button>
+            <!-- Products - Route - Button -->
+            <button onclick="updateSearch('route', 'products')" <?= ($route === ROUTE_PRODUCTS) ? ACTIVE : '' ; ?>>
+              <span>Products</span>
+            </button>
 
-
-              <!-- Admin - Page - Button -->
-              <button onclick="updateSearch('page', 'admin')" <?php echo ($page === PAGE_ADMIN) ? ACTIVE : '' ; ?>>
-               <span>Admin</span> 
-              </button>
-
-            </div>
-            <!-- End of Control Buttons -->
+            <!-- Account - Route - Button -->
+            <button onclick="updateSearch('route', 'account')" <?= ($route === ROUTE_ACCOUNT) ? ACTIVE : '' ; ?>>
+              <span>Account</span>
+            </button>
+            
           </div>
-          <!-- End of Pages Controls -->
-
-          <!-- Routes Controls -->
-          <div id="routesControl" class="control">
-            <h4>Routes</h4>
-            <!-- Control Buttons -->
-            <div class="control-buttons">
-              <!-- Users - Route - Button -->
-              <button onclick="updateSearch('route', 'users')" <?php echo ($route === ROUTE_USERS) ? ACTIVE : '' ; ?>>
-                <span>Users</span>
-              </button>
+          <!-- End of Control Buttons -->
+        </div>
+        <!-- End of Admin Routes Controls -->
 
 
-              <!-- Dashboard - Route - Button -->
-              <button onclick="updateSearch('route', 'dashboard')" <?php echo ($route === ROUTE_DASHBOARD) ? ACTIVE : '' ; ?>>
-               <span>Dashboard</span> 
-              </button>
 
-            </div>
-            <!-- End of Control Buttons -->
+        <!-- Connected Controls -->
+        <div id="connectedControl" class="control">
+          <h4>Connected</h4>
+          <!-- Control Buttons -->
+          <div class="control-buttons">
+            <!-- Home - Page - Button -->
+            <button onclick="updateSearch('connected', true)" <?= ($connected) ? ACTIVE : '' ; ?>>
+              <span>TRUE</span>
+            </button>
+
+            <!-- Profil - Page - Button -->
+            <button onclick="updateSearch('connected', false)" <?= (!$connected) ? ACTIVE : '' ; ?>>
+             <span>FALSE</span> 
+            </button>
+
+
           </div>
-          <!-- End of Route Controls -->
+          <!-- End of Control Buttons -->
+        </div>
+        <!-- End of Connected Controls -->
 
 
-          <!-- Connected Controls -->
-          <div id="connectedControl" class="control">
-            <h4>Connected</h4>
-            <!-- Control Buttons -->
-            <div class="control-buttons">
-              <!-- Home - Page - Button -->
-              <button onclick="updateSearch('connected', 'true')" <?php echo ($connected === 'true') ? ACTIVE : '' ; ?>>
-                <span>TRUE</span>
-              </button>
 
-              <!-- Profil - Page - Button -->
-              <button onclick="updateSearch('connected', 'false')" <?php echo ($connected === 'false') ? ACTIVE : '' ; ?>>
-               <span>FALSE</span> 
-              </button>
+        <!-- For Admin Controls -->
+        <div id="forAdminControl" class="control">
+          <h4>For Admin</h4>
+          <!-- Control Buttons -->
+          <div class="control-buttons">
+            <!-- Home - Page - Button -->
+            <button onclick="updateSearch('for_admin', true)" <?= ($forAdmin) ? ACTIVE : '' ; ?>>
+              <span>TRUE</span>
+            </button>
+
+            <!-- Profil - Page - Button -->
+            <button onclick="updateSearch('for_admin', false)" <?= (!$forAdmin) ? ACTIVE : '' ; ?>>
+             <span>FALSE</span> 
+            </button>
 
 
-            </div>
-            <!-- End of Control Buttons -->
           </div>
-          <!-- End of Connected Controls -->
+          <!-- End of Control Buttons -->
+        </div>
+        <!-- End of Connected Controls -->
 
+        <!-- Initials Controls -->
+        <div id="initialsControl" class="control">
+          <h4>Initials</h4>
+          <!-- Control Buttons -->
+          <div class="control-buttons">
+            <!-- AB - Initials - Button -->
+            <button onclick="updateSearch('init', 'ab')" <?php echo ($init === 'ab') ? ACTIVE : '' ; ?>>
+              <span>A&nbsp;B</span>
+            </button>
 
+            <!-- AX - Initials - Button -->
+            <button onclick="updateSearch('init', 'ax')" <?php echo ($init === 'ax') ? ACTIVE : '' ; ?>>
+             <span>A&nbsp;X</span> 
+            </button>
 
-          <!-- Initials Controls -->
-          <div id="initialsControl" class="control">
-            <h4>Initials</h4>
-            <!-- Control Buttons -->
-            <div class="control-buttons">
-              <!-- AB - Initials - Button -->
-              <button onclick="updateSearch('init', 'ab')" <?php echo ($init === 'ab') ? ACTIVE : '' ; ?>>
-                <span>A&nbsp;B</span>
-              </button>
+            <!-- MOMO - Initials - Button -->
+            <button onclick="updateSearch('init', 'mo')" <?php echo ($init === 'mo') ? ACTIVE : '' ; ?>>
+             <span>M&nbsp;O&nbsp;</span> 
+            </button>
 
-              <!-- RM - Initials - Button -->
-              <button onclick="updateSearch('init', 'rm')" <?php echo ($init === 'rm') ? ACTIVE : '' ; ?>>
-               <span>R&nbsp;M</span> 
-              </button>
-
-            </div>
-            <!-- End of Control Buttons -->
+            <!-- CAT - Initials - Button -->
+            <button onclick="updateSearch('init', 'ct')" <?php echo ($init === 'ct') ? ACTIVE : '' ; ?>>
+             <span>C&nbsp;T&nbsp;</span> 
+            </button>
           </div>
-          <!-- End of Pages Controls -->
+          <!-- End of Control Buttons -->
+        </div>
+        <!-- End of Initials Controls -->
 
-        </section>
-        <!-- End of Controls - SECTION -->
 
-        <!-- Divider @ Vertical Left -->
-        <span class="divider vertical left"></span>
-      </aside>
-      <!-- Details Container | ASIDE -->
+        <!-- Cart Total Controls -->
+        <div id="CartTotalControl" class="control">
+          <h4>Cart Total</h4>
+          <!-- Control Buttons -->
+          <div class="control-buttons">
+            <!-- 0 -->
+            <button onclick="updateSearch('cart_total', '0')" <?php echo ($cartTotal === 0) ? ACTIVE : '' ; ?>>
+              <span>0</span>
+            </button>
 
-    </div>
-    <!-- End of App Layout -->
+            <!-- 5 -->
+            <button onclick="updateSearch('cart_total', '5')" <?php echo ($cartTotal === 5) ? ACTIVE : '' ; ?>>
+             <span>5</span> 
+            </button>
 
+            <!-- 10 -->
+            <button onclick="updateSearch('cart_total', '10')" <?php echo ($cartTotal === 10) ? ACTIVE : '' ; ?>>
+             <span>10</span> 
+            </button>
+
+            <!-- 15 -->
+            <button onclick="updateSearch('cart_total', '15')" <?php echo ($cartTotal === 15) ? ACTIVE : '' ; ?>>
+             <span>15</span> 
+            </button>
+          </div>
+          <!-- End of Control Buttons -->
+        </div>
+        <!-- End of Cart Total Controls -->
+
+
+      </section>
+      <!-- End of Controls - SECTION -->
+
+      <!-- Divider @ Vertical Left -->
+      <span class="divider vertical left"></span>
+    </aside>
+    <!-- Details Container | ASIDE -->
+  
 
     <!-- Backdrop -->
     <div id="backdrop" hidden></div>
 
 
-    <!-- Dialogs Container -->
-    <div id="dialogsContainer" hidden></div>
-    <!-- End of Dialogs Container -->
+    <!-- Dialogs -->
+    <div id="dialogs" hidden></div>
+    <!-- End of Dialogs -->
 
 
     <!-- Toast -->

@@ -1,7 +1,8 @@
 /* 
-* @license
-* ddd / module-connexion
-* Copyright (c) 2022 Abraham Ukachi
+* @license MIT
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal, Catherine Tranchand. The Maxaboom Project Contributors.
+* All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -16,7 +17,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -29,6 +30,14 @@
 
 /* ==== DEMO STYLES ==== */
 
+/* Return Icon Button */
+#returnIconButton {
+  opacity: 98%;
+}
+
+#returnIconButton:hover {
+  --app-logo-color: var(--primary-color);
+}
 
 /* Controls Section */
 section.controls {
@@ -91,12 +100,13 @@ section.controls {
 }
 
 
-#content {
+[content] {
   display: flex;
   padding: 48px;
   box-sizing: border-box;
   position: relative;
   background-image: url('pattern.svg');
+  min-height: calc(100% - 60px);
 }
 
 
@@ -146,7 +156,7 @@ section.controls {
 @media (min-width: 1024px) and (max-width: 2560px) {
 
   /* ASIDE part of App Layout */
-  #appLayout > aside {
+  body > aside {
     width: 60%;
   }
 }
