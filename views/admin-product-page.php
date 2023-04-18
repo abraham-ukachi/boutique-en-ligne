@@ -114,27 +114,7 @@
             <label for='subcategories'></label>
                  <select name='subcategories' id='subcategories'>
                      <option value=''>Choisir une sous-catégorie :</option>
-                     <option value='1'>Pianos droits</option>
-                     <option value='2'>Piano à queue</option>
-                     <option value='3'>Pianos numériques</option>
-                     <option value='4'>Synthétiseurs</option>
-                     <option value='5'>Guitare</option>
-                     <option value='6'>Basse</option>
-                     <option value='7'>Guitare electrique</option>
-                     <option value='8'>Ampli guitare</option>
-                     <option value='9'>Batterie</option>
-                     <option value='10'>Cymbale</option>
-                     <option value='11'>Tambours et autres</option>
-                     <option value='12'>Violon</option>
-                     <option value='13'>Contrebasse</option>
-                     <option value='14'>Accessoire de violon</option>
-                     <option value='15'>Platines</option>
-                     <option value='16'>Boîte à rythme</option>
-                     <option value='17'>Accessoire DJ</option>
-                     <option value='18'>Saxophone</option>
-                     <option value='19'>Flûte</option>
-                     <option value='20'>Trompette</option>
-                     <option value='21'>Gros cuivre</option>
+                     
 
                  </select>        
         </div>

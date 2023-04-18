@@ -44,7 +44,7 @@ class Category extends Database
 
 
     public function getSubcategoriesByCategoryId(int $categoryId){
-        $subCategorie = $this->db->prepare("SELECT name FROM sub_categories WHERE category_id=$categoryId");
+        $subCategorie = $this->db->prepare("SELECT id, name FROM sub_categories WHERE category_id=$categoryId");
         $subCategorie->execute([]);
         $result = $subCategorie->fetchAll(PDO::FETCH_ASSOC);
         return $result;
