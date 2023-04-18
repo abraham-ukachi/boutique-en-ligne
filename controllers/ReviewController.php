@@ -3,7 +3,7 @@ namespace Maxaboom\Controllers;
 
 use Maxaboom\Models\Review;
 // add
-class ReviewController{
+class ReviewController {
 
     public int $productId;
 

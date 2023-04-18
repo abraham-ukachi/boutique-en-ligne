@@ -47,29 +47,85 @@ class Product extends Database
         return $productData;
     }
 
+    /**
+     * Returns all products
+     * @return array $allProducts
+     */
     public function getAllProducts(){
         $allProducts = $this->db->prepare("SELECT * FROM products");
         $allProducts->execute([
         ]);
         $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        $allProducts = $result;
+        return $allProducts;
     }
 
-    public function productsCategories(int $idCategorie){
-        $productsCategories = $this->db->prepare("SELECT * FROM products WHERE categories_id=$idCategorie");
+    /**
+     * Returns all name from categories table
+     * @return array $allCategories
+     */
+    public function getAllCategories(){
+        $categories = $this->db->prepare("SELECT name FROM categories");
+        $categories->execute([]);
+        $result = $categories->fetchAll(PDO::FETCH_ASSOC);
+        $allCategories = $result;
+        return $allCategories;
+    }
+
+    /**
+     * Returns all name from sub_categories table
+     * @return array $AllSubCategories
+     */
+
+    public function getAllSubCategories(){
+        $subCategories = $this->db->prepare("SELECT name FROM sub_categories");
+        $subCategories->execute([]);
+        $result = $subCategories->fetchAll(PDO::FETCH_ASSOC);
+        $allSubCategories = $result;
+        return $allSubCategories;
+    }
+
+    /**
+     * Returns products by their category ID
+     * @return array $result
+     */
+    public function getProductsByCategoryId(int $categoryId){
+        $productsCategories = $this->db->prepare("SELECT * FROM products WHERE categories_id=$categoryId");
         $productsCategories->execute([
         ]);
         $result = $productsCategories->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
-    public function subCategorie(int $idsubCategorie){
-        $subCategorie = $this->db->prepare("SELECT * FROM products WHERE sub_categories_id=$idsubCategorie");
-        $subCategorie->execute([]);
-        $result = $subCategorie->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+    /**
+     * Returns id of category name
+     * @return array $result['id']
+     */
+    public function getCategoryIdByName(string $categoryName){
+        $selectNameCategory = $this->db->prepare("SELECT id FROM categories WHERE name = '$categoryName'");
+        $selectNameCategory->execute([]);
+        $result = $selectNameCategory->fetch(PDO::FETCH_ASSOC);
+        return $result['id'];
     }
 
+    /**
+     * Returns id of sub category name
+     * @return array $result['id']
+     */
+    public function getSubCategoryIdByName(string $subCategoryName){
+        $selectNameSubCategory = $this->db->prepare("SELECT id from sub_categories WHERE name='$subCategoryName'");
+        $selectNameSubCategory->execute([]);
+        $result = $selectNameSubCategory->fetch(PDO::FETCH_ASSOC);
+        return $result['id'];
+    }
+
+
+    public function getProductsBySubCategoryId(int $subCategoryId){
+        $subCategories = $this->db->prepare("SELECT * FROM products WHERE sub_categories_id=$subCategoryId");
+        $subCategories->execute([]);
+        $result = $subCategories->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 
 
 
