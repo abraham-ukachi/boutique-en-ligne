@@ -90,16 +90,17 @@ async function showProductsBySubCategory(categoryId, subCategoryId) {
     let response = await fetch(`api/products/${categoryId}/${subCategoryId}`);
     let productsBySubCategory = await response.json();
 
-    productsBySubCategory.forEach(products => {
-        let productsIds = products.id;
-        let productsNames = products.name;
-        let productsPrices = products.price;
-        let productsImages = products.image;
-        let productsDescriptions = products.description;
-        let productTemplate = `<li>${productsNames} ${productsImages} ${productsDescriptions} ${productsPrices}</li>`
+    productsBySubCategory.forEach(product => {
+        let productId = product.id;
+        let productName = product.name;
+        let productPrice = product.price;
+        let productImage = product.image;
+        let productDescription = product.description;
+        let productTemplate = `<li>${getProductTemplate(productId, productImage, productName, productDescription, productPrice)}</li>`;
         productsListEl.insertAdjacentHTML("beforeend", productTemplate);
     })
 }
+
 
 showAllSubCategories(categoryId, categoryName, subCategoryName);
 
