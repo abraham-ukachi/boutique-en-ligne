@@ -49,7 +49,8 @@ function handleFormSubmitOld(event) {
 
 let submitButton = document.getElementById('envoie');
 
-categorySelect.addEventListener('change', async (event) => {
+if(categorySelect){
+    categorySelect.addEventListener('change', async (event) => {
     let categoryId = event.currentTarget.value;
     console.log(categoryId);
 
@@ -66,6 +67,8 @@ categorySelect.addEventListener('change', async (event) => {
         console.log(subcategory.name);
     });
 });
+
+}
 
 // faire un fetch de toutes les sous categorie avec category Id
 //creer une route api-subcategory/
@@ -117,3 +120,31 @@ if (formProductUpdate){
 
     });
 }
+
+// DELETE things
+
+let allDel=document.querySelectorAll('.deleteproduct');
+
+async function deleteProduct(productId){
+    let response = await fetch(`admin/product/${productId}`, {method: 'DELETE'});
+    let responseData = await response.json();
+    
+    console.log(responseData);
+
+    // if(response.status == 'ok') {
+    //     console.log('product has been delete');
+    // }
+}
+
+for (const btn of allDel){
+
+    console.log(btn);
+    btn.addEventListener("click", (e) =>{
+        let idDelete= e.target.id
+        console.log("delete  "+idDelete)
+        deleteProduct(idDelete);
+    })
+}
+
+
+

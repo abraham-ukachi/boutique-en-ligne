@@ -52,7 +52,7 @@ class Product extends Database
      * @return array $allProducts
      */
     public function getAllProducts(){
-        $allProducts = $this->db->prepare("SELECT * FROM products");
+        $allProducts = $this->db->prepare("SELECT * FROM `products` WHERE deleted_at IS NULL");
         $allProducts->execute([
         ]);
         $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
@@ -227,10 +227,10 @@ class Product extends Database
             'id' => $productId,
         ]);
             if ($sqlupdate) {
-                echo json_encode(['response' => 'ok', 'reussite' => 'Produit supprimé']);
+                return json_encode(['response' => 'ok', 'reussite' => 'Produit supprimé']);
             } 
         }else {
-                echo json_encode(['response' => 'not ok', 'echoue' => 'Le produit a déjà été supprimé']);
+                return json_encode(['response' => 'not ok', 'echoue' => 'Le produit a déjà été supprimé']);
             }
 
     }

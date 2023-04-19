@@ -56,8 +56,11 @@ class AdminController{
     public function updateProduct($id,$productname,$description, $price, $categories_id, $sub_categories_id, $stock){
         $newproduct = New Product();
         $success = $newproduct->updateProduct($id, $productname, $description, $price, $categories_id, $sub_categories_id, $stock);
+    }
 
-
+    public function delete($idProduct){
+        $deleteProduct = New Product();
+        return $deleteProduct->deleteProductByID($idProduct);
     }
 
 

@@ -74,14 +74,19 @@ $router->map('POST', '/admin/product/update', function() {
     $categories_id = $_POST['category'];
     $sub_categories_id = $_POST['subcategories'];
     $stock = $_POST['productstock'];
-    
+
     $adminController->updateProduct($productId, $productName, $description, $price,
      $categories_id, $sub_categories_id, $stock);
  
 });
 
 
+$router->map('DELETE', '/admin/product/[i:productId]', function($productId) {
+    $adminController = new AdminController();
+    $response = $adminController->delete($productId);
 
+    echo $response; 
+});
 
 
 //juste pour les test
