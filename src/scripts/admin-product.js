@@ -69,8 +69,8 @@ categorySelect.addEventListener('change', async (event) => {
 // faire un fetch de toutes les sous categorie avec category Id
 //creer une route api-subcategory/
 // fetch url
-
-formRegisterProduct.addEventListener('submit', async (event) => {
+if (formRegisterProduct){
+    formRegisterProduct.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     let form = new FormData(event.target);
@@ -91,3 +91,4 @@ formRegisterProduct.addEventListener('submit', async (event) => {
     console.log(`responseData => `, responseData);
 
 });
+}

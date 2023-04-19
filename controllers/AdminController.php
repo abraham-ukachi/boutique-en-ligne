@@ -1,14 +1,18 @@
 <?php
 namespace Maxaboom\Controllers;
 use Maxaboom\Models\Product;
+use Maxaboom\Models\Category;
 
 class AdminController{
 
 
     public object $productModel;
+    public object $productCategory;
 
     public function __construct() {
         $this->productModel = new Product();
+        $this->productCategory = new Category();
+
     }
 
     //pour enregistrer un nouveau produit
@@ -44,7 +48,10 @@ class AdminController{
     public function showOneProductPage($productId): void {
 
         $theProduct = $this->productModel->getProductById($productId);
-
+        $theCategoryId = $theProduct['categories_id'];
+        $theProductCategoryName = $this->productCategory->getCategoryById($theCategoryId);
+        $theSubCategoryId = $theProduct['sub_categories_id'];
+        $theProductSubCategoryName = $this->productCategory->getSubcategoryNameById($theSubCategoryId);
         require __DIR__ . '/../views/admin-product-details-page.php';
     }
 

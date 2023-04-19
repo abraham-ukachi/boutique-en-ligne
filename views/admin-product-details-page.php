@@ -81,12 +81,16 @@
 <body class="theme dark" fullbleed>
 
   <!-- Main part -->
-<h1><?php echo $theProduct['name'] ?></h1>
+<h1>Modifier le produit</h1>
+<h2><?php echo $theProduct['name'] ?></h2>
+
 <?php
 //var_dump($products);
 //echo $products[0]['name'];
 
 var_dump($theProduct);
+echo $theCategoryId;
+echo $theProductCategoryName;
 
 ?>
 <form  id='productUpdateForm' action='' method='post'>
@@ -106,20 +110,30 @@ var_dump($theProduct);
         </div>
 
         <div class="form-control">
-            <label for="categorie">Catégorie</label>
-            <input id="productcategorie" class="productupdate" name="productcategorie" type="text" value="">
+            <label for='category'></label>
+                 <select name='category' id='category'>
+                     <option value='<?php echo $theCategoryId ?>'><?php echo $theProductCategoryName ?></option>
+                     <option value='1'>Pianos</option>
+                     <option value='2'>Guitares</option>
+                     <option value='3'>Percussions</option>
+                     <option value='4'>Lutherie</option>
+                     <option value='5'>DJ</option>
+                     <option value='6'>Vents</option>
+                 </select>        
         </div>
 
         <div class="form-control">
-            <label for="subcategorie">Sous-catégorie</label>
-            <input id="productsubcategorie" class="productupdate" name="productupdate" type="text" value="">
+            <label for='subcategories'></label>
+                 <select name='subcategories' id='subcategories'>
+                     <option value='<?php echo $theSubCategoryId ?>'><?php echo $theProductSubCategoryName ?></option>
+                 </select>        
         </div>
 
         <div class="form-control">
             <label for="stock">Stock</label>
             <input id="productstock" class="productupdate" name="productstock" type="integer" value="<?php echo $theProduct['stock'] ?>">
         </div>
-        <button type="submit" class="register_form_button" id="envoie" name="envoie">S'enregistrer</button>
+        <button type="submit" class="register_form_button" id="envoie" name="envoie">Valider les modification</button>
     </div>
     </form>
    
