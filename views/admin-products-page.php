@@ -87,8 +87,8 @@
 //echo $products[0]['name'];
 
 for ($i = 0; $i <count($products); $i++) {
-    echo "<div id=".$i." data-product-id=".$products[$i]['id']." class='update-product'>".$products[$i]['id']." ".$products[$i]['name']." Prix : ".$products[$i]['price']." Stock : ".$products[$i]['stock'].
-    "<a href='admin/product/".$products[$i]['id']."'>Modifier</a> <button id='".$products[$i]['id']."' class='deleteproduct'>Supprimer</button><br>";
+    echo "<div id=".$products[$i]['id']." data-product-id=".$products[$i]['id']." class='update-product'>".$products[$i]['id']." ".$products[$i]['name']." Prix : ".$products[$i]['price']." Stock : ".$products[$i]['stock'].
+    "<a href='admin/product/".$products[$i]['id']."'>Modifier</a> <button id='".$products[$i]['id']."' class='deleteproduct'>Supprimer</button></div><br>";
 }
 
 
