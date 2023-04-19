@@ -82,7 +82,8 @@ class ShopController extends Database
         $this->productModel = new Product();
         $this->categoryModel = new Category();
 
-        $this->categoryId = $this->categoryModel->getCategoryIdByName($categoryName);
+        $this->categoryId = ($categoryName) ? $this->categoryModel->getCategoryIdByName($categoryName) : -1;
+
     }
 
 
@@ -101,12 +102,10 @@ class ShopController extends Database
     public function showPage($theme = self::DEFAULT_THEME): void
     {
         // TODO: do something awesome here before showing the splash screen ;)
-
         $products = !!$this->categoryName ? $this->getProductByCategory($this->categoryName) : $this->getAllProducts(); // if CategoryName is not null then filter products by categoryName, else display all products
         //$productsBySubCategory = !!$this->subCategory ? $this->getProductByCategory($this->categoryName) : $this->getAllProducts();
         $subCategories = $this->getAllSubCategories();
         $categories = $this->getAllCategories();
-
         // show the splash screen
         require_once __DIR__ . '/../views/shop-page.php';
     }
@@ -128,7 +127,7 @@ class ShopController extends Database
     {
         $subCategoryId = $this->categoryModel->getSubcategoryIdByName($this->subCategoryName);
         $products = $this->productModel->getProductsBySubCategoryId($subCategoryId);
-        $categories = $this->getAllCategories();
+        $categories = $this->categoryModel->getAllCategories();
         $subCategories = $this->getAllSubCategories();
 
         require_once __DIR__ . '/../views/shop-page.php';
@@ -141,7 +140,7 @@ class ShopController extends Database
 
     public function getAllCategories()
     {
-        return $this->productModel->getAllCategories();
+        return $this->categoryModel->getAllCategories();
     }
 
     public function getProductByCategory($category)

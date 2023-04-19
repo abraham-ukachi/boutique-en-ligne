@@ -157,6 +157,7 @@
         data-category-name="<?= $this->categoryName?>"
         data-category-id="<?= $this->categoryId?>"
         data-sub-category-name="<?= $this->subCategoryName?>"
+        data-sub-category-id="<?= $this->subCategoryId ?>";
         >
 
     <!-- MAIN -->
@@ -185,17 +186,16 @@
 
         <?php foreach ($categories as $category): ?>
         <li>
-          <?php foreach ($category as $key => $value): ?>
-          <p><strong><a href="shop/<?=$value ?>" <?= ($value === $this->categoryName) ? 'active': '' ?>> <?=$value ?></a></strong></p>
-          <?php endforeach; ?>
+          <button class="category-link" onclick="handleCategoryLinkClick(this)" data-category-id="<?=$category['id'] ?>" data-category-name="<?=$category['name']?>" <?= ($category['name'] === $this->categoryName) ? 'active': '' ?>> <?=$category['name'] ?></button>
         </li>
         <?php endforeach; ?>
       </ul>
 
       <nav id="subCategoriesList"></nav>
 
-      <ul style='overflow:scroll'>
+      <ul id="productsList" style='overflow:scroll'>
         <!-- LIST PRODUCT -->
+        <!--
         <?php foreach ($products as $product): ?>
         <li>
           <img src="assets/images/products/<?=$product['image']?>"/>
@@ -204,6 +204,7 @@
           <p>Prix : <?= $product['price']?></p>
         </li>
         <?php endforeach; ?>
+        -->
       </ul>
 
 
