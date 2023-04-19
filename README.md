@@ -237,8 +237,8 @@ These are some of the things we did or plan to do, in addition to this project's
 | 9 | *`Manifest - JSON File`* | **manifest.json** | [Done](./manifest.json) |
 | 10 | *`Package - JSON File`* | **package.json** | [Done](./package.json) |
 | 11 | *`Fade Out - Animation`* | **fade-out-animation.css** | [Done](./assets/animations/slide-out-animation.css) |
-| 12 | *`Slide Down - Animation`* | **slide-down-animation.css** | *_In progress_* |
-| 13 | *`Slide Up - Animation`* | **slide-up-animation.css** | Pending |
+| 12 | *`Slide Down - Animation`* | **slide-down-animation.css** | [Done](./assets/animations/slide-down-animations.css) |
+| 13 | *`Slide Up - Animation`* | **slide-up-animation.css** | [Done](./assets/animations/slide-up-animations.css) |
 
 
 
