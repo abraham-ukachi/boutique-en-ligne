@@ -38,9 +38,7 @@ class AdminController{
 
     //pour afficher tous les produits
     public function showProductsPage(): void {
-
         $products = $this->productModel->getAllProducts();
-
         require __DIR__ . '/../views/admin-products-page.php';
     }
 
@@ -53,6 +51,13 @@ class AdminController{
         $theSubCategoryId = $theProduct['sub_categories_id'];
         $theProductSubCategoryName = $this->productCategory->getSubcategoryNameById($theSubCategoryId);
         require __DIR__ . '/../views/admin-product-details-page.php';
+    }
+
+    public function updateProduct($id,$productname,$description, $price, $categories_id, $sub_categories_id, $stock){
+        $newproduct = New Product();
+        $success = $newproduct->updateProduct($id, $productname, $description, $price, $categories_id, $sub_categories_id, $stock);
+
+
     }
 
 

@@ -1,6 +1,7 @@
 console.log("Test lien javascript");
 //déclarer le formulaire pour y associer une fonction quand on soumet
 let formRegisterProduct = document.getElementById('registerProductForm');
+let formProductUpdate = document.getElementById('productUpdateForm');
 let categorySelect = document.getElementById('category');
 
 async function registerProduct(name, description, price, category, subcategory, stock, image) {
@@ -90,5 +91,29 @@ if (formRegisterProduct){
     console.log(`form => `, form);
     console.log(`responseData => `, responseData);
 
-});
+    });
+}
+
+if (formProductUpdate){
+    formProductUpdate.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let productId = event.target.dataset.productId; //recupère la valeur de productId dans dataset du formulaire
+        console.log(productId);
+    let form = new FormData(event.target);
+    form.append( 'productId', productId );
+
+    let url = 'admin/product/update';
+
+    let request = new Request(url, {
+        method: 'POST',
+        body: form
+    });
+
+    let response = await fetch(request);
+    let responseData = await response.text();
+
+    console.log(`form => `, form);
+    console.log(`responseData => `, responseData);
+
+    });
 }

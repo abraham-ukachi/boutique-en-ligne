@@ -88,8 +88,10 @@
 
 for ($i = 0; $i <count($products); $i++) {
     echo "<div id=".$i." class='update-product'>".$products[$i]['id']." ".$products[$i]['name']." Prix : ".$products[$i]['price']." Stock : ".$products[$i]['stock'].
-    " <button id='update".$i."'>Modifier</button><br>";
+    "<a href='admin/product/".$products[$i]['id']."'>Modifier</a > <button id='delete".$i."'>Supprimer</button><br>";
 }
+
+
 ?>
    
 

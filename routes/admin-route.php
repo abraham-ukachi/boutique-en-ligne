@@ -54,17 +54,30 @@ $router->map('POST', '/admin/product/create', function() {
 
 $router->map('GET', '/admin/products', function () {
     $adminController = new AdminController();
-
     // TODO: do something awesome here before showing the shop page ;)
-
     // show the shop page
     $adminController->showProductsPage();
-
 });
 
 $router->map('GET', '/admin/product/[i:productId]', function($productId) {
     $adminController = new AdminController();
     $adminController->showOneProductPage($productId);
+ 
+});
+
+$router->map('POST', '/admin/product/update', function() {
+    $adminController = new AdminController();
+    $productId = $_POST['productId'];
+    $productName = $_POST['productname'];
+    $description = $_POST['productdescription'];
+    $price = $_POST['productprice'];
+    $categories_id = $_POST['category'];
+    $sub_categories_id = $_POST['subcategories'];
+    $stock = $_POST['productstock'];
+    
+    $adminController->updateProduct($productId, $productName, $description, $price,
+     $categories_id, $sub_categories_id, $stock);
+ 
 });
 
 

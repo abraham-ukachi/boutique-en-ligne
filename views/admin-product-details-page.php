@@ -93,7 +93,7 @@ echo $theCategoryId;
 echo $theProductCategoryName;
 
 ?>
-<form  id='productUpdateForm' action='' method='post'>
+<form  id='productUpdateForm' action='' method='post' data-product-id='<?= $theProduct['id'] ?>'>
     <div class="input-form-container">
         <div class="form-control">
             <label for="productname">Nom</label>
