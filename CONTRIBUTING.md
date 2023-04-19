@@ -158,16 +158,16 @@ Consider using the following default html templates, when creating a new **`.htm
   <aside class="flex-layout vertical" hidden>...</aside>
 
   <!-- Default Backdrop -->
-  <div id="backdrop" hidden></div>
+  <div id="backdrop" fit hidden></div>
 
   <!-- Default Menus -->
-  <div id="menus" hidden></div>
+  <div id="menus" fit hidden></div>
 
   <!-- Default Dialogs -->
-  <div id="dialogs" hidden></div>
+  <div id="dialogs" fit hidden></div>
 
   <!-- Default Toasts -->
-  <div id="toasts" hidden></div>
+  <div id="toasts" fit hidden></div>
 
 </body>
 ```
@@ -178,22 +178,22 @@ Consider using the following default html templates, when creating a new **`.htm
 <main class="flex-layout vertical">
 
   <!-- App-Layout of MAIN -->
-  <div class="app-layout">...</div>
+  <div class="app-layout" fit>...</div>
   
   <!-- Nav Bar -->
   <nav id="navBar">...</nav>
   
   <!-- Backdrop of MAIN -->
-  <div class="backdrop" hidden></div>
+  <div class="backdrop" fit hidden></div>
   
   <!-- Menus of MAIN -->
-  <div class="menus" hidden></div>
+  <div class="menus" fit hidden></div>
   
   <!-- Dialogs of MAIN -->
-  <div class="dialogs" hidden></div>
+  <div class="dialogs" fit hidden></div>
   
   <!-- Toasts of MAIN -->
-  <div class="toasts" hidden></div>
+  <div class="toasts" fit hidden></div>
 
 </main>
 ```
@@ -205,19 +205,19 @@ Consider using the following default html templates, when creating a new **`.htm
 <aside class="flex-layout vertical" hidden>
 
   <!-- App-Layout of ASIDE -->
-  <div class="app-layout">...</div>
+  <div class="app-layout" fit>...</div>
   
   <!-- Backdrop of ASIDE -->
-  <div class="backdrop" hidden></div>
+  <div class="backdrop" fit hidden></div>
   
   <!-- Menus of ASIDE -->s
-  <div class="menus" hidden></div>
+  <div class="menus" fit hidden></div>
   
   <!-- Dialogs of ASIDE -->
-  <div class="dialogs" hidden></div>
+  <div class="dialogs" fit hidden></div>
   
   <!-- Toasts of ASIDE -->
-  <div class="toasts" hidden></div>
+  <div class="toasts" fit hidden></div>
 
 </aside>
 ```
@@ -226,7 +226,7 @@ Consider using the following default html templates, when creating a new **`.htm
 #### App Layout (`.app-layout`) Template
 
 ```html
-<div class="app-layout">
+<div class="app-layout" fit>
   <!-- Header -->
   <header>...</header>
 
@@ -313,7 +313,7 @@ Use the following code to include a nav bar in your `.html` or `.php` page:
   $_GET['navbar_connected'] = false; // TRUE if the user is connected
   $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin 
 
-  require __DIR__ . 'components/nav-bar.php';
+  require __DIR__ . '/components/nav-bar.php';
 ?>
 <!-- End of Nav Bar -->
 
@@ -339,7 +339,7 @@ Use the following code to include a side bar in your `.html` or `.php` page:
   $_GET['sidebar_connected'] = false; // TRUE if the user is connected
   $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin 
 
-  require __DIR__ . 'components/side-bar.php';
+  require __DIR__ . '/components/side-bar.php';
 ?>
 <!-- End of Side Bar -->
 
@@ -394,9 +394,17 @@ open http://localhost/boutique-en-ligne
 
 #### Toasts
 
-Show a toast message in the [ASIDE](#aside-aside-template) part, with a **10 seconds** timeout:
+Show a toast  message for **5 seconds**:
 ```js
-mbApp.showToast({message: 'Hello World'}, 'aside', 10);
+mbApp.showToast({message: 'Hello World'}, 10);
 ```
 > NOTE:  
 
+
+Show a toast message in the [ASIDE](#aside-aside-template) part, with a **10 seconds** timeout:
+```js
+import { ASIDE_PART } from 'src/app.js';
+
+mbApp.showToast({message: 'Hello World', part: ASIDE_PART}, 10);
+```
+> NOTE:  
