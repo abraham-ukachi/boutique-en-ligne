@@ -55,7 +55,6 @@ class Category extends Database
         $allProducts->execute([
         ]);
         $result = $allProducts->fetch(PDO::FETCH_ASSOC);
-        var_dump($result);
         return $result['id'];
     }
 

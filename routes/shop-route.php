@@ -67,12 +67,8 @@ use Maxaboom\Controllers\ShopController;
 $router->map('GET', '/shop', function (): void {
     // instantiate the `ShopController` class as `$shopController`
     $shopController = new ShopController();
-
-    // TODO: do something awesome here before showing the shop page ;)
-
     // show the shop page
     $shopController->showPage();
-
 });
 
 /** Route used for filter products by categories
@@ -84,14 +80,14 @@ $router->map('GET', '/shop', function (): void {
 
 
 $router->map('GET', '/shop/[a:categoryName]/[:subCategoryName]', function ($categoryName, $subCategoryName){
-    $shopController = new ShopController();
+    $subCategoryName = str_replace('-', ' ', $subCategoryName);
+    $shopController = new ShopController($categoryName, $subCategoryName);
     $shopController->showPageBySubCategory();
 });
 
 $router->map('GET', '/shop/[a:categoryName]', function ($categoryName){
     $filterByCategory = new ShopController($categoryName);
     $filterByCategory->showPageByCategory();
-
 });
 
 

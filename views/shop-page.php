@@ -141,14 +141,24 @@
     
     <!-- Some more script for ya! #LOL -->
     <script src="src/app.js" type="module" defer></script>
-    <!-- <script src="src/script/home.js" defer></script> -->
-    
+    <script src="src/scripts/shop.js" defer></script>
+
+    <style>
+      [active] {
+        color: red;
+      }
+    </style>
   </head>
   <!-- End of HEAD -->
   
   
   <!-- BODY | Default Theme: light -->
-  <body class="theme <?= $theme ?>" fullbleed>
+  <body class="theme <?= $theme ?>" fullbleed
+        data-category-name="<?= $this->categoryName?>"
+        data-category-id="<?= $this->categoryId?>"
+        data-sub-category-name="<?= $this->subCategoryName?>"
+        data-sub-category-id="<?= $this->subCategoryId ?>";
+        >
 
     <!-- MAIN -->
     <main class="flex-layout vertical">
@@ -176,43 +186,27 @@
 
         <?php foreach ($categories as $category): ?>
         <li>
-          <?php foreach ($category as $key => $value): ?>
-          <p><strong><a href="shop/<?=$value ?>"> <?=$value ?></a></strong></p>
-          <?php endforeach; ?>
+          <button class="category-link" onclick="handleCategoryLinkClick(this)" data-category-id="<?=$category['id'] ?>" data-category-name="<?=$category['name']?>" <?= ($category['name'] === $this->categoryName) ? 'active': '' ?>> <?=$category['name'] ?></button>
         </li>
         <?php endforeach; ?>
       </ul>
 
-      <ul style='overflow:scroll'>
-        <!-- TODO : PUT SUB CATEGORIES LIST HERE -->
+      <nav id="subCategoriesList"></nav>
 
-        <?php foreach ($subCategories as $subCategory): ?>
-          <li>
-            <?php foreach ($subCategory as $key => $value): ?>
-              <?php $valueChange = str_replace(' ', '-', $value) ?>
-              <p><strong><a href="shop/<?= $valueChange ?>"><?= $value ?></a></strong></p>
-            <?php endforeach; ?>
-          </li>
-        <?php endforeach; ?>
-      </ul>
-
-
-<!-- <?php if(!isset($_GET['a:category'])): ?> -->
-      <ul style='overflow:scroll'>
+      <ul id="productsList" style='overflow:scroll'>
         <!-- LIST PRODUCT -->
+        <!--
         <?php foreach ($products as $product): ?>
-
         <li>
-          <?php foreach ($product as $key => $value): ?>
-            <p><?= $key ?>&nbsp; <strong><?= $value ?></strong></p>
-
-          <?php endforeach; ?>
+          <img src="assets/images/products/<?=$product['image']?>"/>
+          <p><?= $product['name']?></p>
+          <p><?= $product['description']?></p>
+          <p>Prix : <?= $product['price']?></p>
         </li>
         <?php endforeach; ?>
+        -->
       </ul>
-      <!--  <?php else :?> -->
-      <!--  <?= "Hello" ?> -->
-      <!--  <?php endif; ?> -->
+
 
     </main>
     <!-- End of MAIN -->
