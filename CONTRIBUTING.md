@@ -18,8 +18,10 @@ The following is a set of guidelines for contributing to Maxaboom and subsequent
         - [App-Layout (`.app-layout`) Template](#app-layout-app-layout-template)
         - [Header (`<header>`) Template](#header-header-template)
         - [App-Bar (`.app-bar`) Template](#app-bar-app-bar-template)
-        - [Nav-Bar (`.nav-bar`) Template](#nav-bar-nav-bar-template)
+        - [Nav-Bar (`#navBar`) Template](#nav-bar-navbar-template)
         - [Side-Bar (`#sideBar`) Template](#side-bar-sidebar-template)
+        - [Empty-Container (`.container[empty]`) Template](#empty-container-containerempty-template)
+        - [Floating Action Button (`.fab`) Template](#floating-action-button-fab-template)
 3. [How to Use Maxaboom ?](#how-to-use-maxaboom-?)
     - [Installation](#installation)
     - [mbApp - JS](#mbApp---js)
@@ -136,7 +138,7 @@ Consider using the following default html templates, when creating a new **`.htm
   
   <!-- Some more script for ya! #LOL -->
   <script src="src/app.js" defer></script>
-  <!-- <script src="src/script/home.js" defer></script> -->
+  <!-- <script src="src/scripts/home.js" defer></script> -->
   
 </head>
 <!-- End of HEAD -->
@@ -158,16 +160,16 @@ Consider using the following default html templates, when creating a new **`.htm
   <aside class="flex-layout vertical" hidden>...</aside>
 
   <!-- Default Backdrop -->
-  <div id="backdrop" hidden></div>
+  <div id="backdrop" fit hidden></div>
 
   <!-- Default Menus -->
-  <div id="menus" hidden></div>
+  <div id="menus" fit hidden></div>
 
   <!-- Default Dialogs -->
-  <div id="dialogs" hidden></div>
+  <div id="dialogs" fit hidden></div>
 
   <!-- Default Toasts -->
-  <div id="toasts" hidden></div>
+  <div id="toasts" fit hidden></div>
 
 </body>
 ```
@@ -178,22 +180,22 @@ Consider using the following default html templates, when creating a new **`.htm
 <main class="flex-layout vertical">
 
   <!-- App-Layout of MAIN -->
-  <div class="app-layout">...</div>
+  <div class="app-layout" fit>...</div>
   
   <!-- Nav Bar -->
   <nav id="navBar">...</nav>
   
   <!-- Backdrop of MAIN -->
-  <div class="backdrop" hidden></div>
+  <div class="backdrop" fit hidden></div>
   
   <!-- Menus of MAIN -->
-  <div class="menus" hidden></div>
+  <div class="menus" fit hidden></div>
   
   <!-- Dialogs of MAIN -->
-  <div class="dialogs" hidden></div>
+  <div class="dialogs" fit hidden></div>
   
   <!-- Toasts of MAIN -->
-  <div class="toasts" hidden></div>
+  <div class="toasts" fit hidden></div>
 
 </main>
 ```
@@ -205,19 +207,19 @@ Consider using the following default html templates, when creating a new **`.htm
 <aside class="flex-layout vertical" hidden>
 
   <!-- App-Layout of ASIDE -->
-  <div class="app-layout">...</div>
+  <div class="app-layout" fit>...</div>
   
   <!-- Backdrop of ASIDE -->
-  <div class="backdrop" hidden></div>
+  <div class="backdrop" fit hidden></div>
   
   <!-- Menus of ASIDE -->s
-  <div class="menus" hidden></div>
+  <div class="menus" fit hidden></div>
   
   <!-- Dialogs of ASIDE -->
-  <div class="dialogs" hidden></div>
+  <div class="dialogs" fit hidden></div>
   
   <!-- Toasts of ASIDE -->
-  <div class="toasts" hidden></div>
+  <div class="toasts" fit hidden></div>
 
 </aside>
 ```
@@ -226,7 +228,7 @@ Consider using the following default html templates, when creating a new **`.htm
 #### App Layout (`.app-layout`) Template
 
 ```html
-<div class="app-layout">
+<div class="app-layout" fit>
   <!-- Header -->
   <header>...</header>
 
@@ -265,6 +267,8 @@ Consider using the following default html templates, when creating a new **`.htm
 * With a title and subtitle:
 
 ```html
+<!-- App Bar -->
+<!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
 <div class="app-bar">
   <!-- Title Wrapper -->
   <div class="title-wrapper">
@@ -274,6 +278,7 @@ Consider using the following default html templates, when creating a new **`.htm
     <h3 class="app-subtitle">Subtitle</h3>
   </div>
 </div>
+<!-- End of App Bar -->
 ```
 > NOTE: Titles should be wrapped with a **.title-wrapper** `<div>` element and enclosed with a `<h2>` (for title) and `<h3>` (for subtitle)
 
@@ -300,21 +305,30 @@ Consider using the following default html templates, when creating a new **`.htm
 </div>
 ```
 
-#### Nav Bar (`.nav-bar`) Template
+#### Nav Bar (`#navBar`) Template
+
+Use the following code to include a nav bar in your `.html` or `.php` page:
 
 ```html
 <!-- Nav Bar -->
-<!-- PHP: Include the `nav-bar` component -->
+<!-- PHP: Include the `navBar` component -->
 <?php 
-  $_GET['navbar_orientation'] = 'veritcal'; 
-  $_GET['navbar_page'] = 'home'; 
+  $_GET['navbar_route'] = 'home'; 
   $_GET['navbar_init'] = 'au'; 
-  $_GET['navbar_profile_pic'] = 'iVBORw0K'; // data:image/png;base64,iVBORw0K
-  $_GET['navbar_connected'] = 'false'; 
-?>
+  $_GET['navbar_connected'] = false; // TRUE if the user is connected
+  $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin 
 
-<?php include 'components/nav-bar.php'; ?>
+  require __DIR__ . '/components/nav-bar.php';
+?>
 <!-- End of Nav Bar -->
+
+```
+
+##### Demo - Nav Bar - PHP Component
+
+Run the code below in your terminal, to see a demo of **nav-bar** component
+```zsh
+open http://localhost/boutique-en-ligne/component/demo/nav-bar
 ```
 
 #### Side Bar (`#sideBar`) Template
@@ -330,11 +344,103 @@ Use the following code to include a side bar in your `.html` or `.php` page:
   $_GET['sidebar_connected'] = false; // TRUE if the user is connected
   $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin 
 
-  require __DIR__ . 'components/side-bar.php';
+  require __DIR__ . '/components/side-bar.php';
 ?>
 <!-- End of Side Bar -->
 
 ```
+
+##### Demo - Side Bar - PHP Component
+
+Run the code below in your terminal, to see a demo of **side-bar** component
+```zsh
+open http://localhost/boutique-en-ligne/component/demo/side-bar
+```
+
+
+#### Empty Container (`.container[empty]`) Template
+
+Use the following code to include an **empty container** in the `<div content>` element of your `.html` or `.php` page:
+
+```html
+<!-- [empty] Container -->
+<div class="container vertical flex-layout centered" empty>
+    <span class="doodle"></span>
+    <h2 title>Empty Cart :(</h2>
+    <p info>To add an instrument to your cart, tap <span class="material-icons icon">post_add</span> at the bottom right of your screen</p>
+</div>
+```
+
+> NOTE: Feel free to change the **title** and/or **description** as you see fit ;)
+
+
+#### Floating Action Button (`.fab`) Template
+Use the following code to include a **fab** in the `<main>` or `<aside>` of your `.html` or `.php` page:
+
+```html
+<!-- Fab -->
+<button class="fab vertical flex-layout centered" contained expands shrinks>
+    <span class="material-icons icon">post_add</span>
+</button>
+<!-- End of Fab -->
+```
+
+
+#### Menu (`<menu>`) Template
+
+Use the following code to include a **menu** in your `.html` or `.php` page:
+
+
+```html
+<!-- Menu -->
+<menu data-id="{{menuId}}" class="menu vertical flex-layout" hidden>
+
+    <!-- Close Menu + Icon Button -->
+    <li role="close-menu">
+        <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
+    </li>
+        
+    <!-- MenuItem 1 -->
+    <li title="{{menuItem1Title}}" class="menu-item">
+      <button>
+        <span class="material-icons icon">post_add</span>
+        <span>{{menuItem1Name}}</span>
+      </button>
+    </li>
+
+    <!-- MenuItem 2 -->
+    <li title="{{menuItem2Title}}" class="menu-item">
+      <button>
+        <span class="material-icons icon">lock</span>
+        <span>{{menuItem2Name}}</span>
+      </button>
+    </li>
+</menu>
+<!-- End of Menu -->
+```
+
+##### Open a menu
+
+Use the `openMenuById()` method of **`mbApp`** to open a menu:
+
+```js
+    // open a menu with an id: `productMenu`
+    mbApp.openMenuById('productMenu');
+```
+> NOTE: There are also `openMainMenuById()` and `openAsideMenuById()` methods ;)
+
+##### Close a menu 
+
+Use the `closeMenuById()` method of **`mbApp`** to close a menu:
+
+```js
+    // close a menu with an id: `productMenu`
+    mbApp.closeMenuById('productMenu');
+```
+
+> NOTE: There are also `closeMainMenuById()` and `closeAsideMenuById()` methods ;)
+
+---
 
 ## How to use Maxaboom ?
 
@@ -371,16 +477,40 @@ open http://localhost/boutique-en-ligne
 ### mbApp - JS
 
 #### Menus 
-> #comingSoon ;)
+
+Show the menu using a specific `[data-id]` (e.g *"productMenu"*) with a **0.5 seconds** duration:
+```js
+mbApp.showMenuById('productMenu', 0.5);
+```
+
+> NOTE:  
+
+Show another menu using a specific `[data-id]` (e.g *"detailsMenu"*) with a **1 second** duration:
+```js
+import { ASIDE_PART } from 'src/app.js';
+
+mbApp.showMenuById('detailsMenu', 1, ASIDE_PART);
+```
+
+> NOTE:  
+
 
 #### Dialogs
 > #comingSoon ;)
 
 #### Toasts
 
-Show a toast message in the [ASIDE](#aside-aside-template) part, with a **10 seconds** timeout:
+Show a toast message for **5 seconds**:
 ```js
-mbApp.showToast({message: 'Hello World'}, 'aside', 10);
+mbApp.showToast({message: 'Hello World'}, 10);
 ```
 > NOTE:  
 
+
+Show a toast message in the [ASIDE](#aside-aside-template) part, with a **10 seconds** timeout:
+```js
+import { ASIDE_PART } from 'src/app.js';
+
+mbApp.showToast({message: 'Hello World', part: ASIDE_PART}, 10);
+```
+> NOTE:  

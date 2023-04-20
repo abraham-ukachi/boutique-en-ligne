@@ -140,7 +140,7 @@
     
     <!-- Some more script for ya! #LOL -->
     <script src="src/app.js" type="module" defer></script>
-    <script src="src/scripts/account.js" defer></script>
+    <script src="src/scripts/account.js" type="module" defer></script>
     
   </head>
   <!-- End of HEAD -->
@@ -160,6 +160,17 @@
     ?>
     <!-- PHP: End of Side Bar -->
 
+    <!-- Side Bar -->
+    <!-- PHP: Include the `sideBar` component -->
+    <?php
+      $_GET['sidebar_route'] = 'account';
+      $_GET['sidebar_init'] = 'au';
+      $_GET['sidebar_connected'] = false; // TRUE if the user is connected
+      $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin
+
+      require __DIR__ . '/components/side-bar.php';
+    ?>
+    <!-- End of Side Bar -->
 
     <!-- MAIN -->
     <main class="flex-layout vertical">
@@ -168,8 +179,19 @@
       <div class="app-layout">
         <!-- Header -->
         <header>
+
           <!-- App Bar -->
           <div class="app-bar">
+            <!-- Title Wrapper -->
+            <div class="title-wrapper">
+              <!-- Title -->
+              <h2 class="app-title">Maxaboom</h2>
+            </div>
+          </div>
+          <!-- End of App Bar -->
+
+          <!-- App Bar -->
+          <div class="app-bar" sticky>
             <!-- Return - Icon Button -->
             <button id="returnIconButton" class="icon-button" title="Go Back">
               <span class="material-icons icon">arrow_back</span>
@@ -194,24 +216,48 @@
 
         <!-- [content] -->
         <div content>
-          <h2>Abraham Ukachi</h2>
+          <h2 hidden>Abraham Ukachi</h2>
+
+          <!-- [empty] Container -->
+          <div class="container vertical flex-layout centered" empty>
+            <span class="doodle"></span>
+            <h2 title>Empty Cart :(</h2>
+            <p info>To add an instrument to your cart, tap <span class="material-icons icon">post_add</span> at the bottom right of your screen</p>
+          </div>
+          <!-- End of [empty] Container -->
+
+
         </div>
+        <!-- End of [content] -->
+
       </div>
+      <!-- End of App-Layout -->
 
       <!-- Nav Bar -->
-      <nav class="nav-bar"></nav>
+      <!-- PHP: Include the `navBar` component -->
+      <?php
+        $_GET['navbar_route'] = 'account';
+        $_GET['navbar_init'] = 'au';
+        $_GET['navbar_connected'] = false; // TRUE if the user is connected
+        $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin
+
+        require __DIR__ . '/components/nav-bar.php';
+      ?>
+      <!-- End of Side Bar -->
 
       <!-- Backdrop of MAIN -->
-      <div class="backdrop" hidden></div>
+      <div class="backdrop" fit hidden></div>
 
       <!-- Menus of MAIN -->
-      <div class="menus" hidden></div>
+      <div class="menus" fit hidden>
+        
+      </div>
 
       <!-- Dialogs of MAIN -->
-      <div class="dialogs" hidden></div>
+      <div class="dialogs" fit hidden></div>
 
       <!-- Toasts of MAIN -->
-      <div class="toasts" hidden></div>
+      <div class="toasts" fit hidden></div>
 
       <!-- End of App Layout - MAIN -->
 
@@ -226,6 +272,12 @@
       <?php // include 'components/nav-bar.php'; ?>
       <!-- End of Nav Bar -->
 
+      <!-- Fab -->
+      <button class="fab vertical flex-layout centered" contained expands shrinks>
+        <span class="material-icons icon">post_add</span>
+      </button>
+      <!-- End of Fab -->
+
     </main>
     <!-- End of MAIN -->
 
@@ -239,25 +291,91 @@
       <!-- App Layout - ASIDE -->
       <div class="app-layout" fit></div>
       <!-- End of App Layout - ASIDE -->
+
+
+      <!-- Backdrop of MAIN -->
+      <div class="backdrop" fit hidden></div>
+
+      <!-- Menus of MAIN -->
+      <div class="menus" fit hidden>
+
+      <!-- Menu -->
+      <menu data-id="detailsMenu" class="menu vertical flex-layout" hidden>
+
+          <!-- Close Menu + Icon Button -->
+          <li role="close-menu">
+              <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
+          </li>
+
+          <!-- MenuItem 1 -->
+          <li title="{{menuItem1Title}}" class="menu-item">
+            <button>
+              <span class="material-icons icon">school</span>
+              <span>{{detailItem1}}</span>
+            </button>
+          </li>
+
+          <!-- MenuItem 2 -->
+          <li title="{{menuItem2Title}}" class="menu-item">
+            <button>
+              <span class="material-icons icon">star</span>
+              <span>{{detailItem2}}</span>
+            </button>
+          </li>
+      </menu>
+      <!-- End of Menu -->
+      </div>
+
+      <!-- Dialogs of MAIN -->
+      <div class="dialogs" fit hidden></div>
+
+      <!-- Toasts of MAIN -->
+      <div class="toasts" fit hidden></div>
     </aside>
     <!-- End of ASIDE -->
     
 
     <!-- Backdrop -->
-    <div id="backdrop" hidden></div>
+    <div id="backdrop" fit hidden></div>
 
 
     <!-- Menus  -->
-    <div id="menus" hidden></div>
+    <div id="menus" fit hidden>
+      <!-- Menu -->
+      <menu data-id="productMenu" class="menu vertical flex-layout" hidden>
+
+          <!-- Close Menu + Icon Button -->
+          <li role="close-menu">
+              <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
+          </li>
+
+          <!-- MenuItem 1 -->
+          <li title="{{menuItem1Title}}" class="menu-item">
+            <button>
+              <span class="material-icons icon">post_add</span>
+              <span>{{menuItem1Name}}</span>
+            </button>
+          </li>
+
+          <!-- MenuItem 2 -->
+          <li title="{{menuItem2Title}}" class="menu-item">
+            <button>
+              <span class="material-icons icon">lock</span>
+              <span>{{menuItem2Name}}</span>
+            </button>
+          </li>
+      </menu>
+      <!-- End of Menu -->
+    </div>
     <!-- End of Menus  -->
 
     <!-- Dialogs  -->
-    <div id="dialogs" hidden></div>
+    <div id="dialogs" fit hidden></div>
     <!-- End of Dialogs  -->
 
-    <!-- Toast -->
-    <div id="toast" hidden></div>
-    <!-- End of Toast -->
+    <!-- Toasts -->
+    <div id="toasts" fit hidden></div>
+    <!-- End of Toasts -->
 
   </body>
   <!-- End of BODY -->

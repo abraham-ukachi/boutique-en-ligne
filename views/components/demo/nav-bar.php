@@ -71,7 +71,7 @@ $connected = isset($_GET['connected']) ? filter_var($_GET['connected'], FILTER_V
 $forAdmin = isset($_GET['for_admin']) ? filter_var($_GET['for_admin'], FILTER_VALIDATE_BOOLEAN) : false;
 
 // get the value of `cartTotal` parameter from PHP's global variable - GET
-$cartTotal = isset($_GET['cart_total']) ? (int) $_GET['cart_total'] : 0;
+$cartTotal = isset($_GET['cart_total']) ? intval($_GET['cart_total']) : 0;
 
 // DEBUG [4dbsmaster]: tell me about it ;)
 // echo "route: $route" . PHP_EOL;
@@ -381,22 +381,22 @@ $cartTotal = isset($_GET['cart_total']) ? (int) $_GET['cart_total'] : 0;
           <!-- Control Buttons -->
           <div class="control-buttons">
             <!-- AB - Initials - Button -->
-            <button onclick="updateSearch('init', 'ab')" <?php echo ($init === 'ab') ? ACTIVE : '' ; ?>>
+            <button onclick="updateSearch('init', 'ab')" <?= ($init === 'ab') ? ACTIVE : '' ; ?>>
               <span>A&nbsp;B</span>
             </button>
 
             <!-- AX - Initials - Button -->
-            <button onclick="updateSearch('init', 'ax')" <?php echo ($init === 'ax') ? ACTIVE : '' ; ?>>
+            <button onclick="updateSearch('init', 'ax')" <?= ($init === 'ax') ? ACTIVE : '' ; ?>>
              <span>A&nbsp;X</span> 
             </button>
 
             <!-- MOMO - Initials - Button -->
-            <button onclick="updateSearch('init', 'mo')" <?php echo ($init === 'mo') ? ACTIVE : '' ; ?>>
+            <button onclick="updateSearch('init', 'mo')" <?= ($init === 'mo') ? ACTIVE : '' ; ?>>
              <span>M&nbsp;O&nbsp;</span> 
             </button>
 
             <!-- CAT - Initials - Button -->
-            <button onclick="updateSearch('init', 'ct')" <?php echo ($init === 'ct') ? ACTIVE : '' ; ?>>
+            <button onclick="updateSearch('init', 'ct')" <?= ($init === 'ct') ? ACTIVE : '' ; ?>>
              <span>C&nbsp;T&nbsp;</span> 
             </button>
           </div>
@@ -411,22 +411,22 @@ $cartTotal = isset($_GET['cart_total']) ? (int) $_GET['cart_total'] : 0;
           <!-- Control Buttons -->
           <div class="control-buttons">
             <!-- 0 -->
-            <button onclick="updateSearch('cart_total', '0')" <?php echo ($cartTotal === 0) ? ACTIVE : '' ; ?>>
+            <button onclick="updateSearch('cart_total', '0')" <?= ($cartTotal == 0) ? ACTIVE : '' ; ?>>
               <span>0</span>
             </button>
 
             <!-- 5 -->
-            <button onclick="updateSearch('cart_total', '5')" <?php echo ($cartTotal === 5) ? ACTIVE : '' ; ?>>
+            <button onclick="updateSearch('cart_total', '5')" <?= ($cartTotal == 5) ? ACTIVE : '' ; ?>>
              <span>5</span> 
             </button>
 
             <!-- 10 -->
-            <button onclick="updateSearch('cart_total', '10')" <?php echo ($cartTotal === 10) ? ACTIVE : '' ; ?>>
+            <button onclick="updateSearch('cart_total', '10')" <?= ($cartTotal == 10) ? ACTIVE : '' ; ?>>
              <span>10</span> 
             </button>
 
             <!-- 15 -->
-            <button onclick="updateSearch('cart_total', '15')" <?php echo ($cartTotal === 15) ? ACTIVE : '' ; ?>>
+            <button onclick="updateSearch('cart_total', '15')" <?= ($cartTotal == 15) ? ACTIVE : '' ; ?>>
              <span>15</span> 
             </button>
           </div>

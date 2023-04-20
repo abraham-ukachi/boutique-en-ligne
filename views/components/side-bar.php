@@ -38,7 +38,8 @@
 *    -|>    $_GET['sidebar_route'] = 'account';
 *    -|>    $_GET['sidebar_init'] = 'au'; 
 *    -|>    $_GET['sidebar_connected'] = false; 
-*    -|>    $_GET['sidebar_for_admin'] = true; 
+*    -|>    $_GET['sidebar_for_admin'] = true;
+*    -|>    $_GET['cart_total'] = 20; 
 *    -|>    
 *    -|>    require __DIR__ . 'components/side-bar.php'; 
 *    -|> ?>
@@ -80,17 +81,41 @@ $sidebarIsConnected = $_GET['sidebar_connected'] ?? false;
 
 $LogoIsHome = $_GET['logo_is_home'] ?? false;
 
+$cartTotal = $_GET['cart_total'] ?? 0;
+
 // Create a default array of titles for the side bar as `defaultSidebarTitles`
 $defaultSidebarTitles = [
+  'maxaboom' => 'Maxaboom ❤️',
+  'profile' => 'Your Profile',
+  'auth' => 'Login / Register',
+  'dashboard' => 'Open your Dashboard',
+  'home' => 'Go to Home',
+  'account' => 'See your Account',
+  'cart' => 'View Cart',
+  'likes' => 'Checkout Likes',
+  'users' => 'See all Users',
+  'products' => 'See all Products'
+];
+
+
+
+// Create a default array of labels for the side bar as `defaultSidebarLabels`
+$defaultSidebarLabels = [
   'dashboard' => 'Dashboard',
   'home' => 'Home',
   'account' => 'Account',
   'cart' => 'Cart',
-  'likes' => 'Likes'
+  'likes' => 'Likes',
+  'users' => 'Users',
+  'products' => 'Products'
 ];
 
 // Get the titles
 $sidebarTitles = $_GET['sidebar_titles'] ?? $defaultSidebarTitles;
+
+// Get the labels 
+$sidebarLabels = $_GET['sidebar_labels'] ?? $defaultSidebarLabels;
+
 
 // DEBUG [4dbsmaster]: tell me about it :)
 // echo "sidebarIsConnected ? " . json_encode($sidebarIsConnected) . "<br>";
@@ -121,24 +146,24 @@ $sidebarTitles = $_GET['sidebar_titles'] ?? $defaultSidebarTitles;
   <span flex></span>
 
   <!-- Dashboard - Nav-Link [disabled] -->
-  <a title="Dashboard" href="dashboard" class="nav-link" <?= ($sidebarRoute == 'dashboard') ? 'active' : '' ?>>
+  <a title="<?= $sidebarTitles['dashboard'] ?>" href="dashboard" class="nav-link" <?= ($sidebarRoute == 'dashboard') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">dashboard</span>
-    <span class="nav-label">Dashboard</span>
+    <span class="nav-label"><?= $sidebarLabels['dashboard'] ?></span>
   </a>
   <!-- End of Dashboard Nav-Link -->
 
   <!-- Users - Nav-Link -->
-  <a title="Users" href="users" class="nav-link" <?= ($sidebarRoute == 'users') ? 'active' : '' ?>>
+  <a title="<?= $sidebarTitles['users'] ?>" href="users" class="nav-link" <?= ($sidebarRoute == 'users') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">people</span>
-    <span class="nav-label">Users</span>
+    <span class="nav-label"><?= $sidebarLabels['users'] ?></span>
   </a>
   <!-- End of Users Nav-Link -->
 
 
   <!-- Products - Nav-Link -->
-  <a title="Products" href="products" class="nav-link" <?= ($sidebarRoute == 'products') ? 'active' : '' ?>>
+  <a title="<?= $sidebarTitles['products'] ?>" href="products" class="nav-link" <?= ($sidebarRoute == 'products') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">shopping_bag</span>
-    <span class="nav-label">Products</span>
+    <span class="nav-label"><?= $sidebarLabels['products'] ?></span>
   </a>
   <!-- End of Products Nav-Link -->
 
@@ -147,9 +172,9 @@ $sidebarTitles = $_GET['sidebar_titles'] ?? $defaultSidebarTitles;
   
   
   <!-- Account - Nav-Link -->
-  <a title="Account" href="account" class="nav-link" <?= ($sidebarRoute == 'account') ? 'active' : '' ?>>
+  <a title="<?= $sidebarTitles['account'] ?>" href="account" class="nav-link" <?= ($sidebarRoute == 'account') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">settings</span>
-    <span class="nav-label">Account</span>
+    <span class="nav-label"><?= $sidebarLabels['account'] ?></span>
   </a>
   <!-- End of Account Nav-Link -->
 
@@ -179,7 +204,7 @@ $sidebarTitles = $_GET['sidebar_titles'] ?? $defaultSidebarTitles;
 <!-- Default Side Bar -->
 <nav id="sideBar" class="flex-layout vertical" <?= ($sidebarIsConnected) ? 'connected' : '' ?>>
   <!-- Icon-Wrapper -->
-  <a title="Home" 
+  <a title="<?= $sidebarTitles['maxaboom'] ?>" 
     href="home"
     class="nav-link icon-wrapper" <?= ($sidebarRoute == 'home')  ? 'active' : '' ?>>
 
@@ -193,24 +218,26 @@ $sidebarTitles = $_GET['sidebar_titles'] ?? $defaultSidebarTitles;
   <span flex></span>
 
   <!-- Home - Nav-Link -->
-  <a title="Home" href="/" class="nav-link" <?= ($sidebarRoute == 'home') ? 'active' : '' ?>>
+  <a title="<?= $sidebarTitles['home'] ?>" href="home" class="nav-link" <?= ($sidebarRoute == 'home') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">home</span>
-    <span class="nav-label">Home</span>
+    <span class="nav-label"><?= $sidebarLabels['home'] ?></span>
   </a>
   <!-- End of Home Nav-Link -->
   
   <!-- Likes - Nav-Link -->
-  <a title="Liked products" href="likes" class="nav-link" <?= ($sidebarRoute == 'likes') ? 'active' : '' ?>>
+  <a title="<?= $sidebarTitles['likes'] ?>" href="likes" class="nav-link" <?= ($sidebarRoute == 'likes') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">favorite_outline</span>
-    <span class="nav-label">Likes</span>
+    <span class="nav-label"><?= $sidebarLabels['likes'] ?></span>
   </a>
   <!-- End of Likes Nav-Link -->
 
 
   <!-- Cart - Nav-Link -->
-  <a title="Cart" href="cart" class="nav-link" <?= ($sidebarRoute == 'cart') ? 'active' : '' ?>>
+  <a title="<?= $sidebarTitles['cart'] ?>" href="cart" class="nav-link" <?= ($sidebarRoute == 'cart') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">shopping_cart</span>
-    <span class="nav-label">Cart</span>
+    <span class="nav-label"><?= $sidebarLabels['cart'] ?></span>
+    <!-- Badge -->
+    <span class="badge" <?= (!$cartTotal) ? 'hidden' : ''?>><?= $cartTotal ?></span>
   </a>
   <!-- End of Products Nav-Link -->
 
@@ -219,9 +246,9 @@ $sidebarTitles = $_GET['sidebar_titles'] ?? $defaultSidebarTitles;
   
   
   <!-- Account - Nav-Link -->
-  <a title="Account" href="account" class="nav-link" <?= ($sidebarRoute == 'account') ? 'active' : '' ?>>
+  <a title="<?= $sidebarTitles['account'] ?>" href="account" class="nav-link" <?= ($sidebarRoute == 'account') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">settings</span>
-    <span class="nav-label">Account</span>
+    <span class="nav-label"><?= $sidebarLabels['account'] ?></span>
   </a>
   <!-- End of Account Nav-Link -->
 
@@ -235,7 +262,7 @@ $sidebarTitles = $_GET['sidebar_titles'] ?? $defaultSidebarTitles;
   <!-- PHP(2): ...show the user initials -->
 
     <!-- Profile - Nav-Link -->
-    <a title="Profile" href="account/profile" class="nav-link profile">
+    <a title="<?= $sidebarTitles['profile'] ?>" href="account/profile" class="nav-link profile initials">
       <span initials><?= $sidebarInit ?></span>
     </a>
     <!-- End of Profile Nav-Link -->
@@ -244,12 +271,12 @@ $sidebarTitles = $_GET['sidebar_titles'] ?? $defaultSidebarTitles;
   <?php else: ?>
   <!-- + PHP(2): ...show person icon with link to 'auth' page -->
 
-  <a title="Login / Register" href="auth" class="nav-link profile">
+  <a title="<?= $sidebarTitles['auth'] ?>" href="auth" class="nav-link profile">
     <span class="material-icons nav-icon">person</span>
   </a>
 
   <?php endif; ?>
-  <!-- End of PHP(2): If the nav bar *IS CONNECTED* -->
+  <!-- End of PHP(2): If the side bar *IS CONNECTED* -->
 
   <!-- Horizontal Divider -->
   <span class="divider vertical right"></span>

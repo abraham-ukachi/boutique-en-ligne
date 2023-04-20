@@ -33,17 +33,19 @@
 *   -|>
 *   -|> <body class="theme dark" fullbleed>
 *   -|>
+*   -|>   <div id="sideBar">...</div>
+*   -|>
 *   -|>   <main class="flex-layout vertical">...</main>
 *   -|>
 *   -|>   <aside class="flex-layout vertical" hidden>...</aside>
 *   -|>
-*   -|>   <div id="backdrop" hidden></div>
+*   -|>   <div id="backdrop" fit hidden></div>
 *   -|>
-*   -|>   <div id="menus" hidden></div>
+*   -|>   <div id="menus" fit hidden></div>
 *   -|>
-*   -|>   <div id="dialogs" hidden></div>
+*   -|>   <div id="dialogs" fit hidden></div>
 *   -|>
-*   -|>   <div id="toasts" hidden></div>
+*   -|>   <div id="toasts" fit hidden></div>
 *   -|>
 *   -|> </body>
 *
@@ -53,17 +55,17 @@
 *   -|>
 *   -|> <main class="flex-layout vertical">
 *   -|>
-*   -|>   <div class="app-layout">...</div>
+*   -|>   <div class="app-layout" fit>...</div>
 *   -|>   
-*   -|>   <nav class="nav-bar">...</nav>
+*   -|>   <nav id="navBar">...</nav>
 *   -|>   
-*   -|>   <div class="backdrop" hidden></div>
+*   -|>   <div class="backdrop" fit hidden></div>
 *   -|>   
-*   -|>   <div class="menus" hidden></div>
+*   -|>   <div class="menus" fit hidden></div>
 *   -|>   
-*   -|>   <div class="dialogs" hidden></div>
+*   -|>   <div class="dialogs" fit hidden></div>
 *   -|>   
-*   -|>   <div class="toasts" hidden></div>
+*   -|>   <div class="toasts" fit hidden></div>
 *   -|>
 *   -|> </main>
 *
@@ -73,15 +75,15 @@
 *   -|>
 *   -|> <aside class="flex-layout vertical">
 *   -|>
-*   -|>   <div class="app-layout">...</div>
+*   -|>   <div class="app-layout" fit>...</div>
 *   -|>   
-*   -|>   <div class="backdrop" hidden></div>
+*   -|>   <div class="backdrop" fit hidden></div>
 *   -|>   
-*   -|>   <div class="menus" hidden></div>
+*   -|>   <div class="menus" fit hidden></div>
 *   -|>   
-*   -|>   <div class="dialogs" hidden></div>
+*   -|>   <div class="dialogs" fit hidden></div>
 *   -|>   
-*   -|>   <div class="toasts" hidden></div>
+*   -|>   <div class="toasts" fit hidden></div>
 *   -|> 
 *   -|> </aside>
 *
@@ -89,15 +91,40 @@
 *
 *  4+|> // Default App-Layout Template
 *   -|>
-*   -|> <div class="app-layout">
+*   -|> <div class="app-layout" fit>
 *   -|>  
 *   -|> </div>
 */
 
-/* @import 'color.css'; */
-/* @import 'typography.css'; */
-/* @import '../animations/fade-in-animation.css'; */
-/* @import '../animations/slide-from-down-animation.css'; */
+/* Importing the required colors and typography */
+@import 'color.css';
+@import 'typography.css';
+
+/* ========= ANIMATIONS (imports) ==========  */
+
+/* fade in and out */
+@import '../animations/fade-in-animation.css';
+@import '../animations/fade-out-animation.css';
+/* slide down and up */
+@import '../animations/slide-down-animation.css';
+@import '../animations/slide-up-animation.css';
+/* slide from down and from up */
+@import '../animations/slide-from-down-animation.css';
+@import '../animations/slide-from-up-animation.css';
+/* slide right and left */
+@import '../animations/slide-right-animation.css';
+@import '../animations/slide-left-animation.css';
+/* slide from right and from left */
+@import '../animations/slide-from-right-animation.css';
+@import '../animations/slide-from-left-animation.css';
+
+/* pop in */
+@import '../animations/pop-in-animation.css';
+
+/* ========= End of ANIMATIONS (imports) ========= */
+
+
+
 
 
 /* ==== THEME STYLES ==== */
@@ -287,6 +314,13 @@ body > aside {
   position: relative;
   width: var(--aside-width, 50%);
   height: 100%;
+  z-index: 100;
+
+  /*
+  -webkit-animation: slideFromRight 300ms ease-in;
+  -moz-animation: slideFromRight 300ms ease-in;
+  animation: slideFromRight 300ms ease-in;
+  */
 }
 
 
@@ -311,7 +345,19 @@ body > aside {
   height: auto;
 }
 
+.app-layout > header::before {
+  background-color: var(--background-color);
+  inset: 0;
+  content: "";
+  position: absolute;
+  opacity: var(--app-header-opacity, 0.9);
+  width: 100%;
+  height: 100%;
+}
 
+.app-layout > header[opaque]::before {
+  opacity: var(--app-header-opacity, 1);
+}
 
 
 /* App Bars in Header */
@@ -328,6 +374,12 @@ header > .app-bar {
   color: var(--app-bar-color-on-background, inherit);
 }
 
+/* Enable Header Sticky */
+header[sticky-enabled] {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
 /* Title Wrappers in App Bar */
 .app-bar .title-wrapper {
@@ -374,6 +426,29 @@ header > .app-bar {
   background: var(--background-color);
 }
 
+/* Badges in Nav Link */
+.nav-link .badge {
+  position: absolute;
+  background: var(--nav-badge-background-color, var(--primary-container-color, darkred));
+  color: var(--nav-badge-text-color, var(--on-primary-container-color, white));
+  font-size: 0.6rem;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  padding: 2px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  margin: 0 auto;
+  margin-left: 24px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 /* Vertical Nav Bar - or - Side Bar */
 .nav-bar.vertical, #sideBar {
   position: relative;
@@ -397,7 +472,8 @@ header > .app-bar {
 
 /* Nav Labels of NavBar */
 #navBar .nav-label, nav-bar .nav-label {
-  font-size: var(--nav-bar-label-size, 0.75rem);
+  font-size: var(--nav-bar-label-size, 0.7rem);
+  margin-top: -4px
 }
 
 
@@ -410,30 +486,45 @@ header > .app-bar {
 }
 
 /* Horizontal Nav Bar & Footer of Main */
-.nav-bar.horizontal, main > footer {
+.nav-bar.horizontal, #navBar, main > footer {
   height: var(--nav-bar-size, 54px);
+  opacity: var(--nav-bar-opacity, 1);
 }
 
 /* Horizontal Nav Bar */
-.nav-bar.horizontal {
-  padding: 0 var(--nav-bar-padding-horizontal, 48px);
+.nav-bar.horizontal, #navBar {
+  --nav-link-margin: 0;
+  justify-content: space-around;
+  padding: 0 var(--nav-bar-padding, 0.5rem);
   width: 100%;
 }
 
 /* Nav Links in a Horizontal Nav Bar */
-.nav-bar.horizontal .nav-link {
+.nav-bar.horizontal .nav-link,
+#navBar .nav-link{
+  --nav-link-opacity: var(--nav-bar-link-opacity, var(--opacity-text-active));
   width: var(--nav-bar-size, 54px);
 }
 
 .nav-link.profile {
-  background: rgba(0,0,0,0.1);
-  color: var(--on-background-color);
-  width: 48px;
-  height: 48px;
+  width: var(--profile-size, 48px);
+  height: var(--profile-size, 48px);
   border-radius: 50%;
-  margin: 8px auto;
+  /* margin: 8px auto; */
+
+  background: rgba(0,0,0,0.1); 
+  color: var(--on-background-color); 
+
+  opacity: 1;
+  /* color: red; */
+  margin: 1rem auto;
 }
 
+
+.nav-link.profile.initials {
+  background: var(--tertiary-container-color);
+  color: var(--on-tertiary-container-color);
+}
 
 /* App Logo | SPAN */
 span.app-logo {
@@ -458,8 +549,10 @@ span.app-logo {
 
 /* ---[ Toast Styles ]--- */
 
-/* Toasts */
-#toasts {
+/* All Toasts */
+#toasts, 
+main > .toasts, 
+aside > .toasts {
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -500,7 +593,7 @@ span.app-logo {
 }
 
 /* Success - Toast Emoji */
-.toast-emoji.success {
+.toast-emoji.st {
   --toast-emoji-image: url('../images/gifs/emoji_thumbs_up.gif');
 }
 
@@ -597,8 +690,12 @@ a[active] .icon-button, a[role="icon-button"][active] {
   position: relative;
   box-sizing: border-box;
   flex: 1;
-  overflow: scroll;
   scroll-behavior: smooth;
+}
+
+/* [content] Scrollable */
+[content][scrollable] {
+  overflow: scroll;
 }
 
 /* Container of [content] */
@@ -609,6 +706,46 @@ a[active] .icon-button, a[role="icon-button"][active] {
   padding: 8px 16px;
 }
 
+/* [empty] Container in [content] */
+[content] > .container[empty] {
+  text-align: center;
+  box-sizing: border-box;
+  padding: 24px;
+  user-select: none;
+}
+
+[content] > .container[empty] .doodle {
+  width: var(--empty-doodle-size, 200px);
+  height: var(--empty-doodle-size, 200px);
+  background-color: inherit;
+  margin-top: -48px;
+  background-image: var(--empty-doodle-image, url('../images/doodles/doodle-todolist-empty.svg'));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/** Empty Container Title */
+.container[empty] h2, .container[empty] [title] {
+  margin: 16px;
+  margin-bottom: 6px;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+/** Empty Container Note or Description */
+.container[empty] p, .container[empty] [note] {
+  margin-top: 0;
+  opacity: 0.6;
+  font-size: 16px;
+  line-height: 24px;
+  max-width: 300px;
+}
+
+.container[empty] p span.icon {
+  position: relative;
+  top: 6px;
+}
 
 /* ===<<< Form ..+.. Input Default Styles >>>=== */
 
@@ -921,15 +1058,25 @@ p.input-message {
 #backdrop, .backdrop {
   z-index: 100;
   background: var(--backdrop-color, rgba(0, 0, 0, var(--opacity-backdrop, 0.7)));
+
+}
+
+#backdrop:not(.fade-out), .backdrop:not(.fade-out) {
+  -webkit-animation: fadeIn 0.5s ease-in-out forwards;
+  -moz-animation: fadeIn 0.5s ease-in-out forwards;
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 
-/* Dialogs Container */
-#dialogContainer, .dialogs-container {
+/* Dialogs */
+#dialogs, .dialogs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 101;
   pointer-events: none;
   box-sizing: border-box;
-  padding: var(--dialogs-container-padding, 24px);
+  padding: var(--dialogs-padding, 24px);
 }
 
 
@@ -945,6 +1092,7 @@ p.input-message {
   border-radius: var(--dialog-border-radius, 12px);
   opacity: 0;
   text-align: center;
+  max-width: 500px;
 
   --fade-in-animation-delay: var(--dialog-animation-delay, 200ms);
 }
@@ -1002,15 +1150,25 @@ a.dialog-button:focus, a[role="button"].dialog-button:focus {
 
 /* === Menu Styles === */
 
-/* Menus Container */
-#menusContainer, .menus-container {
+/* Menus */
+#menus, .menus {
   z-index: 102;
   pointer-events: none;
   justify-content: end;
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  overflow: hidden;
+  padding: 24px;
+  margin: 0;
 }
 
-/* Menu Items of Menus-Container */
-#menusContainer > menu, .menus-container > menu {
+/* All Menu */
+#menus > menu, .menus > menu {
+  width: 100%;
+  max-width: 500px;
   list-style: none;
   pointer-events: auto;
   box-sizing: border-box;
@@ -1090,6 +1248,41 @@ menu > li.menu-item:hover {
 /* === End of Menu Styles === */
 
 
+/* FAB */
+button.fab {
+  --button-width: 60px;
+  --button-height: 60px;
+  --button-padding: 8px;
+  --button-background-color: var(--primary-color);
+
+  --material-icon-color: var(--on-primary-color);
+  --material-icon-size: 32px;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 24px 16px;
+  border-radius: 50%;
+
+  margin-bottom: 80px;
+  margin-right: 32px;
+  z-index: 100;
+}
+
+/* Hovered FAB */
+button.fab:hover {
+  --button-background-color-hover: var(--primary-container-color);
+  --material-icon-color: var(--on-primary-container-color);
+}
+
+/* Focused FAB */
+button.fab:focus-visible {
+  --material-icon-color: var(--on-tertiary-color);
+}
+
+
+
+
 /* ---[ Toast ]--- */
 
 /* Toast */
@@ -1153,11 +1346,11 @@ a.nav-link span[initials] {
   display: flex;
   width: 32px;
   height: 32px;
-  font-size: 12px;
+  /* font-size: 12px; */
   text-transform: uppercase;
   border: 2px var(--on-background-color);
   color: var(--on-background-color);
-  border-style: dotted dashed;
+  /* border-style: dotted dashed; */
   flex-direction: column;
   font-weight: bold;
   justify-content: center;
@@ -1166,13 +1359,20 @@ a.nav-link span[initials] {
   border-radius: 100%;
   padding: 4px;
   box-sizing: border-box;
+
+  opacity: 1;
+  border: 0;
+  font-size: 1rem;
+  color: inherit;
 }
 
 /* Active Initials */
 a.nav-link[active] span[initials] {
   border: 0;
-  background: var(--initials-background-color, var(--surface-variant-color));
-  color: var(--initials-text-color, var(--on-surface-variant-color));
+  border-style: solid;
+  border-color: var(--primary-color);
+  /* background: var(--initials-background-color, var(--surface-variant-color));
+  color: var(--initials-text-color, var(--on-surface-variant-color)); */
 }
 
 /* Active Nav Links */
@@ -1237,24 +1437,25 @@ em {
 
 
   /* Responsive Vertical Nav Bar */
-  .nav-bar.vertical[responsive],
+  .nav-bar.vertical[responsive], #navBar[responsive],
   #sideBar[responsive] {
     display: flex;
   }
   
   /* Horizontal Nav Bar & Footer of Main */
-  .nav-bar.horizontal, main > footer {
+  .nav-bar.horizontal, #navBar, main > footer {
     height: var(--nav-bar-size, 68px);
   }
 
   /* Responsive Horizontal Nav Bar */
   /* HACK: allows me to display the nav bar in it's [demo page](component/demo/nav-bar.php) */
-  .nav-bar.horizontal[responsive] {
+  .nav-bar.horizontal[responsive], #navBar[responsive] {
     display: none !important;
   }
 
   /* Nav Links in a Horizontal Nav Bar */
-  .nav-bar.horizontal .nav-link {
+  .nav-bar.horizontal .nav-link,
+  #navBar .nav-link {
     width: var(--nav-bar-size, 68px);
   }
 
@@ -1303,7 +1504,7 @@ em {
   }
 
   /* Menu of Menus-Container */
-  #menusContainer > menu, .menus-container > menu {
+  #menus, #menus > menu {
     margin: 24px;
   }
   
@@ -1316,9 +1517,77 @@ em {
     margin-right: 16px;
   }
 
+  /*** Doodle of Empty Container ***/
+  [content] > .container[empty] .doodle {
+    width: 256px;
+    height: 256px;
+  }
 
+
+  /** Empty Container Title */
+  .container[empty] h2, .container[empty] [title] {}
+
+  /** Empty Container Note or Description */
+  .container[empty] p, .container[empty] [note] {
+    font-size: 18px;
+    line-height: 26px;
+    max-width: 320px;
+  }
+
+  button.fab {
+    margin: 32px;
+  }
 
 }
+
+/* 
+ * --> Narrow + Tablet - Layout <--
+ *
+ * ***************************************
+ * when the viewport is smaller than 768px,
+ * layout changes to tablet-layout.
+ * ***************************************
+ */
+@media (max-width: 768px) {
+
+
+  /* ASIDE */
+  body > aside {
+    position: absolute;
+    inset: 0;
+    background: var(--aside-background-color, inherit);
+    color: var(--aside-text-color, inherit);
+    width: 100%;
+    height: 100%;
+
+
+    /*
+    -webkit-animation: slideRight 0.3s ease-in-out forwards;
+    -moz-animation: slideRight 0.3s ease-in-out forwards;
+    animation: slideRight 0.3s ease-in-out forwards;
+    */
+  }
+
+  /* Not [opened] ASIDE */
+  body > aside:not([opened]) {
+    display: none;
+  }
+
+  /* [opened] ASIDE */
+  body > aside[opened] {
+    -webkit-animation: slideFromRight 0.3s ease-in-out forwards;
+    -moz-animation: slideFromRight 0.3s ease-in-out forwards;
+    animation: slideFromRight 0.3s ease-in-out forwards;
+  }
+
+  /* [closing] ASIDE */
+  body > aside[closing] {
+    -webkit-animation: slideRight 0.3s ease-in-out forwards !important;
+    -moz-animation: slideRight 0.3s ease-in-out forwards !important;
+    animation: slideRight 0.3s ease-in-out forwards !important;
+  }
+}
+
 
 
 
@@ -1373,8 +1642,8 @@ em {
   }
 
   /* Dialog Container */
-  #dialogsContainer, .dialogs-container {
-    padding: var(--dialogs-container-padding, 24px 48px);
+  #dialogs, .dialogs {
+    padding: var(--dialogs-padding, 24px 48px);
   }
 
   /* Dialog */
