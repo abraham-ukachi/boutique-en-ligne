@@ -1,6 +1,8 @@
 <?php
 use Maxaboom\Controllers\AdminController;
 
+// ------------------------for administrate products --------------------
+
 $router->map( 'GET', '/admin/product/create', function() {
     require __DIR__ . '/../views/admin-product-create-page.php';
 });
@@ -91,7 +93,15 @@ $router->map('DELETE', '/admin/product/[i:productId]', function($productId) {
 
 //juste pour les test
 // TODO: REMOVE AFTER
-$router->map( 'GET', '/admin/product/create/test', function() {
-    require __DIR__ . '/../models/admin-product-page-test/product.php';
-});
+// $router->map( 'GET', '/admin/product/create/test', function() {
+//     require __DIR__ . '/../models/admin-product-page-test/product.php';
+// });
 
+
+//---------------------------for administrate users --------------
+
+$router->map( 'GET', '/admin/users', function() {
+
+    $adminController = new AdminController();
+    $adminController->showAllUsers();
+});

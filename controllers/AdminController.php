@@ -2,17 +2,19 @@
 namespace Maxaboom\Controllers;
 use Maxaboom\Models\Product;
 use Maxaboom\Models\Category;
+use Maxaboom\Models\User;
 
 class AdminController{
 
 
     public object $productModel;
     public object $productCategory;
+    public object $userModel;
 
     public function __construct() {
         $this->productModel = new Product();
         $this->productCategory = new Category();
-
+        $this->userModel = new User();
     }
 
     //pour enregistrer un nouveau produit
@@ -61,6 +63,13 @@ class AdminController{
     public function delete($idProduct){
         $deleteProduct = New Product();
         return $deleteProduct->deleteProductByID($idProduct);
+    }
+
+    public function showAllUsers(){
+        $users = new User();
+        $allUsers = $users->displayUsers();
+        require __DIR__ . '/../views/admin-users-page.php';
+
     }
 
 

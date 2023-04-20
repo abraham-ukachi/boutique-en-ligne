@@ -74,8 +74,9 @@ class User extends Database
     }
 
     //method for register user
-    public function register($firstname, $lastname, $mail, $password, $user_role)
+    public function register($firstname, $lastname, $mail, $password)
     {
+        $user_role = "customer";
         if (!$this->verifUser($mail)) {
             $created_at = $this->getCurrentDate();
             $sql = "INSERT INTO users (firstname, lastname, mail, password, created_at, user_role)
@@ -253,7 +254,59 @@ class User extends Database
             return $result;
         }
 
+    //display one specific user by id
 
+    public function getUserId(int $userId): array {
+        $userData = [];
+
+        try {
+            $query = "SELECT * FROM `users` WHERE id = '$userId'";
+            $pdo_stmt = $this->db->query($query, PDO::FETCH_ASSOC);
+            $result = $pdo_stmt->fetch();
+            // update the product data
+            $productData = $result;
+
+        } catch (PDOException $e) {
+            // TODO: handle the exception
+        }
+        return $userData;
+    }
+
+
+    //update user
+    public function updateUser($id, $firstname,$lastname, $mail, $dob, $user_role){
+        $sql = "UPDATE users SET firstname = :firstname, lastname = :lastname, mail = :mail, dob = :dob,
+        user_role = :user_role, update_at = :update_at, stock = :stock WHERE id = :id";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'id' => $id,
+            'firstname' => htmlspecialchars($firstname),
+            'lastname' => htmlspecialchars($lastname),
+            'mail' => htmlspecialchars($mail),
+            'dob' => $dob,
+            'user_role' => htmlspecialchars($user_role),
+        ]);         
+        if ($sql_exe) {
+            echo json_encode(['response' => 'ok', 'reussite' => 'Utilisateur modifié']);
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+        }
+    }
+
+    //delete user
+
+    public function deleteUser($idUser){
+        $sql="DELETE users WHERE id = :iduser";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'iduser' => $idUser
+        ]);         
+        if ($sql_exe) {
+            echo json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
+        }
+    }
 
 
 }

@@ -128,7 +128,11 @@ let allDel=document.querySelectorAll('.deleteproduct');
 async function deleteProduct(productId){
     let response = await fetch(`admin/product/${productId}`, {method: 'DELETE'});
     let responseData = await response.json();
-    
+    if(responseData.response == 'ok'){
+        let productElement = document.getElementById(productId);
+        console.log(productElement);
+        productElement.remove();
+    }
     console.log(responseData);
 
     // if(response.status == 'ok') {

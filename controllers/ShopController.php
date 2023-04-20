@@ -60,13 +60,13 @@ class ShopController extends Database
     const DEFAULT_THEME = 'light';
 
     // declare some properties...
-    public object $productModel;
-    public object $categoryModel;
+    public ?object $productModel;
+    public ?object $categoryModel;
+
     public ?string $categoryName;
     public ?string $subCategoryName;
     public ?int $categoryId = null;
     public ?int $subCategoryId = null;
-
 
 
     /**
@@ -77,7 +77,6 @@ class ShopController extends Database
     {
         $this->categoryName = $categoryName;
         $this->subCategoryName = $subCategoryName;
-
 
         $this->productModel = new Product();
         $this->categoryModel = new Category();
@@ -113,10 +112,10 @@ class ShopController extends Database
 
     public function showPageByCategory($theme = self::DEFAULT_THEME): void
     {
-        $categoryId = $this->productModel->getCategoryIdByName($this->categoryName); // returns ex: 1
-        $products = $this->productModel->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
-        $categories = $this->getAllCategories();
-        $subCategories = $this->getAllSubCategories();
+        $categoryId = $this->categoryModel->getCategoryIdByName($this->categoryName); // returns ex: 1
+        $products = $this->ProductModel->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
+        $categories = $this->categoryModel->getAllCategories();
+        $subCategories = $this->categoryModel->getAllSubCategories();
 
         // show the splash screen
         require_once __DIR__ . '/../views/shop-page.php';
@@ -145,12 +144,12 @@ class ShopController extends Database
 
     public function getProductByCategory($category)
     {
-        return $this->productModel->getCategoryIdByName($category);
+        return $this->categoryModel->getCategoryIdByName($category);
     }
 
     public function getAllSubCategories()
     {
-        return $this->productModel->getAllSubCategories();
+        return $this->categoryModel->getAllSubCategories();
     }
 
 

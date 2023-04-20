@@ -74,27 +74,26 @@
   
   <!-- Some more script for ya! #LOL -->
   <script src="src/app.js" defer></script>
-  <script src="src/scripts/admin-product.js" defer></script>
+  <script src="src/scripts/admin-user.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
 <body class="theme dark" fullbleed>
 
   <!-- Main part -->
-<h1>Gestion des produits</h1>
-<?php
-//var_dump($products);
-//echo $products[0]['name'];
+<h1>Gestion des utilisateurs</h1>
 
-for ($i = 0; $i <count($products); $i++) {
-    echo "<div id=".$products[$i]['id']." data-product-id=".$products[$i]['id']." class='update-product'>".$products[$i]['id']." ".$products[$i]['name']." Prix : ".$products[$i]['price']." Stock : ".$products[$i]['stock'].
-    "<a href='admin/product/".$products[$i]['id']."'>Modifier</a> <button id='".$products[$i]['id']."' class='deleteproduct'>Supprimer</button></div><br>";
-}
-
-
-?>
    
+<?php 
+//var_dump($allUsers); 
+echo "<br>";
 
+for ($i = 0; $i < count($allUsers); $i++) {
+    echo "<div id=".$allUsers[$i]['id']." data-user-id=".$allUsers[$i]['id']." class='update-user'>".$allUsers[$i]['firstname'].
+    " ".$allUsers[$i]['lastname']." ".$allUsers[$i]['mail']." ".$allUsers[$i]['dob']." ".$allUsers[$i]['user_role'].
+    "<a href='admin/user/".$allUsers[$i]['id']."'>Modifier</a> <button id='".$allUsers[$i]['id']."' class='deleteuser'>Supprimer</button></div><br>";
+}
+?>
    <!-- Aside part -->
   <aside class="flex-layout vertical" hidden>...</aside>
 
