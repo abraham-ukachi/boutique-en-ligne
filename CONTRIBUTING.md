@@ -20,6 +20,8 @@ The following is a set of guidelines for contributing to Maxaboom and subsequent
         - [App-Bar (`.app-bar`) Template](#app-bar-app-bar-template)
         - [Nav-Bar (`#navBar`) Template](#nav-bar-navbar-template)
         - [Side-Bar (`#sideBar`) Template](#side-bar-sidebar-template)
+        - [Empty-Container (`.container[empty]`) Template](#empty-container-containerempty-template)
+        - [Floating Action Button (`.fab`) Template](#floating-action-button-fab-template)
 3. [How to Use Maxaboom ?](#how-to-use-maxaboom-?)
     - [Installation](#installation)
     - [mbApp - JS](#mbApp---js)
@@ -265,6 +267,8 @@ Consider using the following default html templates, when creating a new **`.htm
 * With a title and subtitle:
 
 ```html
+<!-- App Bar -->
+<!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
 <div class="app-bar">
   <!-- Title Wrapper -->
   <div class="title-wrapper">
@@ -274,6 +278,7 @@ Consider using the following default html templates, when creating a new **`.htm
     <h3 class="app-subtitle">Subtitle</h3>
   </div>
 </div>
+<!-- End of App Bar -->
 ```
 > NOTE: Titles should be wrapped with a **.title-wrapper** `<div>` element and enclosed with a `<h2>` (for title) and `<h3>` (for subtitle)
 
@@ -352,6 +357,91 @@ Run the code below in your terminal, to see a demo of **side-bar** component
 open http://localhost/boutique-en-ligne/component/demo/side-bar
 ```
 
+
+#### Empty Container (`.container[empty]`) Template
+
+Use the following code to include an **empty container** in the `<div content>` element of your `.html` or `.php` page:
+
+```html
+<!-- [empty] Container -->
+<div class="container vertical flex-layout centered" empty>
+    <span class="doodle"></span>
+    <h2 title>Empty Cart :(</h2>
+    <p info>To add an instrument to your cart, tap <span class="material-icons icon">post_add</span> at the bottom right of your screen</p>
+</div>
+```
+
+> NOTE: Feel free to change the **title** and/or **description** as you see fit ;)
+
+
+#### Floating Action Button (`.fab`) Template
+Use the following code to include a **fab** in the `<main>` or `<aside>` of your `.html` or `.php` page:
+
+```html
+<!-- Fab -->
+<button class="fab vertical flex-layout centered" contained expands shrinks>
+    <span class="material-icons icon">post_add</span>
+</button>
+<!-- End of Fab -->
+```
+
+
+#### Menu (`<menu>`) Template
+
+Use the following code to include a **menu** in your `.html` or `.php` page:
+
+
+```html
+<!-- Menu -->
+<menu data-id="{{menuId}}" class="menu vertical flex-layout" hidden>
+
+    <!-- Close Menu + Icon Button -->
+    <li role="close-menu">
+        <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
+    </li>
+        
+    <!-- MenuItem 1 -->
+    <li title="{{menuItem1Title}}" class="menu-item">
+      <button>
+        <span class="material-icons icon">post_add</span>
+        <span>{{menuItem1Name}}</span>
+      </button>
+    </li>
+
+    <!-- MenuItem 2 -->
+    <li title="{{menuItem2Title}}" class="menu-item">
+      <button>
+        <span class="material-icons icon">lock</span>
+        <span>{{menuItem2Name}}</span>
+      </button>
+    </li>
+</menu>
+<!-- End of Menu -->
+```
+
+##### Open a menu
+
+Use the `openMenuById()` method of **`mbApp`** to open a menu:
+
+```js
+    // open a menu with an id: `productMenu`
+    mbApp.openMenuById('productMenu');
+```
+> NOTE: There are also `openMainMenuById()` and `openAsideMenuById()` methods ;)
+
+##### Close a menu 
+
+Use the `closeMenuById()` method of **`mbApp`** to close a menu:
+
+```js
+    // close a menu with an id: `productMenu`
+    mbApp.closeMenuById('productMenu');
+```
+
+> NOTE: There are also `closeMainMenuById()` and `closeAsideMenuById()` methods ;)
+
+---
+
 ## How to use Maxaboom ?
 
 ### Installation
@@ -387,14 +477,30 @@ open http://localhost/boutique-en-ligne
 ### mbApp - JS
 
 #### Menus 
-> #comingSoon ;)
+
+Show the menu using a specific `[data-id]` (e.g *"productMenu"*) with a **0.5 seconds** duration:
+```js
+mbApp.showMenuById('productMenu', 0.5);
+```
+
+> NOTE:  
+
+Show another menu using a specific `[data-id]` (e.g *"detailsMenu"*) with a **1 second** duration:
+```js
+import { ASIDE_PART } from 'src/app.js';
+
+mbApp.showMenuById('detailsMenu', 1, ASIDE_PART);
+```
+
+> NOTE:  
+
 
 #### Dialogs
 > #comingSoon ;)
 
 #### Toasts
 
-Show a toast  message for **5 seconds**:
+Show a toast message for **5 seconds**:
 ```js
 mbApp.showToast({message: 'Hello World'}, 10);
 ```
