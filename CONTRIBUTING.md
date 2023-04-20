@@ -478,14 +478,14 @@ open http://localhost/boutique-en-ligne
 
 #### Menus 
 
-Show the menu using a specific `[data-id]` (e.g *"productMenu"*) with a **0.5 seconds** duration:
+Show the menu using a specific `[data-id]` (e.g *"productMenu"*) with a **0.5 seconds** timeout:
 ```js
 mbApp.showMenuById('productMenu', 0.5);
 ```
 
 > NOTE:  
 
-Show another menu using a specific `[data-id]` (e.g *"detailsMenu"*) with a **1 second** duration:
+Show another menu using a specific `[data-id]` (e.g *"detailsMenu"*) with a **1 second** timeout:
 ```js
 import { ASIDE_PART } from 'src/app.js';
 
@@ -496,7 +496,29 @@ mbApp.showMenuById('detailsMenu', 1, ASIDE_PART);
 
 
 #### Dialogs
-> #comingSoon ;)
+
+Open a dialog with a **0.5 seconds** timeout (in the [ASIDE](#aside-aside-template) part):
+```js
+import { ASIDE_PART } from 'src/app.js';
+
+mbApp.openDialog({
+    title: 'Delete Account', 
+    message: 'Are you sure?', 
+    confirmBtnText: 'Yes', 
+    cancelBtnText: 'No', 
+    onConfirm: () => console.log('confirm button clicked'), 
+    onCancel: () => console.log('cancel button clicked'),
+    noDivider: false,
+    isCancelable: true
+}, 0.5, ASIDE_PART);
+```
+
+Close a dialog: 
+```js
+mbApp.closeDialog(); // <- without arguments
+
+mbApp.closeDialog('dialog', 0.5, ASIDE_PART); // <- with arguments
+```
 
 #### Toasts
 
