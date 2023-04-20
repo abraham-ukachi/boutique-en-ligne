@@ -28,6 +28,6 @@ class ProductController extends Database
     public function showPageOneProduct($theme = self::DEFAULT_THEME):void
     {
         $productId = $this->productModel->getProductById($this->productId);
-        require_once __DIR__ . '/../views/product-page.php';
+        require_once __DIR__ . '/../views/product-page.php.backup';
     }
 }
