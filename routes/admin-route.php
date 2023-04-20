@@ -105,3 +105,27 @@ $router->map( 'GET', '/admin/users', function() {
     $adminController = new AdminController();
     $adminController->showAllUsers();
 });
+
+$router->map('GET', '/admin/user/[i:userId]', function($userId) {
+    $adminController = new AdminController();
+    $adminController->showOneUserPage($userId);
+ 
+});
+
+$router->map('POST', '/admin/user/update', function() {
+    $adminController = new AdminController();
+    $userId = $_POST['userId'];
+    $userFirstname = $_POST['firstname'];
+    $userLastname = $_POST['lastname'];
+    $userMail = $_POST['mail'];
+    $userRole = $_POST['role'];
+    echo $userRole;
+    $adminController->updateUser($userId, $userFirstname, $userLastname, $userMail, $userRole);
+});
+
+$router->map('DELETE', '/admin/user/[i:userId]', function($userId) {
+    $adminController = new AdminController();
+    $response = $adminController->userDelete($userId);
+
+    echo $response; 
+});

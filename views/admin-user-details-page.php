@@ -1,6 +1,3 @@
-
-
-
 <?php
 ?>
 <!DOCTYPE html>
@@ -133,16 +130,38 @@
         <!-- [content] -->
         <div content>
             <div class='container'>
-            <h1>Gestion des utilisateurs</h1>
-  <?php
-    //var_dump($allUsers); 
-    echo "<br>";
-    for ($i = 0; $i < count($allUsers); $i++) {
-        echo "<div id=".$allUsers[$i]['id']." data-user-id=".$allUsers[$i]['id']." class='update-user'>".$allUsers[$i]['firstname'].
-        " ".$allUsers[$i]['lastname']." ".$allUsers[$i]['mail']." ".$allUsers[$i]['dob']." ".$allUsers[$i]['user_role'].
-        "<a href='admin/user/".$allUsers[$i]['id']."'>Modifier</a> <button id='".$allUsers[$i]['id']."' class='deleteUser'>Supprimer</button></div><br>";
-    }
-  ?>
+        <form  id='userUpdateForm' action='' method='post' data-user-id='<?= $userId ?>'>
+                <div class="input-wrapper">
+                    <label raised for="firstname">Prénom</label>
+                    <input id="firstname" class="connect" name="firstname" type="text" value="<?= $oneUser['firstname'] ?>">
+                    <span class="input-indicator"><span bar></span><span val></span>
+
+                </div>
+                <div class="input-wrapper">
+                    <label raised for="lastname">Nom</label>
+                    <input id="lastname" class="connect" name="lastname" type="text" value="<?= $oneUser['lastname'] ?>">
+                    <span class="input-indicator"><span bar></span><span val></span>
+
+                </div>
+
+                <div class="input-wrapper">
+                    <label raised for="mail">mail</label>
+                    <input id="mail" class="connect" name="mail" type="email" value="<?= $oneUser['mail'] ?>">
+                    <span class="input-indicator"><span bar></span><span val></span>
+
+                </div>
+
+                <div class="input-wrapper">
+                    <select name='role' id='role'>
+                                <option value='<?= $oneUser['user_role'] ?>'><?= $oneUser['user_role'] ?></option>
+                                <option value='admin'>Administrateur</option>
+                                <option value='customer'>Client</option>
+                    </select>     
+                </div>
+
+                <button type="submit" class="register_form_button" id="envoie" name="envoie">Enregistrer les modifications</button>
+        </form>
+
             </div>
         </div>
     </div>
@@ -235,14 +254,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
 
 
 

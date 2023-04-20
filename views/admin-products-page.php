@@ -2,6 +2,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+    <!-- HEAD -->
 <head>
   <!-- Our 4 VIP metas -->
   <meta charset="utf-8">
@@ -53,7 +54,7 @@
   <!-- Theme -->
   <link rel="stylesheet" href="assets/theme/color.css">
   <link rel="stylesheet" href="assets/theme/typography.css">
-  <!-- <link rel="stylesheet" href="assets/theme/styles.css"> -->
+  <link rel="stylesheet" href="assets/theme/styles.css">
   
   <!-- Animations -->
   <!-- <link rel="stylesheet" href="assets/animations/fade-in-animation.css"> -->
@@ -73,43 +74,163 @@
   </script>
   
   <!-- Some more script for ya! #LOL -->
-  <script src="src/app.js" defer></script>
-  <script src="src/scripts/admin-product.js" defer></script>
+  <script type="module" src="src/app.js" defer></script>
+  <script type="module" src="src/scripts/admin-product.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
-<body class="theme dark" fullbleed>
+<body class="theme light" fullbleed>
+
+  <!-- Side Bar -->
+    <!-- PHP: Include the `sideBar` component -->
+    <?php 
+    $_GET['sidebar_route'] = 'home'; 
+    $_GET['sidebar_init'] = 'au'; 
+    $_GET['sidebar_connected'] = false; // TRUE if the user is connected
+    $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin 
+
+    require __DIR__ . '/components/side-bar.php';
+    ?>
+    <!-- End of Side Bar -->
+
 
   <!-- Main part -->
-<h1>Gestion des produits</h1>
+  <main class="flex-layout vertical">
+
+    <!-- App-Layout of MAIN -->
+    <div class="app-layout" fit>
+        <!-- Header -->
+        <header>
+            <!-- App Bar -->
+            <div class="app-bar">
+                <span flex></span>
+
+                <!-- Account - Icon Button -->
+                <a href="account" role="icon-button" tabindex="0" title="Settings">
+                <span class="material-icons icon">settings</span>
+                </a>
+            </div>
+            <!-- End of App Bar -->
+            <!-- App Bar -->
+            <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
+            <div class="app-bar" sticky>
+            <!-- Title Wrapper -->
+            <div class="title-wrapper">
+                <!-- Title -->
+                <h2 class="app-title">Admin</h2>
+                <!-- Subtitle -->
+                <h3 class="app-subtitle">Products</h3>
+            </div>
+            </div>
+            <!-- End of App Bar -->
+            <!-- Horizontal Divider -->
+            <span class="divider horizontal bottom"></span>
+        </header>
+
+        <!-- [content] -->
+        <div content>
+            <div class='container'>
+            <h1>Gestion des produits</h1>
 <?php
 //var_dump($products);
 //echo $products[0]['name'];
 
 for ($i = 0; $i <count($products); $i++) {
-    echo "<div id=".$products[$i]['id']." data-product-id=".$products[$i]['id']." class='update-product'>".$products[$i]['id']." ".$products[$i]['name']." Prix : ".$products[$i]['price']." Stock : ".$products[$i]['stock'].
+    echo "<div id=".$products[$i]['id']." data-product-id=".$products[$i]['id']." class='update-product'>".$products[$i]['id']." ".$products[$i]['name']." Prix : ".($products[$i]['price']/100)." € Stock : ".$products[$i]['stock'].
     "<a href='admin/product/".$products[$i]['id']."'>Modifier</a> <button id='".$products[$i]['id']."' class='deleteproduct'>Supprimer</button></div><br>";
 }
 
 
 ?>
-   
+            </div>
+        </div>
+    </div>
+    
+    <!-- Nav Bar -->
+    <!-- PHP: Include the `navBar` component -->
+    <?php 
+    $_GET['navbar_route'] = 'home'; 
+    $_GET['navbar_init'] = 'au'; 
+    $_GET['navbar_connected'] = false; // TRUE if the user is connected
+    $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin 
 
-   <!-- Aside part -->
-  <aside class="flex-layout vertical" hidden>...</aside>
+    require __DIR__ . '/components/nav-bar.php';
+    ?>
+    <!-- End of Nav Bar -->
 
-<!-- Default Backdrop -->
-<div id="backdrop" hidden></div>
+    
+    <!-- Backdrop of MAIN -->
+    <div class="backdrop" fit hidden></div>
+    
+    <!-- Menus of MAIN -->
+    <div class="menus" fit hidden></div>
+    
+    <!-- Dialogs of MAIN -->
+    <div class="dialogs" fit hidden></div>
+    
+    <!-- Toasts of MAIN -->
+    <div class="toasts" fit hidden></div>
 
-<!-- Default Menus -->
-<div id="menus" hidden></div>
+  </main>
 
-<!-- Default Dialogs -->
-<div id="dialogs" hidden></div>
+  <aside class="flex-layout vertical" hidden >
 
-<!-- Default Toasts -->
-<div id="toasts" hidden></div>
+    <!-- App-Layout of ASIDE -->
+    <div class="app-layout" fit>...</div>
+
+    <!-- Backdrop of ASIDE -->
+    <div class="backdrop" fit hidden></div>
+
+    <!-- Menus of ASIDE -->
+    <div class="menus" fit hidden></div>
+
+    <!-- Dialogs of ASIDE -->
+    <div class="dialogs" fit hidden></div>
+
+    <!-- Toasts of ASIDE -->
+    <div class="toasts" fit hidden></div>
+
+    <!-- Vertical Divider -->
+    <span class="divider vertical left"></span>
+  </aside>
+
+  <!-- Default Backdrop -->
+  <div id="backdrop" fit hidden></div>
+
+  <!-- Default Menus -->
+  <div id="menus" fit hidden>
+    <!-- Menu -->
+    <menu data-id="supermenu" class="menu vertical flex-layout" hidden>
+
+    <!-- Close Menu + Icon Button -->
+    <li role="close-menu">
+        <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
+    </li>
+        
+    <!-- MenuItem 1 -->
+    <li title="{{menuItem1Title}}" class="menu-item">
+    <button>
+        <span class="material-icons icon">post_add</span>
+        <span>{{menuItem1Name}}</span>
+    </button>
+    </li>
+
+    <!-- MenuItem 2 -->
+    <li title="{{menuItem2Title}}" class="menu-item">
+    <button>
+        <span class="material-icons icon">lock</span>
+        <span>{{menuItem2Name}}</span>
+    </button>
+    </li>
+    </menu>
+    <!-- End of Menu -->
+  </div>
+
+  <!-- Default Dialogs -->
+  <div id="dialogs" fit hidden></div>
+
+  <!-- Default Toasts -->
+  <div id="toasts" fit hidden></div>
 
 </body>
-
-</html>   
+</html>

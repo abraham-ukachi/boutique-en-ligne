@@ -1,7 +1,13 @@
+
+
+
+
+
 <?php
 ?>
 <!DOCTYPE html>
 <html lang="en">
+    <!-- HEAD -->
 <head>
   <!-- Our 4 VIP metas -->
   <meta charset="utf-8">
@@ -53,7 +59,7 @@
   <!-- Theme -->
   <link rel="stylesheet" href="assets/theme/color.css">
   <link rel="stylesheet" href="assets/theme/typography.css">
-  <!-- <link rel="stylesheet" href="assets/theme/styles.css"> -->
+  <link rel="stylesheet" href="assets/theme/styles.css">
   
   <!-- Animations -->
   <!-- <link rel="stylesheet" href="assets/animations/fade-in-animation.css"> -->
@@ -73,86 +79,217 @@
   </script>
   
   <!-- Some more script for ya! #LOL -->
-  <script src="src/app.js" defer></script>
-  <script src="src/scripts/admin-product.js" defer></script>
+  <script type="module" src="src/app.js" defer></script>
+  <script type="module" src="src/scripts/admin-product.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
-<body class="theme dark" fullbleed>
+<body class="theme light" fullbleed>
+
+  <!-- Side Bar -->
+    <!-- PHP: Include the `sideBar` component -->
+    <?php 
+    $_GET['sidebar_route'] = 'home'; 
+    $_GET['sidebar_init'] = 'au'; 
+    $_GET['sidebar_connected'] = false; // TRUE if the user is connected
+    $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin 
+
+    require __DIR__ . '/components/side-bar.php';
+    ?>
+    <!-- End of Side Bar -->
+
 
   <!-- Main part -->
-<h1>Modifier le produit</h1>
-<h2><?php echo $theProduct['name'] ?></h2>
+  <main class="flex-layout vertical">
 
-<?php
-//var_dump($products);
-//echo $products[0]['name'];
+    <!-- App-Layout of MAIN -->
+    <div class="app-layout" fit>
+        <!-- Header -->
+        <header>
+            <!-- App Bar -->
+            <div class="app-bar">
+                <span flex></span>
 
-var_dump($theProduct);
-echo $theCategoryId;
-echo $theProductCategoryName;
+                <!-- Account - Icon Button -->
+                <a href="account" role="icon-button" tabindex="0" title="Settings">
+                <span class="material-icons icon">settings</span>
+                </a>
+            </div>
+            <!-- End of App Bar -->
+            <!-- App Bar -->
+            <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
+            <div class="app-bar" sticky>
+            <!-- Title Wrapper -->
+            <div class="title-wrapper">
+                <!-- Title -->
+                <h2 class="app-title">Admin</h2>
+                <!-- Subtitle -->
+                <h3 class="app-subtitle">Products</h3>
+            </div>
+            </div>
+            <!-- End of App Bar -->
+            <!-- Horizontal Divider -->
+            <span class="divider horizontal bottom"></span>
+        </header>
 
-?>
-<form  id='productUpdateForm' action='' method='post' data-product-id='<?= $theProduct['id'] ?>'>
-    <div class="input-form-container">
-        <div class="form-control">
-            <label for="productname">Nom</label>
-            <input id="productname" class="productupdate" name="productname" type="text" value="<?php echo $theProduct['name'] ?>">
-        </div>
-        <div class="form-control">
-            <label for="productdescription">Description</label>
-            <input id="productdescription" class="productupdate" name="productdescription" type="text" value="<?php echo $theProduct['description'] ?>">
-        </div>
+        <!-- [content] -->
+        <div content>
+            <!--container-->
+            <div class='container'>
 
-        <div class="form-control">
-            <label for="price">Prix</label>
-            <input id="productprice" class="productupdate" name="productprice" type="integer" value="<?php echo $theProduct['price'] ?>">
-        </div>
+              <h1>Modifier le produit</h1>
+            <h2><?php echo $theProduct['name'] ?></h2>
 
-        <div class="form-control">
-            <label for='category'></label>
-                 <select name='category' id='category'>
-                     <option value='<?php echo $theCategoryId ?>'><?php echo $theProductCategoryName ?></option>
-                     <option value='1'>Pianos</option>
-                     <option value='2'>Guitares</option>
-                     <option value='3'>Percussions</option>
-                     <option value='4'>Lutherie</option>
-                     <option value='5'>DJ</option>
-                     <option value='6'>Vents</option>
-                 </select>        
-        </div>
+            <?php
 
-        <div class="form-control">
-            <label for='subcategories'></label>
-                 <select name='subcategories' id='subcategories'>
-                     <option value='<?php echo $theSubCategoryId ?>'><?php echo $theProductSubCategoryName ?></option>
-                 </select>        
-        </div>
+            // var_dump($theProduct);
+            // echo $theCategoryId;
+            // echo $theProductCategoryName;
 
-        <div class="form-control">
-            <label for="stock">Stock</label>
-            <input id="productstock" class="productupdate" name="productstock" type="integer" value="<?php echo $theProduct['stock'] ?>">
-        </div>
-        <button type="submit" class="register_form_button" id="envoie" name="envoie">Valider les modification</button>
-    </div>
-    </form>
-   
+            ?>
 
-   <!-- Aside part -->
-  <aside class="flex-layout vertical" hidden>...</aside>
+            <form  id='productUpdateForm' action='' method='post' data-product-id='<?= $theProduct['id'] ?>'>
+                
+                    <div class="input-wrapper">
+                        <label raised for="productname">Nom</label>
+                        <input id="productname" class="productupdate" name="productname" type="text" value="<?php echo $theProduct['name'] ?>">
+                        <span class="input-indicator"><span bar></span><span val></span>
+                      </div>
+                    <div class="input-wrapper">
+                        <label raised for="productdescription">Description</label>
+                        <textarea id="productdescription" class="productupdate" name="productdescription" type="text"><?php echo $theProduct['description'] ?></textarea>
+                        <span class="input-indicator"><span bar></span><span val></span>
+                      </div>
 
-<!-- Default Backdrop -->
-<div id="backdrop" hidden></div>
+                    <div class="input-wrapper">
+                        <label raised for="price">Prix</label>
+                        <input id="productprice" class="productupdate" name="productprice" type="integer" value="<?php echo $theProduct['price']/100 ?> €">
+                        <span class="input-indicator"><span bar></span><span val></span>
+                      </div>
 
-<!-- Default Menus -->
-<div id="menus" hidden></div>
+                    <div class="input-wrapper">
+                        <label raised for='category'></label>
+                            <select name='category' id='category'>
+                                <option value='<?php echo $theCategoryId ?>'><?php echo $theProductCategoryName ?></option>
+                                <option value='1'>Pianos</option>
+                                <option value='2'>Guitares</option>
+                                <option value='3'>Percussions</option>
+                                <option value='4'>Lutherie</option>
+                                <option value='5'>DJ</option>
+                                <option value='6'>Vents</option>
+                            </select>        
+                    </div>
 
-<!-- Default Dialogs -->
-<div id="dialogs" hidden></div>
+                    <div class="input-wrapper">
+                        <label raised for='subcategories'></label>
+                            <select name='subcategories' id='subcategories'>
+                                <option value='<?php echo $theSubCategoryId ?>'><?php echo $theProductSubCategoryName ?></option>
+                            </select>        
+                    </div>
 
-<!-- Default Toasts -->
-<div id="toasts" hidden></div>
+                    <div class="input-wrapper">
+                        <label raised for="stock">Stock</label>
+                        <input id="productstock" class="productupdate" name="productstock" type="integer" value="<?php echo $theProduct['stock'] ?>">
+                        <span class="input-indicator"><span bar></span><span val></span>
+                      </div>
+                    <button type="submit" class="register_form_button" id="envoie" name="envoie" contained>Valider les modification</button>
+                
+            </form>
+          </div>
+          <!-- end of container -->
+      </div>
+      <!-- end of content -->
+
+
+    
+    <!-- Nav Bar -->
+    <!-- PHP: Include the `navBar` component -->
+    <?php 
+    $_GET['navbar_route'] = 'home'; 
+    $_GET['navbar_init'] = 'au'; 
+    $_GET['navbar_connected'] = false; // TRUE if the user is connected
+    $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin 
+
+    require __DIR__ . '/components/nav-bar.php';
+    ?>
+    <!-- End of Nav Bar -->
+
+    
+    <!-- Backdrop of MAIN -->
+    <div class="backdrop" fit hidden></div>
+    
+    <!-- Menus of MAIN -->
+    <div class="menus" fit hidden></div>
+    
+    <!-- Dialogs of MAIN -->
+    <div class="dialogs" fit hidden></div>
+    
+    <!-- Toasts of MAIN -->
+    <div class="toasts" fit hidden></div>
+
+  </main>
+
+  <aside class="flex-layout vertical" hidden >
+
+    <!-- App-Layout of ASIDE -->
+    <div class="app-layout" fit>...</div>
+
+    <!-- Backdrop of ASIDE -->
+    <div class="backdrop" fit hidden></div>
+
+    <!-- Menus of ASIDE -->
+    <div class="menus" fit hidden></div>
+
+    <!-- Dialogs of ASIDE -->
+    <div class="dialogs" fit hidden></div>
+
+    <!-- Toasts of ASIDE -->
+    <div class="toasts" fit hidden></div>
+
+    <!-- Vertical Divider -->
+    <span class="divider vertical left"></span>
+  </aside>
+
+  <!-- Default Backdrop -->
+  <div id="backdrop" fit hidden></div>
+
+  <!-- Default Menus -->
+  <div id="menus" fit hidden>
+    <!-- Menu -->
+    <menu data-id="supermenu" class="menu vertical flex-layout" hidden>
+
+    <!-- Close Menu + Icon Button -->
+    <li role="close-menu">
+        <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
+    </li>
+        
+    <!-- MenuItem 1 -->
+    <li title="{{menuItem1Title}}" class="menu-item">
+    <button>
+        <span class="material-icons icon">post_add</span>
+        <span>{{menuItem1Name}}</span>
+    </button>
+    </li>
+
+    <!-- MenuItem 2 -->
+    <li title="{{menuItem2Title}}" class="menu-item">
+    <button>
+        <span class="material-icons icon">lock</span>
+        <span>{{menuItem2Name}}</span>
+    </button>
+    </li>
+    </menu>
+    <!-- End of Menu -->
+  </div>
+
+  <!-- Default Dialogs -->
+  <div id="dialogs" fit hidden></div>
+
+  <!-- Default Toasts -->
+  <div id="toasts" fit hidden></div>
 
 </body>
+</html>
 
-</html>   
+
+
