@@ -1,6 +1,7 @@
 console.log("Test lien javascript");
 //déclarer le formulaire pour y associer une fonction quand on soumet
 let formRegisterProduct = document.getElementById('registerProductForm');
+let formProductUpdate = document.getElementById('productUpdateForm');
 let categorySelect = document.getElementById('category');
 
 async function registerProduct(name, description, price, category, subcategory, stock, image) {
@@ -48,7 +49,8 @@ function handleFormSubmitOld(event) {
 
 let submitButton = document.getElementById('envoie');
 
-categorySelect.addEventListener('change', async (event) => {
+if(categorySelect){
+    categorySelect.addEventListener('change', async (event) => {
     let categoryId = event.currentTarget.value;
     console.log(categoryId);
 
@@ -66,11 +68,13 @@ categorySelect.addEventListener('change', async (event) => {
     });
 });
 
+}
+
 // faire un fetch de toutes les sous categorie avec category Id
 //creer une route api-subcategory/
 // fetch url
-
-formRegisterProduct.addEventListener('submit', async (event) => {
+if (formRegisterProduct){
+    formRegisterProduct.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     let form = new FormData(event.target);
@@ -85,9 +89,62 @@ formRegisterProduct.addEventListener('submit', async (event) => {
     });
 
     let response = await fetch(request);
-    let responseData = await response.json();
+    let responseData = await response.text();
 
     console.log(`form => `, form);
     console.log(`responseData => `, responseData);
 
-});
+    });
+}
+
+if (formProductUpdate){
+    formProductUpdate.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let productId = event.target.dataset.productId; //recupère la valeur de productId dans dataset du formulaire
+        console.log(productId);
+    let form = new FormData(event.target);
+    form.append( 'productId', productId );
+
+    let url = 'admin/product/update';
+
+    let request = new Request(url, {
+        method: 'POST',
+        body: form
+    });
+
+    let response = await fetch(request);
+    let responseData = await response.text();
+
+    console.log(`form => `, form);
+    console.log(`responseData => `, responseData);
+
+    });
+}
+
+// DELETE things
+
+let allDel=document.querySelectorAll('.deleteproduct');
+
+async function deleteProduct(productId){
+    let response = await fetch(`admin/product/${productId}`, {method: 'DELETE'});
+    let responseData = await response.json();
+    
+    console.log(responseData);
+
+    // if(response.status == 'ok') {
+    //     console.log('product has been delete');
+    // }
+}
+
+for (const btn of allDel){
+
+    console.log(btn);
+    btn.addEventListener("click", (e) =>{
+        let idDelete= e.target.id
+        console.log("delete  "+idDelete)
+        deleteProduct(idDelete);
+    })
+}
+
+
+

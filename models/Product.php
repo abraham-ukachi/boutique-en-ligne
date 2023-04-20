@@ -52,7 +52,7 @@ class Product extends Database
      * @return array $allProducts
      */
     public function getAllProducts(){
-        $allProducts = $this->db->prepare("SELECT * FROM products");
+        $allProducts = $this->db->prepare("SELECT * FROM `products` WHERE deleted_at IS NULL");
         $allProducts->execute([
         ]);
         $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
@@ -152,6 +152,31 @@ class Product extends Database
         }
     }
 
+    //update specific product
+    public function updateProduct($id, $name,$description, $price, $categories_id, $sub_categories_id, $stock){
+        $update_at = date('Y-m-d H:i:s');
+        $sql = "UPDATE products SET name = :name, description = :description, price = :price, categories_id = :categories_id,
+        sub_categories_id = :sub_categories_id, update_at = :update_at, stock = :stock WHERE id = :id";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'id' => $id,
+            'name' => htmlspecialchars($name),
+            'description' => htmlspecialchars($description),
+            'price' => htmlspecialchars($price),
+            'categories_id' => htmlspecialchars($categories_id),
+            'sub_categories_id' => htmlspecialchars($sub_categories_id),
+            'update_at' => $update_at,
+            'stock' => htmlspecialchars($stock)
+        ]);         
+        if ($sql_exe) {
+            echo json_encode(['response' => 'ok', 'reussite' => 'Produit modifié']);
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+        }
+    }
+
+
+
     //get last id in DB for image name
     public function getLastId(){
             $getLastId = $this->db->prepare("SELECT MAX(id) FROM `products`");
@@ -202,10 +227,10 @@ class Product extends Database
             'id' => $productId,
         ]);
             if ($sqlupdate) {
-                echo json_encode(['response' => 'ok', 'reussite' => 'Produit supprimé']);
+                return json_encode(['response' => 'ok', 'reussite' => 'Produit supprimé']);
             } 
         }else {
-                echo json_encode(['response' => 'not ok', 'echoue' => 'Le produit a déjà été supprimé']);
+                return json_encode(['response' => 'not ok', 'echoue' => 'Le produit a déjà été supprimé']);
             }
 
     }
