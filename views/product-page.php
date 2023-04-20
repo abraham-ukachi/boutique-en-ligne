@@ -82,7 +82,7 @@
 
 </head>
 <!-- End of HEAD -->
-<body class='theme light' fullbleed>
+<body class='theme dark' fullbleed>
 
 
 <!-- Side Bar -->
@@ -121,9 +121,9 @@ require __DIR__ . '/components/side-bar.php';
                 <!-- Title Wrapper -->
                 <div class='title-wrapper'>
                     <!-- Title -->
-                    <h2 class='app-title'><?= $productId['name'] ?></h2>
+                    <h2 class='app-title'><?= $productId['productName'] ?></h2>
                     <!-- Subtitle -->
-                    <h3 class='app-subtitle'>Catégorie</h3>
+                    <h3 class='app-subtitle'><?php print_r($productId['name'])?></h3>
                 </div>
             </div>
             <!-- End of App Bar -->
@@ -204,7 +204,7 @@ require __DIR__ . '/components/side-bar.php';
         <div content>
             <?php foreach ($productReview as $review) : ?>
 
-                <p> <?= $review['user_id'] ?> </p>
+                <p> <?= $review['lastname'] . ' ' . $review['firstname'] ?> </p>
                 <p> <?= 'Ratings : ' .  $review['ratings'] . ' étoiles' ?> </p>
                 <p> <?= $review['comment'] ?> </p>
                 <p> <?= $review['created_at'] ?> </p>

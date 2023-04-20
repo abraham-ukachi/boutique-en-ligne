@@ -32,7 +32,7 @@ class Product extends Database
 
         try {
 
-            $query = "SELECT * FROM `products` WHERE id = '$productId'";
+            $query = "SELECT *, products.name as productName FROM `products` INNER JOIN categories ON products.categories_id = categories.id WHERE products.id = '$productId'";
             $pdo_stmt = $this->db->query($query, PDO::FETCH_ASSOC);
 
             $result = $pdo_stmt->fetch();
@@ -48,7 +48,7 @@ class Product extends Database
     }
 
     public function getReviewByProductId(int $productId): array {
-        $review = "SELECT * FROM comments WHERE product_id = :productId";
+        $review = "SELECT * FROM comments INNER JOIN users ON comments.user_id = users.id WHERE product_id = :productId";
         $review_exe = $this->db->prepare($review);
         $review_exe->execute([
             'productId' => $productId
