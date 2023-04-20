@@ -182,20 +182,6 @@
 
           <!-- App Bar -->
           <div class="app-bar">
-            <!-- Title Wrapper -->
-            <div class="title-wrapper">
-              <!-- Title -->
-              <h2 class="app-title">Maxaboom</h2>
-            </div>
-          </div>
-          <!-- End of App Bar -->
-
-          <!-- App Bar -->
-          <div class="app-bar" sticky>
-            <!-- Return - Icon Button -->
-            <button id="returnIconButton" class="icon-button" title="Go Back">
-              <span class="material-icons icon">arrow_back</span>
-            </button>
 
             <!-- Title Wrapper -->
             <div class="title-wrapper">
@@ -205,7 +191,7 @@
 
             <!-- Like - Icon Button -->
             <button id="likeIconButton" class="icon-button" title="Like Product">
-              <span class="material-icons icon">favorite_outline</span>
+              <span class="material-icons icon">more_horiz</span>
             </button>
           </div>
           <!-- End of App Bar -->
@@ -217,15 +203,6 @@
         <!-- [content] -->
         <div content>
           <h2 hidden>Abraham Ukachi</h2>
-
-          <!-- [empty] Container -->
-          <div class="container vertical flex-layout centered" empty>
-            <span class="doodle"></span>
-            <h2 title>Empty Cart :(</h2>
-            <p info>To add an instrument to your cart, tap <span class="material-icons icon">post_add</span> at the bottom right of your screen</p>
-          </div>
-          <!-- End of [empty] Container -->
-
 
         </div>
         <!-- End of [content] -->
@@ -274,7 +251,7 @@
 
       <!-- Fab -->
       <button class="fab vertical flex-layout centered" contained expands shrinks>
-        <span class="material-icons icon">post_add</span>
+        <span class="material-icons icon">add</span>
       </button>
       <!-- End of Fab -->
 
@@ -297,34 +274,7 @@
       <div class="backdrop" fit hidden></div>
 
       <!-- Menus of MAIN -->
-      <div class="menus" fit hidden>
-
-      <!-- Menu -->
-      <menu data-id="detailsMenu" class="menu vertical flex-layout" hidden>
-
-          <!-- Close Menu + Icon Button -->
-          <li role="close-menu">
-              <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
-          </li>
-
-          <!-- MenuItem 1 -->
-          <li title="{{menuItem1Title}}" class="menu-item">
-            <button>
-              <span class="material-icons icon">school</span>
-              <span>{{detailItem1}}</span>
-            </button>
-          </li>
-
-          <!-- MenuItem 2 -->
-          <li title="{{menuItem2Title}}" class="menu-item">
-            <button>
-              <span class="material-icons icon">star</span>
-              <span>{{detailItem2}}</span>
-            </button>
-          </li>
-      </menu>
-      <!-- End of Menu -->
-      </div>
+      <div class="menus" fit hidden></div>
 
       <!-- Dialogs of MAIN -->
       <div class="dialogs" fit hidden></div>
@@ -340,33 +290,7 @@
 
 
     <!-- Menus  -->
-    <div id="menus" fit hidden>
-      <!-- Menu -->
-      <menu data-id="productMenu" class="menu vertical flex-layout" hidden>
-
-          <!-- Close Menu + Icon Button -->
-          <li role="close-menu">
-              <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
-          </li>
-
-          <!-- MenuItem 1 -->
-          <li title="{{menuItem1Title}}" class="menu-item">
-            <button>
-              <span class="material-icons icon">post_add</span>
-              <span>{{menuItem1Name}}</span>
-            </button>
-          </li>
-
-          <!-- MenuItem 2 -->
-          <li title="{{menuItem2Title}}" class="menu-item">
-            <button>
-              <span class="material-icons icon">lock</span>
-              <span>{{menuItem2Name}}</span>
-            </button>
-          </li>
-      </menu>
-      <!-- End of Menu -->
-    </div>
+    <div id="menus" fit hidden></div>
     <!-- End of Menus  -->
 
     <!-- Dialogs  -->

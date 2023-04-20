@@ -318,9 +318,9 @@ export class MaxaboomApp {
       menusEl.classList.add('fade-in');
 
       // remove the `slide-down` class from `menuEl`
-      menuEl.classList.remove('slide-down');
+      menuEl.classList.remove('slide-up');
       // add the `slide-from-down` class to `menuEl`
-      menuEl.classList.add('slide-from-down');
+      menuEl.classList.add('slide-from-up');
 
       // cancel any active timers
       clearTimeout(this._showMenuTimer);
@@ -467,12 +467,24 @@ export class MaxaboomApp {
       // initialize the `dialogId` variable
       let dialogId = params.id || 'dialog';
 
+
+
       // if the `dialogId` is `dialog`...
-      if (dialogId === 'dialog') {
+      if (dialogId === 'dialog' && typeof this.getDialogById(dialogId, part)) {
         // ...get the dialog html template with the given `params` as `dialogHTMLTemplate`
         let dialogHTMLTemplate = this._getDialogHTMLTemplate(params);
         // ...insert 'beforend' the `dialogHTMLTemplate` to `dialogsEl`
         dialogsEl.insertAdjacentHTML('beforeend', dialogHTMLTemplate);
+
+        // get the confirm button element as `confirmBtnEl`
+        let confirmBtnEl = this.getDialogById(dialogId, part).querySelector('.confirm-btn');
+        // get the cancel button element as `cancelBtnEl`
+        let cancelBtnEl = this.getDialogById(dialogId, part).querySelector('.cancel-btn');
+
+        // attach the `onConfirm` and `onCancel` functions to the buttons
+        confirmBtnEl.onclick = params.onConfirm ?? ((event) => this.closeDialog(dialogId, timeout, part));
+        cancelBtnEl.onclick = params.onCancel ?? ((event) => this.closeDialog(dialogId, timeout, part));
+
       }
 
       // get the dialog element using `dialogId`
@@ -482,7 +494,7 @@ export class MaxaboomApp {
       if (!dialogEl) { reject(`Dialog with id "${dialogId}" doesn't exist`); }
 
       // show the backdrop of the given `part` 
-      this.showBackdropOf(part);
+      this.showBackdropOf(part, params.isCancelable ?? true);
 
       // show or unhide the `dialogsEl`
       dialogsEl.hidden = false;
@@ -494,18 +506,18 @@ export class MaxaboomApp {
       // add the `fade-in` class to `dialogsEl`
       dialogsEl.classList.add('fade-in');
 
-      // remove the `slide-down` class from `dialogEl`
-      dialogEl.classList.remove('slide-down');
-      // add the `slide-from-down` class to `dialogEl`
-      dialogEl.classList.add('slide-from-down');
+      // remove the `slide-up` class from `dialogEl`
+      dialogEl.classList.remove('slide-up');
+      // add the `slide-from-up` class to `dialogEl`
+      dialogEl.classList.add('slide-from-up');
 
       
       // cancel any active timers
-      clearTimeout(this._hideDialogTimer);
-      clearTimeout(this._showDialogTimer);
+      clearTimeout(this._closeDialogTimer);
+      clearTimeout(this._openDialogTimer);
 
       // resolve the promise after `duration` seconds
-      this._showDialogTmer = setTimeout(() => {
+      this._openDialogTmer = setTimeout(() => {
         // TODO ? Do something before resolving the promise
 
         // add a `opened` property to `dialogEl`
@@ -519,6 +531,79 @@ export class MaxaboomApp {
     });
   }
 
+  /**
+   * Method used to close the dialog with the given `dialogId`
+   *
+   * @param { String } dialogId - The id of the dialog to close
+   * @param { Number } duration - The duration of the animation (in seconds)
+   * @param { String } part - The part of the app where the menu will be hidden (eg. MAIN_PART, ASIDE_PART, FULL_PART)
+   * 
+   * @returns { Promise } - A promise that will be resolved when the dialog is closed
+   */
+  closeDialog(dialogId = 'dialog', duration = 0.5, part = DEFAULT_PART) {
+    return new Promise((resolve, reject) => {
+      // get the dialogs element of the given `part` as `menusEl`
+      let dialogsEl = this.getCurrentDialogsElement(part);
+
+      // get the dialog element with the given `dialogId` as `dialogEl`
+      let dialogEl = this.getDialogById(dialogId, part); 
+
+      // if the dialog element doesn't exist, reject the promise
+      if (!dialogEl) { return reject(`Dialog with id "${dialogId}" doesn't exist`) }
+
+      
+      // hide the backdrop of the given `part` 
+      this.hideBackdropOf(part);
+      
+
+      // remove the `fade-in` class from `dialogsEl`
+      dialogsEl.classList.remove('fade-in');
+      // add the `fade-out` class to `dialogsEl`
+      dialogsEl.classList.add('fade-out');
+
+      // remove slide-from-up class from `dialogEl`
+      dialogEl.classList.remove('slide-from-up');
+      // add the `slide-up` class to `dialogEl`
+      dialogEl.classList.add('slide-up');
+
+      // cancel any active timers
+      clearTimeout(this._closeDialogTimer);
+      clearTimeout(this._openDialogTimer);
+
+      // resolve the promise after `duration` seconds
+      this._closeDialogTimer = setTimeout(() => {
+        // TODO ? Do something before resolving the promise
+        
+        // remove the `opened` property from `dialogEl`
+        dialogEl.removeAttribute('opened');
+
+        // deactivate the dialog element`
+        dialogEl.removeAttribute('active');
+
+        // hide the `dialogEl`
+        dialogEl.hidden = true;
+
+        // hide the `dialogsEl`
+        dialogsEl.hidden = true;
+
+        // remove the `fade-out` class from `dialogsEl`
+        dialogsEl.classList.remove('fade-out');
+        // remove the `dialogEl` from `dialogsEl`
+        dialogEl.remove();
+
+        // DEBUG [4dbsmaster]: tell me about it ;)
+        console.log(`\x1b[34m[closeDialog](_closeDialogTimer): dialogEl ==> \x1b[0m`, dialogEl);
+
+        // resolve the promise
+        resolve();
+
+      }, duration * 1000);
+
+    });
+
+  }
+
+  
   /**
    * Method used to check if the menu with the given `menuId` is shown
    *
@@ -651,10 +736,14 @@ export class MaxaboomApp {
    * Shows or unhides the backdrop of the app (or a specific part of the app)
    *
    * @param { String } part - The part of the app to show the backdrop of
+   * @param { Boolean } isCancelable - If TRUE, the backdrop will be cancelable
    */
-  showBackdropOf(part = DEFAULT_PART) {
+  showBackdropOf(part = DEFAULT_PART, isCancelable = true) {
     // get the correct backdrop element
     let backdropEl = part === MAIN_PART ? this.mainBackdropEl : (part === ASIDE_PART ? this.asideBackdropEl : this.backdropEl);
+    // set the cancelable attribute of the backdrop element
+    backdropEl.setAttribute('cancelable', isCancelable);
+
     // set the `hidden` attribute to false 
     backdropEl.hidden = false;
   }
@@ -844,8 +933,8 @@ export class MaxaboomApp {
    *
    * @returns { Element } - The current dialogelement of the given `id` and `part`
    */
-  getMenuById(dialogId, part = DEFAULT_PART) {
-    return this.getCurrentDialogsElement(part).querySelector(`dialog[data-id="${dialogId}"]`);
+  getDialogById(dialogId, part = DEFAULT_PART) {
+    return this.getCurrentDialogsElement(part).querySelector(`.dialog[data-id="${dialogId}"]`);
   }
 
 
@@ -1200,9 +1289,16 @@ export class MaxaboomApp {
     // installing event listeners for all `backdrop` elements...
     //
     // ...for the `mainBackdropEl`
-    this.mainBackdropEl.addEventListener('click', () => {
+    this.mainBackdropEl.addEventListener('click', (event) => {
+      // get the backdrop element as  backdropEl
+      let backdropEl = event.currentTarget;
+
       // toggle the active main menu
       this.toggleMenuById(this.getActiveMainMenuId(), DEFAULT_BACKDROP_TIMEOUT, MAIN_PART);
+
+
+      // TODO: Cancel the backdrop element if it has a `cancelable` attribute
+
     });
 
     // ...for the `asideBackdropEl`
@@ -1361,24 +1457,22 @@ export class MaxaboomApp {
         <div class="dialog-buttons">
           <!-- Confirm Button -->
           <a role="button" 
-             onclick="data.onConfirm(this)" 
              tabindex="0" 
-             class="dialog-button" 
+             class="dialog-button confirm-btn" 
              default 
              autofocus>
-            ${data.confirmBtnText}
+            ${data.confirmBtnText ?? 'Confirm'}
           </a>
 
           <!-- Divider -->
-          <span class="divider horizontal left" ${data.noDivider ? return 'hidden' : ''}></span>
+          <span class="divider horizontal left" ${data.noDivider ? 'hidden' : ''}></span>
 
           <!-- Cancel Button -->
           <a role="button" 
-             onclick="data.onCancel(this)" 
              tabindex="0" 
-             class="dialog-button" 
+             class="dialog-button cancel-btn" 
              confirm>
-            ${data.cancelBtnText}
+            ${data.cancelBtnText ?? 'Cancel'}
           </a>
 
         </div>

@@ -1082,6 +1082,7 @@ p.input-message {
 
 /* Dialog */
 #dialog, .dialog {
+  width: 100%;
   position: relative;
   user-select: none;
   pointer-events: auto;
@@ -1090,9 +1091,9 @@ p.input-message {
   box-sizing: border-box;
   padding: var(--dialog-padding, 8px 16px);
   border-radius: var(--dialog-border-radius, 12px);
-  opacity: 0;
+  /*opacity: 0;*/
   text-align: center;
-  max-width: 500px;
+  max-width: 512px;
 
   --fade-in-animation-delay: var(--dialog-animation-delay, 200ms);
 }
