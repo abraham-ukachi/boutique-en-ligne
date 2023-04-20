@@ -347,7 +347,7 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 | 2 | *`user_id`* ⨁ | **INT** | 255 | No | None | - |
 | 3 | *`product_id`* ⨁ | **VARCHAR** | 30 | No | None | - |
 
-> NOTE:
+> NOTE: 
 
 
 ### `comments` - MySQL Table
