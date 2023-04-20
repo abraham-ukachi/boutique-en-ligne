@@ -48,6 +48,7 @@ namespace Maxaboom\Controllers;
 
 use Maxaboom\Models\Helpers\Database;
 use Maxaboom\Models\Product;
+use Maxaboom\Models\Category;
 use PDO;
 
 
@@ -62,6 +63,7 @@ class ShopController extends Database
     public object $ProductModel;
     public ?string $categoryName;
     public ?int $subCategory;
+    public ?object $categoryModel;
 
 
     /**
@@ -73,6 +75,7 @@ class ShopController extends Database
         $this->categoryName = $categoryName;
         $this->subCategory = $subCategory;
         $this->ProductModel = new Product();
+        $this->categoryModel = new Category();
 
     }
 
@@ -105,10 +108,10 @@ class ShopController extends Database
 
     public function showPageByCategory($theme = self::DEFAULT_THEME): void
     {
-        $categoryId = $this->ProductModel->getCategoryIdByName($this->categoryName); // returns ex: 1
+        $categoryId = $this->categoryModel->getCategoryIdByName($this->categoryName); // returns ex: 1
         $products = $this->ProductModel->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
-        $categories = $this->getAllCategories();
-        $subCategories = $this->getAllSubCategories();
+        $categories = $this->categoryModel->getAllCategories();
+        $subCategories = $this->categoryModel->getAllSubCategories();
 
         // show the splash screen
         require_once __DIR__ . '/../views/shop-page.php';
@@ -132,17 +135,17 @@ class ShopController extends Database
 
     public function getAllCategories()
     {
-        return $this->ProductModel->getAllCategories();
+        return $this->categoryModel->getAllCategories();
     }
 
     public function getProductByCategory($category)
     {
-        return $this->ProductModel->getCategoryIdByName($category);
+        return $this->categoryModel->getCategoryIdByName($category);
     }
 
     public function getAllSubCategories()
     {
-        return $this->ProductModel->getAllSubCategories();
+        return $this->categoryModel->getAllSubCategories();
     }
 
 
