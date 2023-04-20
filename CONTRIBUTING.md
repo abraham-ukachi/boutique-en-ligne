@@ -137,8 +137,8 @@ Consider using the following default html templates, when creating a new **`.htm
   </script>
   
   <!-- Some more script for ya! #LOL -->
-  <script src="src/app.js" defer></script>
-  <!-- <script src="src/scripts/home.js" defer></script> -->
+  <script type="module" src="src/app.js" defer></script>
+  <!-- <script type="module" src="src/scripts/home.js" defer></script> -->
   
 </head>
 <!-- End of HEAD -->
@@ -221,6 +221,8 @@ Consider using the following default html templates, when creating a new **`.htm
   <!-- Toasts of ASIDE -->
   <div class="toasts" fit hidden></div>
 
+  <!-- Vertical Divider -->
+  <span class="divider vertical left"></span>
 </aside>
 ```
 
@@ -248,8 +250,8 @@ Consider using the following default html templates, when creating a new **`.htm
   <div class="app-bar">
     <span flex></span>
 
-    <!-- Setting - Icon Button -->
-    <a href="settings.php" role="icon-button" tabindex="0" title="Settings">
+    <!-- Account - Icon Button -->
+    <a href="account" role="icon-button" tabindex="0" title="Settings">
       <span class="material-icons icon">settings</span>
     </a>
   </div>
