@@ -75,7 +75,7 @@
   
   <!-- Some more script for ya! #LOL -->
   <script src="src/app.js" defer></script>
-  <!-- <script src="src/script/home.js" defer></script> -->
+  <!-- <script src="src/script/page-product.js" defer></script> -->
   
 </head>
 <!-- End of HEAD -->
@@ -86,6 +86,10 @@
     <h1>Hello product</h1>
   </main>
 
+  <?php echo $productId['name'];
+  echo $productId['image'];
+  echo $productId['description'];
+  echo $productId['price']; ?>
   <!-- Aside part -->
   <aside class="flex-layout vertical" hidden></aside>
 

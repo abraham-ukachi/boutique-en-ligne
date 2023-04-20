@@ -78,6 +78,7 @@ class ShopController extends Database
         $this->categoryName = $categoryName;
         $this->subCategoryName = $subCategoryName;
 
+
         $this->productModel = new Product();
         $this->categoryModel = new Category();
 

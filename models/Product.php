@@ -47,6 +47,14 @@ class Product extends Database
         return $productData;
     }
 
+    public function getReviewByProductId(int $productId): array {
+        $review = "SELECT * FROM comments WHERE product_id = $productId";
+        $review_exe = $this->db->prepare($review);
+        $review_exe->execute([]);
+        $result = $review_exe->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     /**
      * Returns all products
      * @return array $allProducts
@@ -251,8 +259,9 @@ class Product extends Database
             'id' => $Id
         ]);
         $results = $sql->fetch(PDO::FETCH_ASSOC); 
-        return $results['deleted_at'];     
+        return $results['deleted_at'];
     }
+
 
 }
 
