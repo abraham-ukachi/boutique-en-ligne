@@ -183,7 +183,6 @@
 
       <ul style='overflow:scroll'>
         <!--  CATEGORIES LIST HERE -->
-
         <?php foreach ($categories as $category): ?>
         <li>
           <button class="category-link" onclick="handleCategoryLinkClick(this)" data-category-id="<?=$category['id'] ?>" data-category-name="<?=$category['name']?>" <?= ($category['name'] === $this->categoryName) ? 'active': '' ?>> <?=$category['name'] ?></button>
@@ -191,21 +190,11 @@
         <?php endforeach; ?>
       </ul>
 
+      <!-- SUBCATEGORY LIST HERE -->
       <nav id="subCategoriesList"></nav>
 
-      <ul id="productsList" style='overflow:scroll'>
-        <!-- LIST PRODUCT -->
-        <!--
-        <?php foreach ($products as $product): ?>
-        <li>
-          <img src="assets/images/products/<?=$product['image']?>"/>
-          <p><?= $product['name']?></p>
-          <p><?= $product['description']?></p>
-          <p>Prix : <?= $product['price']?></p>
-        </li>
-        <?php endforeach; ?>
-        -->
-      </ul>
+      <!-- PRODUCT LIST HERE -->
+      <ul id="productsList" style='overflow:scroll'></ul>
 
 
     </main>
