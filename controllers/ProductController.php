@@ -12,11 +12,13 @@ class ProductController extends Database
 
     public object $productModel;
     public ?int $productId;
+    public ?array $productReview;
 
-    public function __construct(?int $productId = null)
+    public function __construct(?int $productId = null, ?array $productReview = null)
     {
         $this->productModel = new Product();
         $this->productId = $productId;
+        $this->productReview = $productReview;
 
     }
 
@@ -28,6 +30,7 @@ class ProductController extends Database
     public function showPageOneProduct($theme = self::DEFAULT_THEME):void
     {
         $productId = $this->productModel->getProductById($this->productId);
-        require_once __DIR__ . '/../views/product-page.php.backup';
+        $productReview = $this->productModel->getReviewByProductId($this->productId);
+        require_once __DIR__ . '/../views/product-page.php';
     }
 }

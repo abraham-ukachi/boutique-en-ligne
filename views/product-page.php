@@ -121,9 +121,9 @@ require __DIR__ . '/components/side-bar.php';
                 <!-- Title Wrapper -->
                 <div class='title-wrapper'>
                     <!-- Title -->
-                    <h2 class='app-title'>Piano Mona Lisa</h2>
+                    <h2 class='app-title'><?= $productId['name'] ?></h2>
                     <!-- Subtitle -->
-                    <h3 class='app-subtitle'>Pianos</h3>
+                    <h3 class='app-subtitle'>Catégorie</h3>
                 </div>
             </div>
             <!-- End of App Bar -->
@@ -133,12 +133,16 @@ require __DIR__ . '/components/side-bar.php';
         </header>
 
         <!-- [content] -->
-        <div content><!-- [empty] Container -->
-            <div class='container vertical flex-layout centered' empty>
-                <span class='doodle'></span>
-                <h2 title>Empty Cart :(</h2>
-                <p info>To add an instrument to your cart, tap <span class='material-icons icon'>post_add</span> at the
-                    bottom right of your screen</p>
+        <div content>
+            <div class="container">
+                <?php
+                $path = 'assets/images/products/';
+                echo '<img width="300" height="300" src="' . $path . $productId['image'] . '">';
+                // TODO : PUT TOGGLE ASIDE HERE
+                echo '<button onclick="mbApp.openAside()">Review</button>';
+                echo $productId['description'];
+                echo 'Prix: ' . '<strong>' . $productId['price'] . '</strong>';
+                ?>
             </div>
         </div>
     </div>
@@ -157,7 +161,7 @@ require __DIR__ . '/components/side-bar.php';
 
     <!-- Fab -->
     <button class='fab vertical flex-layout centered' contained expands shrinks>
-        <span class='material-icons icon'>post_add</span>
+        <span class='material-icons icon'>add_shopping_cart</span>
     </button>
     <!-- End of Fab -->
 
@@ -176,15 +180,39 @@ require __DIR__ . '/components/side-bar.php';
 </main>
 
 <!-- Aside part -->
-<aside class='flex-layout vertical' >
+<aside class='flex-layout vertical'>
 
     <!-- App-Layout of ASIDE -->
     <div class='app-layout' fit>
         <!-- Header -->
-        <header>...</header>
+        <header>
+            <!-- App Bar -->
+            <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
+            <div class='app-bar'>
+                <!-- Title Wrapper -->
+                <div class='title-wrapper'>
+                    <!-- Title -->
+                    <h2 class='app-title'>Commentaires</h2>
+                    <!-- Subtitle -->
+                    <h3 class='app-subtitle'><?= $productId['name'] ?></h3>
+                </div>
+            </div>
+            <!-- End of App Bar -->
+        </header>
 
         <!-- [content] -->
-        <div content>...</div>
+        <div content>
+            <?php foreach ($productReview as $review) : ?>
+
+                <p> <?= $review['user_id'] ?> </p>
+                <p> <?= 'Ratings : ' .  $review['ratings'] . ' étoiles' ?> </p>
+                <p> <?= $review['comment'] ?> </p>
+                <p> <?= $review['created_at'] ?> </p>
+
+            <?php endforeach; ?>
+
+
+        </div>
     </div>
     <!-- Backdrop of ASIDE -->
     <div class='backdrop' fit hidden></div>

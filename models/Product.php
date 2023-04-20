@@ -48,10 +48,12 @@ class Product extends Database
     }
 
     public function getReviewByProductId(int $productId): array {
-        $review = "SELECT * FROM comments WHERE product_id = $productId";
+        $review = "SELECT * FROM comments WHERE product_id = :productId";
         $review_exe = $this->db->prepare($review);
-        $review_exe->execute([]);
-        $result = $review_exe->fetch(PDO::FETCH_ASSOC);
+        $review_exe->execute([
+            'productId' => $productId
+        ]);
+        $result = $review_exe->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
