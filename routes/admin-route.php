@@ -101,7 +101,6 @@ $router->map('DELETE', '/admin/product/[i:productId]', function($productId) {
 //---------------------------for administrate users --------------
 
 $router->map( 'GET', '/admin/users', function() {
-
     $adminController = new AdminController();
     $adminController->showAllUsers();
 });
@@ -129,6 +128,22 @@ $router->map('DELETE', '/admin/user/[i:userId]', function($userId) {
 
     echo $response; 
 });
+
+$router->map('POST', '/admin/user/create', function() {
+    $adminController = new AdminController();
+    $userFirstname = $_POST['firstname'];
+    $userLastname = $_POST['lastname'];
+    $userMail = $_POST['mail'];
+    $password = $_POST['password'];
+    $checkPassword = $_POST['check-password'];
+    $userRole = $_POST['role'];
+    //echo $userRole;
+    $adminController->createUser($userFirstname, $userLastname, $userMail, $password, $checkPassword, $userRole);
+
+    //require __DIR__ . '/../views/admin-users-create-page.php';
+
+});
+
 
 // -------------------------for administrate category -------------------------
 

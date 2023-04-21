@@ -87,6 +87,11 @@ class AdminController{
         return $deleteUser->deleteUser($userId);
     }
 
+    public function createUser($userFirstname, $userLastname, $userMail, $password, $checkPassword, $userRole){
+        $createUser=$this->userModel->createUser($userFirstname, $userLastname, $userMail, $password, $checkPassword, $userRole);
+        require __DIR__ . '/../views/admin-users-create-page.php';
+    }
+
     //function for categories management
 
     public function showAllCategories(){
