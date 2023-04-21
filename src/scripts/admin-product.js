@@ -104,6 +104,12 @@ if (formProductUpdate){
         console.log(productId);
     let form = new FormData(event.target);
     form.append( 'productId', productId );
+    let price = form.get('productprice');
+    price = price.replace('€', '');
+    price = price.replace(',', '.');
+    price = parseFloat(price) * 100;
+    console.log(price);
+    form.set('productprice', price);
 
     let url = 'admin/product/update';
 

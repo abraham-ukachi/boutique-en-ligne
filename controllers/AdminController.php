@@ -65,12 +65,26 @@ class AdminController{
         return $deleteProduct->deleteProductByID($idProduct);
     }
 
+    //functions for users management
+
     public function showAllUsers(){
         $users = new User();
         $allUsers = $users->displayUsers();
         require __DIR__ . '/../views/admin-users-page.php';
-
     }
 
+    public function showOneUserPage($userId){
+        $oneUser=$this->userModel->getUserInfo($userId);
+        require __DIR__ . '/../views/admin-user-details-page.php';
+    }
+
+    public function updateUser($userId, $userFirstname, $userLastname, $userMail, $userRole){
+        $success=$this->userModel->updateUser($userId, $userFirstname, $userLastname, $userMail, $userRole);
+    }
+
+    public function userDelete($userId){
+        $deleteUser = New User();
+        return $deleteUser->deleteUser($userId);
+    }
 
 }

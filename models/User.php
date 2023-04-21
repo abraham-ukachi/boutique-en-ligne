@@ -256,7 +256,7 @@ class User extends Database
 
     //display one specific user by id
 
-    public function getUserId(int $userId): array {
+    public function getUserInfo(int $userId) {
         $userData = [];
 
         try {
@@ -269,21 +269,20 @@ class User extends Database
         } catch (PDOException $e) {
             // TODO: handle the exception
         }
-        return $userData;
+        return $result;
     }
 
 
     //update user
-    public function updateUser($id, $firstname,$lastname, $mail, $dob, $user_role){
-        $sql = "UPDATE users SET firstname = :firstname, lastname = :lastname, mail = :mail, dob = :dob,
-        user_role = :user_role, update_at = :update_at, stock = :stock WHERE id = :id";
+    public function updateUser($id, $firstname,$lastname, $mail, $user_role){
+        $sql = "UPDATE users SET firstname = :firstname, lastname = :lastname, mail = :mail,
+        user_role = :user_role WHERE id = :id";
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([
             'id' => $id,
             'firstname' => htmlspecialchars($firstname),
             'lastname' => htmlspecialchars($lastname),
             'mail' => htmlspecialchars($mail),
-            'dob' => $dob,
             'user_role' => htmlspecialchars($user_role),
         ]);         
         if ($sql_exe) {
@@ -296,15 +295,15 @@ class User extends Database
     //delete user
 
     public function deleteUser($idUser){
-        $sql="DELETE users WHERE id = :iduser";
+        $sql="DELETE FROM users WHERE id = :iduser";
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([
             'iduser' => $idUser
         ]);         
         if ($sql_exe) {
-            echo json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
+            return json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
         } else {
-            echo json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
+            return json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
         }
     }
 
