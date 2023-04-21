@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS db_maxaboom;
+CREATE DATABASE IF NOT EXISTS db_maxaboom2;
 
 /*------------------users table----------------*/
 CREATE TABLE users 
@@ -47,50 +47,52 @@ INSERT INTO addresses (titre, address, address_complement, postal_code, city, co
 /*-------------------categories tables----------*/
 CREATE TABLE categories(
     id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    titre varchar(100),
     name varchar(100)
 );
 
- INSERT INTO categories (name)
+ INSERT INTO categories (titre, name)
  VALUES
- ('pianos'),
- ('guitares'),
- ('percussions'),
- ('lutherie'),
- ('dj'),
- ('vents');
+ ('pianos', 'pianos'),
+ ('guitares', 'guitars'),
+ ('percussions', 'percussion'),
+ ('lutherie', 'violin'),
+ ('dj', 'dj'),
+ ('vents', 'wind-instruments');
 
  /*-------------------sub_categories tables----------*/
 
 
  CREATE TABLE sub_categories(
     id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    titre varchar(100),
     name varchar(100),
     category_id int
 );
 
- INSERT INTO sub_categories (name, category_id)
+ INSERT INTO sub_categories (titre, name, category_id)
  VALUES
- ('pianos droits', 1),
- ('pianos à queue',1),
- ('pianos numériques',1),
- ('synthetiseurs',1),
- ('guitares', 2),
- ('basse',2),
- ('guitare electrique',2),
- ('ampli guitare',2),
- ('batteries',3),
- ('cymbales',3),
- ('tambours et autres',3),
- ('violon',4),
- ('contrebasse',4),
- ('accessoires de violon',4),
- ('platines', 5),
- ('boîte à rythme',5),
- ('accessoires DJ',5),
- ('saxophones',6),
- ('flutes',6),
- ('trompettes',6),
- ('gros cuivres',6);
+ ('pianos droits', 'upright-piano', 1),
+ ('pianos à queue', 'grand-piano', 1),
+ ('pianos numériques', 'digital-piano', 1),
+ ('synthetiseurs', 'synthesizer', 1),
+ ('guitares', 'guitars', 2),
+ ('basse', 'bass-guitar', 2),
+ ('guitare electrique', 'electric-guitar', 2),
+ ('ampli guitare', 'guitar-amp', 2),
+ ('batteries', 'battery', 3),
+ ('cymbales', 'cymbals', 3),
+ ('tambours et autres', 'drums-and-others', 3),
+ ('violon', 'violin', 4),
+ ('contrebasse', 'bass', 4),
+ ('accessoires de violon', 'violin-accessory', 4),
+ ('platines', 'turntable', 5),
+ ('boîte à rythme', 'drum-machines', 5),
+ ('accessoires DJ', 'dj-accessories', 5),
+ ('saxophones', 'saxophone', 6),
+ ('flutes', 'flute', 6),
+ ('trompettes', 'trumpet', 6),
+ ('gros cuivres','big-brass-instrument', 6);
 
  /*-------------------products tables----------*/
  CREATE TABLE products(
