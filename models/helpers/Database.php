@@ -99,7 +99,7 @@ class Database {
 
   // private properties
   private string $db_host = '127.0.0.1';
-  private string $db_username = 'abraham-ukachi';
+  private string $db_username = 'root';
   private string $db_password = 'root';
   private int $db_port = -1;
 
