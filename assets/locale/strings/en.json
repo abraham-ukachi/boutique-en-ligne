@@ -5,7 +5,12 @@
   "axelVair": "Axel Vair",
   "morganeMarechal": "Morgane Marechal",
   "catherineTranchand": "Catherine Tranchand",
-  
+ 
+  "en": "English", 
+  "fr": "French",
+  "ru": "Russian",
+  "es": "Spanish",
+
   "hello": "Hello",
   "gm": "Good morning",
   "ga": "Good afternoon",
@@ -65,7 +70,10 @@
   "cartEmpty": "Your cart is empty",
   "cartEmptyMessage": "You have no items in your shopping cart.",
   "dontHaveAccount": "Don't have an account?",
-  "alreadyHaveAccount": "Already have an account?"
+  "alreadyHaveAccount": "Already have an account?",
+
+  "logout": "Log out",
+  "deleteYourAccount": "Delete your account"
 }
 
 
