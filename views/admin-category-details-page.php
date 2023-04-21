@@ -1,8 +1,4 @@
 
-
-
-
-
 <?php
 ?>
 <!DOCTYPE html>
@@ -80,7 +76,7 @@
   
   <!-- Some more script for ya! #LOL -->
   <script type="module" src="src/app.js" defer></script>
-  <script type="module" src="src/scripts/admin-product.js" defer></script>
+  <script type="module" src="src/scripts/admin-user.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
@@ -89,10 +85,10 @@
   <!-- Side Bar -->
     <!-- PHP: Include the `sideBar` component -->
     <?php 
-    $_GET['sidebar_route'] = 'home'; 
+    $_GET['sidebar_route'] = 'users'; 
     $_GET['sidebar_init'] = 'au'; 
-    $_GET['sidebar_connected'] = false; // TRUE if the user is connected
-    $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin 
+    $_GET['sidebar_connected'] = true; // TRUE if the user is connected
+    $_GET['sidebar_for_admin'] = true; // TRUE if the user is an admin 
 
     require __DIR__ . '/components/side-bar.php';
     ?>
@@ -124,47 +120,40 @@
                 <!-- Title -->
                 <h2 class="app-title">Admin</h2>
                 <!-- Subtitle -->
-                <h3 class="app-subtitle">Categories</h3>
+                <h3 class="app-subtitle">Products</h3>
             </div>
             </div>
             <!-- End of App Bar -->
             <!-- Horizontal Divider -->
             <span class="divider horizontal bottom"></span>
         </header>
+<!-- <?php
+var_dump($oneCategory);
+echo $categoryId;
+var_dump($specificSubCategories);
+?> -->
 
-        <!-- [content] -->
-        <div content>
-          <div id='container'>
-
-            <h1>Les catégories</h1>
-            <?php 
-            for ($i = 0; $i <count($categories); $i++) {
-              echo "<div id=".$categories[$i]['id']." data-product-id=".$categories[$i]['id']." class='update-category'>".$categories[$i]['name'].
-              " <a href='admin/category/".$categories[$i]['id']."'>Modifier</a> <button id='".$categories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
-            }
-            ?>
-
-          <h1>Les sous-catégories</h1>
-            <?php
-            for ($i = 0; $i <count($subcategories); $i++) {
-              echo "<div id=".$subcategories[$i]['id']." data-product-id=".$subcategories[$i]['id']." class='update-category'>".$subcategories[$i]['name'].
-              " <a href='admin/category/".$subcategories[$i]['id']."'>Modifier</a> <button id='".$subcategories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
-            }
-            ?>
-          </div>  
-          
-      </div>
-      <!-- end of content -->
+   <?php 
+               for ($i = 0; $i <count($specificSubCategories); $i++) {
+                echo "<div id=''>".$specificSubCategories[$i]['name']." <button id='".$specificSubCategories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
+              }
+   ?> 
+   
+   <form  id='subCategoriesForm' action='' method='post' data-product-id='<?= $theProduct['id'] ?>'>
+        <div class="input-wrapper">
+            <label raised for="subcategory">Ajouter une sous-catégorie</label>
+            <input id="subcategory" class="subcategory" name="subcategory" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
+        </div>
+    <button type="submit" class="register_form_button" id="envoie" name="envoie" contained>Ajouter une nouvelle sous-catégorie</button>
+            
+    </form>
 
 
-    
-    <!-- Nav Bar -->
-    <!-- PHP: Include the `navBar` component -->
     <?php 
-    $_GET['navbar_route'] = 'home'; 
+    $_GET['navbar_route'] = 'users'; 
     $_GET['navbar_init'] = 'au'; 
-    $_GET['navbar_connected'] = false; // TRUE if the user is connected
-    $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin 
+    $_GET['navbar_connected'] = true; // TRUE if the user is connected
+    $_GET['navbar_for_admin'] = true; // TRUE if the user is an admin 
 
     require __DIR__ . '/components/nav-bar.php';
     ?>
@@ -246,3 +235,15 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

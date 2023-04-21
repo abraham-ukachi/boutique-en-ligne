@@ -36,6 +36,7 @@ class AdminController{
          ];
 
          return ['success' => $success, 'data' => $data];
+         
     }
 
     //pour afficher tous les produits
@@ -97,6 +98,13 @@ class AdminController{
     public function showAllCategories(){
         $allCategories=new Category();
         $categories=$allCategories->getAllCategories();
+        $subcategories=$allCategories->getAllSubCategories();
         require __DIR__ . '/../views/admin-categories-page.php';
+    }
+
+    public function showOneCategory($categoryId){
+        $oneCategory=$this->productCategory->getCategoryById($categoryId);
+        $specificSubCategories=$this->productCategory->getSubcategoriesByCategoryId($categoryId);
+        require __DIR__ . '/../views/admin-category-details-page.php';   
     }
 }

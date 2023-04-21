@@ -4,7 +4,7 @@ use Maxaboom\Controllers\AdminController;
 // ------------------------for administrate products --------------------
 
 $router->map( 'GET', '/admin/product/create', function() {
-    require __DIR__ . '/../views/admin-product-create-page.php';
+   require __DIR__ . '/../views/admin-product-create-page.php';
 });
 
 // $router->map('POST', '/admin/product/create', function() {
@@ -129,6 +129,10 @@ $router->map('DELETE', '/admin/user/[i:userId]', function($userId) {
     echo $response; 
 });
 
+$router->map('GET', '/admin/user/create', function() {
+    require __DIR__ . '/../views/admin-users-create-page.php';
+});
+
 $router->map('POST', '/admin/user/create', function() {
     $adminController = new AdminController();
     $userFirstname = $_POST['firstname'];
@@ -140,7 +144,7 @@ $router->map('POST', '/admin/user/create', function() {
     //echo $userRole;
     $adminController->createUser($userFirstname, $userLastname, $userMail, $password, $checkPassword, $userRole);
 
-    //require __DIR__ . '/../views/admin-users-create-page.php';
+    require __DIR__ . '/../views/admin-users-create-page.php';
 
 });
 
@@ -152,4 +156,9 @@ $router->map( 'GET', '/admin/categories', function() {
 
     $adminController = new AdminController();
     $adminController->showAllCategories();
+});
+
+$router->map( 'GET', '/admin/category/[i:categoryId]', function($categoryId){
+    $adminController = new AdminController();
+    $adminController->showOneCategory($categoryId);
 });
