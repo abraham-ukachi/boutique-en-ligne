@@ -147,6 +147,8 @@ export class MaxaboomApp {
   }
 
 
+
+
   // TODO: Define some public properties
 
 
@@ -318,9 +320,9 @@ export class MaxaboomApp {
       menusEl.classList.add('fade-in');
 
       // remove the `slide-down` class from `menuEl`
-      menuEl.classList.remove('slide-up');
+      menuEl.classList.remove('slide-down');
       // add the `slide-from-down` class to `menuEl`
-      menuEl.classList.add('slide-from-up');
+      menuEl.classList.add('slide-from-down');
 
       // cancel any active timers
       clearTimeout(this._showMenuTimer);
@@ -733,6 +735,13 @@ export class MaxaboomApp {
 
 
   /**
+   * Toggles the aside part of the app
+   */
+  toggleAsidePart() {
+    this.isAsidePartShown ? this.hideAsidePart() : this.showAsidePart();
+  }
+
+  /**
    * Shows or unhides the backdrop of the app (or a specific part of the app)
    *
    * @param { String } part - The part of the app to show the backdrop of
@@ -946,6 +955,17 @@ export class MaxaboomApp {
   getStickyAppBarElement(appLayoutEl) {
     return appLayoutEl.querySelector('.app-bar[sticky]');
   }
+
+
+  /**
+   * Returns the app part using the given `partName`
+   * 
+   * @param { String } partName - The name of the part to get ('main', 'aside', 'full')
+   */
+  getPartByName(partName) {
+    return (partName === 'main') ? MAIN_PART : (partName === 'aside' ? ASIDE_PART : FULL_PART);
+  }
+
 
   /**
    * Returns the main toasts element.
@@ -1197,6 +1217,14 @@ export class MaxaboomApp {
   }
 
 
+  /**
+   * Returns TRUE if the aside part is shown, FALSE otherwise.
+   *
+   * @returns { Boolean }
+   */
+  get isAsidePartShown() {
+    return this.asideEl.hidden === false;
+  }
 
   
 
@@ -1213,7 +1241,7 @@ export class MaxaboomApp {
     // clear any active `toastTimer` and `toastOutTimer`
     clearTimeout(this._toastTimer);
     clearTimeout(this._toastOutTimer);
-    
+     
     // empty `toastsEl`
     toastsEl.innerHTML = '';
 
