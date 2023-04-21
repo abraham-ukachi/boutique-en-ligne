@@ -87,4 +87,11 @@ class AdminController{
         return $deleteUser->deleteUser($userId);
     }
 
+    //function for categories management
+
+    public function showAllCategories(){
+        $allCategories=new Category();
+        $categories=$allCategories->getAllCategories();
+        require __DIR__ . '/../views/admin-categories-page.php';
+    }
 }

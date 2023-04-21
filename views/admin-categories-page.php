@@ -1,3 +1,8 @@
+
+
+
+
+
 <?php
 ?>
 <!DOCTYPE html>
@@ -75,7 +80,7 @@
   
   <!-- Some more script for ya! #LOL -->
   <script type="module" src="src/app.js" defer></script>
-  <script type="module" src="src/scripts/admin-user.js" defer></script>
+  <script type="module" src="src/scripts/admin-product.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
@@ -84,10 +89,10 @@
   <!-- Side Bar -->
     <!-- PHP: Include the `sideBar` component -->
     <?php 
-    $_GET['sidebar_route'] = 'users'; 
+    $_GET['sidebar_route'] = 'home'; 
     $_GET['sidebar_init'] = 'au'; 
-    $_GET['sidebar_connected'] = true; // TRUE if the user is connected
-    $_GET['sidebar_for_admin'] = true; // TRUE if the user is an admin 
+    $_GET['sidebar_connected'] = false; // TRUE if the user is connected
+    $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin 
 
     require __DIR__ . '/components/side-bar.php';
     ?>
@@ -119,7 +124,7 @@
                 <!-- Title -->
                 <h2 class="app-title">Admin</h2>
                 <!-- Subtitle -->
-                <h3 class="app-subtitle">Products</h3>
+                <h3 class="app-subtitle">Categories</h3>
             </div>
             </div>
             <!-- End of App Bar -->
@@ -129,50 +134,22 @@
 
         <!-- [content] -->
         <div content>
-            <div class='container'>
-        <form  id='userUpdateForm' action='' method='post' data-user-id='<?= $userId ?>'>
-                <div class="input-wrapper">
-                    <label raised for="firstname">Prénom</label>
-                    <input id="firstname" class="connect" name="firstname" type="text" value="<?= $oneUser['firstname'] ?>">
-                    <span class="input-indicator"><span bar></span><span val></span>
+          <div id='container'>
+            <?php var_dump($categories); ?>
+          </div>  
+          
+      </div>
+      <!-- end of content -->
 
-                </div>
-                <div class="input-wrapper">
-                    <label raised for="lastname">Nom</label>
-                    <input id="lastname" class="connect" name="lastname" type="text" value="<?= $oneUser['lastname'] ?>">
-                    <span class="input-indicator"><span bar></span><span val></span>
 
-                </div>
-
-                <div class="input-wrapper">
-                    <label raised for="mail">mail</label>
-                    <input id="mail" class="connect" name="mail" type="email" value="<?= $oneUser['mail'] ?>">
-                    <span class="input-indicator"><span bar></span><span val></span>
-
-                </div>
-
-                <div class="input-wrapper">
-                    <select name='role' id='role'>
-                                <option value='<?= $oneUser['user_role'] ?>'><?= $oneUser['user_role'] ?></option>
-                                <option value='admin'>Administrateur</option>
-                                <option value='customer'>Client</option>
-                    </select>     
-                </div>
-
-                <button type="submit" class="register_form_button" id="envoie" name="envoie">Enregistrer les modifications</button>
-        </form>
-
-            </div>
-        </div>
-    </div>
     
     <!-- Nav Bar -->
     <!-- PHP: Include the `navBar` component -->
     <?php 
-    $_GET['navbar_route'] = 'users'; 
+    $_GET['navbar_route'] = 'home'; 
     $_GET['navbar_init'] = 'au'; 
-    $_GET['navbar_connected'] = true; // TRUE if the user is connected
-    $_GET['navbar_for_admin'] = true; // TRUE if the user is an admin 
+    $_GET['navbar_connected'] = false; // TRUE if the user is connected
+    $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin 
 
     require __DIR__ . '/components/nav-bar.php';
     ?>
@@ -254,15 +231,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

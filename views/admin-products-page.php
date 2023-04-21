@@ -158,6 +158,14 @@ for ($i = 0; $i <count($products); $i++) {
     ?>
     <!-- End of Nav Bar -->
 
+    <!-- Fab -->
+    <a href="admin/product/create">
+          <button class="fab vertical flex-layout centered" contained expands shrinks>
+        <span class="material-icons icon">add</span>
+    </button>
+    </a>
+
+    <!-- End of Fab -->
     
     <!-- Backdrop of MAIN -->
     <div class="backdrop" fit hidden></div>

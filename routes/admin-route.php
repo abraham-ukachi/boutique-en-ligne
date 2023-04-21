@@ -129,3 +129,12 @@ $router->map('DELETE', '/admin/user/[i:userId]', function($userId) {
 
     echo $response; 
 });
+
+// -------------------------for administrate category -------------------------
+
+
+$router->map( 'GET', '/admin/categories', function() {
+
+    $adminController = new AdminController();
+    $adminController->showAllCategories();
+});
