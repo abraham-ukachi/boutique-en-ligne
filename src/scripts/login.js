@@ -1,6 +1,26 @@
-console.log("Test lien javascript");
+import { MAIN_PART, ASIDE_PART, FULL_PART } from "../app.js";
+import { SUCCESS_TOAST, GOOD_TOAST, BAD_TOAST, ERROR_TOAST } from "../app.js";
+
 //déclarer le formulaire pour y associer une fonction quand on soumet
 let formConnect = document.getElementById('connectionForm');
+
+async function handleFormSubmit(event){
+    event.preventDefault();
+    let form = new FormData(event.currentTarget);
+    let url = "login";
+    let request = new Request(url, {method: "POST", body: form});
+    let response = await fetch(request);
+    let responseData = await response.json();
+    if(responseData.success){
+        mbApp.showToast({message: "La connexion a réussi !", type: SUCCESS_TOAST},  2);
+
+        setTimeout(() => {
+            location.replace("shop");
+        }, 2000);
+    }
+};
+
+formConnect.addEventListener('submit', handleFormSubmit);
 
 
 //formRegister.addEventListener('submit', registerFormSubmit);
@@ -29,22 +49,12 @@ let connexionForm = (mail = 'jean@gmail.com', password = 'azerty') => {
 */
 
 
-
 /*la fonction login() va fetch l'url
 où il y a mon controler qui va lancer
 la method PHP avec les paramètres*/
-async function login(mail, password) {
-    // user/auth/[*:mail]/[*:password]
-    // let response = await fetch(`./login/${mail}/${password}`, {method: 'POST'});
-    let response = await fetch(`./login`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({mail, password})
-    });
-    let resData = await response.json();
-    console.log(resData);
-}
 
+
+/*
 //fonction que va lancer la fonction login() 
 //avec valeurs retournées par le formulaire de connexion
 function handleFormSubmit(event) {
@@ -55,9 +65,9 @@ function handleFormSubmit(event) {
     console.log(mail, password);
     login(mail, password);
 }
+/*
+ */
 
-//appel de la fonction handleFormSubmit quand on click sur submit
-formConnect.addEventListener('submit', handleFormSubmit);
 
 
 

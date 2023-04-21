@@ -5,6 +5,7 @@ namespace Maxaboom\Controllers;
 use Maxaboom\Models\Helpers\Database;
 use Maxaboom\Models\Product;
 use Maxaboom\Models\Review;
+use Maxaboom\Models\User;
 use PDO;
 
 class ProductController extends Database
@@ -13,6 +14,7 @@ class ProductController extends Database
 
     public object $productModel;
     public object $reviewModel;
+    public object $user;
     public ?int $productId;
     public ?array $productReview;
 
@@ -20,6 +22,7 @@ class ProductController extends Database
     {
         $this->productModel = new Product();
         $this->reviewModel = new Review();
+        $this->user = new User();
         $this->productId = $productId;
         $this->productReview = $productReview;
 

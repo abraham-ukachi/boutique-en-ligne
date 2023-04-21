@@ -71,6 +71,10 @@ class User extends Database
 
         // connect to the database
         $this->dbConnect();
+
+        if($this->isConnected()){
+            $this->populateUserInfo($_SESSION['id']);
+        }
     }
 
     //method for register user
@@ -117,6 +121,25 @@ class User extends Database
             } else {
                 return false;
             }
+    }
+
+    /**
+     * Function that verif if user id exist in bdd
+     * @param $id
+     * @return int
+     */
+    public function verifUserById($id): int{
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'id' => $id,
+        ]);
+        $results = $sql_exe->fetch(PDO::FETCH_ASSOC);
+        if($results){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     //call registerGuest() if no SESSION_ID when pay product   
@@ -213,7 +236,6 @@ class User extends Database
     }
 
     //method get lastGuestId
-    
 
     public function connection($mail, $password)
     {
@@ -228,18 +250,43 @@ class User extends Database
         if ($results) {
             $hashed_password = $results['password'];
             if (password_verify($password, $hashed_password)) {
-                session_start();
-                $_SESSION['id'] = $results['id'];
-                $_SESSION['firstname'] = $results['firstname'];
-                $_SESSION['lastname'] = $results['lastname'];
-                $_SESSION['user_role'] = $results['user_role'];
+                $userId = $results['id'];
+                $_SESSION['id'] = $userId;
+                $this->populateUserInfo($userId);
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } else {
             return false;
         }
+    }
+
+    public function isConnected(){
+        $result = false;
+
+        if(isset($_SESSION['id'])){
+            $id = $_SESSION['id'];
+            $result = $this->verifUserById($id);
+            if(!$result){
+                session_destroy();
+            }
+        };
+        return $result;
+    }
+
+
+    public function populateUserInfo($id){
+        $sql = "SELECT * FROM users WHERE id = $id";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([]);
+        $info = $sql_exe->fetch(PDO::FETCH_ASSOC);
+
+        $this->id = $info['id'];
+        $this->firstname = $info['firstname'];
+        $this->lastname = $info['lastname'];
+        $this->mail = $info['mail'];
+        $this->user_role = $info['user_role'];
     }
 
     //methods for update info user
@@ -337,6 +384,12 @@ class User extends Database
         } else {
             return json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
         }
+    }
+
+    public function getInitiales(){
+        $firstnameInitiales  = $this->firstname[0];
+        $lastnameInitiales = $this->lastname[0];
+        return strtolower($firstnameInitiales).strtolower($lastnameInitiales);
     }
 
 
