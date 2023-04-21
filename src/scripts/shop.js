@@ -2,18 +2,17 @@ let subCatListEl = document.getElementById('subCategoriesList'); // returns nav 
 let productsListEl = document.getElementById('productsList');
 let categoryLinkEl = document.querySelectorAll('.category-link');
 
-
-
 let categoryId = document.body.dataset.categoryId; // storage of dataset put in the body of shop-page named category-id
 let categoryName = document.body.dataset.categoryName; // storage of dataset put in the body of shop-page named category-name
 let subCategoryName = document.body.dataset.subCategoryName; // storage of dataset put in the body of shop-page named sub-category-name
-let subCategoryId = document.body.dataset.subCategoryId;
+let subCategoryId = document.body.dataset.subCategoryId;  // storage of dataset put in the body of shop-page named sub-category-id
 
-
+// function for empty the div that contains sub categories
 function emptySubCategories() {
     subCatListEl.innerHTML = "";
 }
 
+// function for empty the div that contains sub categories
 function emptyProducts() {
     productsListEl.innerHTML = "";
 }
@@ -56,6 +55,11 @@ async function showAllSubCategories(categoryId, categoryName, subCategoryName) {
     })
 }
 
+/**
+ * Function that show products filter by category.
+ * @param categoryId
+ * @returns {Promise<void>}
+ */
 async function showProductsByCategory(categoryId) {
     productsListEl.innerHTML = "";
 
@@ -73,17 +77,32 @@ async function showProductsByCategory(categoryId) {
     })
 }
 
+/**
+ * This function is a template for display our products
+ * @param productId
+ * @param productImage
+ * @param productName
+ * @param productDescription
+ * @param productPrice
+ * @returns {string}
+ */
 function getProductTemplate(productId, productImage, productName, productDescription, productPrice) {
     return `
     <div class="product" data-id="${productId}">
         <img src="assets/images/products/${productImage}" width="300" height="300"/>
         <h3>${productName}</h3>
         <p> ${productDescription} </p>
-        <span>Prix : ${productPrice}</span>
+       <div><span>Prix : ${productPrice}</span><button><a href="/boutique-en-ligne/product/${productId}">Voir le produit</a></button></div>
     </div>
     `
 }
 
+/**
+ * This function show our products filtered by sub category
+ * @param categoryId
+ * @param subCategoryId
+ * @returns {Promise<void>}
+ */
 async function showProductsBySubCategory(categoryId, subCategoryId) {
     productsListEl.innerHTML = "";
 
@@ -104,6 +123,13 @@ async function showProductsBySubCategory(categoryId, subCategoryId) {
 
 showAllSubCategories(categoryId, categoryName, subCategoryName);
 
+/**
+ * We throw this function onclick on button category. We get dataset and use theme inside our two functions
+ * showAllSubCategories and showProductsByCategory.
+ * Then, we get pathname then put inside url the category name.
+ * we also call the function notifyCategoryLinks  to enable categories in red.
+ * @param el
+ */
 function handleCategoryLinkClick(el) {
     let categoryId = el.dataset.categoryId;
     let categoryName = el.dataset.categoryName;
@@ -114,6 +140,10 @@ function handleCategoryLinkClick(el) {
     notifyCategoryLinks(categoryId);
 }
 
+/**
+ *
+ * @param el
+ */
 function handleSubCategoryLinkClick(el) {
     let subCategoryId = el.dataset.subCategoryId;
     let subCategoryName = el.dataset.subCategoryName;
@@ -126,6 +156,10 @@ function handleSubCategoryLinkClick(el) {
 
 }
 
+/**
+ * This function allow us to set attribute on our category active for show it in red
+ * @param categoryId
+ */
 function notifyCategoryLinks(categoryId) {
     categoryLinkEl.forEach(catLinkEl => {
         if (catLinkEl.dataset.categoryId == categoryId) {
@@ -136,6 +170,10 @@ function notifyCategoryLinks(categoryId) {
     })
 }
 
+/**
+ * This function allow us to set attribute on our sub category active for show it in red
+ * @param subCategoryId
+ */
 function notifySubCategoryLinks(subCategoryId) {
     let subCategoryLinkEl = document.querySelectorAll('.sub-category-link');
     subCategoryLinkEl.forEach(subCatLinkEl => {
