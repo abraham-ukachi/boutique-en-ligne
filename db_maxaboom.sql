@@ -45,6 +45,7 @@ INSERT INTO addresses (titre, address, address_complement, postal_code, city, co
 
 
 /*-------------------categories tables----------*/
+/*-------------------categories tables----------*/
 CREATE TABLE categories(
     id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre varchar(100),

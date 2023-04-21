@@ -42,6 +42,14 @@ class Category extends Database
         return $result['name'];
     }
 
+    public function getCategoryTitreById(int $categoryId): string {
+        $allProducts = $this->db->prepare("SELECT titre FROM categories WHERE id = $categoryId");
+        $allProducts->execute([
+        ]);
+        $result = $allProducts->fetch(PDO::FETCH_ASSOC);
+        return $result['titre'];
+    }
+
 
     public function getSubcategoriesByCategoryId(int $categoryId){
         $subCategorie = $this->db->prepare("SELECT id, name, titre FROM sub_categories WHERE category_id=$categoryId");
@@ -73,6 +81,22 @@ class Category extends Database
         $result = $subCategories->fetchAll(PDO::FETCH_ASSOC);
         $allSubCategories = $result;
         return $allSubCategories;
+    }
+
+    public function createSubCategory($categoryId){
+        $sql = "INSERT INTO products (name, description, price, categories_id,
+        sub_categories_id, created_at, stock)
+                VALUES (:name, :description, :price, :categories_id, :sub_categories_id, :created_at, :stock)";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'name' => htmlspecialchars($name),
+        ]);         
+        if ($sql_exe) {
+            echo json_encode(['response' => 'ok', 'reussite' => 'Nouvelle sous-catégorie enregistrée']);
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+        }
+
     }
 
 }
