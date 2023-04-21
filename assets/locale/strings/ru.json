@@ -5,7 +5,12 @@
   "axelVair": "Аксель Вэйр",
   "morganeMarechal": "Морган Марешаль",
   "catherineTranchand": "Катрин Траншанд",
-  
+ 
+  "en": "Английский",
+  "fr": "Французский",
+  "ru": "Русский",
+  "es": "Испанский",
+
   "hello": "Здравствуйте",
   "gm": "Доброе утро",
   "ga": "Добрый день",
@@ -65,6 +70,9 @@
   "cartEmpty": "Ваша корзина пуста",
   "cartEmptyMessage": "У вас нет товаров в корзине.",
   "dontHaveAccount": "У вас нет аккаунта?",
-  "alreadyHaveAccount": "У вас уже есть аккаунт?"
+  "alreadyHaveAccount": "У вас уже есть аккаунт?",
+
+  "logout": "Выйти",
+  "deleteYourAccount": "Удалить аккаунт"
 
 }

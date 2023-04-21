@@ -8,7 +8,7 @@ use Maxaboom\Models\User;
 // add
 $router->map( 'GET', '/review/test', function() {
     $review = new Review();
-    $review->getReviewsByProductId(1);
+    $review->getReviewsByProductId();
     require __DIR__ . '/../models/test/review.php';
 });
 
@@ -22,10 +22,20 @@ $router->map( 'GET', '/review/[i:productId]', function($productId) {
 
     $reviewController = new ReviewController($productId);
 
-    $reviews = $reviewController->getAllReviews();
+    //$reviews = $reviewController->getAllReviews();
+    $reviews = $reviewController->reviewModel->getReviewsByProductId($productId);
 
     //echo "reviews = " . json_encode($reviews);
 
     $reviewController->showPage($reviews);
 
+});
+
+$router->map('POST', '/review', function() {
+    $comment = $_POST['review-input'];
+    $productId = $_POST['product-id'];
+    $ratings = $_POST['etoiles'];
+    $reviewController = new ReviewController($productId);
+    $response = $reviewController->createReview($comment, 1, $productId, $ratings);
+    echo json_encode($response);
 });

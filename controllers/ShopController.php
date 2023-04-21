@@ -78,6 +78,7 @@ class ShopController extends Database
         $this->categoryName = $categoryName;
         $this->subCategoryName = $subCategoryName;
 
+
         $this->productModel = new Product();
         $this->categoryModel = new Category();
 
@@ -113,7 +114,7 @@ class ShopController extends Database
     public function showPageByCategory($theme = self::DEFAULT_THEME): void
     {
         $categoryId = $this->categoryModel->getCategoryIdByName($this->categoryName); // returns ex: 1
-        $products = $this->ProductModel->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
+        $products = $this->productModel->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
         $categories = $this->categoryModel->getAllCategories();
         $subCategories = $this->categoryModel->getAllSubCategories();
 

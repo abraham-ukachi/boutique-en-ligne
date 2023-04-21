@@ -190,19 +190,75 @@
             </div>
 
             <!-- Like - Icon Button -->
-            <button id="likeIconButton" class="icon-button" title="Like Product">
-              <span class="material-icons icon">more_horiz</span>
+            <button id="likeIconButton" class="icon-button" title="Like Product" onclick="mbApp.showMenuById('accountMenu', 0.5, mbApp.getPartByName('main'))">
+              <span class="material-icons icon">more_vert</span>
             </button>
           </div>
           <!-- End of App Bar -->
 
           <!-- Horizontal Divider -->
-          <span class="divider horizontal bottom"></span>
+          <span class="divider horizontal bottom" hidden></span>
         </header>
 
         <!-- [content] -->
         <div content>
-          <h2 hidden>Abraham Ukachi</h2>
+
+          <!-- Container -->
+          <div class="container vertical flex-layout">
+            <!-- Initials & Fullname -->
+            <div class="init-fullname">
+              <span init>AU</span>
+              <span fullname>Abraham Ukachi</span>
+            </div>
+            <!-- End of Initials & Fullname -->
+
+            <!-- Account List -->
+            <ul id="accountList" naked>
+
+
+              <?php foreach ($this->listData as $listItemId => $listItemData): ?>
+              <li class="label"><?= $listItemData['title'] ?></li>
+
+              <ul class="list-items <?= $listItemId ?>" naked>
+
+                <?php foreach ($listItemData['items'] as $accountListItemId => $accountListItemData): ?>
+
+                <li id="<?= $accountListItemId?>" class="account-list-item">
+                  <a href="<?= $accountListItemData['link']?>" 
+                     role="button" 
+                     tabindex="0" 
+                     class="horizontal flex-layout center" naked>
+                    <!-- Text Wrapper -->
+                    <div class="text-wrapper flex-layout vertical">
+                      <h3><?= $accountListItemData['title'] ?></h3>
+                      <h4><?= $accountListItemData['description'] ?></h4>
+                    </div>
+                    <span class="material-icons arrow icon">chevron_right</span>
+                  </a>
+                </li>
+
+                <?php if ($accountListItemId === 'info'): ?>
+                <li class="divider-wrapper"><span class="divider horizontal"></span></li>
+                <?php endif;?>
+
+
+                <?php endforeach; ?>
+
+              </ul>
+
+              <?php endforeach; ?>
+
+            </ul>
+            <!-- End of Account List -->
+
+            <!-- Log Out - Button -->
+            <button id="logout" outlined><?= $this->i18n->getString("logout") ?></button>
+            <!-- Delete Account - Button -->
+            <button id="deleteAccount" naked><?= $this->i18n->getString("deleteYourAccount") ?></button>
+
+          </div>
+          <!-- End of Container -->
+
 
         </div>
         <!-- End of [content] -->
@@ -227,7 +283,39 @@
 
       <!-- Menus of MAIN -->
       <div class="menus" fit hidden>
-        
+        <!-- Menu -->
+        <menu data-id="accountMenu" class="menu vertical flex-layout" hidden>
+
+            <!-- Close Menu + Icon Button -->
+            <li role="close-menu">
+                <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
+            </li>
+                
+            <!-- MenuItem 1 -->
+            <li title="Edit your profile information" class="menu-item">
+              <button>
+                <span class="material-icons icon">edit</span>
+                <span>Edit profile</span>
+              </button>
+            </li>
+
+            <!-- MenuItem 2 -->
+            <li title="View all your orders" class="menu-item">
+              <button>
+                <span class="material-icons icon">music_video</span>
+                <span>View Orders</span>
+              </button>
+            </li>
+
+            <!-- MenuItem 3 -->
+            <li title="See more about Maxaboom" class="menu-item">
+              <button>
+                <span class="material-icons icon">info</span>
+                <span>About Maxaboom</span>
+              </button>
+            </li>
+        </menu>
+          <!-- End of Menu -->
       </div>
 
       <!-- Dialogs of MAIN -->
@@ -249,26 +337,26 @@
       <?php // include 'components/nav-bar.php'; ?>
       <!-- End of Nav Bar -->
 
-      <!-- Fab -->
-      <button class="fab vertical flex-layout centered" contained expands shrinks>
-        <span class="material-icons icon">add</span>
-      </button>
-      <!-- End of Fab -->
-
     </main>
     <!-- End of MAIN -->
 
     
 
     <!-- ASIDE -->
-    <aside class="flex-layout vertical">
-      <!-- Vertical Left - DIVIDER -->
-      <span class="divider vertical left"></span>
-
+    <aside class="flex-layout vertical" hidden>
       <!-- App Layout - ASIDE -->
-      <div class="app-layout" fit></div>
-      <!-- End of App Layout - ASIDE -->
+      <div class="app-layout" fit>
 
+        <!-- [content] -->
+        <div content>
+          <!-- Container -->
+          <div class="container vertical flex-layout centered">
+          </div>
+          <!-- End of Container -->
+        </div>
+
+      </div>
+      <!-- End of App Layout - ASIDE -->
 
       <!-- Backdrop of MAIN -->
       <div class="backdrop" fit hidden></div>
@@ -281,6 +369,10 @@
 
       <!-- Toasts of MAIN -->
       <div class="toasts" fit hidden></div>
+
+
+      <!-- Vertical Left - DIVIDER -->
+      <span class="divider vertical left"></span>
     </aside>
     <!-- End of ASIDE -->
     
