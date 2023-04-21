@@ -1,4 +1,8 @@
 console.log("Test lien javascript utilisateurs");
+
+
+//UPDATE USER
+
 let userUpdateForm = document.getElementById('userUpdateForm');
 
 if (userUpdateForm){
@@ -49,3 +53,37 @@ for (const btn of allDel){
         deleteUser(idDelete);
     })
 }
+
+//CREATE NEW USER
+
+//déclarer le formulaire pour y associer une fonction quand on soumet
+let formCreateUser = document.getElementById('userCreateForm');
+
+
+if (formCreateUser){
+    formCreateUser.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    let form = new FormData(event.target);
+
+    // form.append('name', 'Abraham');
+
+    let url = 'admin/user/create';
+
+    let request = new Request(url, {
+        method: 'POST',
+        body: form
+    });
+
+    let response = await fetch(request);
+    let responseData = await response.text();
+
+    console.log(`form => `, form);
+    console.log(`responseData => `, responseData);
+
+    });
+}
+
+
+
+

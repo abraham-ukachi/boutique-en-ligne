@@ -68,7 +68,7 @@ class Category extends Database
     }
 
     public function getAllSubCategories(){
-        $subCategories = $this->db->prepare("SELECT name FROM sub_categories");
+        $subCategories = $this->db->prepare("SELECT id, name FROM sub_categories");
         $subCategories->execute([]);
         $result = $subCategories->fetchAll(PDO::FETCH_ASSOC);
         $allSubCategories = $result;

@@ -167,6 +167,38 @@ class User extends Database
             }
     }
 
+
+        //method for admin for create user
+    public function createUser($firstname, $lastname, $mail, $password, $checkpassword, $role)
+    {
+        if (!$this->verifUser($mail)) {
+            $created_at = $this->getCurrentDate();
+            $sql = "INSERT INTO users (firstname, lastname, mail, password, created_at, user_role)
+                    VALUES (:firstname, :lastname, :mail, :password, :created_at, :user_role)";
+            $sql_exe = $this->db->prepare($sql);
+            $sql_exe->execute([
+                'firstname' => htmlspecialchars($firstname),
+                'lastname' => htmlspecialchars($lastname),
+                'mail' => htmlspecialchars($mail),
+                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'created_at' => $created_at,
+                'user_role' => htmlspecialchars($role)
+            ]);
+
+            if ($sql_exe) {
+               return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+
+
+
+
     // method get current date
     public function getCurrentDate(){
         $mydate=getdate(date("U"));

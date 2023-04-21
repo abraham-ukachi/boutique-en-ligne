@@ -129,38 +129,57 @@
 
         <!-- [content] -->
         <div content>
+
             <div class='container'>
-        <form  id='userUpdateForm' action='' method='post' data-user-id='<?= $userId ?>'>
+
+            <form  id='userCreateForm' action='' method='post'>
+                <div class="input-wrapper">
+                    <h2>Création d'un nouvel utilisateur</h2>
+                </div>
                 <div class="input-wrapper">
                     <label raised for="firstname">Prénom</label>
-                    <input id="firstname" class="connect" name="firstname" type="text" value="<?= $oneUser['firstname'] ?>">
+                    <input id="firstname" class="connect" name="firstname" type="text" value="">
                     <span class="input-indicator"><span bar></span><span val></span>
 
                 </div>
                 <div class="input-wrapper">
                     <label raised for="lastname">Nom</label>
-                    <input id="lastname" class="connect" name="lastname" type="text" value="<?= $oneUser['lastname'] ?>">
+                    <input id="lastname" class="connect" name="lastname" type="text" value="">
                     <span class="input-indicator"><span bar></span><span val></span>
 
                 </div>
 
                 <div class="input-wrapper">
-                    <label raised for="mail">mail</label>
-                    <input id="mail" class="connect" name="mail" type="email" value="<?= $oneUser['mail'] ?>">
+                    <label raised for="mail">Mail</label>
+                    <input id="mail" class="connect" name="mail" type="email" value="">
+                    <span class="input-indicator"><span bar></span><span val></span>
+
+                </div>
+
+                <div class="input-wrapper">
+                    <label raised for="MP">Mot de passe</label>
+                    <input id="password" class="connect" name="password" type="password" value="">
+                    <span class="input-indicator"><span bar></span><span val></span>
+
+                </div>
+
+                <div class="input-wrapper">
+                    <label raised for="mail">Vérifier le mot de passe</label>
+                    <input id="check-password" class="connect" name="check-password" type="password" value="">
                     <span class="input-indicator"><span bar></span><span val></span>
 
                 </div>
 
                 <div class="input-wrapper">
                     <select name='role' id='role'>
-                                <option value='<?= $oneUser['user_role'] ?>'><?= $oneUser['user_role'] ?></option>
+                                <option value=''>Role</option>
                                 <option value='admin'>Administrateur</option>
                                 <option value='customer'>Client</option>
                     </select>     
                 </div>
 
-                <button type="submit" class="register_form_button" id="envoie" name="envoie">Enregistrer les modifications</button>
-        </form>
+                <button type="submit" class="register_form_button" id="envoie" name="envoie">Créer un nouvel utilisateur</button>
+            </form>
 
             </div>
         </div>

@@ -1,3 +1,4 @@
+
 <?php
 ?>
 <!DOCTYPE html>
@@ -126,48 +127,28 @@
             <!-- Horizontal Divider -->
             <span class="divider horizontal bottom"></span>
         </header>
+<!-- <?php
+var_dump($oneCategory);
+echo $categoryId;
+var_dump($specificSubCategories);
+?> -->
 
-        <!-- [content] -->
-        <div content>
-            <div class='container'>
-        <form  id='userUpdateForm' action='' method='post' data-user-id='<?= $userId ?>'>
-                <div class="input-wrapper">
-                    <label raised for="firstname">Prénom</label>
-                    <input id="firstname" class="connect" name="firstname" type="text" value="<?= $oneUser['firstname'] ?>">
-                    <span class="input-indicator"><span bar></span><span val></span>
-
-                </div>
-                <div class="input-wrapper">
-                    <label raised for="lastname">Nom</label>
-                    <input id="lastname" class="connect" name="lastname" type="text" value="<?= $oneUser['lastname'] ?>">
-                    <span class="input-indicator"><span bar></span><span val></span>
-
-                </div>
-
-                <div class="input-wrapper">
-                    <label raised for="mail">mail</label>
-                    <input id="mail" class="connect" name="mail" type="email" value="<?= $oneUser['mail'] ?>">
-                    <span class="input-indicator"><span bar></span><span val></span>
-
-                </div>
-
-                <div class="input-wrapper">
-                    <select name='role' id='role'>
-                                <option value='<?= $oneUser['user_role'] ?>'><?= $oneUser['user_role'] ?></option>
-                                <option value='admin'>Administrateur</option>
-                                <option value='customer'>Client</option>
-                    </select>     
-                </div>
-
-                <button type="submit" class="register_form_button" id="envoie" name="envoie">Enregistrer les modifications</button>
-        </form>
-
-            </div>
+   <?php 
+               for ($i = 0; $i <count($specificSubCategories); $i++) {
+                echo "<div id=''>".$specificSubCategories[$i]['name']." <button id='".$specificSubCategories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
+              }
+   ?> 
+   
+   <form  id='subCategoriesForm' action='' method='post' data-product-id='<?= $theProduct['id'] ?>'>
+        <div class="input-wrapper">
+            <label raised for="subcategory">Ajouter une sous-catégorie</label>
+            <input id="subcategory" class="subcategory" name="subcategory" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
         </div>
-    </div>
-    
-    <!-- Nav Bar -->
-    <!-- PHP: Include the `navBar` component -->
+    <button type="submit" class="register_form_button" id="envoie" name="envoie" contained>Ajouter une nouvelle sous-catégorie</button>
+            
+    </form>
+
+
     <?php 
     $_GET['navbar_route'] = 'users'; 
     $_GET['navbar_init'] = 'au'; 
