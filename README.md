@@ -125,17 +125,18 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 29 | *`Category - Model`* | **Category.php** | Pending | 
 | 30 | *`Address - Model`* | **Address.php** | Pending | 
 | 31 | *`Tag - Model`* | **Tag.php** | Pending | 
-| 32 | *`Account - Controller`* | **AccountController.php** | Pending | 
+| 32 | *`Account - Controller`* | **AccountController.php** | *_In progress_* | 
 | 33 | *`API - Controller`* | **APIController.php** | Pending | 
-| 34 | *`Nav Bar - View Component`* | **nav-bar.php** | Pending | 
+| 34 | *`Nav Bar - View Component`* | **nav-bar.php** | [Done](./views/components/nav-bar.php)\* | 
 | 35 | *`Footer - View Component`* | **footer.php** | Pending | 
-| 36 | *`App Bar - View Component`* | **app-bar.php** | Pending | 
+| 36 | *`App Bar - View Component`* | **app-bar.php** | ~~Pending~~ | 
 | 37 | *`Database - Model Helper`* | **Database.php** | [Done](./models/helpers/Database.php)\* | 
 | 38 | *`Response - Model Helper`* | **ResponseHandler.php** | Pending | 
 | 39 | *`Home - Route`* | **home-route.php** | Pending | 
-| 40 | *`Shop - Route`* | **shop-route.php** | Pending | 
+| 40 | *`Shop - Route`* | **shop-route.php** | *_In progress_* | 
 | 41 | *`Order - Route`* | **order-route.php** | Pending | 
 | 42 | *`Product - Route`* | **product-route.php** | Pending | 
+| 43 | *`Side Bar - View Component`* | **side-bar.php** | [Done](./views/components/side-bar.php)\* | 
 
 > WARNING: This list is a working progress and will change soon
 

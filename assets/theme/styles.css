@@ -701,7 +701,8 @@ a[active] .icon-button, a[role="icon-button"][active] {
 /* Container of [content] */
 [content] > .container {
   width: 100%;
-  height: calc(100vh - var(--app-bar-size, 54px));
+  min-height: calc(100vh - var(--app-bar-size, 54px));
+  height: 100%;/* b4: calc(100vh - var(--app-bar-size, 54px)); */
   box-sizing: border-box;
   padding: 8px 16px;
 }

@@ -68,6 +68,9 @@ class AccountController {
 
   // declare some properties...
 
+  // public properites
+  public array $listData;
+
   // private properties
   private I18n $i18n;
   private User $user;
@@ -85,11 +88,15 @@ class AccountController {
     $this->i18n = new I18n(self::DEFAULT_LANG);
     $this->user = new User();
     
-     
+
+    // initialize the `listData` property
+    $this->listData = $this->getOverviewListData();
+
     // $user = new User();
     // $users = $user->displayUsers();
     // var_dump($users);
 
+   
   }
 
 
@@ -116,7 +123,110 @@ class AccountController {
   }
 
 
-  
+
+  /**
+   * Gets the data for the overview list
+   *
+   * @return array
+   */
+  public function getOverviewListData(): array {
+    // Initialize a `overviewListData` variable by setting it to an empty array
+    // NOTE: This variable will be returned at the end of this method
+    $overviewListData = [];
+
+    // create the `info-addresses` list items in `overviewListData`
+    $overviewListData['info-addresses'] = [
+      'title' => '',
+      'icon' => '',
+      'items' => [
+
+        'info' => [
+          'icon' => '',
+          'title' => 'Your information',
+          'description' => 'First name, last name, email',
+          'link' => 'account/info',
+        ],
+
+        'addresses' => [
+          'icon' => '',
+          'title' => 'Your addresses',
+          'description' => 'Edit, remove, or set default address',
+          'link' => 'account/addresses',
+        ],
+      ],
+    ];
+
+
+    // create the `purchases` list items in `overviewListData`
+    $overviewListData['purchases'] = [
+      'title' => 'Purchases',
+      'icon' => '',
+      'items' => [
+
+        'orders' => [
+          'icon' => '',
+          'title' => 'Orders',
+          'description' => '',
+          'link' => 'account/orders',
+        ],
+
+        'wallet' => [
+          'icon' => '',
+          'title' => 'Wallet',
+          'description' => '',
+          'link' => 'account/wallet',
+        ],
+      ],
+    ];
+
+
+    // create the `settings` list items in `overviewListData`
+    $overviewListData['settings'] = [
+      'title' => 'Settings',
+      'icon' => '',
+      'items' => [
+
+        'lang' => [
+          'icon' => '',
+          'title' => 'Language',
+          'description' => $this->i18n->getLanguage(true) . " · " . $this->i18n->getLanguage(),
+          'link' => 'account/language',
+        ],
+
+        'theme' => [
+          'icon' => '',
+          'title' => 'Theme',
+          'description' => $this::DEFAULT_THEME,
+          'link' => 'account/theme',
+        ],
+      ],
+    ];
+
+
+    // create the `help` list items in `overviewListData`
+    $overviewListData['help'] = [
+      'title' => 'Help',
+      'icon' => '',
+      'items' => [
+
+        'contact' => [
+          'icon' => '',
+          'title' => 'Contact',
+          'description' => '',
+          'link' => 'account/contact',
+        ],
+
+        'about' => [
+          'icon' => '',
+          'title' => 'About',
+          'description' => '',
+          'link' => 'account/about',
+        ],
+      ],
+    ];
+
+    return $overviewListData;
+  }
   
   
   
