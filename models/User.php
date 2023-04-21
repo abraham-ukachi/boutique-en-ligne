@@ -71,6 +71,7 @@ class User extends Database
 
         // connect to the database
         $this->dbConnect();
+
         if($this->isConnected()){
             $this->populateUserInfo($_SESSION['id']);
         }
@@ -120,6 +121,25 @@ class User extends Database
             } else {
                 return false;
             }
+    }
+
+    /**
+     * Function that verif if user id exist in bdd
+     * @param $id
+     * @return int
+     */
+    public function verifUserById($id): int{
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'id' => $id,
+        ]);
+        $results = $sql_exe->fetch(PDO::FETCH_ASSOC);
+        if($results){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     //call registerGuest() if no SESSION_ID when pay product   
@@ -212,7 +232,16 @@ class User extends Database
     }
 
     public function isConnected(){
-        return isset($_SESSION['id']);
+        $result = false;
+
+        if(isset($_SESSION['id'])){
+            $id = $_SESSION['id'];
+            $result = $this->verifUserById($id);
+            if(!$result){
+                session_destroy();
+            }
+        };
+        return $result;
     }
 
 

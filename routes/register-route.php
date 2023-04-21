@@ -2,7 +2,8 @@
 use Maxaboom\Controllers\RegisterController;
 
 $router->map( 'GET', '/register', function() {
-    require __DIR__ . '/../views/register-page.php';
+    $registerController = New RegisterController();
+    $registerController->showPage();
 });
 
 
@@ -14,7 +15,7 @@ $router->map('POST', '/register', function (){
     $passwordConfirm = $_POST['check-password'];
 
     $registerController = New RegisterController();
-    $response = $registerController->registerUser($firstname, $lastname, $mail, $password, $passwordConfirm);
+    $response = $registerController->registerUser($firstname, $lastname, $mail, $password);
 
     echo json_encode($response);
 

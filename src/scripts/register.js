@@ -16,11 +16,11 @@ async function handleFormSubmit(event) {
     let responseData = await response.json();
     console.log(responseData)
     if(responseData.success){
-        mbApp.showToast({message: "L'inscription a réussi !", type: SUCCESS_TOAST},  3);
+        mbApp.showToast({message: "L'inscription a réussi !", type: SUCCESS_TOAST},  2);
 
         setTimeout(() => {
-            location.replace("login", 3000);
-        })
+            location.replace("login");
+        }, 2000);
     }
 };
 
