@@ -1,5 +1,4 @@
 <?php
-
 ?>
 
 <!doctype html>
@@ -78,11 +77,11 @@
 
     <!-- Some more script for ya! #LOL -->
     <script type="module" src='src/app.js' defer></script>
-    <!-- <script type="module" src='src/scripts/product.js' defer></script> -->
+    <script type="module" src='src/scripts/product-page.js' defer></script>
 
 </head>
 <!-- End of HEAD -->
-<body class='theme dark' fullbleed>
+<body class='theme light' fullbleed>
 
 
 <!-- Side Bar -->
@@ -121,9 +120,9 @@ require __DIR__ . '/components/side-bar.php';
                 <!-- Title Wrapper -->
                 <div class='title-wrapper'>
                     <!-- Title -->
-                    <h2 class='app-title'><?= $productId['productName'] ?></h2>
+                    <h2 class='app-title'><?= $product['productName'] ?></h2>
                     <!-- Subtitle -->
-                    <h3 class='app-subtitle'><?php print_r($productId['name'])?></h3>
+                    <h3 class='app-subtitle'><?php print_r($product['name']) ?></h3>
                 </div>
             </div>
             <!-- End of App Bar -->
@@ -137,11 +136,11 @@ require __DIR__ . '/components/side-bar.php';
             <div class="container">
                 <?php
                 $path = 'assets/images/products/';
-                echo '<img width="300" height="300" src="' . $path . $productId['image'] . '">';
+                echo '<img width="300" height="300" src="' . $path . $product['image'] . '">';
                 // TODO : PUT TOGGLE ASIDE HERE
-                echo '<button onclick="mbApp.openAside()">Review</button>';
-                echo $productId['description'];
-                echo 'Prix: ' . '<strong>' . $productId['price'] . '</strong>';
+                echo '<button id="review-btn">Review</button>';
+                echo $product['description'];
+                echo 'Prix: ' . '<strong>' . $product['price'] . ' €' . '</strong>';
                 ?>
             </div>
         </div>
@@ -180,7 +179,7 @@ require __DIR__ . '/components/side-bar.php';
 </main>
 
 <!-- Aside part -->
-<aside class='flex-layout vertical'>
+<aside class='flex-layout vertical' hidden>
 
     <!-- App-Layout of ASIDE -->
     <div class='app-layout' fit>
@@ -194,7 +193,7 @@ require __DIR__ . '/components/side-bar.php';
                     <!-- Title -->
                     <h2 class='app-title'>Commentaires</h2>
                     <!-- Subtitle -->
-                    <h3 class='app-subtitle'><?= $productId['name'] ?></h3>
+                    <h3 class='app-subtitle'><?= $product['name'] ?></h3>
                 </div>
             </div>
             <!-- End of App Bar -->
@@ -202,18 +201,46 @@ require __DIR__ . '/components/side-bar.php';
 
         <!-- [content] -->
         <div content>
-            <?php foreach ($productReview as $review) : ?>
 
-                <p> <?= $review['lastname'] . ' ' . $review['firstname'] ?> </p>
-                <p> <?= 'Ratings : ' .  $review['ratings'] . ' étoiles' ?> </p>
-                <p> <?= $review['comment'] ?> </p>
-                <p> <?= $review['created_at'] ?> </p>
+            <div class="container">
+                <form method='POST' id='review-product-form' data-product-id="<?= $this->productId ?>">
+                    <div class='input-wrapper'>
+                        <select name='etoiles' id='etoiles' required>
+                            <option value=''>Etoiles</option>
+                            <option value='1'>&#9733</option>
+                            <option value='2'>&#9733&#9733</option>
+                            <option value='3'>&#9733&#9733&#9733</option>
+                            <option value='4'>&#9733&#9733&#9733&#9733</option>
+                            <option value='5'>&#9733&#9733&#9733&#9733&#9733</option>
+                        </select>
+                    </div>
+                    <div class='input-wrapper'>
+                        <label for='review-input' raised>Laisser une review</label>
+                        <input id='review-input' name='review-input' type='text' required>
+                        <span class='input-indicator'><span bar></span><span val></span></span>
+                    </div>
+                    <button type='submit' name='submit' contained>Soumettre</button>
+                </form>
 
-            <?php endforeach; ?>
+                <!-- Reviews -->
+                <div class='reviews'>
+                    <?php foreach ($productReview as $review) : ?>
+                        <div class="review">
+                            <h2><?= $review['lastname'] . ' ' . $review['firstname'] ?></h2>
+                            <span class='rating'><?= 'Ratings : ' . $review['ratings'] . ' étoiles' ?></span>
+                            <p class='review'><?= $review['comment'] ?> </p>
+                            <span class='date'><?= $review['created_at'] ?></span>
+                        </div>
 
+                    <?php endforeach; ?>
+                </div>
+                <!-- End of reviews -->
 
+            </div>
         </div>
+
     </div>
+
     <!-- Backdrop of ASIDE -->
     <div class='backdrop' fit hidden></div>
 

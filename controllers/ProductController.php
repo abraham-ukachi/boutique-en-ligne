@@ -4,6 +4,7 @@ namespace Maxaboom\Controllers;
 
 use Maxaboom\Models\Helpers\Database;
 use Maxaboom\Models\Product;
+use Maxaboom\Models\Review;
 use PDO;
 
 class ProductController extends Database
@@ -11,12 +12,14 @@ class ProductController extends Database
     const DEFAULT_THEME = 'light';
 
     public object $productModel;
+    public object $reviewModel;
     public ?int $productId;
     public ?array $productReview;
 
     public function __construct(?int $productId = null, ?array $productReview = null)
     {
         $this->productModel = new Product();
+        $this->reviewModel = new Review();
         $this->productId = $productId;
         $this->productReview = $productReview;
 
@@ -29,8 +32,8 @@ class ProductController extends Database
      */
     public function showPageOneProduct($theme = self::DEFAULT_THEME):void
     {
-        $productId = $this->productModel->getProductById($this->productId);
-        $productReview = $this->productModel->getReviewByProductId($this->productId);
+        $product = $this->productModel->getProductById($this->productId);
+        $productReview = $this->reviewModel->getReviewsByProductId($this->productId);
         require_once __DIR__ . '/../views/product-page.php';
     }
 }

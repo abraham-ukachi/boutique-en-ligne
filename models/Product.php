@@ -48,7 +48,7 @@ class Product extends Database
     }
 
     public function getReviewByProductId(int $productId): array {
-        $review = "SELECT * FROM comments INNER JOIN users ON comments.user_id = users.id WHERE product_id = :productId";
+        $review = "SELECT *, comments.created_at as reviewDate FROM comments INNER JOIN users ON comments.user_id = users.id WHERE product_id = :productId";
         $review_exe = $this->db->prepare($review);
         $review_exe->execute([
             'productId' => $productId
