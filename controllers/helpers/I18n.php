@@ -237,6 +237,18 @@ class I18n {
 
 
 
+  /**
+   * Returns the current language of the app
+   *
+   * @param string $asName - if TRUE, returns the language name instead of the language id
+   *
+   * @returns string $lang - the language id or name
+   */
+  public function getLanguage(?string $asName = null): string {
+    return $asName ? $this->getString($this->lang) : $this->lang;
+  }
+
+
 
 
 
@@ -314,6 +326,8 @@ class I18n {
     return $data;
 
   }
+
+
 
 }
 
