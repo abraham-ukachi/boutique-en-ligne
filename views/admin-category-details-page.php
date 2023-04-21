@@ -132,7 +132,7 @@ var_dump($oneCategory);
 echo $categoryId;
 var_dump($specificSubCategories);
 ?> -->
-
+<h1>Les sous-catégories de <?=$oneCategory?></h1>
    <?php 
                for ($i = 0; $i <count($specificSubCategories); $i++) {
                 echo "<div id=''>".$specificSubCategories[$i]['name']." <button id='".$specificSubCategories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
