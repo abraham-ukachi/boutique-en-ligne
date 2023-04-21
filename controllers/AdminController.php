@@ -103,7 +103,8 @@ class AdminController{
     }
 
     public function showOneCategory($categoryId){
-        $oneCategory=$this->productCategory->getCategoryById($categoryId);
+        $oneCategoryName=$this->productCategory->getCategoryById($categoryId);
+        $oneCategoryTitre=$this->productCategory->getCategoryTitreById($categoryId);
         $specificSubCategories=$this->productCategory->getSubcategoriesByCategoryId($categoryId);
         require __DIR__ . '/../views/admin-category-details-page.php';   
     }
