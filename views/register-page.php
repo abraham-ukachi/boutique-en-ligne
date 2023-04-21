@@ -77,7 +77,7 @@
 
     <!-- Some more script for ya! #LOL -->
     <script type='module' src='src/app.js' defer></script>
-    <script type='module' src='src/scripts/login.js' defer></script>
+    <script type='module' src='src/scripts/register.js' defer></script>
 
 </head>
 <!-- End of HEAD -->
@@ -119,41 +119,42 @@
                     <!-- Horizontal Divider -->
                     <span class='divider horizontal bottom'></span>
                 </header>
-            </div></header>
+            </div>
+        </header>
 
         <!-- [content] -->
         <div class="container">
-            <form id='registerForm' action='' method='post'>
-                <div class='input-form-container'>
-                    <div class='form-control input-wrapper'>
-                        <label for='firstname' raised>Prénom</label>
-                        <input id='firstname' class='connect' name='firstname' type='text' value=''>
-                        <span class='input-indicator'><span bar></span><span val></span></span>
-                    </div>
-                    <div class='form-control input-wrapper'>
-                        <label for='lastname' raised>Nom</label>
-                        <input id='lastname' class='connect' name='lastname' type='text' value=''>
-                        <span class='input-indicator'><span bar></span><span val></span></span>
-                    </div>
 
-                    <div class='form-control input-wrapper'>
-                        <label for='mail' raised>mail</label>
-                        <input id='mail' class='connect' name='mail' type='email' value=''>
-                        <span class='input-indicator'><span bar></span><span val></span></span>
-                    </div>
+            <form id='registerForm' method='post'>
 
-                    <div class='form-control input-wrapper'>
-                        <label for='password' raised>Mot de passe</label>
-                        <input id='password' class='connect' name='password' type='password' value=''>
-                        <span class='input-indicator'><span bar></span><span val></span></span>
-                    </div>
-                    <div class='form-control input-wrapper'>
-                        <label for='password' raised>Vérification du mot de passe</label>
-                        <input id='check-password' class='connect' name='check-password' type='password' value=''>
-                        <span class='input-indicator'><span bar></span><span val></span></span>
-                    </div>
-                    <button type='submit' class='register_form_button' id='envoie' name='envoie' contained>S'enregistrer</button>
+                <div class='input-wrapper'>
+                    <label for='firstname' raised>Prénom</label>
+                    <input id='firstname' class='connect' name='firstname' type='text' value=''>
+                    <span class='input-indicator'><span bar></span><span val></span></span>
                 </div>
+                <div class='input-wrapper'>
+                    <label for='lastname' raised>Nom</label>
+                    <input id='lastname' class='connect' name='lastname' type='text' value=''>
+                    <span class='input-indicator'><span bar></span><span val></span></span>
+                </div>
+
+                <div class='input-wrapper'>
+                    <label for='mail' raised>mail</label>
+                    <input id='mail' class='connect' name='mail' type='email' value=''>
+                    <span class='input-indicator'><span bar></span><span val></span></span>
+                </div>
+
+                <div class='input-wrapper'>
+                    <label for='password' raised>Mot de passe</label>
+                    <input id='password' class='connect' name='password' type='password' value=''>
+                    <span class='input-indicator'><span bar></span><span val></span></span>
+                </div>
+                <div class='input-wrapper'>
+                    <label for='password' raised>Vérification du mot de passe</label>
+                    <input id='check-password' class='connect' name='check-password' type='password' value=''>
+                    <span class='input-indicator'><span bar></span><span val></span></span>
+                </div>
+                <button id='envoie' name='envoie' contained>S'enregistrer</button>
             </form>
         </div>
 
@@ -185,10 +186,16 @@
 </main>
 
 <!-- Aside part -->
-<aside class='flex-layout vertical' hidden>
+<aside class='flex-layout vertical' hidden="">
 
     <!-- App-Layout of ASIDE -->
-    <div class='app-layout' fit>...</div>
+    <div class='app-layout' fit>
+        <div content>
+            <div class="container flex-layout vertical centered">
+                <img src="" width="512" height="512" />
+            </div>
+        </div>
+    </div>
 
     <!-- Backdrop of ASIDE -->
     <div class='backdrop' fit hidden></div>

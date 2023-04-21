@@ -71,6 +71,9 @@ class User extends Database
 
         // connect to the database
         $this->dbConnect();
+        if($this->isConnected()){
+            $this->populateUserInfo($_SESSION['id']);
+        }
     }
 
     //method for register user
@@ -181,7 +184,6 @@ class User extends Database
     }
 
     //method get lastGuestId
-    
 
     public function connection($mail, $password)
     {
@@ -197,17 +199,34 @@ class User extends Database
             $hashed_password = $results['password'];
             if (password_verify($password, $hashed_password)) {
                 session_start();
-                $_SESSION['id'] = $results['id'];
-                $_SESSION['firstname'] = $results['firstname'];
-                $_SESSION['lastname'] = $results['lastname'];
-                $_SESSION['user_role'] = $results['user_role'];
+                $userId = $results['id'];
+                $_SESSION['id'] = $userId;
+                $this->populateUserInfo($userId);
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } else {
             return false;
         }
+    }
+
+    public function isConnected(){
+        return isset($_SESSION['id']);
+    }
+
+
+    public function populateUserInfo($id){
+        $sql = "SELECT * FROM users WHERE id = $id";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([]);
+        $info = $sql_exe->fetch(PDO::FETCH_ASSOC);
+
+        $this->id = $info['id'];
+        $this->firstname = $info['firstname'];
+        $this->lastname = $info['lastname'];
+        $this->mail = $info['mail'];
+        $this->user_role = $info['user_role'];
     }
 
     //methods for update info user

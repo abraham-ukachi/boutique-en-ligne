@@ -124,20 +124,18 @@
         <!-- [content] -->
         <div class="container">
         <form id='connectionForm' action='' method='get'>
-            <div class='input-form-container'>
-                <div class='form-control input-wrapper'>
+                <div class='input-wrapper'>
                     <label for='mail' raised>mail</label>
                     <input id='mail' class='connect' name='mail' type='email' value=''>
                     <span class='input-indicator'><span bar></span><span val></span></span>
                 </div>
 
-                <div class='form-control input-wrapper'>
+                <div class='input-wrapper'>
                     <label for='password' raised>Mot de passe</label>
                     <input id='password' class='connect' name='password' type='password' value=''>
                     <span class='input-indicator'><span bar></span><span val></span></span>
                 </div>
                 <button type='submit' class='connection_form_button' id='envoie' name='envoie' contained>Se connecter</button>
-            </div>
         </form>
     </div>
 
