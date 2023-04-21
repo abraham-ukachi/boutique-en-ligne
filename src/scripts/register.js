@@ -14,7 +14,6 @@ async function handleFormSubmit(event) {
     let request = new Request(url, {method: 'POST', body: form});
     let response = await fetch(request);
     let responseData = await response.json();
-    console.log(responseData)
     if(responseData.success){
         mbApp.showToast({message: "L'inscription a réussi !", type: SUCCESS_TOAST},  2);
 

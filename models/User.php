@@ -218,7 +218,6 @@ class User extends Database
         if ($results) {
             $hashed_password = $results['password'];
             if (password_verify($password, $hashed_password)) {
-                session_start();
                 $userId = $results['id'];
                 $_SESSION['id'] = $userId;
                 $this->populateUserInfo($userId);
@@ -354,6 +353,12 @@ class User extends Database
         } else {
             echo json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
         }
+    }
+
+    public function getInitiales(){
+        $firstnameInitiales  = $this->firstname[0];
+        $lastnameInitiales = $this->lastname[0];
+        return strtolower($firstnameInitiales).strtolower($lastnameInitiales);
     }
 
 

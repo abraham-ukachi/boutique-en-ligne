@@ -6,7 +6,11 @@ class LoginController{
     public object $user;
 
     public function __construct() {
-        $this->user = New User();
+        $this->user = new User();
+    }
+
+    public function showPage(){
+        require __DIR__ . '/../views/login-page.php';
     }
 
     public function connectUser($mail, $password){

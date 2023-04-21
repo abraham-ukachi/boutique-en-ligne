@@ -23,11 +23,7 @@ class RegisterController
 
     public function registerUser($firstname, $lastname, $mail, $password)
     {
-
-
         $success = $this->user->register($firstname, $lastname, $mail, $password);
-
         return ['success' => $success];
-
     }
 }

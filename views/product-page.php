@@ -88,8 +88,8 @@
 <!-- PHP: Include the `sideBar` component -->
 <?php
 $_GET['sidebar_route'] = 'home';
-$_GET['sidebar_init'] = 'au';
-$_GET['sidebar_connected'] = false; // TRUE if the user is connected
+$_GET['sidebar_init'] = $this->user->getInitiales();;
+$_GET['sidebar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
 $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin
 
 require __DIR__ . '/components/side-bar.php';
@@ -150,8 +150,8 @@ require __DIR__ . '/components/side-bar.php';
     <!-- PHP: Include the `navBar` component -->
     <?php
     $_GET['navbar_route'] = 'home';
-    $_GET['navbar_init'] = 'au';
-    $_GET['navbar_connected'] = false; // TRUE if the user is connected
+    $_GET['navbar_init'] = $this->user->getInitiales();
+    $_GET['navbar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
     $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin
 
     require __DIR__ . '/components/nav-bar.php';

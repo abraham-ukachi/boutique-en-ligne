@@ -6,29 +6,11 @@ $router->map( 'GET', '/login', function() {
 });
 
 
-//juste pour les test
-// TODO: REMOVE AFTER
-$router->map( 'GET', '/login/test', function() {
-    require __DIR__ . '/../models/test/login.php';
-});
-
-$router->map('POST', '/login/[*:mail]/[*:password]', function($mail, $password) {
-    $response = ["statut" => "success"];
-
-    echo json_encode($response);
-});
-
-
 $router->map('POST', '/login', function() {
-    $data = json_decode(file_get_contents('php://input')); // {mail: exemple@mail.com, password: slkfjsl}
-    $data = (array)$data; // ['mail' => 'exem...]
+    $mail = $_POST['mail'];
+    $password = $_POST['password'];
 
-    $mail = $data['mail'];
-    $password = $data['password'];
-
-
-    $loginController = New LoginController();
-
+    $loginController = new LoginController();
     $response = $loginController->connectUser($mail, $password);
 
     echo json_encode($response);
