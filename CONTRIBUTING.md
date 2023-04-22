@@ -22,6 +22,7 @@ The following is a set of guidelines for contributing to Maxaboom and subsequent
         - [Side-Bar (`#sideBar`) Template](#side-bar-sidebar-template)
         - [Empty-Container (`.container[empty]`) Template](#empty-container-containerempty-template)
         - [Floating Action Button (`.fab`) Template](#floating-action-button-fab-template)
+        - [Link Item (`.link-item`) Template](#link-item-link-item-template)
 3. [How to Use Maxaboom ?](#how-to-use-maxaboom-?)
     - [Installation](#installation)
     - [mbApp - JS](#mbApp---js)
@@ -441,6 +442,44 @@ Use the `closeMenuById()` method of **`mbApp`** to close a menu:
 ```
 
 > NOTE: There are also `closeMainMenuById()` and `closeAsideMenuById()` methods ;)
+
+
+
+#### Link Item (`.link-item`) Template
+
+Use the following code to include 2 **links** or **list items** in your `.html` or `.php` page:
+
+```html
+<!-- Links -->
+<ul class="links" naked>
+
+    <!-- Link Item #1 -->
+    <li class="link-item">
+        <a href="{{path/to/page}}" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+            <div class="text-wrapper flex-layout vertical">
+                <!-- Title -->
+                <h3>{{Title}}</h3>
+                <h4>{{Description}}</h4>
+            </div>
+            <span class="material-icons arrow icon">chevron_right</span>
+        </a>
+    </li>
+    
+
+    <!-- Link Item #2 -->
+    <li class="link-item">
+        <a href="{{path/to/page}}" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+            <div class="text-wrapper flex-layout vertical">
+                <!-- Title -->
+                <h3>{{Title}}</h3>
+                <h4>{{Description}}</h4>
+            </div>
+            <span class="material-icons arrow icon">chevron_right</span>
+        </a>
+    </li>
+</ul>
+<!-- End of Links -->
+```
 
 ---
 
