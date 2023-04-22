@@ -262,6 +262,18 @@ class User extends Database
         }
     }
 
+
+    public function disconnect() {
+      $result = false;
+
+      if(isset($_SESSION['id'])){
+        session_destroy();
+        $result = true;
+      }
+
+      return $result;
+    }
+
     public function isConnected(){
         $result = false;
 
@@ -380,9 +392,11 @@ class User extends Database
             'iduser' => $idUser
         ]);         
         if ($sql_exe) {
-            return json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
+            return true;
+            // return json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
         } else {
-            return json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
+            return false;
+            // return json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
         }
     }
 
