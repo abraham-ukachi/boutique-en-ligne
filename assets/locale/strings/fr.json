@@ -65,6 +65,6 @@
   "dontHaveAccount": "Vous n'avez pas de compte?",
   "alreadyHaveAccount": "Vous avez déjà un compte?",
 
-  "logout": "Se déconnecter",
+  "log_out": "Se déconnecter",
   "deleteYourAccount": "Supprimer votre compte"
 }

@@ -72,8 +72,26 @@
   "dontHaveAccount": "Don't have an account?",
   "alreadyHaveAccount": "Already have an account?",
 
-  "logout": "Log out",
-  "deleteYourAccount": "Delete your account"
+  "log_out": "Log out",
+  "logoutConfirmMessage": "Are you sure you want to log out?",
+
+
+  "deleteYourAccount": "Delete your account",
+
+  "deleteAccount": "Delete account",
+  "deleteAccountConfirmMessage": "Are you sure you want to delete your account? This will permanently erase all your data.",
+
+  "yes": "Yes",
+  "no": "No",
+  "delete": "Delete",
+  "cancel": "Cancel",
+
+  "errorLogout": "Failed to log out",
+  "successLogout": "Logged out successfully",
+
+  "errorDeleteAccount": "Failed to delete account",
+  "successDeleteAccount": "Account deleted successfully"
+  
 }
 
 
