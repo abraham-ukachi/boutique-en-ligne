@@ -889,7 +889,7 @@ input[type="password"] {}
 /* Submit Button / Inputs & Outlined Buttons */
 input[type="submit"], button[outlined], a[role="button"][outlined] {
   border: 2px solid var(--outline-color);
-  border-radius: 8px;
+  border-radius: 0.75rem;
   padding: 8px 16px;
   opacity: var(--opacity-text-inactive);
   cursor: pointer;
@@ -897,6 +897,8 @@ input[type="submit"], button[outlined], a[role="button"][outlined] {
   margin-bottom: 16px;
   background: inherit;
   color: inherit;
+  font-size: 1.25rem;
+  font-weight: bold;
 
   -webkit-transition: all .2s ease;
   -moz-transition: all .2s ease;
@@ -1217,8 +1219,13 @@ menu > li.menu-item:hover {
   opacity: var(--opacity-text-active);
 }
 
+menu > li.menu-item:hover > a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* Button in Menu-Item */
-.menu-item button {
+.menu-item button, .menu-item a[role="button"] {
   --material-icon-size: 24px;
 
   display: flex;
@@ -1230,6 +1237,8 @@ menu > li.menu-item:hover {
   background: inherit;
   padding: 12px 24px;
   font-size: 18px;
+  font-weight: inherit;
+  margin: inherit;
   line-height: 30px;
   color: inherit;
   cursor: default;
@@ -1237,11 +1246,11 @@ menu > li.menu-item:hover {
   letter-spacing: 0.96px;
 }
 
-.menu-item button .icon {
+.menu-item button .icon, .menu-item a[role="button"] .icon {
   margin-right: 12px;
 }
 
-.menu-item button :not(.icon) {
+.menu-item button :not(.icon), .menu-item a[role="button"] :not(.icon){
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1419,6 +1428,105 @@ em {
   font-weight: bold;
 }
 
+/* +++++ Links & Link Item ++++++ */
+
+/* Link Item */
+.link-item > a {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  color: var(--account-list-item-color, inherit);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 1rem;
+  margin: 16px auto;
+  user-select: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
+.link-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.link-item > a::before {
+  background: var(--account-list-item-background-color, var(--on-background-color));
+  position: absolute;
+  content: "";
+  inset: 0;
+  opacity: var(--opacity-account-list-item, var(--opacity-list-item));
+
+  -webkit-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  -moz-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.link-item:hover > a::before {
+  opacity: var(--opacity-account-list-item-hover, var(--opacity-account-list-item-hover));
+}
+
+.link-item[active] > a {
+  --account-list-item-background-color: var(--primary-container-color);
+  --account-list-item-color: var(--on-primary-container-color);
+
+  pointer-events: none;
+}
+
+.link-item[active] > a::before {
+  opacity: var(--opacity-account-list-item-active) !important;
+}
+
+
+
+/* Text Wrapper of Link Item */
+ .link-item .text-wrapper {
+  flex: 1;
+  z-index: 1;
+}
+
+/* H3 in Link Item */
+.link-item h3 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.link-item .divider-wrapper {
+  display: block;
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* H4 in Link Item */
+.link-item h4 {
+  font-size: 0.8rem;
+  letter-spacing: 0.05rem;
+  font-weight: bold;
+  line-height: 1.25rem;
+  color: inherit;
+  margin: 0;
+  margin-top: -5px;
+  opacity: var(--opacity-text-disabled);
+}
+
+.link-item .arrow.icon {
+  --material-icon-color: var(--primary-color);
+  z-index: 1;
+}
+
+.link-item h4 {
+  text-transform: capitalize;
+}
+
+/* +++++ End of Links & Link Item  +++++ */
+
+
+
+
 
 /* 
  * --> Wide - Layout <--
@@ -1511,11 +1619,11 @@ em {
   }
   
   /* Button in Menu-Item */
-  .menu-item button {
+  .menu-item button, .menu-item a[role="button"] {
     font-size: 20px;
   }
 
-  .menu-item button .icon {
+  .menu-item button .icon, .menu-item a[role="button"] .icon {
     margin-right: 16px;
   }
 
