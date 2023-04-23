@@ -400,11 +400,29 @@ class User extends Database
         }
     }
 
-    public function getInitiales(){
-        $firstnameInitiales  = $this->firstname[0];
-        $lastnameInitiales = $this->lastname[0];
-        return strtolower($firstnameInitiales).strtolower($lastnameInitiales);
+    public function getInitials(){
+        $firstnameInitials  = $this->firstname[0] ?? '';
+        $lastnameInitials = $this->lastname[0] ?? '';
+        return strtolower($firstnameInitials).strtolower($lastnameInitials);
     }
 
+
+    /**
+     * Method used to check if the current user is an admin
+     *
+     * @return bool - Returns TRUE if the user is an admin, FALSE otherwise
+     */ 
+    public function isAdmin(): bool {
+      // do nothing if the user is not connected
+      if (!$this->isConnected()) {
+        return false;
+      }
+
+      // check if the user is an admin
+      $isAdmin = $this->user_role === self::ROLE_ADMIN;
+
+      // return `$isAdmin` value
+      return $isAdmin;
+    }
 
 }
