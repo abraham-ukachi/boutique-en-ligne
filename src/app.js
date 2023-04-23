@@ -217,66 +217,78 @@ export class MaxaboomApp {
    *
    * @param { Number } timeout - The timeout (in seconds) after which the toast will be hidden
    * @param { Boolean } force - Whether to force the toast to be displayed or not
+   *
+   * @returns { False|Promise } A promise that will be resolved when the toast is hidden
    */
   showToast(params, timeout = DEFAULT_TOAST_TIMEOUT, force = false) {
-    // do nothing if the app is already toasting and if we don't want to force the toast
-    if (this.#toasting && !force) { return }
+    // return a new promise
+    return new Promise((resolve, reject) => {
+      // do nothing if the app is already toasting and if we don't want to force the toast
+      if (this.#toasting && !force) { 
+        reject("There's an active toast. Wait for it to get hidden or force this toast");
+        return; 
+      }
     
-    // Initialize some variables...
+      // Initialize some variables...
 
-    // get the toast `message` from `params`
-    let message = params.message;
+      // get the toast `message` from `params`
+      let message = params.message;
 
-    // get the toast `type` from `params`
-    let type = params.type ?? DEFAULT_TOAST; 
+      // get the toast `type` from `params`
+      let type = params.type ?? DEFAULT_TOAST; 
 
-    // get the toast `part` from `params`
-    let part = params.part ?? DEFAULT_PART;
-    
-
-
-    // get the current toasts element form the given `part` as `currentToastsEl`
-    let currentToastsEl = (part === MAIN_PART) ? this.mainToastsEl : (part === ASIDE_PART ? this.asideToastsEl : this.toastsEl);
-    
-    // Clearing / reseting up our toast...
-    this._clearToast(currentToastsEl);
+      // get the toast `part` from `params`
+      let part = params.part ?? DEFAULT_PART;
+      
 
 
-    // set toasting to TRUE
-    this.#toasting = true;
+      // get the current toasts element form the given `part` as `currentToastsEl`
+      let currentToastsEl = (part === MAIN_PART) ? this.mainToastsEl : (part === ASIDE_PART ? this.asideToastsEl : this.toastsEl);
+      
+      // Clearing / reseting up our toast...
+      this._clearToast(currentToastsEl);
 
-    // get a toast html template with these params as `toastHtmlTemplate`
-    let toastHtmlTemplate = this._getToastHtmlTemplate(type, message);
 
-    // insert `toastHtmlTemplate` to `currentToastsEl`
-    currentToastsEl.insertAdjacentHTML('beforeend', toastHtmlTemplate);
+      // set toasting to TRUE
+      this.#toasting = true;
 
-    // get the added toast element as `toastEl`
-    let toastEl = currentToastsEl.querySelector('.toast');
+      // get a toast html template with these params as `toastHtmlTemplate`
+      let toastHtmlTemplate = this._getToastHtmlTemplate(type, message);
 
-    // unhide the `currentToastsEl`
-    currentToastsEl.hidden = false;
+      // insert `toastHtmlTemplate` to `currentToastsEl`
+      currentToastsEl.insertAdjacentHTML('beforeend', toastHtmlTemplate);
 
-    // Fade out the toast element
-    this._fadeToastOut(toastEl, timeout).then(() => {
+      // get the added toast element as `toastEl`
+      let toastEl = currentToastsEl.querySelector('.toast');
 
-      // set / create a new `_toastTimer`
-      this._toastTimer = setTimeout(() => {
-        // Clearing / reseting up our toast...
-        this._clearToast(currentToastsEl);
+      // unhide the `currentToastsEl`
+      currentToastsEl.hidden = false;
 
-        // set toasting to FALSE
-        this.#toasting = false;
-        
-        // remove the toast element
-        toastEl.remove();
+      // Fade out the toast element
+      this._fadeToastOut(toastEl, timeout).then(() => {
 
-        // hide the `currentToastsEl`
-        currentToastsEl.hidden = true;
+        // set / create a new `_toastTimer`
+        this._toastTimer = setTimeout(() => {
+          // Clearing / reseting up our toast...
+          this._clearToast(currentToastsEl);
 
-      }, timeout * 500);
+          // set toasting to FALSE
+          this.#toasting = false;
+          
+          // remove the toast element
+          toastEl.remove();
 
-    });
+          // hide the `currentToastsEl`
+          currentToastsEl.hidden = true;
+
+          // resolve the promise
+          resolve();
+
+        }, timeout * 500);
+
+      });
+
+    }); // <- end of Promise
 
   }
 
@@ -1404,9 +1416,9 @@ export class MaxaboomApp {
       <!-- Toast -->
       <div class="toast pop-in fade-in flex-layout horizontal centered">
         <!-- Emoji -->
-        <span class="toast-emoji ${type}" ${(type === NORMAL_TOAST) ? 'hidden' : ''}></span>
+        <span class="toast-emoji ${type}" ${(type !== SUCCESS_TOAST) ? 'hidden' : ''}></span>
         <!-- Message -->
-        <span class="toast-msg">${emoji}${message}</span>
+        <span class="toast-msg">${emoji}&nbsp;${message}</span>
       </div>
       <!-- End of Toast -->
     `;
@@ -1427,9 +1439,13 @@ export class MaxaboomApp {
 
     // get the sticky app bar element of the `appLayoutEl` as `stickyAppBarEl`
     let stickyAppBarEl = this.getStickyAppBarElement(appLayoutEl);
+    
+    // do nothing if there's no `stickyAppBarEl`
+    if (!stickyAppBarEl) { return }
 
     // get the parent header element of `stickyAppBarEl` as `headerEl`
     let headerEl = stickyAppBarEl.parentElement;
+
 
     // if theres no [sticky-enabled] property on `headerEl` 
     if (headerEl.hasAttribute('sticky-enabled') === false) {
@@ -1447,11 +1463,12 @@ export class MaxaboomApp {
 
 
     // DEBUG [4dbsmaster]: tell me about it ;)
-    console.log(`\x1b[35m[_appLayoutScrollHandler] (1): 
+    /*console.log(`\x1b[35m[_appLayoutScrollHandler] (1): 
       scrollTop => ${scrollTop} & 
       stickyTop => ${stickyTop} &
       stickyOffsetTop => ${stickyOffsetTop}
     \x1b[0m`);
+    */
     // console.log(`\x1b[35m[_appLayoutScrollHandler] (2):  event => \x1b[0m`, event);
     // console.log(`\x1b[35m[_appLayoutScrollHandler] (3): appLayoutEl => \x1b[0m`, appLayoutEl);
   }
