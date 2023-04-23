@@ -37,6 +37,7 @@ class ProductController extends Database
     {
         $product = $this->productModel->getProductById($this->productId);
         $productReview = $this->reviewModel->getReviewsByProductId($this->productId);
+        $user = $this->user->getInitials();
         require_once __DIR__ . '/../views/product-page.php';
     }
 }
