@@ -49,17 +49,6 @@ namespace Maxaboom\Routes;
 // use maxaboom's `AccountController` class
 use Maxaboom\Controllers\AccountController;
 
-// use these controller helpers
-// use Maxaboom\Controllers\Helpers\I18n;
-// use these models
-// use Maxaboom\Models\User;
-
-
-
-
-
-
-
 
 
 
@@ -80,16 +69,61 @@ use Maxaboom\Controllers\AccountController;
  * @method GET
  * @url /account
  *
+ * @param string $page - the page to display
+ * @param string $view - the view to display
+ *
  * @echo string $accountPage - the account page
  */
-$router->map('GET', '/account', function(): void {
+$router->map('GET', '/account/[a:page]?/[a:view]?', function(?string $page = null, ?string $view = null): void {
 
   // create an object of `AccountController` class
   $accountController = new AccountController();
 
-  // show the default page
-  $accountController->showPage();
+  // show the correct page with a specific view (if any)
+  $accountController->showPage($page, $view);
 
+});
+
+
+
+
+
+
+/**
+ * Route used to logout the user from his/her account
+ *
+ * @method POST
+ * @url /account/[a:action] - the action to perform 
+ *
+ * @echo json $response - the response
+ */
+$router->map('POST', '/account/[a:action]', function($action): void {
+
+  // create an object of `AccountController` class
+  $accountController = new AccountController();
+
+  // handle the action
+  switch ($action) {
+    // in case the action is `logout`...
+    case AccountController::ACTION_LOGOUT:
+      // ...logout from the current user's account
+      $accountController->logout();
+      break;
+
+    // in case the action is `delete`...
+    case AccountController::ACTION_DELETE:
+      // ...delete the current user's account
+      $accountController->delete();
+      break;
+    default:
+      // TODO: handle the default action
+  }
+
+  // get the controller's response
+  $response = $accountController->getResponse();
+
+  // send the response back as json
+  echo json_encode($response);
 
 });
 

@@ -50,21 +50,42 @@ namespace Maxaboom\Controllers;
 // use the `User` model
 use Maxaboom\Models\User;
 // use the `I18n` helper class
-use Maxaboom\Controllers\Helpers\I18n;
-
-
+use Maxaboom\Controllers\Helpers\Controller;
+use Maxaboom\Controllers\Helpers\ResponseHandler;
 
 
 // declare the class
-// TODO: Create a `Controller` class that will be extended by all the controllers
-class AccountController {
+// TODO: Convert I18n into a trait
+class AccountController extends Controller {
+  // Using some traists (a.k.a. step parents) in this class
+  use ResponseHandler;
 
   // declare some constants...
 
-  const DEFAULT_THEME = 'light';
-  const DEFAULT_LANG = 'en';
-  
-  
+  // actions
+  const ACTION_LOGOUT = 'logout'; 
+  const ACTION_DELETE = 'delete';
+
+  // pages
+  const PAGE_INFO = 'info';
+  const PAGE_ADDRESSES = 'addresses';
+  const PAGE_ORDERS = 'orders';
+  const PAGE_WALLET = 'info';
+  const PAGE_LANGUAGE = 'language';
+  const PAGE_THEME = 'theme';
+  const PAGE_CONTACT = 'contact';
+  const PAGE_ABOUT = 'about';
+
+  // views
+  const VIEW_INFO_IDENTITY = 'identity';
+  const VIEW_INFO_EMAIL = 'email';
+  const VIEW_INFO_PASSWORD = 'password';
+  const VIEW_WALLET_BANK_CARD = 'bank-card';
+  const VIEW_WALLET_PAYPAL = 'paypal';
+  const VIEW_WALLET_APPLEPAY = 'apple-pay';
+  const VIEW_WALLET_STRIPE = 'stripe';
+
+
 
   // declare some properties...
 
@@ -72,7 +93,6 @@ class AccountController {
   public array $listData;
 
   // private properties
-  private I18n $i18n;
   private User $user;
 
   
@@ -80,46 +100,186 @@ class AccountController {
   /**
    * Constructor of the class
    * This method is executed automatically whenever this class is instantiated
+   *
+   * @param ?string $theme : the theme to use
+   * @param ?string $lang : the language to use
+   * @param bool $useDefaultBrowserLang : whether or not to use the default browser language
    */
-  public function __construct() {
+  public function __construct(?string $theme = null, ?string $lang = null, bool $useDefaultBrowserLang = true) {
+    // call the parent's constructor
+    parent::__construct($theme, $lang, $useDefaultBrowserLang);
+
     // TODO: write something awesome code here ;)
     
-    // initialize the `i18n` and `user` property
-    $this->i18n = new I18n(self::DEFAULT_LANG);
+    // initialize the `user` property by creating a new `User` object
     $this->user = new User();
     
 
     // initialize the `listData` property
     $this->listData = $this->getOverviewListData();
-
-    // $user = new User();
-    // $users = $user->displayUsers();
-    // var_dump($users);
-
    
   }
 
 
   // PUBLIC SETTERS
   // PUBLIC GETTERS
+
+  /**
+   * Returns the user's full name
+   *
+   * @param bool $reversed - if TRUE, the name will be reversed (i.e. "Lastname Firstname")
+   *
+   * @return string - the user's full name
+   */
+  public function getFullname(bool $reversed = false): string {
+    return ($this->isConnected()) ? $this->user->firstname . ' ' . $this->user->lastname : '';
+  }
+
+
   // PUBLIC METHODS
 
 
 
   /**
    * Shows the default account page
-   *
-   * @param string $theme - the theme of the page
-   * @param string $lang - the language of the page
+   * 
+   * @param string $page - the page to show
+   * @param string $view - the view to show
    *
    * @return void
    */
-  public function showPage($theme = self::DEFAULT_THEME, $lang = self::DEFAULT_LANG): void {
-    // TODO: do something awesome here before showing the home page ;)
+  public function showPage(?string $page = null, ?string $view = null): void {
+    
+    switch ($page) {
+      case self::PAGE_INFO:
+        $this->showInfoPage($view);
+        break;
 
+      case self::PAGE_ADDRESSES:
+        $this->showAddressesPage($view);
+        break;
 
-    // show the home page 
+      case self::PAGE_ORDERS:
+        $this->showOrdersPage($view);
+        break;
+
+      case self::PAGE_WALLET:
+        $this->showWalletPage($view);
+        break;
+
+      case self::PAGE_LANGUAGE:
+        $this->showLanguagePage($view);
+        break;
+
+      case self::PAGE_THEME:
+        $this->showThemePage($view);
+        break;
+
+      case self::PAGE_CONTACT:
+        $this->showContactPage($view);
+        break;
+
+      case self::PAGE_ABOUT:
+        $this->showAboutPage($view);
+        break;
+
+      default:
+        $this->showOverviewPage();
+        break;
+    }
+  }
+
+  /**
+   * Shows the overview page
+   */
+  public function showOverviewPage(): void {
+    // require [once] the `account-page.php` file from `views` folder 
     require_once __DIR__ . '/../views/account-page.php';
+  }
+
+
+  /**
+   * Shows the info page
+   *
+   * @param ?string $view - the view to show
+   */
+  public function showInfoPage(?string $view = null): void {
+    // require [once] the `account-info-page.php` file from `views` folder 
+    require_once __DIR__ . '/../views/account-info-page.php';
+  }
+
+
+  /**
+   * Shows the addresses page
+   * 
+   * @param ?string $view - the view to show
+   */
+  public function showAddressesPage(?string $view = null): void {
+    // require [once] the `account-addresses-page.php` file from `views` folder 
+    require_once __DIR__ . '/../views/account-addresses-page.php';
+  }
+
+
+  /**
+   * Shows the orders page
+   *
+   * @param ?string $view - the view to show
+   */
+  public function showOrdersPage(?string $view = null): void {
+    // require [once] the `account-orders-page.php` file from `views` folder 
+    require_once __DIR__ . '/../views/account-orders-page.php';
+  }
+
+
+  /**
+   * Shows the wallet page
+   *
+   * @param ?string $view - the view to show
+   */
+  public function showWalletPage(?string $view = null): void {
+    // require [once] the `account-wallet-page.php` file from `views` folder 
+    require_once __DIR__ . '/../views/account-wallet-page.php';
+  }
+
+  /**
+   * Shows the language page
+   *
+   * @param ?string $view - the view to show
+   */
+  public function showLanguagePage(?string $view = null): void {
+    // require [once] the `account-language-page.php` file from `views` folder 
+    require_once __DIR__ . '/../views/account-language-page.php';
+  }
+
+  /**
+   * Shows the theme page
+   *
+   * @param ?string $view - the view to show
+   */
+  public function showThemePage(?string $view = null): void {
+    // require [once] the `account-theme-page.php` file from `views` folder 
+    require_once __DIR__ . '/../views/account-theme-page.php';
+  }
+
+  /**
+   * Shows the contact page
+   *
+   * @param ?string $view - the view to show
+   */
+  public function showContactPage(?string $view = null): void {
+    // require [once] the `account-contact-page.php` file from `views` folder 
+    require_once __DIR__ . '/../views/account-contact-page.php';
+  }
+
+
+  /**
+   * Shows the about page
+   *
+   * @param ?string $view - the view to show
+   */
+  public function showAboutPage(?string $view = null): void {
+    // require [once] the `account-about-page.php` file from `views` folder 
+    require_once __DIR__ . '/../views/account-about-page.php';
   }
 
 
@@ -189,7 +349,7 @@ class AccountController {
         'lang' => [
           'icon' => '',
           'title' => 'Language',
-          'description' => $this->i18n->getLanguage(true) . " · " . $this->i18n->getLanguage(),
+          'description' => $this->i18n->getLanguage(true) . " · " . strtoupper($this->i18n->getLanguage()),
           'link' => 'account/language',
         ],
 
@@ -228,8 +388,66 @@ class AccountController {
     return $overviewListData;
   }
   
-  
-  
+
+  /**
+   * Method used to log the user out
+   *
+   * @return void
+   */
+  public function logout(): void {
+    // disconnect user out and assign the result to the `disconnected` variable
+    $disconnected = $this->user->disconnect();
+
+    // Creating the `success`, `status`, `message`, and `data` variables...
+
+    $success = $disconnected;
+    $status = $disconnected ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_BAD_REQUEST;
+    $message = !$disconnected ? $this->i18n->getString('errorLogout') : $this->i18n->getString('successLogout');
+    $data = [];
+
+    // update the class response accordingly
+    $this->updateResponse($success, $status, $message, $data);
+
+  } 
+
+
+  /**
+   * Method used to delete the user 
+   *
+   * @return void
+   */
+  public function delete(): void {
+    // Iniitialize the `deleted` boolean variable by setting it to `false`
+    $deleted = false;
+
+    // If the user is logged in...
+    if ($this->user->isConnected()) {
+      // ...get the user's id as `userId`
+      $userId = $this->user->id;
+      // Now, delete the user with his/her `userId`,
+      // and assign the result to the `deletionResult` variable 
+      $deletionResult = $this->user->deleteUser($userId);
+
+      // If the user was deleted successfully...
+      if ($deletionResult) {
+        // ...set the `deleted` boolean variable to `true`
+        $deleted = true;
+      }
+
+    }
+
+
+    // Creating the `success`, `status`, `message`, and `data` variables...
+
+    $success = $deleted;
+    $status = $deleted ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_BAD_REQUEST;
+    $message = !$deleted ? $this->i18n->getString('errorDeleteAccount') : $this->i18n->getString('successDeleteAccount');
+    $data = [];
+
+    // update the class response accordingly
+    $this->updateResponse($success, $status, $message, $data);
+
+  } 
   
   
   // PRIVATE SETTERS

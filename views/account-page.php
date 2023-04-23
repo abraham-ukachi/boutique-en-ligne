@@ -60,7 +60,7 @@
 ?><!DOCTYPE html>
     
 <!-- HTML -->
-<html lang="<?= $lang ?>">
+<html lang="<?= $this->lang ?>">
 
   <!-- HEAD -->
   <head>
@@ -147,7 +147,7 @@
   
   
   <!-- BODY | Default Theme: light -->
-  <body class="theme <?= $theme ?>" fullbleed>
+  <body class="theme <?= $this->theme ?>" fullbleed>
 
     <!-- PHP: Side Bar -->
     <?php 
@@ -164,9 +164,9 @@
     <!-- PHP: Include the `sideBar` component -->
     <?php
       $_GET['sidebar_route'] = 'account';
-      $_GET['sidebar_init'] = 'au';
-      $_GET['sidebar_connected'] = false; // TRUE if the user is connected
-      $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin
+      $_GET['sidebar_init'] = $this->user->getInitials();
+      $_GET['sidebar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
+      $_GET['sidebar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin
 
       require __DIR__ . '/components/side-bar.php';
     ?>
@@ -205,6 +205,11 @@
 
           <!-- Container -->
           <div class="container vertical flex-layout">
+
+            <!-- PHP (1): If the user is connected... -->
+            <?php if ($this->user->isConnected()): ?>
+            <!-- ...PHP (1): Show the user's initials and fullname -->
+
             <!-- Initials & Fullname -->
             <div class="init-fullname">
               <span init>AU</span>
@@ -212,18 +217,21 @@
             </div>
             <!-- End of Initials & Fullname -->
 
-            <!-- Account List -->
+            <?php endif; ?>
+            <!-- End of PHP (1) -->
+
+            <!-- Account List / Links -->
             <ul id="accountList" naked>
 
 
               <?php foreach ($this->listData as $listItemId => $listItemData): ?>
               <li class="label"><?= $listItemData['title'] ?></li>
 
-              <ul class="list-items <?= $listItemId ?>" naked>
+              <ul class="list-items links <?= $listItemId ?>" naked>
 
                 <?php foreach ($listItemData['items'] as $accountListItemId => $accountListItemData): ?>
 
-                <li id="<?= $accountListItemId?>" class="account-list-item">
+                <li id="<?= $accountListItemId?>" class="account-list-item link-item">
                   <a href="<?= $accountListItemData['link']?>" 
                      role="button" 
                      tabindex="0" 
@@ -251,10 +259,17 @@
             </ul>
             <!-- End of Account List -->
 
+            <!-- PHP (2): If the user is connected... -->
+            <?php if ($this->user->isConnected()): ?>
+            <!-- ...PHP (2): Show the log out and delete account buttons -->
+
             <!-- Log Out - Button -->
-            <button id="logout" outlined><?= $this->i18n->getString("logout") ?></button>
+            <button id="logoutButton" outlined><?= $this->i18n->getString("log_out") ?></button>
             <!-- Delete Account - Button -->
-            <button id="deleteAccount" naked><?= $this->i18n->getString("deleteYourAccount") ?></button>
+            <button id="deleteAccountButton" naked><?= $this->i18n->getString("deleteYourAccount") ?></button>
+
+            <?php endif; ?>
+            <!-- End of PHP (2) -->
 
           </div>
           <!-- End of Container -->
@@ -270,9 +285,9 @@
       <!-- PHP: Include the `navBar` component -->
       <?php
         $_GET['navbar_route'] = 'account';
-        $_GET['navbar_init'] = 'au';
-        $_GET['navbar_connected'] = false; // TRUE if the user is connected
-        $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin
+        $_GET['navbar_init'] = $this->user->getInitials();
+        $_GET['navbar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
+        $_GET['navbar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin
 
         require __DIR__ . '/components/nav-bar.php';
       ?>
@@ -293,26 +308,26 @@
                 
             <!-- MenuItem 1 -->
             <li title="Edit your profile information" class="menu-item">
-              <button>
+              <a role="button" tabindex="0" href="account/info">
                 <span class="material-icons icon">edit</span>
                 <span>Edit profile</span>
-              </button>
+              </a>
             </li>
 
             <!-- MenuItem 2 -->
             <li title="View all your orders" class="menu-item">
-              <button>
+              <a role="button" tabindex="0" href="account/orders">
                 <span class="material-icons icon">music_video</span>
                 <span>View Orders</span>
-              </button>
+              </a>
             </li>
 
             <!-- MenuItem 3 -->
             <li title="See more about Maxaboom" class="menu-item">
-              <button>
+              <a role="button" tabindex="0" href="account/about">
                 <span class="material-icons icon">info</span>
                 <span>About Maxaboom</span>
-              </button>
+              </a>
             </li>
         </menu>
           <!-- End of Menu -->
@@ -324,18 +339,6 @@
       <!-- Toasts of MAIN -->
       <div class="toasts" fit hidden></div>
 
-      <!-- End of App Layout - MAIN -->
-
-      <!-- Nav Bar -->
-      <!-- PHP: Include the `nav-bar` component -->
-      <?php 
-        $_GET['navbar_orientation'] = 'veritcal'; 
-        $_GET['navbar_page'] = 'home'; 
-        $_GET['navbar_connected'] = 'false'; 
-      ?>
-
-      <?php // include 'components/nav-bar.php'; ?>
-      <!-- End of Nav Bar -->
 
     </main>
     <!-- End of MAIN -->
