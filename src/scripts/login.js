@@ -1,18 +1,24 @@
-import { MAIN_PART, ASIDE_PART, FULL_PART } from "../app.js";
-import { SUCCESS_TOAST, GOOD_TOAST, BAD_TOAST, ERROR_TOAST } from "../app.js";
+import {MAIN_PART, ASIDE_PART, FULL_PART} from "../app.js";
+import {SUCCESS_TOAST, GOOD_TOAST, BAD_TOAST, ERROR_TOAST} from "../app.js";
 
 //déclarer le formulaire pour y associer une fonction quand on soumet
 let formConnect = document.getElementById('connectionForm');
 
-async function handleFormSubmit(event){
+/**
+ * Function that fetch login page
+ * @param event
+ * @returns {Promise<void>}
+ */
+async function handleFormSubmit(event) {
     event.preventDefault();
     let form = new FormData(event.currentTarget);
     let url = "login";
     let request = new Request(url, {method: "POST", body: form});
     let response = await fetch(request);
     let responseData = await response.json();
-    if(responseData.success){
-        mbApp.showToast({message: "La connexion a réussi !", type: SUCCESS_TOAST},  2);
+    checkInputs();
+    if (responseData.success) {
+        mbApp.showToast({message: "La connexion a réussi !", type: SUCCESS_TOAST}, 2);
 
         setTimeout(() => {
             location.replace("shop");
@@ -22,53 +28,43 @@ async function handleFormSubmit(event){
 
 formConnect.addEventListener('submit', handleFormSubmit);
 
-
-//formRegister.addEventListener('submit', registerFormSubmit);
-// formulaires connexion en javascript template literal
-/*
-let connexionForm = (mail = 'jean@gmail.com', password = 'azerty') => {
-    return `
-    <form  id='connectionForm' action='' method='post'>
-    <div class="input-form-container">
-        <div class="form-control">
-            <label for="mail">mail</label>
-            <input id="mail" class="connect" name="mail" type="email" value=${mail}>
-            <small>Erreur</small>
-        </div>
-
-        <div class="form-control">
-            <label for="password">Mot de passe</label>
-            <input id="password" class="connect" name="password" type="password" value="${password}">
-            <small>Erreur</small>
-        </div>
-        <button type="submit" class="connection_form_button" id="envoie" name="envoie">Se connecter</button>
-    </div>
-    </form>
-   `
-};
-*/
+let login = document.querySelector('.login-connect');
+let password = document.querySelector('.password-connect');
 
 
-/*la fonction login() va fetch l'url
-où il y a mon controler qui va lancer
-la method PHP avec les paramètres*/
-
-
-/*
-//fonction que va lancer la fonction login() 
-//avec valeurs retournées par le formulaire de connexion
-function handleFormSubmit(event) {
-    event.preventDefault();
-    console.log(event);
-    let mail = event.target[0].value;
-    let password = event.target[1].value;
-    console.log(mail, password);
-    login(mail, password);
-}
-/*
+/**
+ * Function that checks inputs value and launch functions for display the errors
  */
+function checkInputs() {
+    const loginValue = login.value.trim();
+    const passwordValue = password.value.trim();
 
+    if (loginValue === '') {
+        setErrorFor(login, 'Le login doit faire au moins 3 caractères');
+    } else if (loginValue.length >= 3) {
+        setSuccessFor(login)
+    }
+    if (passwordValue === '' || passwordValue.length < 3) {
+        setErrorFor(password, 'Le mot de passe doit faire au moins 3 caractères');
+    } else if (passwordValue.length >= 3) {
+        setSuccessFor(password)
+    }
+}
 
+function setErrorFor(input, message){
+    const inputWrapper = input.parentElement; // .input-wrapper
+    const small = formControl.querySelector('small');
 
+    //add error message inside small tag
+    small.innerText = message;
+
+    //add error class
+    inputWrapper.className = 'input-wrapper error';
+}
+
+function setSuccessFor(input, message) {
+    const inputWrapper = input.parentElement;
+    inputWrapper.className = 'input-wrapper success';
+}
 
 
