@@ -79,6 +79,13 @@ class AdminController{
         require __DIR__ . '/../views/admin-user-details-page.php';
     }
 
+    public function count(){
+        $countUsers=$this->userModel->usersCount();
+        $countProducts=$this->productModel->productsCount();
+        require __DIR__ . '/../views/admin-home-page.php';
+
+    }
+
     public function updateUser($userId, $userFirstname, $userLastname, $userMail, $userRole){
         $success=$this->userModel->updateUser($userId, $userFirstname, $userLastname, $userMail, $userRole);
     }
@@ -103,8 +110,19 @@ class AdminController{
     }
 
     public function showOneCategory($categoryId){
-        $oneCategory=$this->productCategory->getCategoryById($categoryId);
+        $oneCategoryName=$this->productCategory->getCategoryById($categoryId);
+        $oneCategoryTitre=$this->productCategory->getCategoryTitreById($categoryId);
         $specificSubCategories=$this->productCategory->getSubcategoriesByCategoryId($categoryId);
         require __DIR__ . '/../views/admin-category-details-page.php';   
     }
+
+    public function registerNewSubcategory($name, $titre, $categoryId){
+        $newSubCategory=$this->productCategory->registerSubCategory($name, $titre,$categoryId);
+    }
+
+    public function categoryDelete($idSubCategory){
+        return $this->productCategory->deleteSubCategory($idSubCategory);
+    }
+
+
 }

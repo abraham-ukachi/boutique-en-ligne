@@ -392,11 +392,9 @@ class User extends Database
             'iduser' => $idUser
         ]);         
         if ($sql_exe) {
-            return true;
-            // return json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
+            return json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
         } else {
-            return false;
-            // return json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
+            return json_encode(['response' => 'not ok', 'echoue' => 'Problème']);
         }
     }
 
@@ -477,4 +475,14 @@ class User extends Database
       return $this->mail ?? '';
     }
 
+    public function usersCount(){
+        $displayUsers = $this->db->prepare("SELECT COUNT(*) FROM users");
+        $displayUsers->execute([
+        ]);
+        $result = $displayUsers->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 }
+
+

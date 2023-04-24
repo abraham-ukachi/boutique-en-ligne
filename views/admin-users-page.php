@@ -134,15 +134,21 @@
         <div content>
             <div class='container'>
             <h1>Gestion des utilisateurs</h1>
-  <?php
-    //var_dump($allUsers); 
-    echo "<br>";
-    for ($i = 0; $i < count($allUsers); $i++) {
-        echo "<div id=".$allUsers[$i]['id']." data-user-id=".$allUsers[$i]['id']." class='update-user'>".$allUsers[$i]['firstname'].
-        " ".$allUsers[$i]['lastname']." ".$allUsers[$i]['mail']." ".$allUsers[$i]['dob']." ".$allUsers[$i]['user_role'].
-        "<a href='admin/user/".$allUsers[$i]['id']."'>Modifier</a> <button id='".$allUsers[$i]['id']."' class='deleteUser'>Supprimer</button></div><br>";
-    }
-  ?>
+            <?php
+              //var_dump($allUsers); 
+              echo "<br>";
+              for ($i = 0; $i < count($allUsers); $i++) {
+                  echo "<div id=".$allUsers[$i]['id']." data-user-id=".$allUsers[$i]['id']." class='update-user'>".$allUsers[$i]['firstname'].
+                  " ".$allUsers[$i]['lastname']." ".$allUsers[$i]['mail']." ".$allUsers[$i]['dob']." ".$allUsers[$i]['user_role'].
+                  "<a href='admin/user/".$allUsers[$i]['id']."'>Modifier</a> <button id='".$allUsers[$i]['id']."' class='deleteUser'>Supprimer</button></div><br>";
+              }
+            ?>
+
+              <a href="admin/user/create">
+                <button class="fab vertical flex-layout centered" contained="" expands="" shrinks="">
+                <span class="material-icons icon">add</span>
+                </button>
+              </a>
             </div>
         </div>
     </div>

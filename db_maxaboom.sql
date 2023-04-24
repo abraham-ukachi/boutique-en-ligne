@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS db_maxaboom2;
+CREATE DATABASE IF NOT EXISTS db_maxaboom;
 
 /*------------------users table----------------*/
 CREATE TABLE users 
@@ -44,6 +44,7 @@ INSERT INTO addresses (titre, address, address_complement, postal_code, city, co
  ('Maison', '67 rue Dudev', '4e batiment', '13002', 'Marseille', 'FRANCE', 4, 'livraison');
 
 
+/*-------------------categories tables----------*/
 /*-------------------categories tables----------*/
 CREATE TABLE categories(
     id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
