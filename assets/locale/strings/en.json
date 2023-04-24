@@ -73,6 +73,7 @@
   "alreadyHaveAccount": "Already have an account?",
 
   "log_out": "Log out",
+  "log_in": "Log in",
   "logoutConfirmMessage": "Are you sure you want to log out?",
 
 
@@ -90,8 +91,74 @@
   "successLogout": "Logged out successfully",
 
   "errorDeleteAccount": "Failed to delete account",
-  "successDeleteAccount": "Account deleted successfully"
+  "successDeleteAccount": "Account deleted successfully",
+
+  "yourInformation": "Your information",
+  "changeYourEmailAddress": "Change your email address",
+  "changePassword": "Change password",
+
+  "firstName": "First name",
+  "lastName": "Last name",
+  "email": "Email",
+
+  "youAreNotConnected": "You are not connected",
+  "youAreNotConnectedMessage": "You must be connected to access this page. If you think this message is wrong, please contact us.",
+  "identity": "Identity",
+  "password": "Password",
+  "mandatoryField": "Mandatory field",
+
+  "newEmail": "New email",
+  "confirmNewEmail": "Confirm new email",
+  "changeEmail": "Change email",
+
+  "oldPassword": "Old password",
+  "newPassword": "New password",
+  "confirmNewPassword": "Confirm new password",
+  "changePassword": "Change password",
+
+  "placeholderFirstName": "Enter your first name",
+  "placeholderLastName": "Enter your last name",
+  "placeholderEmail": "Enter your email",
+  "placeholderNewEmail": "Enter your new email",
+  "placeholderConfirmNewEmail": "Confirm your new email",
+
+  "placeholderOldPassword": "Enter your old password",
+
+  "exampleEmail": "your.name@maxaboom.shop",
+
+  "dateOfBirth": "Date of Birth",
+  "dobFormat": "DD/MM/YYYY",
+
+  "oldPasswordIsVisible": "Old password is visible",
+  "newPasswordIsVisible": "New password is visible",
+  "confirmNewPasswordIsVisible": "Confirm new password is visible",
+
+  "oldPasswordIsHidden": "Old password is hidden",
+  "newPasswordIsHidden": "New password is hidden",
+  "confirmNewPasswordIsHidden": "Confirm new password is hidden",
   
+  "save": "Save",
+
+
+
+  "firstNameErrorMessageValueMissing": "Your first name is required 😜",
+
+  "firstNameErrorMessageTooShort": "Your first name is too short 🤔",
+
+  "firstNameErrorMessageTooLong": "Your first name is too long 😱",
+
+  "firstNameErrorMessagePatternMismatch": "Please enter a valid first name 😅",
+
+
+
+  "lastNameErrorMessageValueMissing": "Your last name is required 😜",
+
+  "lastNameErrorMessageTooShort": "Your last name is too short 🤔",
+
+  "lastNameErrorMessageTooLong": "Your last name is too long 😱",
+
+  "lastNameErrorMessagePatternMismatch": "Please enter a valid last name 😅"
+
 }
 
 

@@ -161,6 +161,10 @@
   display: flex;
 }
 
+.flex {
+  flex: 1;
+}
+
 
 /* Vertical Flex-Layout */
 .vertical.flex-layout {
@@ -323,6 +327,19 @@ body > aside {
   */
 }
 
+/* === SPECIFIC VIEWPORTS ONLY === */
+
+[narrow-only], [narrow-and-wide-only] {
+  display: auto !important;
+}
+
+[tablet-only] {
+  display: none !important;
+}
+
+[wide-only] {
+  display: none !important;
+}
 
 
 /* --- [ App Layout ] --- */
@@ -336,6 +353,11 @@ body > aside {
   scroll-behavior: smooth;
 }
 
+.app-layout.view {
+  position: absolute;
+  background: var(--background-color);
+  z-index: 10;
+}
 
 /* Header of App Layout */
 .app-layout > header {
@@ -614,6 +636,7 @@ span.divider {
   background: var(--divider-color, var(--outline-color));
   opacity: var(--divider-opacity, var(--opacity-icon-disabled, 0.5));
   pointer-events: none;
+  z-index: 10;
 }
 
 /* Horizontal Dividers */
@@ -698,6 +721,15 @@ a[active] .icon-button, a[role="icon-button"][active] {
   overflow: scroll;
 }
 
+[content] > .container[not-connected] {
+  /* text-align: center; */
+}
+
+
+[content] > .container[not-connected] p[info] {
+  max-width: 420px;
+}
+
 /* Container of [content] */
 [content] > .container {
   width: 100%;
@@ -715,6 +747,11 @@ a[active] .icon-button, a[role="icon-button"][active] {
   user-select: none;
 }
 
+[content] > .container[empty][not-connected] .doodle {
+  --empty-doodle-image: url('../images/lock.png');
+}
+
+
 [content] > .container[empty] .doodle {
   width: var(--empty-doodle-size, 200px);
   height: var(--empty-doodle-size, 200px);
@@ -725,6 +762,8 @@ a[active] .icon-button, a[role="icon-button"][active] {
   background-position: center;
   background-size: cover;
 }
+
+
 
 /** Empty Container Title */
 .container[empty] h2, .container[empty] [title] {
@@ -830,6 +869,7 @@ form > *:nth-child(9) {
 form > *:nth-child(10) {
   --form-animation-delay: 1.1s;
 }
+
 
 /* all labels next to an input */
 label {
@@ -1539,7 +1579,20 @@ em {
  * ***************************************
  */
 @media (min-width: 460px) {
-  
+  /* === SPECIFIC VIEWPORTS ONLY === */
+
+  [narrow-only] {
+    display: none !important;
+  }
+
+  [tablet-only], [narrow-and-tablet-only] {
+    display: auto !important;
+  }
+
+  [wide-only] {
+    display: none !important;
+  }
+
   /* Vertical Nav Bar */
   .nav-bar.vertical, #sideBar {
     width: var(--side-bar-size, 90px); /* b4: 78px */
@@ -1699,6 +1752,22 @@ em {
 }
 
 
+
+@media (min-width: 768px) {
+  /* === SPECIFIC VIEWPORTS ONLY === */
+  [narrow-only] {
+    display: none !important;
+  }
+
+  [tablet-only], [narrow-and-tablet-only] {
+    display: none !important;
+  }
+
+  [wide-only] {
+    display: auto !important;
+  }
+
+}
 
 
 /* 

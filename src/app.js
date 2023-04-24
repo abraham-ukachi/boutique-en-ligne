@@ -150,7 +150,13 @@ export class MaxaboomApp {
 
 
   // TODO: Define some public properties
-
+  
+  /**
+   * Config of the app
+   */
+  config = {
+    baseUrl: '/boutique-en-ligne/'
+  };
 
   // TODO: Define some private properties
 
@@ -433,6 +439,104 @@ export class MaxaboomApp {
 
   }
 
+  /**
+   * Method used to clear or remove any available input error of the given `inputEl`
+   *
+   * @param { Element } inputEl - The input element to remove the input error from
+   */
+  clearInputError(inputEl) {
+    // do nothing if there's no input element
+    if (!inputEl) { return }
+
+    // get the parent of the input element as `inputParentEl`
+    let inputParentEl = inputEl.parentElement;
+
+    // if the `inputParentEl` has a `horizontal` class
+    if (inputParentEl.classList.contains('horizontal')) {
+      // ...get the grandparent of the input element as `inputParentEl`
+      inputParentEl = inputParentEl.parentElement;
+    }
+
+    // get the input indicator element as `inputIndicatorEl`
+    let inputIndicatorEl = inputParentEl.querySelector('.input-indicator');
+
+    // get the input error element as `inputErrorEl`
+    let inputErrorEl = inputParentEl.querySelector('.input-message.error');
+
+
+    // Tell the `inputParent` that there's no error
+    inputParentEl.removeAttribute('has-error');
+
+    // If there's an input indicator element...
+    if (inputIndicatorEl) {
+      // ...remove the `error` class 
+      inputIndicatorEl.classList.remove('error');
+      // and remove the `[no-effect]` attribute 
+      inputIndicatorEl.removeAttribute('no-effect');
+    }
+
+    // If there's an input error element...
+    if (inputErrorEl) {
+      // ...remove the `error` class
+      inputErrorEl.classList.remove('error');
+      // and set its innerHTML to an empty string
+      inputErrorEl.innerHTML = '';
+      // and finally, hide it by setting its `hidden` property to `true`
+      inputErrorEl.hidden = true;
+    }
+  }
+
+
+  /**
+   * Method used to show an input error message for the given `inputEl`
+   *
+   * @param { Element } inputEl - The input element to show the input error for
+   * @param { String } errorMessage - The error message to show
+   */
+  showInputError(inputEl, errorMessage) {
+    // do nothing if there's no input element
+    if (!inputEl) { return }
+
+    // get the parent of the input element as `inputParentEl`
+    let inputParentEl = inputEl.parentElement;
+
+    // if the `inputParentEl` has a `horizontal` class
+    if (inputParentEl.classList.contains('horizontal')) {
+      // ...get the grandparent of the input element as `inputParentEl`
+      inputParentEl = inputParentEl.parentElement;
+    }
+
+    // get the input indicator element as `inputIndicatorEl`
+    let inputIndicatorEl = inputParentEl.querySelector('.input-indicator');
+
+    // get the input message element as `inputMessageEl`
+    let inputMessageEl = inputParentEl.querySelector('.input-message');
+
+    // Tell the `inputParentEl` that there's an error
+    inputParentEl.setAttribute('has-error', '');
+
+    // If there's an input indicator element...
+    if (inputIndicatorEl) {
+      // ...add the `error` class 
+      inputIndicatorEl.classList.add('error');
+      // and set the `[no-effect]` attribute to an empty string, 
+      // so that the input indicator will not have any effect
+      inputIndicatorEl.setAttribute('no-effect', '');
+    }
+
+    // If there's an input message element...
+    if (inputMessageEl) {
+      // ...add the `error` class
+      inputMessageEl.classList.add('error');
+      // and set its innerHTML to the `inputMessageEl`
+      inputMessageEl.innerHTML = errorMessage;
+      // and finally, show it by setting its `hidden` property to `false`
+      inputMessageEl.hidden = false;
+    }
+  }
+
+
+
 
   /**
    * Method used to toggle the menu with the given `menuId`
@@ -674,6 +778,15 @@ export class MaxaboomApp {
   }
 
 
+  /** 
+   * A SIMPLE method that is used to navigate or change the app's route to the given `url` 
+   *
+   * @param { String } url - The url to navigate to (eg. 'shop', 'account/info')
+   */
+  navigate(url) {
+    location.href = this.config.baseUrl + url;
+  }
+
 
   /**
    * Opens the `<aside>` part of the app
@@ -805,6 +918,23 @@ export class MaxaboomApp {
     if (this.backdropEl.hidden) this.showBackdropOf(DEFAULT_PART);
     // if the backdrop is not hidden, then hide it
     else this.hideBackdropOf(DEFAULT_PART);
+  }
+
+
+  /**
+   * This method is used to toggle the `password` type of an input element with the given `passwordInputId`
+   * 
+   * @param { String } passwordInputId - The id of the input element to toggle the `password` type of
+   *
+   * @returns { String } inputType - The type of the input element
+   */
+  togglePasswordInputById(passwordInputId) {
+    // get the password input element
+    const passwordInputEl = document.getElementById(passwordInputId);
+    // change the type of the password input element
+    passwordInputEl.type = passwordInputEl.type === 'password' ? 'text' : 'password';
+    // return the type of the password input element
+    return passwordInputEl.type;
   }
 
   /**
@@ -1199,6 +1329,14 @@ export class MaxaboomApp {
     return document.querySelectorAll('.app-layout');
   }
 
+  /**
+   * Returns a list of all the current input elements.
+   *
+   * @returns { NodeList } - A list of all the current input elements (input, textarea, select)
+   */
+  get inputEls() {
+    return document.querySelectorAll('input, textarea, select');
+  }
 
   /**
    * Returns the default dialogs element.
@@ -1392,6 +1530,14 @@ export class MaxaboomApp {
       });
     });
 
+
+    // install `input` event listeners for all currently available `input` elements...
+    this.inputEls.forEach((inputEl) => {
+      inputEl.addEventListener('input', this._inputChangeHandler.bind(this));
+      // notify the `input` element
+      this._notifyInputEl(inputEl);
+    });
+
   }
 
 
@@ -1526,6 +1672,98 @@ export class MaxaboomApp {
       </div>
       <!-- End of Dialog -->
     `;
+  }
+
+
+  /**
+   * Notifies the given input element that it has a value.
+   * NOTE: This adds a `has-value` attribute to the given input element, and a `raised` attribute to its label
+   *
+   * @param { Element } inputEl - The input element to notify
+   */
+  _notifyInputEl(inputEl) {
+    // get the label of this input element using its id
+    let labelEl = document.querySelector(`label[for="${inputEl.id}"]`); // b4: inputEl.previousElementSibling;
+
+
+    // if the input has some value or placeholder...
+    if (inputEl.value.length || inputEl.placeholder.length) {
+      //...create and attribute named 'has-value'
+      // and add it to the given input element (i.e. `inputEl`)
+      inputEl.setAttribute('has-value', ''); // <- An empty value should turn our attribute into a 'property'
+
+      // if the input has a label...
+      if (labelEl) {
+        // ...add a 'raised' attribute to it
+        labelEl.setAttribute('raised', '');
+      }
+
+    }else { // <- if the input has no value or placeholder ...
+      
+      //...remove the 'has-value' attribute
+      inputEl.removeAttribute('has-value', ''); 
+
+      // if the input has a label...
+      if (labelEl) {
+        // ...remove the 'raised' attribute from it
+        labelEl.removeAttribute('raised');
+      }
+
+    }
+
+    // DEBUG [4dbsmaster]: tell me about it ;)
+    console.log(`\x1b[33m[_notifyInputEl] (1): inputEl => \x1b[0m`, inputEl);
+    console.log(`\x1b[33m[_notifyInputEl] (2): labelEl => \x1b[0m`, labelEl);
+  }
+
+
+  /*
+   * Handler that is called whenever an input value changes
+   *
+   * @param { InputEvent } event
+   * @private
+   */
+  _inputChangeHandler(event) {
+
+    // get the input element that triggered this event as `inputEl`
+    let inputEl = event.target;
+
+    // Do nothing if - for some reason - there's no inputEl
+    if (typeof(inputEl) == 'undefined' || !inputEl) { return }
+
+    // get the value from the input element
+    let value = inputEl.value;
+    // get the label of this input element using its id
+    let labelEl = document.querySelector(`label[for="${inputEl.id}"]`); // inputEl.previousElementSibling; 
+
+    // if the input has some value...
+    if (value.length || inputEl.placeholder.length) {
+      //...create and attribute named 'has-value'
+      // and add it to the given input element (i.e. `inputEl`)
+      inputEl.setAttribute('has-value', ''); // <- An empty value should turn our attribute into a 'property'
+        
+      // HACK: If this input element has an element...
+      if (labelEl) {
+        // ...set an attribute `raised` to the label element
+        labelEl.setAttribute('raised', '');
+      }
+
+    } else { // <- no value was found in input
+      // So, remove the 'has-value' attribute from `inputEl`
+      inputEl.removeAttribute('has-value');
+
+      // HACK: If this input element has an element...
+      if (labelEl) {
+        // ...remove the attribute `raised` from the label element
+        labelEl.removeAttribute('raised');
+      }
+
+    }
+
+    // DEBUG [4dbsmaster]: tell me about it :)
+    console.log(`\x1b[36m[handleInputValue](1): value => %s\x1b[0m`, value);
+    console.log(`\x1b[36m[handleInputValue](2): inputEl => %s\x1b[0m`, inputEl);
+
   }
 
 

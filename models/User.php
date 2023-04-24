@@ -425,4 +425,45 @@ class User extends Database
       return $isAdmin;
     }
 
+    /**
+     * Returns the date of birth of the user
+     *
+     * @param bool $useDateFormat - If set to TRUE, the current `dateFormat` will be used when the user has no date of birth
+     * @param string $dateFormat - The date format to use when the user has no date of birth
+     * 
+     * @return string 
+     */
+    public function getDateOfBirth(bool $useDateFormat = false, string $dateFormat = 'DD/MM/YYYY'): string {
+      return $this->dob ?? ($useDateFormat ? $dateFormat : '');
+    }
+
+
+    /**
+     * Returns the first name of the user
+     *
+     * @return string
+     */
+    public function getFirstName(): string {
+      return $this->firstname ?? '';
+    }
+
+
+    /**
+     * Returns the last name of the user
+     *
+     * @return string
+     */
+    public function getLastName(): string {
+      return $this->lastname ?? '';
+    }
+
+    /**
+     * Returns the email of the user
+     *
+     * @return string
+     */
+    public function getEmail(): string {
+      return $this->mail ?? '';
+    }
+
 }

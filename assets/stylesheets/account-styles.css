@@ -66,9 +66,14 @@
   align-items: center;
 }
 
-.init-fullname > [init] {
-  background: var(--tertiary-container-color);
-  color: var(--on-tertiary-container-color);
+.buttons > * {
+  margin-top: 1rem !important;
+}
+
+
+.init-fullname > [init], .container [init] {
+  background: var(--tertiary-color);
+  color: var(--on-tertiary-color);
   font-weight: bold;
   padding: 8px;
   border-radius: 50%;
@@ -79,11 +84,10 @@
   align-items: center;
   font-size: inherit;
   margin: 0 12px;
+  text-transform: uppercase;
 }
 
 .init-fullname > [fullname] {}
-
-
 
 /* Account List Item */
 #accountList .account-list-item > a, .link-item > a {
@@ -185,7 +189,7 @@
 }
 
 .settings.list-items h4, .link-item h4 {
-  text-transform: capitalize;
+  text-transform: lowercase;
 }
 
 

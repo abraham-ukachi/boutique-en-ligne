@@ -132,7 +132,7 @@ class AccountController extends Controller {
    * @return string - the user's full name
    */
   public function getFullname(bool $reversed = false): string {
-    return ($this->isConnected()) ? $this->user->firstname . ' ' . $this->user->lastname : '';
+    return ($this->user->isConnected()) ? $this->user->firstname . ' ' . $this->user->lastname : '';
   }
 
 
@@ -387,7 +387,47 @@ class AccountController extends Controller {
 
     return $overviewListData;
   }
-  
+
+
+
+  /**
+   * Returns the data for the info links
+   *
+   * @return array
+   */
+  public function getInfoLinks(): array {
+    // Initialize a `infoLinks` variable by setting it to an empty array
+    $infoLinks = [];
+    
+    // create the `identity` link items in `infoLinks`
+    $infoLinks['identity'] = [
+      'icon' => '',
+      'title' => $this->getFullname(),
+      'description' => $this->user->getDateOfBirth(true),
+      'link' => 'account/info/identity',
+    ];
+
+    // create the `email` link item in `infoLinks`
+    $infoLinks['email'] = [
+      'icon' => '',
+      'title' => $this->i18n->getString('changeYourEmailAddress'),
+      'description' => $this->user->getEmail(),
+      'link' => 'account/info/email',
+    ];
+
+    // create the `password` link item in `infoLinks`
+    $infoLinks['password'] = [
+      'icon' => '',
+      'title' => $this->i18n->getString('changePassword'),
+      'description' => str_repeat('x', 10),
+      'link' => 'account/info/password',
+    ];
+
+    // return the `infoLinks` variable
+    return $infoLinks;
+  }
+
+
 
   /**
    * Method used to log the user out

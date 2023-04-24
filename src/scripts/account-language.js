@@ -21,8 +21,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
-* @name: Account Page
-* @codename: accountPage 
+* @name: Account Info Page
+* @codename: accountInfoPage 
 * @type: Script
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
@@ -38,16 +38,16 @@
 // Import a couple of important stuff ;)
 import { SUCCESS_TOAST, GOOD_TOAST, BAD_TOAST, ERROR_TOAST, NORMAL_TOAST } from '../app.js'; // <- toasts
 import { MAIN_PART, ASIDE_PART, FULL_PART } from '../app.js'; // <- parts
-
+import { accountPage } from './account.js'; // <- account page
 
 "use strict"; 
 // ^^^^^^^^^ This keeps us on our toes, as it forces us to use all pre-defined variables, among other things 😅
 
 
 /**
- * Class representing the account page
+ * Class representing the account info page
  */
-export class AccountPage {
+class AccountInfoPage  {
 
   /**
    * The constructor of the class
@@ -62,23 +62,6 @@ export class AccountPage {
   // PUBLIC SETTERS
   // PUBLIC GETTERS
 
-  /**
-   * Returns the logout button
-   *
-   * @returns { Element } 
-   */
-  get logoutButton() {
-    return document.getElementById('logoutButton');
-  }
-
-  /**
-   * Returns the delete account button
-   *
-   * @returns { Element } 
-   */
-  get deleteAccountButton() {
-    return document.getElementById('deleteAccountButton');
-  }
 
 
 
@@ -96,7 +79,8 @@ export class AccountPage {
    * Method used to install event listeners on the account page
    */
   _installEventListeners() {
-
+  
+    /*
     // If there are logout and delete account buttons on the page...
     if (this.logoutButton && this.deleteAccountButton) {
       // ...install click event listener on the logout and delete account button,
@@ -104,6 +88,8 @@ export class AccountPage {
       this.logoutButton.addEventListener('click', this._logoutButtonClickHandler.bind(this));
       this.deleteAccountButton.addEventListener('click', this._deleteAccountButtonClickHandler.bind(this));
     }
+
+    */
 
   }
 
@@ -128,27 +114,6 @@ export class AccountPage {
     }, 0.5);
   }
 
-
-  /**
-   * Handler that is called whenever the delete account button is clicked
-   *
-   * @param { PointerEvent } event - The event that triggered the handler
-   *
-   * @returns { void }
-   * @private
-   */
-  _deleteAccountButtonClickHandler(event) {
-    // open a delete dialog in the main part
-    mbApp.openDialog({
-      title: mbApp.i18n.getString('deleteAccount'),
-      message: mbApp.i18n.getString('deleteAccountConfirmMessage'),
-      confirmBtnText: mbApp.i18n.getString('delete'),
-      cancelBtnText: mbApp.i18n.getString('cancel'),
-      onConfirm: this._deleteAccount.bind(this),
-      onCancel: () => { mbApp.closeDialog(); },
-      isCancelable: true
-    }, 0.5);
-  }
 
 
   /**
@@ -192,51 +157,11 @@ export class AccountPage {
   }
 
 
-  /**
-   * Method used to delete the user's account
-   *
-   * @param { PointerEvent } event - The event that triggered the handler
-   * @returns { void }
-   */
-  async _deleteAccount(event) {
-    // define the delete account URL as `deleteAccountUrl`
-    // const deleteAccountUrl = `${mbApp.config.apiUserUrl}/delete`; // <- the way it should be
-    const deleteAccountUrl = `account/delete`; // <- the way it is for now ;)
-
-    // create a POST request object with `deleteAccountUrl`
-    const request = new Request(deleteAccountUrl, {method: 'POST'});
-
-    // send the request and handle the response as `requestResponse`
-    const requestResponse = await fetch(request);
-
-    // get the JSON response from the `requestResponse` as `response
-    const response = await requestResponse.json();
-    
-    // DEBUG [4dbsmaster]: tell me about the response ;)
-    console.log(`\x1b[40m;\x1b[33m[_deleteAccount]: response => \x1b[0m`, response);
-    
-    // close the dialog
-    mbApp.closeDialog();
-
-    // show a toast for 3 seconds, with the response message
-    mbApp.showToast({
-      message: response.message, 
-      type: response.success ? SUCCESS_TOAST : ERROR_TOAST
-    }, 3, FULL_PART)
-      .then(() => {
-        // if the response was successful, redirect the user to the home page
-        if (response.success) {
-          location.replace('home');
-        }
-    });
-
-  }
-
 
 }
 
 
 // Instantiate the class as `account`
-let accountPage = new AccountPage();
+let accountInfoPage = new AccountInfoPage();
 // Export the class as `accountPage`
-export { accountPage };
+export { accountInfoPage };
