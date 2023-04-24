@@ -285,6 +285,24 @@ class Product extends Database
                 WHERE products.id = 1";
         $sql->$this->db->execute();
         $results = $sql->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function productsCount(){
+        $displayUsers = $this->db->prepare("SELECT COUNT(*) FROM products WHERE deleted_at IS NULL");
+        $displayUsers->execute([
+        ]);
+        $result = $displayUsers->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function GetProductByName($string, $limite, $category_id){
+        $sql = "SELECT id, name FROM products WHERE name LIKE '$string%'
+        AND categories_id = $category_id LIMIT $limite ";
+
+            $sql_exe = $this->db->prepare($sql);
+            $sql_exe->execute([
+            ]); 
+        $results = $sql_exe->fetch(PDO::FETCH_ASSOC); 
         return $results;
     }
 

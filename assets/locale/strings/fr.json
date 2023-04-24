@@ -17,6 +17,12 @@
 "ge": "Bonsoir",
 "gn": "Bonne nuit",
 
+"greeting": "Nous avons préparé de nouveaux instruments pour vous 🎺🥁🎹💃🕺😅",
+
+"searchProducts": "Rechercher des produits",
+
+"searchInstruments": "Rechercher des instruments",
+
 "splashScreen": "Écran de démarrage",
 
 "welcome": "Bienvenue",
@@ -155,5 +161,21 @@
 
   "lastNameErrorMessageTooLong": "Votre nom est trop long 😱",
 
-  "lastNameErrorMessagePatternMismatch": "Veuillez entrer un nom valide 😅"
+  "lastNameErrorMessagePatternMismatch": "Veuillez entrer un nom valide 😅",
+
+  "heroTitle": "Découvrez votre instrument musical idéal",
+  "heroSubtitle": "Maxaboom est une application Web gratuite, open source et facile à utiliser qui vous permet de découvrir et d'acheter votre instrument musical idéal.",
+
+  "shopNow": "Acheter maintenant",
+  "exploreMore": "Explorer plus",
+
+  "theme": "Thème",
+  "changeTheme": "Changer de thème",
+
+  "language": "Langue",
+  "languages": "Langues",
+
+  "changeLanguage": "Changer de langue",
+
+  "aboutMaxaboom": "À propos de Maxaboom"
 }

@@ -392,11 +392,9 @@ class User extends Database
             'iduser' => $idUser
         ]);         
         if ($sql_exe) {
-            return true;
-            // return json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
+            return json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
         } else {
-            return false;
-            // return json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
+            return json_encode(['response' => 'not ok', 'echoue' => 'Problème']);
         }
     }
 
@@ -458,6 +456,17 @@ class User extends Database
     }
 
     /**
+     * Returns the user's full name
+     *
+     * @param bool $reversed - if TRUE, the name will be reversed (i.e. "Lastname Firstname")
+     *
+     * @return string - the user's full name
+     */
+    public function getFullname(bool $reversed = false): string {
+      return ($this->isConnected()) ? $this->firstname . ' ' . $this->lastname : '';
+    }
+
+    /**
      * Returns the email of the user
      *
      * @return string
@@ -466,4 +475,14 @@ class User extends Database
       return $this->mail ?? '';
     }
 
+    public function usersCount(){
+        $displayUsers = $this->db->prepare("SELECT COUNT(*) FROM users");
+        $displayUsers->execute([
+        ]);
+        $result = $displayUsers->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 }
+
+

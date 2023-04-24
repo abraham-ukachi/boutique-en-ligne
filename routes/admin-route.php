@@ -2,6 +2,10 @@
 use Maxaboom\Controllers\AdminController;
 
 // ------------------------for administrate products --------------------
+$router->map( 'GET', '/admin', function() {
+    $adminController = new AdminController();
+    $adminController->count();
+ });
 
 $router->map( 'GET', '/admin/product/create', function() {
    require __DIR__ . '/../views/admin-product-create-page.php';
@@ -161,4 +165,17 @@ $router->map( 'GET', '/admin/categories', function() {
 $router->map( 'GET', '/admin/category/[i:categoryId]', function($categoryId){
     $adminController = new AdminController();
     $adminController->showOneCategory($categoryId);
+});
+
+$router->map( 'POST', '/admin/category/[i:categoryId]', function($categoryId){
+    $adminController = new AdminController();
+    $name = $_POST['subcategoryName'];
+    $titre = $_POST['subcategoryTitre'];
+    $adminController->registerNewSubcategory($name, $titre,$categoryId);
+});
+
+$router->map('DELETE', '/admin/category/[i:categoryId]', function($categoryId) {
+    $adminController = new AdminController();
+    $response = $adminController->categoryDelete($categoryId);
+    echo $response; 
 });

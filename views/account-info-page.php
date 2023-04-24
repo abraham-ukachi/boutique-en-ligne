@@ -151,17 +151,6 @@
   <!-- BODY | Default Theme: light -->
   <body class="theme <?= $this->theme ?>" fullbleed>
 
-    <!-- PHP: Side Bar -->
-    <?php 
-      $_GET['sidebar_page'] = 'home'; 
-      $_GET['sidebar_init'] = 'au'; 
-      $_GET['sidebar_connected'] = false; 
-      $_GET['sidebar_isAdmin'] = false; 
-
-      // include 'components/side-bar.php';
-    ?>
-    <!-- PHP: End of Side Bar -->
-
     <!-- Side Bar -->
     <!-- PHP: Include the `sideBar` component -->
     <?php
@@ -294,7 +283,7 @@
 
         require __DIR__ . '/components/nav-bar.php';
       ?>
-      <!-- End of Side Bar -->
+      <!-- End of Nav Bar -->
 
       <!-- Backdrop of MAIN -->
       <div class="backdrop" fit hidden></div>
