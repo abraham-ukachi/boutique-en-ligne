@@ -49,45 +49,51 @@ namespace Maxaboom\Routes;
 // use maxaboom's `APIController` class
 use Maxaboom\Controllers\HomeController;
 
-// use these controller helpers
-use Maxaboom\Controllers\Helpers\I18n;
-// use these models
-use Maxaboom\Models\User;
 
-// $browserLanguage = I18n::getBrowserLanguage();
 
-// echo $browserLanguage;
-
-/** 
- * Home - Route 
+/**
+ * ============================
+ *  Home Routes
+ * ============================
  */
+
+
+
+
 
 
 /**
  * Route used to display the splash, welcome or home view
  * 
  * @method GET
- * @action /
+ * @action / - or (/splash|/welcome)
  *
  * @echo string $splashScreen|$welcomeScreen|$homePage - the splash screen, welcome screen or home page
+ * @return void
  */
-$router->map('GET', '/', function(): void {
-  // create an instance of the `I18n` class
-  $i18n = new I18n('fr');
-  // create an instance of the `User` class
-  $user = new User();
+$router->map('GET', '/[splash|welcome:screen]?', function(?string $screen = null): void {
+  // create an object of the `HomeController` class
+  $homeController = new HomeController();
 
-  // get the home controller
-  $homeController = new HomeController($i18n, $user);
-  
-  // show the splash screen
-  // $homeController->showSplashScreen();
-  
-  // $i18n = new I18n('ru');
-  // show the home page
-  $homeController->showHomePage('dark', 'fr');
+  // switch the screen
+  switch ($screen) {
+    case HomeController::SCREEN_SPLASH:
+      // show the splash screen
+      $homeController->showSplashScreen();
+      break;
+    case HomeController::SCREEN_WELCOME:
+      // show the welcome screen
+      $homeController->showWelcomeScreen();
+      break;
+    default:
+      // 
+      break;
+  }
 
-  echo I18n::getBrowserLanguage();
+  if (!isset($screen)) {
+    // show the home page
+    $homeController->showHomePage();
+  }
 
 });
 

@@ -561,6 +561,22 @@ header[sticky-enabled] {
   color: var(--on-tertiary-container-color);
 }
 
+span.user-initials {
+  background: var(--tertiary-color);
+  color: var(--on-tertiary-color);
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 50%;
+  width: var(--user-initials-size, 24px);
+  height: var(--user-initials-size, 24px);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: inherit;
+  margin: 0 12px;
+  text-transform: uppercase;
+}
+
 /* App Logo | SPAN */
 span.app-logo {
   display: block;
