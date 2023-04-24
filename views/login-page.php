@@ -132,11 +132,16 @@
                     <!-- Input Wrapper -->
                     <div class='input-wrapper vertical flex-layout'>
                         <!-- Label -->
-                        <label for='mail' raised>Email</label>
+                        <label for='mail'>Email</label>
                         <!-- Input -->
-                        <input type='text' id='mail' name='mail' required>
+                        <input type='text' id='mail' name='mail' minlength="3" pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$" required>
                         <!-- Indicator -->
                         <span class='input-indicator'><span bar></span><span val></span></span>
+
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
                     <!-- End of Input Wrapper -->
 
@@ -155,17 +160,17 @@
                     <!-- TIP: Add `[has-error]` attribute / property to `.input-wrapper`, to increase the error input message height -->
                     <div class='input-wrapper vertical flex-layout'>
                         <!-- Label -->
-                        <label for='password ' raised>Mot de passe</label>
+                        <label for='password'>Mot de passe</label>
 
                         <!-- Horizontal Flex-Layout -->
                         <div class='horizontal flex-layout'>
 
                             <!-- Input -->
-                            <input type='password' id='password' name='password' required>
+                            <input type='password' id='password' name='password' minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required>
 
                             <!-- Toggle Password - Icon Button -->
                             <button type='button' tabindex='-1' class='icon-button'
-                                    onclick="mbApp.togglePasswordInputById('passwordInput')">
+                                    onclick="mbApp.togglePasswordInputById('password')">
                                 <span class='material-icons'>visibility</span>
                             </button>
 

@@ -128,32 +128,99 @@
             <form id='registerForm' method='post'>
 
                 <div class='input-wrapper'>
-                    <label for='firstname' raised>Prénom</label>
-                    <input id='firstname' class='connect' name='firstname' type='text' value=''>
+                    <label for='firstname'>Prénom</label>
+                    <input id='firstname' class='connect' name='firstname' type='text' value='' minlength="1" required>
                     <span class='input-indicator'><span bar></span><span val></span></span>
+                    <!-- Input Message -->
+                    <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                    <p class='input-message fade-in error' hidden>Incorrect password</p>
+                    <!-- End of Input Message -->
                 </div>
                 <div class='input-wrapper'>
-                    <label for='lastname' raised>Nom</label>
-                    <input id='lastname' class='connect' name='lastname' type='text' value=''>
+                    <label for='lastname'>Nom</label>
+                    <input id='lastname' class='connect' name='lastname' type='text' value='' minlengh="1" required>
                     <span class='input-indicator'><span bar></span><span val></span></span>
+                    <!-- Input Message -->
+                    <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                    <p class='input-message fade-in error' hidden>Incorrect password</p>
+                    <!-- End of Input Message -->
                 </div>
 
                 <div class='input-wrapper'>
-                    <label for='mail' raised>mail</label>
-                    <input id='mail' class='connect' name='mail' type='email' value=''>
+                    <label for='mail'>Email</label>
+                    <input id='mail' class='connect' name='mail' type='email' value=''  pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$" required>
                     <span class='input-indicator'><span bar></span><span val></span></span>
+                    <!-- Input Message -->
+                    <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                    <p class='input-message fade-in error' hidden>Incorrect password</p>
+                    <!-- End of Input Message -->
                 </div>
 
-                <div class='input-wrapper'>
-                    <label for='password' raised>Mot de passe</label>
-                    <input id='password' class='connect' name='password' type='password' value=''>
-                    <span class='input-indicator'><span bar></span><span val></span></span>
+                <!-- Input-Wrapper -->
+                <!-- TIP: Add `[has-error]` attribute / property to `.input-wrapper`, to increase the error input message height -->
+                <div class='input-wrapper vertical flex-layout'>
+                    <!-- Label -->
+                    <label for='password'>Mot de passe</label>
+
+                    <!-- Horizontal Flex-Layout -->
+                    <div class='horizontal flex-layout'>
+
+                        <!-- Input -->
+                        <input type='password' id='password' name='password' minlength='8'
+                               pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$' required>
+
+                        <!-- Toggle Password - Icon Button -->
+                        <button type='button' tabindex='-1' class='icon-button'
+                                onclick="mbApp.togglePasswordInputById('password')">
+                            <span class='material-icons'>visibility</span>
+                        </button>
+
+                        <!-- Indicator -->
+                        <!-- TIP: Use the `[no-effect]` attribute / property on `.input-indicator`, to remove the auto-hide / cool effect ;) -->
+                        <span class='input-indicator'><span bar></span><span val></span></span>
+                    </div>
+                    <!-- End of Horizontal Flex-Layout -->
+
+                    <!-- Input Message -->
+                    <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                    <p class='input-message fade-in error' hidden>Incorrect password</p>
+                    <!-- End of Input Message -->
+
                 </div>
-                <div class='input-wrapper'>
-                    <label for='password' raised>Vérification du mot de passe</label>
-                    <input id='check-password' class='connect' name='check-password' type='password' value=''>
-                    <span class='input-indicator'><span bar></span><span val></span></span>
+
+
+                <!-- Input-Wrapper -->
+                <!-- TIP: Add `[has-error]` attribute / property to `.input-wrapper`, to increase the error input message height -->
+                <div class='input-wrapper vertical flex-layout'>
+                    <!-- Label -->
+                    <label for='check-password'>Confirmation du mot de passe</label>
+
+                    <!-- Horizontal Flex-Layout -->
+                    <div class='horizontal flex-layout'>
+
+                        <!-- Input -->
+                        <input type='password' id='check-password' name='check-password' minlength='8' required>
+
+                        <!-- Toggle Password - Icon Button -->
+                        <button type='button' tabindex='-1' class='icon-button'
+                                onclick="mbApp.togglePasswordInputById('check-password')">
+                            <span class='material-icons'>visibility</span>
+                        </button>
+
+                        <!-- Indicator -->
+                        <!-- TIP: Use the `[no-effect]` attribute / property on `.input-indicator`, to remove the auto-hide / cool effect ;) -->
+                        <span class='input-indicator'><span bar></span><span val></span></span>
+                    </div>
+                    <!-- End of Horizontal Flex-Layout -->
+
+                    <!-- Input Message -->
+                    <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                    <p class='input-message fade-in error' hidden>Incorrect password</p>
+                    <!-- End of Input Message -->
+
                 </div>
+
+
                 <button id='envoie' name='envoie' contained>S'enregistrer</button>
             </form>
         </div>
