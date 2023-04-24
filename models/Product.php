@@ -285,6 +285,7 @@ class Product extends Database
                 WHERE products.id = 1";
         $sql->$this->db->execute();
         $results = $sql->fetch(PDO::FETCH_ASSOC);
+        return $results;
     }
 
     public function productsCount(){
