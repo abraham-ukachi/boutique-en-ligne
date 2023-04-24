@@ -264,6 +264,29 @@ class Product extends Database
         return $results['deleted_at'];
     }
 
+    function getLatestProducts($limit){
+        $sql = "SELECT * 
+                FROM products 
+                INNER JOIN categories 
+                ON categories_id = categories.id  
+                ORDER BY created_at 
+                DESC 
+                LIMIT 1";
+        $sql->$this->db->execute();
+        $results = $sql->fetch(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
+    function getMostPopularProducts($limit){
+        $sql = "SELECT avg(ratings) 
+                FROM comments 
+                INNER JOIN products 
+                ON comments.product_id = products.id 
+                WHERE products.id = 1";
+        $sql->$this->db->execute();
+        $results = $sql->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function productsCount(){
         $displayUsers = $this->db->prepare("SELECT COUNT(*) FROM products WHERE deleted_at IS NULL");
         $displayUsers->execute([
@@ -284,4 +307,6 @@ class Product extends Database
     }
 
 }
+
+
 
