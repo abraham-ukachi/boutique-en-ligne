@@ -179,3 +179,8 @@ $router->map('DELETE', '/admin/category/[i:categoryId]', function($categoryId) {
     $response = $adminController->categoryDelete($categoryId);
     echo $response; 
 });
+
+
+$router->map( 'GET', '/admin/category/create', function() {
+    require __DIR__ . '/../views/admin-categories-create-page.php';
+ });
