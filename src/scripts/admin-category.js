@@ -1,5 +1,36 @@
 console.log("Test lien javascript utilisateurs");
 
+// ADD CATEGORIES
+
+
+let categoriesForm = document.getElementById('categoriesForm');
+if (categoriesForm){
+    categoriesForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    let form = new FormData(event.target);
+
+    // form.append('name', 'Abraham');
+
+    let url = `admin/category/create`;
+
+    let request = new Request(url, {
+        method: 'POST',
+        body: form
+    });
+
+    let response = await fetch(request);
+    let responseData = await response.json();
+
+    console.log(`form => `, form);
+    console.log(`responseData => `, responseData);
+
+    });
+}
+
+
+
+
+
 
 //ADD SUBCATEGORIES
 

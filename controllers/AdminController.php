@@ -124,5 +124,9 @@ class AdminController{
         return $this->productCategory->deleteSubCategory($idSubCategory);
     }
 
+    public function registerNewCategory($name, $titre){
+        $newCategory=$this->productCategory->registerCategory($name, $titre);
+    }
+
 
 }

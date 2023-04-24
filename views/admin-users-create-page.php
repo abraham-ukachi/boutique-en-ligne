@@ -127,6 +127,8 @@
             <span class="divider horizontal bottom"></span>
         </header>
 
+
+
         <!-- [content] -->
         <div content>
 
@@ -167,7 +169,6 @@
                     <label raised for="mail">Vérifier le mot de passe</label>
                     <input id="check-password" class="connect" name="check-password" type="password" value="">
                     <span class="input-indicator"><span bar></span><span val></span>
-
                 </div>
 
                 <div class="input-wrapper">
