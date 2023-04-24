@@ -122,7 +122,7 @@
                 <!-- Title -->
                 <h2 class="app-title">Admin</h2>
                 <!-- Subtitle -->
-                <h3 class="app-subtitle">Products</h3>
+                <h3 class="app-subtitle">Users</h3>
             </div>
             </div>
             <!-- End of App Bar -->
