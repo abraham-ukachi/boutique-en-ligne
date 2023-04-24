@@ -283,6 +283,9 @@ class Product extends Database
                 INNER JOIN products 
                 ON comments.product_id = products.id 
                 WHERE products.id = 1";
+        $sql->$this->db->execute();
+        $results = $sql->fetch(PDO::FETCH_ASSOC);
+        return $results;
     }
 
 }
