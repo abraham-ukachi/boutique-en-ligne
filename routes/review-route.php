@@ -2,9 +2,9 @@
 
 namespace Maxaboom\Routes;
 use Maxaboom\Controllers\ReviewController;
-
 use Maxaboom\Models\Review;
 use Maxaboom\Models\User;
+
 // add
 $router->map( 'GET', '/review/test', function() {
     $review = new Review();
@@ -33,9 +33,11 @@ $router->map( 'GET', '/review/[i:productId]', function($productId) {
 
 $router->map('POST', '/review', function() {
     $comment = $_POST['review-input'];
+    $userModel = new User();
+    $user = $userModel->id;
     $productId = $_POST['product-id'];
     $ratings = $_POST['etoiles'];
     $reviewController = new ReviewController($productId);
-    $response = $reviewController->createReview($comment, 1, $productId, $ratings);
+    $response = $reviewController->createReview($comment, $user, $productId, $ratings);
     echo json_encode($response);
 });
