@@ -149,17 +149,6 @@
   <!-- BODY | Default Theme: light -->
   <body class="theme <?= $this->theme ?>" fullbleed>
 
-    <!-- PHP: Side Bar -->
-    <?php 
-      $_GET['sidebar_page'] = 'home'; 
-      $_GET['sidebar_init'] = 'au'; 
-      $_GET['sidebar_connected'] = false; 
-      $_GET['sidebar_isAdmin'] = false; 
-
-      // include 'components/side-bar.php';
-    ?>
-    <!-- PHP: End of Side Bar -->
-
     <!-- Side Bar -->
     <!-- PHP: Include the `sideBar` component -->
     <?php
@@ -212,8 +201,8 @@
 
             <!-- Initials & Fullname -->
             <div class="init-fullname">
-              <span init>AU</span>
-              <span fullname>Abraham Ukachi</span>
+              <span init><?= $this->user->getInitials() ?></span>
+              <span fullname><?= $this->user->getFullname() ?></span>
             </div>
             <!-- End of Initials & Fullname -->
 
