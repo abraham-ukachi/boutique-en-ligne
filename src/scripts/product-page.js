@@ -51,4 +51,4 @@ reviewProductForm.addEventListener('submit', async(ev) => {
 });
 
 
-reviewBtn.addEventListener('click', () => !!mbApp.asideEl.hidden ? mbApp.showAsidePart() : mbApp.hideAsidePart());
+reviewBtn.addEventListener('click', () => !!mbApp.asideEl.hidden ? mbApp.openAside() : mbApp.closeAside());
