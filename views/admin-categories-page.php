@@ -170,7 +170,12 @@
     ?>
     <!-- End of Nav Bar -->
 
-    
+       <!-- Fab -->
+       <a href="admin/category/create">
+          <button class="fab vertical flex-layout centered" contained expands shrinks>
+        <span class="material-icons icon">add</span>
+    </button>
+    </a>
     <!-- Backdrop of MAIN -->
     <div class="backdrop" fit hidden></div>
     

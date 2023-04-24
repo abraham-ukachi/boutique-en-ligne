@@ -142,7 +142,14 @@ var_dump($specificSubCategories);
    <form  id='subCategoriesForm' action='' method='post' data-product-id='<?= $theProduct['id'] ?>'>
         <div class="input-wrapper">
             <label raised for="subcategory">Ajouter une sous-catégorie</label>
-            <input id="subcategory" class="subcategory" name="subcategory" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
+            <input id="subcategorytitre" class="subcategory" name="subcategoryTitre" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
+            <span class="input-indicator"><span bar></span><span val></span>
+        </div>
+
+        <div class="input-wrapper">
+            <label raised for="subcategory">Nom en anglais sans espaces et caractères spéciaux</label>
+            <input id="subcategoryname" class="subcategory" name="subcategoryName" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
+            <span class="input-indicator"><span bar></span><span val></span>
         </div>
     <button type="submit" class="register_form_button" id="envoie" name="envoie" contained>Ajouter une nouvelle sous-catégorie</button>
             

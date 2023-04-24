@@ -96,7 +96,22 @@ class Category extends Database
         } else {
             echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
         }
+    }
 
+    public function registerSubCategory($name, $titre, $categoryId){
+        $sql = "INSERT INTO sub_categories (name, titre, categoryId)
+                VALUES (:name, :titre, :categoryId)";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'name' => htmlspecialchars($name),
+            'titre' => htmlspecialchars($titre),
+            'categoryId' => htmlspecialchars($categoryId),
+        ]);         
+        if ($sql_exe) {
+            echo json_encode(['response' => 'ok', 'reussite' => 'Nouvelle catégorie enregistrée']);
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+        }
     }
 
 }
