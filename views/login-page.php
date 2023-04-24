@@ -63,7 +63,8 @@
     <!-- <link rel='stylesheet' href='assets/animations/slide-from-down-animation.css'> -->
 
     <!-- Stylesheet -->
-    <!-- <link rel='stylesheet' href='assets/stylesheets/home-styles.css'> -->
+    <link rel='stylesheet' href='assets/stylesheets/login-styles.css'>
+
 
     <!-- Script -->
     <script>
@@ -77,7 +78,9 @@
 
     <!-- Some more script for ya! #LOL -->
     <script type='module' src='src/app.js' defer></script>
+    <script src='https://kit.fontawesome.com/75738720bb.js' crossorigin='anonymous'></script>
     <script type='module' src='src/scripts/login.js' defer></script>
+
 
 </head>
 <!-- End of HEAD -->
@@ -126,17 +129,73 @@
         <div content>
             <div class='container'>
                 <form id='connectionForm' method='POST'>
+                    <!-- Input Wrapper -->
+                    <div class='input-wrapper vertical flex-layout'>
+                        <!-- Label -->
+                        <label for='mail'>Email</label>
+                        <!-- Input -->
+                        <input type='text' id='mail' name='mail' minlength="3" pattern="^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$" required>
+                        <!-- Indicator -->
+                        <span class='input-indicator'><span bar></span><span val></span></span>
+
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
+                    </div>
+                    <!-- End of Input Wrapper -->
+
+                    <!--
                     <div class='input-wrapper'>
                         <label for='mail' raised>mail</label>
-                        <input id='mail' class='connect' name='mail' type='email' value=''>
+                        <input id='mail' class='connect login-connect' name='mail' type='email' value=''>
+                        <i class='fas fa-check-circle'></i>
+                        <i class='fas fa-exclamation-circle'></i>
+                        <small>Erreur</small>
                         <span class='input-indicator'><span bar></span><span val></span></span>
                     </div>
+                    -->
 
+                    <!-- Input-Wrapper -->
+                    <!-- TIP: Add `[has-error]` attribute / property to `.input-wrapper`, to increase the error input message height -->
+                    <div class='input-wrapper vertical flex-layout'>
+                        <!-- Label -->
+                        <label for='password'>Mot de passe</label>
+
+                        <!-- Horizontal Flex-Layout -->
+                        <div class='horizontal flex-layout'>
+
+                            <!-- Input -->
+                            <input type='password' id='password' name='password' minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required>
+
+                            <!-- Toggle Password - Icon Button -->
+                            <button type='button' tabindex='-1' class='icon-button'
+                                    onclick="mbApp.togglePasswordInputById('password')">
+                                <span class='material-icons'>visibility</span>
+                            </button>
+
+                            <!-- Indicator -->
+                            <!-- TIP: Use the `[no-effect]` attribute / property on `.input-indicator`, to remove the auto-hide / cool effect ;) -->
+                            <span class='input-indicator'><span bar></span><span val></span></span>
+                        </div>
+                        <!-- End of Horizontal Flex-Layout -->
+
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
+
+                    </div>
+                    <!--
                     <div class='input-wrapper'>
                         <label for='password' raised>Mot de passe</label>
-                        <input id='password' class='connect' name='password' type='password' value=''>
+                        <input id='password' class='connect password-connect' name='password' type='password' value=''>
+                        <i class='fas fa-check-circle'></i>
+                        <i class='fas fa-exclamation-circle'></i>
+                        <small>Erreur</small>
                         <span class='input-indicator'><span bar></span><span val></span></span>
                     </div>
+                    -->
                     <button type='submit' class='connection_form_button' id='envoie' name='envoie' contained>Se
                         connecter
                     </button>
