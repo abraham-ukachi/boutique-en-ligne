@@ -76,7 +76,7 @@
   
   <!-- Some more script for ya! #LOL -->
   <script type="module" src="src/app.js" defer></script>
-  <script type="module" src="src/scripts/admin-user.js" defer></script>
+  <script type="module" src="src/scripts/admin-category.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
@@ -104,56 +104,69 @@
         <header>
             <!-- App Bar -->
             <div class="app-bar">
-                <span flex></span>
-
-                <!-- Account - Icon Button -->
-                <a href="account" role="icon-button" tabindex="0" title="Settings">
-                <span class="material-icons icon">settings</span>
-                </a>
-            </div>
-            <!-- End of App Bar -->
-            <!-- App Bar -->
-            <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
-            <div class="app-bar" sticky>
-            <!-- Title Wrapper -->
-            <div class="title-wrapper">
+              <!-- Title Wrapper -->
+              <div class="title-wrapper">
                 <!-- Title -->
-                <h2 class="app-title">Admin</h2>
+                <h2 class="app-title">Sous-catégories</h2>
                 <!-- Subtitle -->
-                <h3 class="app-subtitle">Products</h3>
-            </div>
+                <h3 class="app-subtitle"><?=$oneCategoryTitre?></h3>
+              </div>
             </div>
             <!-- End of App Bar -->
             <!-- Horizontal Divider -->
             <span class="divider horizontal bottom"></span>
         </header>
-<!-- <?php
-var_dump($oneCategory);
-echo $categoryId;
-var_dump($specificSubCategories);
-?> -->
-<h1>Les sous-catégories de <?=$oneCategoryTitre?></h1>
-   <?php 
-               for ($i = 0; $i <count($specificSubCategories); $i++) {
-                echo "<div id=''>".$specificSubCategories[$i]['titre']." <button id='".$specificSubCategories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
-              }
-   ?> 
-   
-   <form  id='subCategoriesForm' action='' method='post' data-product-id='<?= $theProduct['id'] ?>'>
-        <div class="input-wrapper">
-            <label raised for="subcategory">Ajouter une sous-catégorie</label>
-            <input id="subcategorytitre" class="subcategory" name="subcategoryTitre" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
-            <span class="input-indicator"><span bar></span><span val></span>
+
+        <div content>
+
+          <div class="container">
+
+            <?php
+              /*
+              var_dump($oneCategory);
+              echo $categoryId;
+              var_dump($specificSubCategories);
+              */
+            ?>
+
+
+            <ul id="subCategories">
+
+            <?php for ($i = 0; $i <count($specificSubCategories); $i++): ?>
+
+              <li id='' class="sub-category">
+                <span><?=$specificSubCategories[$i]['titre']?></span>
+                <button id="<?=$specificSubCategories[$i]['id']?>" class='deletecategory'>Supprimer</button>
+              </li>
+
+            <?php endfor;?>
+
+            </ul>
+
+
+
+            <form  id='subCategoriesForm' action='' method='post' data-category-id='<?= $categoryId ?>'>
+              <div class="input-wrapper">
+                  <label raised for="subcategory">Ajouter une sous-catégorie</label>
+                  <input id="subcategorytitre" class="subcategory" name="subcategoryTitre" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
+                  <span class="input-indicator"><span bar></span><span val></span>
+              </div>
+
+              <div class="input-wrapper">
+                  <label raised for="subcategory">Nom en anglais sans espaces et caractères spéciaux</label>
+                  <input id="subcategoryname" class="subcategory" name="subcategoryName" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
+                  <span class="input-indicator"><span bar></span><span val></span>
+              </div>
+              <button type="submit" class="register_form_button" id="envoie" name="envoie" contained>Ajouter une nouvelle sous-catégorie</button>
+            </form>
+
+
+          </div>
+
         </div>
 
-        <div class="input-wrapper">
-            <label raised for="subcategory">Nom en anglais sans espaces et caractères spéciaux</label>
-            <input id="subcategoryname" class="subcategory" name="subcategoryName" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
-            <span class="input-indicator"><span bar></span><span val></span>
-        </div>
-    <button type="submit" class="register_form_button" id="envoie" name="envoie" contained>Ajouter une nouvelle sous-catégorie</button>
-            
-    </form>
+
+   
 
 
     <?php 

@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS db_maxaboom2;
+CREATE DATABASE IF NOT EXISTS db_maxaboom;
 
 /*------------------users table----------------*/
 CREATE TABLE users 

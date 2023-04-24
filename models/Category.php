@@ -99,18 +99,32 @@ class Category extends Database
     }
 
     public function registerSubCategory($name, $titre, $categoryId){
-        $sql = "INSERT INTO sub_categories (name, titre, categoryId)
-                VALUES (:name, :titre, :categoryId)";
+        $sql = "INSERT INTO sub_categories (name, titre, category_id)
+                VALUES (:name, :titre, :category_id)";
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([
             'name' => htmlspecialchars($name),
             'titre' => htmlspecialchars($titre),
-            'categoryId' => htmlspecialchars($categoryId),
+            'category_id' => $categoryId,
         ]);         
         if ($sql_exe) {
             echo json_encode(['response' => 'ok', 'reussite' => 'Nouvelle catégorie enregistrée']);
         } else {
             echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+        }
+    }
+
+
+    public function deleteSubCategory($idSubCategory){
+        $sql="DELETE FROM sub_categories WHERE id = :idsubcategory";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'idsubcategory' => $idSubCategory
+        ]);         
+        if ($sql_exe) {
+            return true;
+        } else {
+            return false;
         }
     }
 

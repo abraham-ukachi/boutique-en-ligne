@@ -80,7 +80,7 @@
   
   <!-- Some more script for ya! #LOL -->
   <script type="module" src="src/app.js" defer></script>
-  <script type="module" src="src/scripts/admin-product.js" defer></script>
+  <script type="module" src="src/scripts/admin-category.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
