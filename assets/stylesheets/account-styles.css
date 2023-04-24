@@ -66,9 +66,14 @@
   align-items: center;
 }
 
-.init-fullname > [init] {
-  background: var(--tertiary-container-color);
-  color: var(--on-tertiary-container-color);
+.buttons > * {
+  margin-top: 1rem !important;
+}
+
+
+.init-fullname > [init], .container [init] {
+  background: var(--tertiary-color);
+  color: var(--on-tertiary-color);
   font-weight: bold;
   padding: 8px;
   border-radius: 50%;
@@ -79,14 +84,13 @@
   align-items: center;
   font-size: inherit;
   margin: 0 12px;
+  text-transform: uppercase;
 }
 
 .init-fullname > [fullname] {}
 
-
-
 /* Account List Item */
-#accountList .account-list-item > a {
+#accountList .account-list-item > a, .link-item > a {
   position: relative;
   width: 100%;
   text-align: left;
@@ -107,12 +111,13 @@
   margin-top: 2rem;
 }
 
-#accountList .account-list-item {
+#accountList .account-list-item, link-item {
   transition: all 0.2s ease-in-out;
 }
 
 
-#accountList .account-list-item > a::before {
+#accountList .account-list-item > a::before,
+.link-item > a::before {
   background: var(--account-list-item-background-color, var(--on-background-color));
   position: absolute;
   content: "";
@@ -124,25 +129,28 @@
   transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-#accountList .account-list-item > a:hover::before {
+#accountList .account-list-item > a:hover::before,
+.link-item:hover > a::before {
   opacity: var(--opacity-account-list-item-hover, var(--opacity-account-list-item-hover));
 }
 
-#accountList .account-list-item[active] > a {
+#accountList .account-list-item[active] > a,
+.link-item[active] > a {
   --account-list-item-background-color: var(--primary-container-color);
   --account-list-item-color: var(--on-primary-container-color);
 
   pointer-events: none;
 }
 
-#accountList .account-list-item[active] > a::before {
+#accountList .account-list-item[active] > a::before,
+.link-item[active] > a::before {
   opacity: var(--opacity-account-list-item-active) !important;
 }
 
 
 
 /* Text Wrapper of Account List Item */
-.account-list-item .text-wrapper {
+.account-list-item .text-wrapper, .link-item .text-wrapper {
   flex: 1;
   z-index: 1;
 }
@@ -154,7 +162,7 @@
   font-size: 1rem;
 }
 
-.divider-wrapper {
+.divider-wrapper, .link-item .divider-wrapper {
   display: block;
   position: relative;
   width: 90%;
@@ -164,7 +172,7 @@
 }
 
 /* H4 in Account List Item */
-.account-list-item h4 {
+.account-list-item h4, .link-item h4 {
   font-size: 0.8rem;
   letter-spacing: 0.05rem;
   font-weight: bold;
@@ -175,31 +183,33 @@
   opacity: var(--opacity-text-disabled);
 }
 
-.account-list-item .arrow.icon {
+.account-list-item .arrow.icon, .link-item .arrow.icon {
   --material-icon-color: var(--primary-color);
   z-index: 1;
 }
 
-.settings.list-items h4 {
-  text-transform: capitalize;
+.settings.list-items h4, .link-item h4 {
+  text-transform: lowercase;
 }
 
 
 /* Log out - Button */
-button#logout {
+#logoutButton {
   color: var(--primary-color);
   border-color: var(--primary-color);
-  border-radius: 0.75rem;
-  font-size: 1.25rem;
-  font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
 /* Delete Account - Button */
-button#deleteAccount {
+#deleteAccountButton {
   font-size: 0.9rem;
   color: var(--primary-color);
   cursor: pointer;
+  /* text-transform: lowercase; */
+}
+
+#deleteAccountButton:hover {
+  text-decoration: underline;
 }
 
 [content] > .container {
@@ -266,7 +276,8 @@ button#deleteAccount {
  * Width: 1024px <-to-> 2560px
  */
 @media (min-width: 1024px) and (max-width: 2560px) {
-  #accountList .account-list-item:not([active]):hover {
+  #accountList .account-list-item:not([active]):hover,
+  .link-item:not([active]):hover {
     transform: scale(1.05) translateY(5px);
   }
 }

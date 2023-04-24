@@ -20,8 +20,11 @@ The following is a set of guidelines for contributing to Maxaboom and subsequent
         - [App-Bar (`.app-bar`) Template](#app-bar-app-bar-template)
         - [Nav-Bar (`#navBar`) Template](#nav-bar-navbar-template)
         - [Side-Bar (`#sideBar`) Template](#side-bar-sidebar-template)
-        - [Empty-Container (`.container[empty]`) Template](#empty-container-containerempty-template)
+        - [Empty - Container (`.container[empty]`) Template](#empty-container-containerempty-template)
+        - [Not-Connected - Container (`.container[not-connected]`) Template](#not-connected-container-containernot-connected-template)
         - [Floating Action Button (`.fab`) Template](#floating-action-button-fab-template)
+        - [Link Item (`.link-item`) Template](#link-item-link-item-template)
+        - [Input (`.input-wrapper`) Template](#input-input-wrapper-template)
 3. [How to Use Maxaboom ?](#how-to-use-maxaboom-?)
     - [Installation](#installation)
     - [mbApp - JS](#mbApp---js)
@@ -372,8 +375,29 @@ Use the following code to include an **empty container** in the `<div content>` 
     <p info>To add an instrument to your cart, tap <span class="material-icons icon">post_add</span> at the bottom right of your screen</p>
 </div>
 ```
-
 > NOTE: Feel free to change the **title** and/or **description** as you see fit ;)
+
+
+#### Not-Connected Container (`.container[not-connected]`) Template
+
+Use the following code to include an **not-connected container** in the `<div content>` element of your `.html` or `.php` page:
+
+```php
+<!-- [not-connected] Container -->
+<div class="container vertical flex-layout centered" not-connected empty>
+  <span class="not-connected-doodle doodle"></span>
+  <h2 title><?= $this->i18n->getString('youAreNotConnected') ?></h2>
+  <p info><?= $this->i18n->getString('youAreNotConnectedMessage') ?></p>
+
+  <a href="login" class="button" tabindex="0" role="button" contained>
+    <?= $this->i18n->getString('login') ?>
+  </a>
+</div>
+<!-- End of [not-connected] Container -->
+```
+> NOTE: Using the `getString()` method from `I18n` class to display texts
+
+
 
 
 #### Floating Action Button (`.fab`) Template
@@ -442,6 +466,98 @@ Use the `closeMenuById()` method of **`mbApp`** to close a menu:
 
 > NOTE: There are also `closeMainMenuById()` and `closeAsideMenuById()` methods ;)
 
+
+
+#### Link Item (`.link-item`) Template
+
+Use the following code to include 2 **links** or **list items** in your `.html` or `.php` page:
+
+```html
+<!-- Links -->
+<ul class="links" naked>
+
+    <!-- Link Item #1 -->
+    <li class="link-item">
+        <a href="{{path/to/page}}" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+            <div class="text-wrapper flex-layout vertical">
+                <!-- Title -->
+                <h3>{{Title}}</h3>
+                <h4>{{Description}}</h4>
+            </div>
+            <span class="material-icons arrow icon">chevron_right</span>
+        </a>
+    </li>
+    
+
+    <!-- Link Item #2 -->
+    <li class="link-item">
+        <a href="{{path/to/page}}" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+            <div class="text-wrapper flex-layout vertical">
+                <!-- Title -->
+                <h3>{{Title}}</h3>
+                <h4>{{Description}}</h4>
+            </div>
+            <span class="material-icons arrow icon">chevron_right</span>
+        </a>
+    </li>
+</ul>
+<!-- End of Links -->
+```
+
+
+#### Input (`.input-wrapper`) Template
+
+##### Text Input
+Use the following code an **text input** in your `.html` or `.php` page:
+
+```html
+<!-- Input Wrapper -->
+<div class="input-wrapper vertical flex-layout">
+  <!-- Label -->
+  <label for="firstNameInput">First Name</label>
+  <!-- Input -->
+  <input type="text" id="firstNameInput" name="firstName" required>
+  <!-- Indicator -->
+  <span class="input-indicator"><span bar></span><span val></span></span>
+</div>
+<!-- End of Input Wrapper -->
+```
+
+##### Password Input
+Use the following code an **password input** in your `.html` or `.php` page:
+
+```html
+<!-- Input-Wrapper -->
+<!-- TIP: Add `[has-error]` attribute / property to `.input-wrapper`, to increase the error input message height -->
+<div class="input-wrapper vertical flex-layout">
+  <!-- Label -->
+  <label for="passwordInput">Password</label>
+
+  <!-- Horizontal Flex-Layout -->
+  <div class="horizontal flex-layout">
+
+    <!-- Input -->
+    <input type="password" id="passwordInput" name="password" required>
+
+    <!-- Toggle Password - Icon Button -->
+    <button type="button" tabindex="-1" class="icon-button" onclick="mbApp.togglePasswordInputById('passwordInput')">
+      <span class="material-icons">visibility</span>
+    </button>
+
+    <!-- Indicator -->
+    <!-- TIP: Use the `[no-effect]` attribute / property on `.input-indicator`, to remove the auto-hide / cool effect ;) -->
+    <span class="input-indicator"><span bar></span><span val></span></span>
+  </div>
+  <!-- End of Horizontal Flex-Layout -->
+
+  <!-- Input Message -->
+  <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+  <p class="input-message fade-in error" hidden>Incorrect password</p>
+  <!-- End of Input Message -->
+
+</div>
+
+```
 ---
 
 ## How to use Maxaboom ?

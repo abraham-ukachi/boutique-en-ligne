@@ -73,6 +73,9 @@
   "alreadyHaveAccount": "¿Ya tienes una cuenta?",
 
   "logout": "Cerrar sesión",
-  "deleteYourAccount": "Eliminar tu cuenta"
+  "logoutConfirmMessage": "¿Estás seguro de que quieres cerrar sesión?",
+
+  "deleteYourAccount": "Eliminar tu cuenta",
+  "deleteYourAccountConfirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta?"
 }
 

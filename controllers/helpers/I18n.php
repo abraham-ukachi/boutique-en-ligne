@@ -63,18 +63,11 @@ namespace Maxaboom\Controllers\Helpers;
 
 // Declare a class named `I18n`
 class I18n {
-  
+
+
   // Defining some constants...
 
-  // Define the currently supported lanugages by this app as `LANGUAGES`
-  // NOTE: This is a short-syntax multi dimensional array which contains an `id` (e.g 'en'),
-  // `greeting` (e.g 'English'), and default `text` (e.g 'Red is my favorite color')
-  const LANGUAGES = [
-    'en' => ['greeting' => "Hi!", 'text' => "Red is my favorite color" ],
-    'fr' => ['greeting' => "Salut!", 'text' => "Le rouge est ma couleur préférée"],
-    'ru' => ['greeting' => "Привет!", 'text' => "Красный мой любимый цвет"],
-    'es' => ['greeting' => "Hola!", 'text' => "Res es mi color favorito"]
-  ];
+
 
   // LANG constants 
   // Usage example => I18n::LANG_ENGLISH
@@ -83,6 +76,27 @@ class I18n {
   const LANG_FRENCH = 'fr';
   const LANG_RUSSIAN = 'ru';
   const LANG_SPANISH = 'es';
+
+
+  /**
+   * Currently supported languages by this app
+   */
+  const SUPPORTED_LANGS = [self::LANG_ENGLISH, self::LANG_FRENCH, self::LANG_RUSSIAN, self::LANG_SPANISH];
+  
+  /**
+   * Define the currently supported lanugages by this app as `LANGUAGES`
+   * NOTE: This is a short-syntax multi dimensional array which contains an `id` (e.g 'en'),
+   * `greeting` (e.g 'English'), and default `text` (e.g 'Red is my favorite color')
+   * @deprecated
+   */
+  const LANGUAGES = [
+    self::LANG_ENGLISH => ['greeting' => "Hi!", 'text' => "Red is my favorite color" ],
+    self::LANG_FRENCH => ['greeting' => "Salut!", 'text' => "Le rouge est ma couleur préférée"],
+    self::LANG_RUSSIAN => ['greeting' => "Привет!", 'text' => "Красный мой любимый цвет"],
+    self::LANG_SPANISH => ['greeting' => "Hola!", 'text' => "Res es mi color favorito"]
+  ];
+
+
 
   // Path to 'locale' folder or directory
   const LOCALE_DIR = 'assets/locale';
@@ -173,8 +187,9 @@ class I18n {
   
   /**
    * Returns a list or indexed array of all currently supported languages
-   *
+   * 
    * @return array $supportedLanguages
+   * @deprecated
    */
   public function getSupportedLanguages(): array {
     // Initialize the `supportedLanguages` variable with an empty short syntax array

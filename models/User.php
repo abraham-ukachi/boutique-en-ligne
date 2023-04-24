@@ -262,6 +262,18 @@ class User extends Database
         }
     }
 
+
+    public function disconnect() {
+      $result = false;
+
+      if(isset($_SESSION['id'])){
+        session_destroy();
+        $result = true;
+      }
+
+      return $result;
+    }
+
     public function isConnected(){
         $result = false;
 
@@ -380,17 +392,78 @@ class User extends Database
             'iduser' => $idUser
         ]);         
         if ($sql_exe) {
-            return json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
+            return true;
+            // return json_encode(['response' => 'ok', 'reussite' => 'Utilisateur supprimé']);
         } else {
-            return json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
+            return false;
+            // return json_encode(['response' => 'not ok', 'echoue' => 'Utilisateur enregistrer']);
         }
     }
 
-    public function getInitiales(){
-        $firstnameInitiales  = $this->firstname[0];
-        $lastnameInitiales = $this->lastname[0];
-        return strtolower($firstnameInitiales).strtolower($lastnameInitiales);
+    public function getInitials(){
+        $firstnameInitials  = $this->firstname[0] ?? '';
+        $lastnameInitials = $this->lastname[0] ?? '';
+        return strtolower($firstnameInitials).strtolower($lastnameInitials);
     }
 
+
+    /**
+     * Method used to check if the current user is an admin
+     *
+     * @return bool - Returns TRUE if the user is an admin, FALSE otherwise
+     */ 
+    public function isAdmin(): bool {
+      // do nothing if the user is not connected
+      if (!$this->isConnected()) {
+        return false;
+      }
+
+      // check if the user is an admin
+      $isAdmin = $this->user_role === self::ROLE_ADMIN;
+
+      // return `$isAdmin` value
+      return $isAdmin;
+    }
+
+    /**
+     * Returns the date of birth of the user
+     *
+     * @param bool $useDateFormat - If set to TRUE, the current `dateFormat` will be used when the user has no date of birth
+     * @param string $dateFormat - The date format to use when the user has no date of birth
+     * 
+     * @return string 
+     */
+    public function getDateOfBirth(bool $useDateFormat = false, string $dateFormat = 'DD/MM/YYYY'): string {
+      return $this->dob ?? ($useDateFormat ? $dateFormat : '');
+    }
+
+
+    /**
+     * Returns the first name of the user
+     *
+     * @return string
+     */
+    public function getFirstName(): string {
+      return $this->firstname ?? '';
+    }
+
+
+    /**
+     * Returns the last name of the user
+     *
+     * @return string
+     */
+    public function getLastName(): string {
+      return $this->lastname ?? '';
+    }
+
+    /**
+     * Returns the email of the user
+     *
+     * @return string
+     */
+    public function getEmail(): string {
+      return $this->mail ?? '';
+    }
 
 }
