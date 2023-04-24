@@ -49,13 +49,13 @@ namespace Maxaboom\Controllers;
 
 // use the `User` model
 use Maxaboom\Models\User;
-// use the `I18n` helper class
+// use the `Controller` & `ResponseHandler` helper classes
 use Maxaboom\Controllers\Helpers\Controller;
 use Maxaboom\Controllers\Helpers\ResponseHandler;
 
 
-// declare the class
-// TODO: Convert I18n into a trait
+// Declare a class that represents the `Account` controller,
+// which is a child of the `Controller` class
 class AccountController extends Controller {
   // Using some traists (a.k.a. step parents) in this class
   use ResponseHandler;

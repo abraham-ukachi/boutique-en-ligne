@@ -43,17 +43,9 @@
 /* @import '../animations/slide-from-down-animation.css'; */
 
 
-.theme.dark {
-  --opacity-list-item: 0.1;
-  --opacity-account-list-item-hover: 0.2;
-  --opacity-account-list-active: 0.2;
-}
+.theme.dark {}
 
-.theme, .theme.light {
-  --opacity-list-item: 0.04;
-  --opacity-account-list-item-hover: 0.1;
-  --opacity-account-list-item-active: 0.3;
-}
+.theme, .theme.light {}
 
 /* ==== ACCOUNT PAGE STYLES ==== */
 
@@ -89,7 +81,9 @@
 
 .init-fullname > [fullname] {}
 
+
 /* Account List Item */
+/*
 #accountList .account-list-item > a, .link-item > a {
   position: relative;
   width: 100%;
@@ -103,6 +97,7 @@
   cursor: pointer;
   text-decoration: none;
 }
+*/
 
 #accountList .label {
   font-size: 1.25rem;
@@ -111,29 +106,34 @@
   margin-top: 2rem;
 }
 
+/*
 #accountList .account-list-item, link-item {
   transition: all 0.2s ease-in-out;
 }
+*/
 
-
+/*
 #accountList .account-list-item > a::before,
 .link-item > a::before {
   background: var(--account-list-item-background-color, var(--on-background-color));
   position: absolute;
   content: "";
   inset: 0;
-  opacity: var(--opacity-account-list-item, var(--opacity-list-item));
 
   -webkit-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
   -moz-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
   transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
+*/
 
+/*
 #accountList .account-list-item > a:hover::before,
 .link-item:hover > a::before {
   opacity: var(--opacity-account-list-item-hover, var(--opacity-account-list-item-hover));
 }
+*/
 
+/*
 #accountList .account-list-item[active] > a,
 .link-item[active] > a {
   --account-list-item-background-color: var(--primary-container-color);
@@ -141,12 +141,14 @@
 
   pointer-events: none;
 }
+*/
 
+/*
 #accountList .account-list-item[active] > a::before,
 .link-item[active] > a::before {
   opacity: var(--opacity-account-list-item-active) !important;
 }
-
+*/
 
 
 /* Text Wrapper of Account List Item */

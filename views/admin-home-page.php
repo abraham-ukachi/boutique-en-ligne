@@ -1,8 +1,3 @@
-
-
-
-
-
 <?php
 ?>
 <!DOCTYPE html>
@@ -80,7 +75,7 @@
   
   <!-- Some more script for ya! #LOL -->
   <script type="module" src="src/app.js" defer></script>
-  <script type="module" src="src/scripts/admin-category.js" defer></script>
+  <script type="module" src="src/scripts/admin-product.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
@@ -124,7 +119,7 @@
                 <!-- Title -->
                 <h2 class="app-title">Admin</h2>
                 <!-- Subtitle -->
-                <h3 class="app-subtitle">Categories</h3>
+                <h3 class="app-subtitle">Home</h3>
             </div>
             </div>
             <!-- End of App Bar -->
@@ -134,29 +129,60 @@
 
         <!-- [content] -->
         <div content>
-          <div id='container'>
+            <div class='container'>
+            <h1>Panel d'administration</h1>
 
-            <h1>Les catégories</h1>
-            <?php 
-            for ($i = 0; $i <count($categories); $i++) {
-              echo "<div id=".$categories[$i]['id']." data-product-id=".$categories[$i]['id']." class='update-category'>".$categories[$i]['name'].
-              " <a href='admin/category/".$categories[$i]['id']."'>Modifier</a> <button id='".$categories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
-            }
-            ?>
+            <!-- Links -->
+<ul class="links" naked>
 
-          <h1>Les sous-catégories</h1>
-            <?php
-            for ($i = 0; $i <count($subcategories); $i++) {
-              echo "<div id=".$subcategories[$i]['id']." data-product-id=".$subcategories[$i]['id']." class='update-category'>".$subcategories[$i]['name'].
- " <button id='".$subcategories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
-            }
-            ?>
-          </div>  
-          
-      </div>
-      <!-- end of content -->
+<!-- Link Item #1 -->
+<li class="link-item">
+    <a href="admin/users" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+        <div class="text-wrapper flex-layout vertical">
+            <!-- Title -->
+            <h3>Gestion des utilisateurs</h3>
+            <h4>Vous avez actuellement <?= $countUsers[0]["COUNT(*)"]; ?> utilisateurs</h4>
+        </div>
+        <span class="material-icons arrow icon">chevron_right</span>
+    </a>
+</li>
 
 
+<!-- Link Item #2 -->
+<li class="link-item">
+    <a href="admin/products" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+        <div class="text-wrapper flex-layout vertical">
+            <!-- Title -->
+            <h3>Gestion des produits</h3>
+            <h4>Vous avez actuellement <?= $countProducts[0]["COUNT(*)"]; ?>  produits</h4>
+        </div>
+        <span class="material-icons arrow icon">chevron_right</span>
+    </a>
+</li>
+
+<!-- Link Item #2 -->
+<li class="link-item">
+    <a href="admin/categories" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+        <div class="text-wrapper flex-layout vertical">
+            <!-- Title -->
+            <h3>Gestion des catégories et des sous-catégories</h3>
+            <h4></h4>
+        </div>
+        <span class="material-icons arrow icon">chevron_right</span>
+    </a>
+</li>
+
+</ul>
+<!-- End of Links -->
+
+                <?php
+
+
+
+                ?>
+            </div>
+        </div>
+    </div>
     
     <!-- Nav Bar -->
     <!-- PHP: Include the `navBar` component -->
@@ -170,12 +196,11 @@
     ?>
     <!-- End of Nav Bar -->
 
-       <!-- Fab -->
-       <a href="admin/category/create">
-          <button class="fab vertical flex-layout centered" contained expands shrinks>
-        <span class="material-icons icon">add</span>
-    </button>
-    </a>
+    <!-- Fab -->
+
+
+    <!-- End of Fab -->
+    
     <!-- Backdrop of MAIN -->
     <div class="backdrop" fit hidden></div>
     
