@@ -273,9 +273,14 @@ class Product extends Database
     }
 
     public function GetProductByName($string, $limite, $category_id){
-        $sql = "SELECT id, name FROM products WHERE name LIKE '$string%'
-        AND categories_id = $category_id LIMIT $limite ";
 
+        if($category_id){
+        $sql = "SELECT id, name FROM products WHERE name LIKE '%$string%'
+        AND categories_id = $category_id LIMIT $limite ";
+        }else{
+            $sql = "SELECT id, name FROM products WHERE name LIKE '%$string%'
+             LIMIT $limite ";
+        }
             $sql_exe = $this->db->prepare($sql);
             $sql_exe->execute([
             ]); 
