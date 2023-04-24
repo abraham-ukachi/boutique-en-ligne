@@ -143,9 +143,12 @@
                   "<a href='admin/user/".$allUsers[$i]['id']."'>Modifier</a> <button id='".$allUsers[$i]['id']."' class='deleteUser'>Supprimer</button></div><br>";
               }
             ?>
-            <button class="fab vertical flex-layout centered" contained expands shrinks>
-              <span class="material-icons icon">add</span>
-            </button>
+
+              <a href="admin/user/create">
+                <button class="fab vertical flex-layout centered" contained="" expands="" shrinks="">
+                <span class="material-icons icon">add</span>
+                </button>
+              </a>
             </div>
         </div>
     </div>
