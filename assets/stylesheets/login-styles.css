@@ -1,0 +1,36 @@
+.input-wrapper small {
+    position: absolute;
+    left: 0;
+    font-family: 'Nunito', sans-serif;
+    visibility: hidden;
+}
+
+.input-wrapper.error small {
+    visibility: visible;
+    color: #e74c3c;
+}
+
+.input-wrapper.success input {
+    border-color: #2ecc71;
+}
+
+.input-wrapper.error input {
+    border-color: #e74c3c;
+}
+
+.input-wrapper i {
+    position: absolute;
+    top: 36px;
+    right: 10px;
+    visibility: hidden;
+}
+
+.input-wrapper.success i.fa-check-circle {
+    visibility: visible;
+    color: #2ecc71;
+}
+
+.input-wrapper.error i.fa-exclamation-circle {
+    visibility: visible;
+    color: #e74c3c;
+}
