@@ -264,6 +264,14 @@ class Product extends Database
         return $results['deleted_at'];
     }
 
+    public function productsCount(){
+        $displayUsers = $this->db->prepare("SELECT COUNT(*) FROM products WHERE deleted_at IS NULL");
+        $displayUsers->execute([
+        ]);
+        $result = $displayUsers->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 
 }
 

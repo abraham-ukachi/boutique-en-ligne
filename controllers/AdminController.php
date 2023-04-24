@@ -79,6 +79,13 @@ class AdminController{
         require __DIR__ . '/../views/admin-user-details-page.php';
     }
 
+    public function count(){
+        $countUsers=$this->userModel->usersCount();
+        $countProducts=$this->productModel->productsCount();
+        require __DIR__ . '/../views/admin-home-page.php';
+
+    }
+
     public function updateUser($userId, $userFirstname, $userLastname, $userMail, $userRole){
         $success=$this->userModel->updateUser($userId, $userFirstname, $userLastname, $userMail, $userRole);
     }
@@ -108,4 +115,6 @@ class AdminController{
         $specificSubCategories=$this->productCategory->getSubcategoriesByCategoryId($categoryId);
         require __DIR__ . '/../views/admin-category-details-page.php';   
     }
+
+
 }

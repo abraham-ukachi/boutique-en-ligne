@@ -148,7 +148,7 @@
             <?php
             for ($i = 0; $i <count($subcategories); $i++) {
               echo "<div id=".$subcategories[$i]['id']." data-product-id=".$subcategories[$i]['id']." class='update-category'>".$subcategories[$i]['name'].
-              " <a href='admin/category/".$subcategories[$i]['id']."'>Modifier</a> <button id='".$subcategories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
+ " <button id='".$subcategories[$i]['id']."' class='deletecategory'>Supprimer</button></div><br>";
             }
             ?>
           </div>  

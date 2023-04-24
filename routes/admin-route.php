@@ -2,6 +2,10 @@
 use Maxaboom\Controllers\AdminController;
 
 // ------------------------for administrate products --------------------
+$router->map( 'GET', '/admin', function() {
+    $adminController = new AdminController();
+    $adminController->count();
+ });
 
 $router->map( 'GET', '/admin/product/create', function() {
    require __DIR__ . '/../views/admin-product-create-page.php';
