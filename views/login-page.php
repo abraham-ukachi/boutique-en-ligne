@@ -129,6 +129,18 @@
         <div content>
             <div class='container'>
                 <form id='connectionForm' method='POST'>
+                    <!-- Input Wrapper -->
+                    <div class='input-wrapper vertical flex-layout'>
+                        <!-- Label -->
+                        <label for='mail' raised>Email</label>
+                        <!-- Input -->
+                        <input type='text' id='mail' name='mail' required>
+                        <!-- Indicator -->
+                        <span class='input-indicator'><span bar></span><span val></span></span>
+                    </div>
+                    <!-- End of Input Wrapper -->
+
+                    <!--
                     <div class='input-wrapper'>
                         <label for='mail' raised>mail</label>
                         <input id='mail' class='connect login-connect' name='mail' type='email' value=''>
@@ -137,7 +149,39 @@
                         <small>Erreur</small>
                         <span class='input-indicator'><span bar></span><span val></span></span>
                     </div>
+                    -->
 
+                    <!-- Input-Wrapper -->
+                    <!-- TIP: Add `[has-error]` attribute / property to `.input-wrapper`, to increase the error input message height -->
+                    <div class='input-wrapper vertical flex-layout'>
+                        <!-- Label -->
+                        <label for='password ' raised>Mot de passe</label>
+
+                        <!-- Horizontal Flex-Layout -->
+                        <div class='horizontal flex-layout'>
+
+                            <!-- Input -->
+                            <input type='password' id='password' name='password' required>
+
+                            <!-- Toggle Password - Icon Button -->
+                            <button type='button' tabindex='-1' class='icon-button'
+                                    onclick="mbApp.togglePasswordInputById('passwordInput')">
+                                <span class='material-icons'>visibility</span>
+                            </button>
+
+                            <!-- Indicator -->
+                            <!-- TIP: Use the `[no-effect]` attribute / property on `.input-indicator`, to remove the auto-hide / cool effect ;) -->
+                            <span class='input-indicator'><span bar></span><span val></span></span>
+                        </div>
+                        <!-- End of Horizontal Flex-Layout -->
+
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
+
+                    </div>
+                    <!--
                     <div class='input-wrapper'>
                         <label for='password' raised>Mot de passe</label>
                         <input id='password' class='connect password-connect' name='password' type='password' value=''>
@@ -146,6 +190,7 @@
                         <small>Erreur</small>
                         <span class='input-indicator'><span bar></span><span val></span></span>
                     </div>
+                    -->
                     <button type='submit' class='connection_form_button' id='envoie' name='envoie' contained>Se
                         connecter
                     </button>
