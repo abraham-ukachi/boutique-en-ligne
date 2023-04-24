@@ -24,8 +24,8 @@
 * SOFTWARE.
 *
 * @project boutique-en-ligne
-* @name Account Page - Maxaboom
-* @file account-page.php
+* @name Home Page - Maxaboom
+* @file home-page.php
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
 * @version: 0.0.1
@@ -38,11 +38,11 @@
 *     >>> DESCRIPTION <<<
 * ~~~~~~~~ (French) ~~~~~~~~~
 * 
-* -  
+* -  Votre entreprise décide de mettre en place une boutique en ligne (Thème et produits au choix).
 *
 * ~~~~~~~~ (English) ~~~~~~~~~
 * 
-* - 
+* - Your company decides to set up an online shop (Choose your theme and products).
 * 
 * ============================
 * IMPORTANT: This is a working progress and subject to major changes ;)
@@ -71,7 +71,7 @@
     <meta name="description" content="Maxaboom is a fun and dynamic online store that offers a wide variety of musical instruments. From guitars and drums to keyboards, microphones and trumpets.">
     
     <!-- Title -->
-    <title>Account - Maxaboom</title>
+    <title>Welcome to maxaboom | The #1 online store for all your musical needs</title>
 
 
     <!-- Fonts -->
@@ -125,7 +125,7 @@
     <!-- <link rel="stylesheet" href="assets/animations/slide-from-down-animation.css"> -->
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="assets/stylesheets/account-styles.css">
+    <link rel="stylesheet" href="assets/stylesheets/home-styles.css">
 
 
     <!-- Script -->
@@ -140,7 +140,7 @@
     
     <!-- Some more script for ya! #LOL -->
     <script src="src/app.js" type="module" defer></script>
-    <script src="src/scripts/account.js" type="module" defer></script>
+    <script src="src/scripts/home.js" defer></script>
     
   </head>
   <!-- End of HEAD -->
@@ -152,7 +152,7 @@
     <!-- Side Bar -->
     <!-- PHP: Include the `sideBar` component -->
     <?php
-      $_GET['sidebar_route'] = 'account';
+      $_GET['sidebar_route'] = 'home';
       $_GET['sidebar_init'] = $this->user->getInitials();
       $_GET['sidebar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
       $_GET['sidebar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin
@@ -163,171 +163,218 @@
 
     <!-- MAIN -->
     <main class="flex-layout vertical">
-
       <!-- App-Layout of MAIN -->
       <div class="app-layout">
         <!-- Header -->
         <header>
-
-          <!-- App Bar -->
+          
+          <!-- First App Bar -->
           <div class="app-bar">
+            <span flex></span>
+
+            <!-- More Icon Button -->
+            <button id="moreIconButton" role="icon-button" class="icon-button">
+              <span class="material-icons icon">more_vert</span>
+            </button>
+          </div>
+          <!-- End of First App Bar -->
+
+          <!-- Hello Bar -->
+          <div id="helloBar" class="app-bar">
 
             <!-- Title Wrapper -->
             <div class="title-wrapper">
               <!-- Title -->
-              <h2 class="app-title">My Account</h2>
-            </div>
+              <h2 class="app-title">
+                <span><?= $this->i18n->getString('gm') ?></span> 
 
-            <!-- Like - Icon Button -->
-            <button id="likeIconButton" class="icon-button" title="Like Product" onclick="mbApp.showMenuById('accountMenu', 0.5, mbApp.getPartByName('main'))">
-              <span class="material-icons icon">more_vert</span>
-            </button>
+                <!-- PHP (1): if the user is connected... -->
+                <?php if ($this->user->isConnected()): ?>
+                <!-- ...PHP (1): display the user's first name -->
+
+                <span>, <?= $this->user->getFirstname() ?></span>
+
+                <?php endif; ?>
+                <!-- End of PHP (1) -->
+
+              </h2>
+              <h3 class="app-subtitle"><?= $this->i18n->getString('greeting') ?></h3>
+            </div>
           </div>
-          <!-- End of App Bar -->
+          <!-- End of Hello Bar -->
+
+          <!-- [sticky] Search Bar -->
+          <div id="searchBar" class="app-bar" sticky>
+
+            <!-- Input-Wrapper -->
+            <div class="input-wrapper horizontal flex-layout">
+
+              <!-- Icon -->
+              <span class="material-icons icon">search</span>
+
+              <!-- Search Input -->
+              <input id="searchInput" type="text" class="search-input" 
+                placeholder="<?= $this->i18n->getString('searchProducts') ?>">
+            </div>
+            <!-- End of Input-Wrapper -->
+
+          </div>
+          <!-- End of Search Bar -->
 
           <!-- Horizontal Divider -->
           <span class="divider horizontal bottom" hidden></span>
         </header>
+        <!-- End of Header -->
+
+
 
         <!-- [content] -->
         <div content>
-
           <!-- Container -->
           <div class="container vertical flex-layout">
+            <!-- Hero - Section -->
+            <section hero>
+              <!-- Hero Text Content -->
+              <div class="hero-text-content">
+                <h1 class="hero-title"><?= $this->i18n->getString('heroTitle') ?></h1>
+                <p class="hero-subtitle"><?= $this->i18n->getString('heroSubtitle') ?></p>
+                
+                <!-- Call To Action Buttons -->
+                <div class="call-to-action-buttons horizontal flex-layout">
+                  <!-- Shop Now - Call To Action Button -->
+                  <button id="shopNowButton" class="call-to-action-button" contained>
+                    <span><?= $this->i18n->getString('shopNow') ?></span>
+                  </button>
+                  
+                  <!-- Explore More - Call To Action Button -->
+                  <button id="exploreMoreButton" class="call-to-action-button" outlined>
+                    <span><?= $this->i18n->getString('exploreMore') ?></span>
+                  </button>
+                  
+                </div>
+                <!-- End of Call To Action Buttons -->
 
-            <!-- PHP (1): If the user is connected... -->
-            <?php if ($this->user->isConnected()): ?>
-            <!-- ...PHP (1): Show the user's initials and fullname -->
+              </div>
+              <!-- End of Hero Text Content -->
 
-            <!-- Initials & Fullname -->
-            <div class="init-fullname">
-              <span init><?= $this->user->getInitials() ?></span>
-              <span fullname><?= $this->user->getFullname() ?></span>
-            </div>
-            <!-- End of Initials & Fullname -->
+              <!-- Hero Product Content -->
+              <div class="hero-product-content">
+                <div class="hero-product"></div> 
+              </div>
+              <!-- End of Hero Product Content -->
 
-            <?php endif; ?>
-            <!-- End of PHP (1) -->
+            </section>
+            <!-- End of Hero - Section -->
 
-            <!-- Account List / Links -->
-            <ul id="accountList" naked>
-
-
-              <?php foreach ($this->listData as $listItemId => $listItemData): ?>
-              <li class="label"><?= $listItemData['title'] ?></li>
-
-              <ul class="list-items links <?= $listItemId ?>" naked>
-
-                <?php foreach ($listItemData['items'] as $accountListItemId => $accountListItemData): ?>
-
-                <li id="<?= $accountListItemId?>" class="account-list-item link-item">
-                  <a href="<?= $accountListItemData['link']?>" 
-                     role="button" 
-                     tabindex="0" 
-                     class="horizontal flex-layout center" naked>
-                    <!-- Text Wrapper -->
-                    <div class="text-wrapper flex-layout vertical">
-                      <h3><?= $accountListItemData['title'] ?></h3>
-                      <h4><?= $accountListItemData['description'] ?></h4>
-                    </div>
-                    <span class="material-icons arrow icon">chevron_right</span>
-                  </a>
-                </li>
-
-                <?php if ($accountListItemId === 'info'): ?>
-                <li class="divider-wrapper"><span class="divider horizontal"></span></li>
-                <?php endif;?>
+            <!-- Steps - Section -->
+            <section steps></section>
+            <!-- End of Steps - Section -->
 
 
-                <?php endforeach; ?>
+            <!-- Categories - Section -->
+            <section categories></section>
+            <!-- End of Categories - Section -->
 
-              </ul>
 
-              <?php endforeach; ?>
-
-            </ul>
-            <!-- End of Account List -->
-
-            <!-- PHP (2): If the user is connected... -->
-            <?php if ($this->user->isConnected()): ?>
-            <!-- ...PHP (2): Show the log out and delete account buttons -->
-
-            <!-- Log Out - Button -->
-            <button id="logoutButton" outlined><?= $this->i18n->getString("log_out") ?></button>
-            <!-- Delete Account - Button -->
-            <button id="deleteAccountButton" naked><?= $this->i18n->getString("deleteYourAccount") ?></button>
-
-            <?php endif; ?>
-            <!-- End of PHP (2) -->
+            <!-- Products - Section -->
+            <section products></section>
+            <!-- End of Products - Section -->
 
           </div>
           <!-- End of Container -->
-
 
         </div>
         <!-- End of [content] -->
 
       </div>
-      <!-- End of App-Layout -->
+      <!-- End of App Layout - MAIN -->
 
       <!-- Nav Bar -->
       <!-- PHP: Include the `navBar` component -->
       <?php
-        $_GET['navbar_route'] = 'account';
+        $_GET['navbar_route'] = 'home';
         $_GET['navbar_init'] = $this->user->getInitials();
         $_GET['navbar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
         $_GET['navbar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin
 
         require __DIR__ . '/components/nav-bar.php';
       ?>
-      <!-- End of Side Bar -->
+      <!-- End of Nav Bar -->
+
 
       <!-- Backdrop of MAIN -->
       <div class="backdrop" fit hidden></div>
 
       <!-- Menus of MAIN -->
       <div class="menus" fit hidden>
-        <!-- Menu -->
-        <menu data-id="accountMenu" class="menu vertical flex-layout" hidden>
+        <!-- Home Menu -->
+        <menu data-id="homeMenu" class="menu vertical flex-layout" hidden>
 
             <!-- Close Menu + Icon Button -->
             <li role="close-menu">
                 <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
             </li>
                 
-            <!-- MenuItem 1 -->
-            <li title="Edit your profile information" class="menu-item">
-              <a role="button" tabindex="0" href="account/info">
-                <span class="material-icons icon">edit</span>
-                <span>Edit profile</span>
+            <!-- Shop Now - Menu Item -->
+            <li title="<?= $this->i18n->getString('shopNow') ?>" class="menu-item">
+              <a role="button" tabindex="0" href="shop">
+                <span class="material-icons icon">shop</span>
+                <span><?= $this->i18n->getString('shopNow') ?></span>
               </a>
             </li>
 
-            <!-- MenuItem 2 -->
-            <li title="View all your orders" class="menu-item">
-              <a role="button" tabindex="0" href="account/orders">
-                <span class="material-icons icon">music_video</span>
-                <span>View Orders</span>
+            <!-- Search Products -->
+            <li title="<?= $this->i18n->getString('searchProducts') ?>" class="menu-item">
+              <a role="button" tabindex="0" href="search">
+                <span class="material-icons icon">search</span>
+                <span><?= $this->i18n->getString('searchProducts') ?></span>
               </a>
             </li>
 
-            <!-- MenuItem 3 -->
-            <li title="See more about Maxaboom" class="menu-item">
+            <!-- Change Language -->
+            <li title="<?= $this->i18n->getString('changeLanguage') ?>" class="menu-item">
+              <a role="button" tabindex="0" href="account/language">
+                <span class="material-icons icon">translate</span>
+                <span><?= $this->i18n->getString('changeLanguage') ?></span>
+              </a>
+            </li>
+
+            <!-- Change Theme -->
+            <li title="<?= $this->i18n->getString('changeTheme') ?>" class="menu-item">
+              <a role="button" tabindex="0" href="account/theme">
+                <span class="material-icons icon">palette</span>
+                <span><?= $this->i18n->getString('changeTheme') ?></span>
+              </a>
+            </li>
+
+
+            <!-- Help -->
+            <li title="<?= $this->i18n->getString('help') ?>" class="menu-item">
+              <a role="button" tabindex="0" href="account/help">
+                <span class="material-icons icon">contact_support</span>
+                <span><?= $this->i18n->getString('help') ?></span>
+              </a>
+            </li>
+
+
+            <!-- About -->
+            <li title="<?= $this->i18n->getString('aboutMaxaboom') ?>" class="menu-item">
               <a role="button" tabindex="0" href="account/about">
-                <span class="material-icons icon">info</span>
-                <span>About Maxaboom</span>
+                <span class="material-icons icon">settings</span>
+                <span><?= $this->i18n->getString('about') ?></span>
               </a>
             </li>
+
         </menu>
           <!-- End of Menu -->
       </div>
+      <!-- End of Menus of MAIN -->
 
       <!-- Dialogs of MAIN -->
       <div class="dialogs" fit hidden></div>
 
       <!-- Toasts of MAIN -->
       <div class="toasts" fit hidden></div>
-
 
     </main>
     <!-- End of MAIN -->
@@ -337,17 +384,7 @@
     <!-- ASIDE -->
     <aside class="flex-layout vertical" hidden>
       <!-- App Layout - ASIDE -->
-      <div class="app-layout" fit>
-
-        <!-- [content] -->
-        <div content>
-          <!-- Container -->
-          <div class="container vertical flex-layout centered">
-          </div>
-          <!-- End of Container -->
-        </div>
-
-      </div>
+      <div class="app-layout" fit hidden></div>
       <!-- End of App Layout - ASIDE -->
 
       <!-- Backdrop of MAIN -->
@@ -362,7 +399,6 @@
       <!-- Toasts of MAIN -->
       <div class="toasts" fit hidden></div>
 
-
       <!-- Vertical Left - DIVIDER -->
       <span class="divider vertical left"></span>
     </aside>
@@ -371,7 +407,6 @@
 
     <!-- Backdrop -->
     <div id="backdrop" fit hidden></div>
-
 
     <!-- Menus  -->
     <div id="menus" fit hidden></div>
