@@ -1495,7 +1495,7 @@ em {
   position: absolute;
   content: "";
   inset: 0;
-  opacity: var(--opacity-account-list-item, var(--opacity-list-item));
+  opacity: var(--opacity-account-list-item, 0.05);
 
   -webkit-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
   -moz-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
@@ -1503,7 +1503,7 @@ em {
 }
 
 .link-item:hover > a::before {
-  opacity: var(--opacity-account-list-item-hover, var(--opacity-account-list-item-hover));
+  opacity: var(--opacity-account-list-item-hover, 0.1);
 }
 
 .link-item[active] > a {

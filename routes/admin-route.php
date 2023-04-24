@@ -166,3 +166,16 @@ $router->map( 'GET', '/admin/category/[i:categoryId]', function($categoryId){
     $adminController = new AdminController();
     $adminController->showOneCategory($categoryId);
 });
+
+$router->map( 'POST', '/admin/category/[i:categoryId]', function($categoryId){
+    $adminController = new AdminController();
+    $name = $_POST['subcategoryName'];
+    $titre = $_POST['subcategoryTitre'];
+    $adminController->registerNewSubcategory($name, $titre,$categoryId);
+});
+
+$router->map('DELETE', '/admin/category/[i:categoryId]', function($categoryId) {
+    $adminController = new AdminController();
+    $response = $adminController->categoryDelete($categoryId);
+    echo $response; 
+});

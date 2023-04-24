@@ -116,5 +116,13 @@ class AdminController{
         require __DIR__ . '/../views/admin-category-details-page.php';   
     }
 
+    public function registerNewSubcategory($name, $titre, $categoryId){
+        $newSubCategory=$this->productCategory->registerSubCategory($name, $titre,$categoryId);
+    }
+
+    public function categoryDelete($idSubCategory){
+        return $this->productCategory->deleteSubCategory($idSubCategory);
+    }
+
 
 }
