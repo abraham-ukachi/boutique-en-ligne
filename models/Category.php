@@ -122,9 +122,9 @@ class Category extends Database
             'idsubcategory' => $idSubCategory
         ]);         
         if ($sql_exe) {
-            return true;
+            return json_encode(['response' => 'ok', 'reussite' => 'Catégorie supprimée']);
         } else {
-            return false;
+            return json_encode(['response' => 'not ok', 'echoue' => 'Problème']);
         }
     }
 

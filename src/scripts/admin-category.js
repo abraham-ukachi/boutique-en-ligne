@@ -53,19 +53,16 @@ if (subCategoriesForm){
 
 let allDel=document.querySelectorAll('.deletecategory');
 
-async function deleteProduct(categoryId){
+async function deleteCategory(categoryId){
     let response = await fetch(`admin/category/${categoryId}`, {method: 'DELETE'});
     let responseData = await response.json();
-    if(responseData.response == true){
+    console.log(responseData);
+    if(responseData.response == 'ok'){
         let categoryElement = document.getElementById(categoryId);
         console.log(categoryElement);
         categoryElement.remove();
     }
     console.log(responseData);
-
-    // if(response.status == 'ok') {
-    //     console.log('product has been delete');
-    // }
 }
 
 for (const btn of allDel){
@@ -74,6 +71,6 @@ for (const btn of allDel){
     btn.addEventListener("click", (e) =>{
         let idDelete= e.target.id
         console.log("delete  "+idDelete)
-        deleteProduct(idDelete);
+        deleteCategory(idDelete);
     })
 }
