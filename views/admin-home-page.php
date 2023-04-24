@@ -1,6 +1,3 @@
-
-
-
 <?php
 ?>
 <!DOCTYPE html>
@@ -78,7 +75,7 @@
   
   <!-- Some more script for ya! #LOL -->
   <script type="module" src="src/app.js" defer></script>
-  <script type="module" src="src/scripts/admin-user.js" defer></script>
+  <script type="module" src="src/scripts/admin-product.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
@@ -122,7 +119,7 @@
                 <!-- Title -->
                 <h2 class="app-title">Admin</h2>
                 <!-- Subtitle -->
-                <h3 class="app-subtitle">Products</h3>
+                <h3 class="app-subtitle">Home</h3>
             </div>
             </div>
             <!-- End of App Bar -->
@@ -133,19 +130,56 @@
         <!-- [content] -->
         <div content>
             <div class='container'>
-            <h1>Gestion des utilisateurs</h1>
-            <?php
-              //var_dump($allUsers); 
-              echo "<br>";
-              for ($i = 0; $i < count($allUsers); $i++) {
-                  echo "<div id=".$allUsers[$i]['id']." data-user-id=".$allUsers[$i]['id']." class='update-user'>".$allUsers[$i]['firstname'].
-                  " ".$allUsers[$i]['lastname']." ".$allUsers[$i]['mail']." ".$allUsers[$i]['dob']." ".$allUsers[$i]['user_role'].
-                  "<a href='admin/user/".$allUsers[$i]['id']."'>Modifier</a> <button id='".$allUsers[$i]['id']."' class='deleteUser'>Supprimer</button></div><br>";
-              }
-            ?>
-            <button class="fab vertical flex-layout centered" contained expands shrinks>
-              <span class="material-icons icon">add</span>
-            </button>
+            <h1>Panel d'administration</h1>
+
+            <!-- Links -->
+<ul class="links" naked>
+
+<!-- Link Item #1 -->
+<li class="link-item">
+    <a href="admin/users" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+        <div class="text-wrapper flex-layout vertical">
+            <!-- Title -->
+            <h3>Gestion des utilisateurs</h3>
+            <h4>Vous avez actuellement <?= $countUsers[0]["COUNT(*)"]; ?> utilisateurs</h4>
+        </div>
+        <span class="material-icons arrow icon">chevron_right</span>
+    </a>
+</li>
+
+
+<!-- Link Item #2 -->
+<li class="link-item">
+    <a href="admin/products" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+        <div class="text-wrapper flex-layout vertical">
+            <!-- Title -->
+            <h3>Gestion des produits</h3>
+            <h4>Vous avez actuellement <?= $countProducts[0]["COUNT(*)"]; ?>  produits</h4>
+        </div>
+        <span class="material-icons arrow icon">chevron_right</span>
+    </a>
+</li>
+
+<!-- Link Item #2 -->
+<li class="link-item">
+    <a href="admin/categories" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+        <div class="text-wrapper flex-layout vertical">
+            <!-- Title -->
+            <h3>Gestion des catégories et des sous-catégories</h3>
+            <h4></h4>
+        </div>
+        <span class="material-icons arrow icon">chevron_right</span>
+    </a>
+</li>
+
+</ul>
+<!-- End of Links -->
+
+                <?php
+
+
+
+                ?>
             </div>
         </div>
     </div>
@@ -162,6 +196,14 @@
     ?>
     <!-- End of Nav Bar -->
 
+    <!-- Fab -->
+    <a href="admin/product/create">
+          <button class="fab vertical flex-layout centered" contained expands shrinks>
+        <span class="material-icons icon">add</span>
+    </button>
+    </a>
+
+    <!-- End of Fab -->
     
     <!-- Backdrop of MAIN -->
     <div class="backdrop" fit hidden></div>
@@ -238,23 +280,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

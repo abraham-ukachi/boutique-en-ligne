@@ -100,11 +100,11 @@ class Database {
   // private properties
   private string $db_host = '127.0.0.1';
   private string $db_username = 'root';
-  private string $db_password = 'root';
-  private int $db_port = 8889;
+  private string $db_password = '';
+  private int $db_port = -1;
 
   // protected properties
-  protected string $db_name = 'db_maxaboom2';
+  protected string $db_name = 'db_maxaboom';
 
   // initialize some  properties with `null`
   public ?object $pdo = null;

@@ -477,4 +477,14 @@ class User extends Database
       return $this->mail ?? '';
     }
 
-}
+    public function usersCount(){
+        $displayUsers = $this->db->prepare("SELECT COUNT(*) FROM users");
+        $displayUsers->execute([
+        ]);
+        $result = $displayUsers->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    }
+
+
