@@ -1687,7 +1687,7 @@ export class MaxaboomApp {
 
 
     // if the input has some value or placeholder...
-    if (inputEl.value.length || inputEl.placeholder.length) {
+    if (inputEl.value.length || inputEl.placeholder?.length) {
       //...create and attribute named 'has-value'
       // and add it to the given input element (i.e. `inputEl`)
       inputEl.setAttribute('has-value', ''); // <- An empty value should turn our attribute into a 'property'

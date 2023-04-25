@@ -456,6 +456,17 @@ class User extends Database
     }
 
     /**
+     * Returns the user's full name
+     *
+     * @param bool $reversed - if TRUE, the name will be reversed (i.e. "Lastname Firstname")
+     *
+     * @return string - the user's full name
+     */
+    public function getFullname(bool $reversed = false): string {
+      return ($this->isConnected()) ? $this->firstname . ' ' . $this->lastname : '';
+    }
+
+    /**
      * Returns the email of the user
      *
      * @return string

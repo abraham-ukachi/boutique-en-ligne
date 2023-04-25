@@ -88,7 +88,7 @@
 <!-- PHP: Include the `sideBar` component -->
 <?php
 $_GET['sidebar_route'] = 'home';
-$_GET['sidebar_init'] = $this->user->getInitiales();;
+$_GET['sidebar_init'] = $this->user->getInitials();
 $_GET['sidebar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
 $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin
 
@@ -103,17 +103,6 @@ require __DIR__ . '/components/side-bar.php';
     <div class='app-layout' fit>
         <!-- Header -->
         <header>
-            <!-- App Bar -->
-            <div class='app-bar'>
-                <span flex></span>
-
-                <!-- Setting - Icon Button -->
-                <a href='settings.php' role='icon-button' tabindex='0' title='Settings'>
-                    <span class='material-icons icon'>settings</span>
-                </a>
-            </div>
-            <!-- End of App Bar -->
-
             <!-- App Bar -->
             <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
             <div class='app-bar' sticky>
@@ -150,7 +139,7 @@ require __DIR__ . '/components/side-bar.php';
     <!-- PHP: Include the `navBar` component -->
     <?php
     $_GET['navbar_route'] = 'home';
-    $_GET['navbar_init'] = $this->user->getInitiales();
+    $_GET['navbar_init'] = $this->user->getInitials();
     $_GET['navbar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
     $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin
 
@@ -195,6 +184,9 @@ require __DIR__ . '/components/side-bar.php';
                     <!-- Subtitle -->
                     <h3 class='app-subtitle'><?= $product['name'] ?></h3>
                 </div>
+                <button class="icon-button" onclick="mbApp.closeAside()">
+                    <span class="material-icons">close</span>
+                </button>
             </div>
             <!-- End of App Bar -->
         </header>
