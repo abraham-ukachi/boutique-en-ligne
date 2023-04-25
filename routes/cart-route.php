@@ -1,10 +1,16 @@
 <?php
-use Maxaboom\Controllers\AdminController;
+use Maxaboom\Controllers\CartController;
 
 // ------------------------for cart --------------------
 $router->map( 'GET', '/cart', function() {
-    require_once __DIR__ . '/../views/cart-page.php';
- });
+    $cartController = new CartController();
+    $cartController->showPage();
+});
 
+$router->map( 'GET', '/cart/test', function() {
+    $cartController = new CartController();
+    $infoCart = $cartController->infoCart(11);
+    require_once __DIR__ . '/../models/test/cart.php';
 
- ?>
+});
+
