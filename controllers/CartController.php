@@ -29,15 +29,37 @@ class CartController{
     }
 
     public function infoCart($user_id){
-       $displayCart = $this->cartModel->displayProductFromCard($user_id);
-       $total = $this->cartModel->totalPriceByUser($user_id);
+        return $this->cartModel->displayProductFromCart($user_id);
        //require_once __DIR__ . '/../models/test/cart.php';
+    }
+
+    public function totalPrice($user_id){
+        return $this->cartModel->totalPriceByUser($user_id);
+    }
+
+    public function showPage($user_id){
+        $displayCart = $this->infoCart($user_id);
+        $total = $this->totalPrice($user_id);
+    
+        require_once __DIR__ . '/../views/cart-page.php';
 
     }
 
-    public function showPage(){
-        require_once __DIR__ . '/../views/cart-page.php';
+    public function increaseQuantity($product_id){
+      $isUserConnected = $this->userModel->isConnected();
 
+      $user_id = null;
+      $success = false;
+
+      
+      if ($isUserConnected) {
+          $user_id = $this->userModel->id;
+        //   $success = true;
+        $success = $this->cartModel->addProductQuantity($user_id, $product_id);
+
+      }
+      
+      return Array('success' => $success, 'data' => $user_id);
     }
 
 }

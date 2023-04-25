@@ -45,7 +45,7 @@ class Cart extends Database
         $newQuantity = $newQuantity + 1;
         $sqlUpdateQuantity = "UPDATE cart SET quantity = '$newQuantity' WHERE user_id = :user_id and product_id = :product_id ";
         $addProduct = $this->db->prepare($sqlUpdateQuantity);
-        $addProduct->execute([
+        return $addProduct->execute([
             'product_id' => $product_id,
             'user_id' => htmlspecialchars($user_id)
         ]);       
@@ -66,15 +66,17 @@ class Cart extends Database
         $sql = "SELECT quantity FROM cart WHERE user_id = :user_id and product_id = :product_id";
         $addQuantity = $this->db->prepare($sql);
         $addQuantity->execute([
-            'product_id' => $product_id,
-            'user_id' => htmlspecialchars($user_id)
+            'user_id' => htmlspecialchars($user_id),
+            'product_id' => $product_id
         ]);
-        $result = $addQuantity->fetchAll(PDO::FETCH_ASSOC);
-        return $result[0]['quantity']; 
+        $result = $addQuantity->fetch(PDO::FETCH_ASSOC);
+        var_dump($result);
+        echo "user_id => $user_id ::::: product_id => $product_id";
+        return $result['quantity']; 
     }
 
-    public function displayProductFromCard($user_id){
-        $sql="SELECT products.name, products.price, products.image, cart.quantity, cart.user_id from products INNER JOIN cart on products.id = cart.product_id AND cart.user_id = $user_id";
+    public function displayProductFromCart($user_id){
+        $sql="SELECT products.name, products.price, products.id, products.image, cart.quantity, cart.user_id from products INNER JOIN cart on products.id = cart.product_id AND cart.user_id = $user_id";
         $getProducts = $this->db->prepare($sql);
         $getProducts->execute([
         ]);
