@@ -136,7 +136,7 @@
 
               <li id='' class="sub-category">
                 <span><?=$specificSubCategories[$i]['titre']?></span>
-                <button id="<?=$specificSubCategories[$i]['id']?>" class='deletecategory'>Supprimer</button>
+                <!-- <button id="<?=$specificSubCategories[$i]['id']?>" class='deletecategory'>Supprimer</button> -->
               </li>
 
             <?php endfor;?>

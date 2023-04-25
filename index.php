@@ -94,6 +94,7 @@ include __DIR__ . '/routes/review-route.php'; // <- review route
 include __DIR__ . '/routes/admin-route.php'; // <- admin route
 include __DIR__ . '/routes/account-route.php'; // <- account route
 include __DIR__ . '/routes/component-route.php'; // <- component route
+include __DIR__ . '/routes/cart-route.php'; // <- cart route
 
 
 
