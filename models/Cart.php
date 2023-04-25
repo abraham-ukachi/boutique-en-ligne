@@ -43,7 +43,7 @@ class Cart extends Database
     public function addProductQuantity($user_id, $product_id){
         $newQuantity = $this->getQuantity($user_id, $product_id);
         $newQuantity = $newQuantity + 1;
-        $sqlUpdateQuantity = "UPDATE cart SET $quantity = $newQuantity WHERE user_id = :user_id and product_id = :product_id ";
+        $sqlUpdateQuantity = "UPDATE cart SET quantity = '$newQuantity' WHERE user_id = :user_id and product_id = :product_id ";
         $addProduct = $this->db->prepare($sqlUpdateQuantity);
         $addProduct->execute([
             'product_id' => $product_id,
@@ -51,10 +51,10 @@ class Cart extends Database
         ]);       
     }
 
-    public function addReduceQuantity($user_id, $product_id){
+    public function reduceQuantity($user_id, $product_id){
         $newQuantity = $this->getQuantity($user_id, $product_id);
         $newQuantity = $newQuantity - 1;
-        $sqlUpdateQuantity = "UPDATE cart SET $quantity = $newQuantity WHERE user_id = :user_id and product_id = :product_id ";
+        $sqlUpdateQuantity = "UPDATE cart SET quantity = '$newQuantity' WHERE user_id = :user_id and product_id = :product_id ";
         $addProduct = $this->db->prepare($sqlUpdateQuantity);
         $addProduct->execute([
             'product_id' => $product_id,
@@ -88,11 +88,11 @@ class Cart extends Database
         $totalPrice->execute([
         ]);
         $result = $totalPrice->fetchAll(PDO::FETCH_ASSOC);
-        return $result; 
+        return $result[0]['TOTAL']; 
     }
 
     public function checkProduct($user_id, $product_id){
-        $sql = "SELECT * WHERE user_id = :user_id and product_id = :product_id";
+        $sql = "SELECT * FROM cart WHERE user_id = :user_id and product_id = :product_id";
         $checkProduct = $this->db->prepare($sql);
         $checkProduct->execute([
             'product_id' => $product_id,
