@@ -296,19 +296,13 @@ class Product extends Database
         return $result;
     }
 
-    public function GetProductByName($string, $limite, $category_id){
+    public function getProductByName($string, int $limite = 10, ?int $category_id = null){
+        $sql = "SELECT id, name FROM products WHERE name LIKE '%{$string}%' LIMIT 10";
 
-        if($category_id){
-        $sql = "SELECT id, name FROM products WHERE name LIKE '%$string%'
-        AND categories_id = $category_id LIMIT $limite ";
-        }else{
-            $sql = "SELECT id, name FROM products WHERE name LIKE '%$string%'
-             LIMIT $limite ";
-        }
-            $sql_exe = $this->db->prepare($sql);
-            $sql_exe->execute([
-            ]); 
-        $results = $sql_exe->fetch(PDO::FETCH_ASSOC); 
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([]);
+
+        $results = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
 
