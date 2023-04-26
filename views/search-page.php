@@ -1,7 +1,8 @@
 <?php
 ?>
-<!doctype html>
-<html lang="fr">
+
+<!DOCTYPE html>
+<html>
 <!-- HEAD -->
 <head>
     <!-- Our 4 VIP metas -->
@@ -55,14 +56,14 @@
     <!-- Theme -->
     <link rel='stylesheet' href='assets/theme/color.css'>
     <link rel='stylesheet' href='assets/theme/typography.css'>
-    <!-- <link rel='stylesheet' href='assets/theme/styles.css'> -->
+    <link rel='stylesheet' href='assets/theme/styles.css'>
 
     <!-- Animations -->
     <!-- <link rel='stylesheet' href='assets/animations/fade-in-animation.css'> -->
     <!-- <link rel='stylesheet' href='assets/animations/slide-from-down-animation.css'> -->
 
     <!-- Stylesheet -->
-    <!-- <link rel='stylesheet' href='assets/stylesheets/home-styles.css'> -->
+    <link rel='stylesheet' href='assets/stylesheets/search-styles.css'>
 
     <!-- Script -->
     <script>
@@ -75,49 +76,125 @@
     </script>
 
     <!-- Some more script for ya! #LOL -->
-    <script src='src/app.js' defer></script>
-    <!-- <script src='src/script/home.js' defer></script> -->
+    <script type='module' src='src/app.js' defer></script>
+    <script type='module' src='src/scripts/search.js' defer></script>
 
 </head>
 <!-- End of HEAD -->
-<body class='theme dark' fullbleed>
+
+
+<body class='theme light' fullbleed>
+
+<!-- Side Bar -->
+<!-- PHP: Include the `sideBar` component -->
+<?php
+$_GET['sidebar_route'] = 'home';
+$_GET['sidebar_init'] = 'au';
+$_GET['sidebar_connected'] = false; // TRUE if the user is connected
+$_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin
+
+require __DIR__ . '/components/side-bar.php';
+?>
+<!-- End of Side Bar -->
 
 <!-- Main part -->
 <main class='flex-layout vertical'>
-    <h1>    Hello from review page !</h1>
 
-// add
+    <!-- App-Layout of MAIN -->
+    <div class='app-layout' fit>
+        <!-- Header -->
+        <header>
+            <!-- App Bar -->
+            <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
+            <div class='app-bar'>
+                <!-- Title Wrapper -->
+                <div class='title-wrapper'>
+                    <!-- Title -->
+                    <h2 class='app-title'>Barre de recherche</h2>
+                    <!-- Subtitle -->
+                    <h3 class='app-subtitle'>Recherchez tous nos produits par leur nom</h3>
+                </div>
+            </div>
 
-    <ul style="overflow:scroll">
+            <!-- End of App Bar -->
 
-    <?php foreach ($reviews as $review): ?>
+            <!-- Horizontal Divider -->
+            <span class='divider horizontal bottom'></span>
+        </header>
 
-        <li>
-        <?php foreach ($review as $key => $value): ?>
+        <!-- [content] -->
+        <div content>
+            <div class="container">
+                <!--Make sure the form has the autocomplete function switched off:-->
+                    <div class='autocomplete' style='width:300px;'>
+                        <input id='myInput' type='text' name='item' placeholder='Search an item...'>
+                    </div>
+            </div>
+        </div>
+    </div>
 
-         <p><?= $key ?>&nbsp; <strong><?= $value ?></strong></p>
+    <!-- Nav Bar -->
+    <!-- Nav Bar -->
+    <!-- PHP: Include the `navBar` component -->
+    <?php
+    $_GET['navbar_route'] = 'home';
+    $_GET['navbar_init'] = 'au';
+    $_GET['navbar_connected'] = false; // TRUE if the user is connected
+    $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin
 
-        <?php endforeach; ?>
-        </li>
-    <?php endforeach; ?>
-    </ul>
+    require __DIR__ . '/components/nav-bar.php';
+    ?>
+    <!-- End of Nav Bar -->
+
+    <!-- Backdrop of MAIN -->
+    <div class='backdrop' fit hidden></div>
+
+    <!-- Menus of MAIN -->
+    <div class='menus' fit hidden></div>
+
+    <!-- Dialogs of MAIN -->
+    <div class='dialogs' fit hidden></div>
+
+    <!-- Toasts of MAIN -->
+    <div class='toasts' fit hidden></div>
 
 </main>
 
 <!-- Aside part -->
-<aside class='flex-layout vertical' hidden></aside>
+<aside class='flex-layout vertical' hidden>
+
+    <!-- App-Layout of ASIDE -->
+    <div class='app-layout' fit>...</div>
+
+    <!-- Backdrop of ASIDE -->
+    <div class='backdrop' fit hidden></div>
+
+    <!-- Menus of ASIDE -->s
+    <div class='menus' fit hidden></div>
+
+    <!-- Dialogs of ASIDE -->
+    <div class='dialogs' fit hidden></div>
+
+    <!-- Toasts of ASIDE -->
+    <div class='toasts' fit hidden></div>
+
+    <!-- Vertical Divider -->
+    <span class='divider vertical left'></span>
+</aside>
 
 <!-- Default Backdrop -->
-<div id='backdrop' hidden></div>
+<div id='backdrop' fit hidden></div>
 
 <!-- Default Menus -->
-<div id='menus' hidden></div>
+<div id='menus' fit hidden></div>
 
 <!-- Default Dialogs -->
-<div id='dialogs' hidden></div>
+<div id='dialogs' fit hidden></div>
 
 <!-- Default Toasts -->
-<div id='toasts' hidden></div>
+<div id='toasts' fit hidden></div>
 
 </body>
 </html>
+
+
