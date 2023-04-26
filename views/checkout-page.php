@@ -88,8 +88,8 @@
     <!-- PHP: Include the `sideBar` component -->
     <?php
     $_GET['sidebar_route'] = 'home';
-    $_GET['sidebar_init'] = 'au';
-    $_GET['sidebar_connected'] = false; // TRUE if the user is connected
+    $_GET['sidebar_init'] = $this->user->getInitials();
+    $_GET['sidebar_connected'] = $this->user->isConnected();
     $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin
 
     require __DIR__ . '/components/side-bar.php';
@@ -120,7 +120,7 @@
         <div content="">
             <div class='container vertical flex-layout deliveryDiv'>
 
-                <form id="deliveryType" class="vertical flex-layout">
+                <form id="deliveryForm" class="vertical flex-layout">
                     <h4>1 / 3</h4>
 
                     <div class="input-wrapper vertical flex-layout">
@@ -158,31 +158,31 @@
                     <h4>2 / 3</h4>
                     <div class="input-wrapper vertical flex-layout">
                         <label for="address" raised="">Adresse</label>
-                        <input name="address" type='text' placeholder="">
+                        <input name="address" id='addressValue' type='text' placeholder="">
                         <span class="input-indicator"><span bar=""></span><span val=""></span></span>
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="addressComplement" raised="">Complément d'adresse</label>
-                        <input name="addressComplement" type='text' placeholder=''>
+                        <input name="addressComplement" id="addressComplementValue" type='text' placeholder=''>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="city" raised>Ville</label>
-                        <input name="city" type='text' placeholder=''>
+                        <input name="city" id="cityValue" type='text' placeholder=''>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="postalCode" raised="">Code postal</label>
-                        <input name="postalCode" type='text' placeholder=''>
+                        <input name="postalCode" id="postalCodeValue" type='text' placeholder=''>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="country" raised=''>Pays</label>
-                        <input name="country" type='text' placeholder=''>
+                        <input name="country" id="countryValue" type='text' placeholder=''>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                     </div>
                     <div class="buttons vertical flex-layout">
@@ -201,30 +201,24 @@
             </div>
 
             <div class='container vertical flex-layout cardDiv' hidden>
-                <form id='deliveryType' class='vertical flex-layout'>
+                <form id='cardForm' class='vertical flex-layout'>
                     <h4>3 / 3</h4>
                     <div class='input-wrapper vertical flex-layout'>
-                        <label for='standard' raised="">Propriétaire de la carte</label>
-                        <input id='standard' type='text' placeholder="John Doe">
-                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
-                    </div>
-
-                    <div class='input-wrapper vertical flex-layout'>
-                        <label for='express' raised="">Numéro de la carte</label>
-                        <input id='express' type='text' pattern='[0-9]*' inputmode='numeric'
+                        <label for='nbCard' raised="">Numéro de la carte</label>
+                        <input id='nbCardValue' name='nbCard' type='text' inputmode='numeric'
                                placeholder="6200 0000 0000 0005">
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
-                        <label for='business' raised="">Date d'expiration</label>
-                        <input id='business' type="text" pattern='[0-9]*' inputmode='numeric' placeholder="11/22">
+                        <label for='expiration' raised="">Date d'expiration</label>
+                        <input id='expirationValue' name="expiration" type="text" pattern='[0-9]*' inputmode='numeric' placeholder="11/22">
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
-                        <label for='business' raised=''>CVV</label>
-                        <input id='business' type='text' pattern='[0-9]*' inputmode="numeric" placeholder="000">
+                        <label for='cvv' raised=''>CVV</label>
+                        <input id='cvvValue' name="cvv" type='text' pattern='[0-9]*' inputmode="numeric" placeholder="000">
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                     </div>
 
@@ -252,8 +246,8 @@
         <!-- PHP: Include the `navBar` component -->
         <?php
         $_GET['navbar_route'] = 'home';
-        $_GET['navbar_init'] = 'au';
-        $_GET['navbar_connected'] = false; // TRUE if the user is connected
+        $_GET['sidebar_init'] = $this->user->getInitials();
+        $_GET['sidebar_connected'] = $this->user->isConnected();
         $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin
 
         require __DIR__ . '/components/nav-bar.php';

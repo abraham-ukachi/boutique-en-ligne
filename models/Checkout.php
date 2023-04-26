@@ -13,13 +13,21 @@ class Checkout extends Database
         $this->dbConnect();
     }
 
-
-    public function getAddressByUser(int $userId){
-        $addressUser = $this->db->prepare("SELECT * FROM addresses WHERE user_id=$userId");
-        $addressUser->execute([
+    public function registerCard($user_id, $nbCard, $expiration, $cvv){
+        $sql = "INSERT INTO cards (user_id, card_no, expiration, CVV)
+                VALUES (:user_id, :card_no, :expiration, :cvv)";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'user_id' => htmlspecialchars($user_id),
+            'card_no' => htmlspecialchars($nbCard),
+            'expiration' => htmlspecialchars($expiration),
+            'cvv' => htmlspecialchars($cvv)
         ]);
-        $result = $addressUser->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        if ($sql_exe) {
+            echo json_encode(['response' => 'ok', 'reussite' => 'Nouvelle carte enregistrée']);
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+        }
     }
 
     public function newAddress($titre, $address, $complement, $postal_code, $city, $country, $user_id, $type)
