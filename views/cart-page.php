@@ -1,4 +1,3 @@
-
 <?php
 ?>
 <!DOCTYPE html>
@@ -76,7 +75,7 @@
   
   <!-- Some more script for ya! #LOL -->
   <script type="module" src="src/app.js" defer></script>
-  <script type="module" src="src/scripts/admin-category.js" defer></script>
+  <script type="module" src="src/scripts/cart.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
@@ -104,71 +103,62 @@
         <header>
             <!-- App Bar -->
             <div class="app-bar">
-              <!-- Title Wrapper -->
-              <div class="title-wrapper">
+                <span flex></span>
+
+                <!-- Account - Icon Button -->
+                <a href="account" role="icon-button" tabindex="0" title="Settings">
+                <span class="material-icons icon">settings</span>
+                </a>
+            </div>
+            <!-- End of App Bar -->
+            <!-- App Bar -->
+            <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
+            <div class="app-bar" sticky>
+            <!-- Title Wrapper -->
+            <div class="title-wrapper">
                 <!-- Title -->
-                <h2 class="app-title">Sous-catégories</h2>
+                <h2 class="app-title">Cart</h2>
                 <!-- Subtitle -->
-                <h3 class="app-subtitle"><?=$oneCategoryTitre?></h3>
-              </div>
+                <h3 class="app-subtitle">Cart</h3>
+            </div>
             </div>
             <!-- End of App Bar -->
             <!-- Horizontal Divider -->
             <span class="divider horizontal bottom"></span>
         </header>
 
+
+
+        <!-- [content] -->
         <div content>
 
-          <div class="container">
+            <div class='container'>
 
-            <?php
-              /*
-              var_dump($oneCategory);
-              echo $categoryId;
-              var_dump($specificSubCategories);
-              */
-            ?>
+              <?php  var_dump($displayCart)?>
 
+              <ul id="items">
 
-            <ul id="subCategories">
+                <?php for ($i = 0; $i <count($displayCart); $i++): ?>
 
-            <?php for ($i = 0; $i <count($specificSubCategories); $i++): ?>
+                <li id='' class="cart-item">
+                    <span><?=$displayCart[$i]['name']?></span>
+                    <button id="<?=$displayCart[$i]['id']?>" data-product-id="<?=$displayCart[$i]['id']?>" data-user-id='<?= $displayCart[$i]['user_id'] ?>' class="reduce"><</button>
+                    <span><?=$displayCart[$i]['quantity']?></span>
+                    <button id="<?=$displayCart[$i]['id']?>" data-product-id="<?=$displayCart[$i]['id']?>" data-user-id='<?= $displayCart[$i]['user_id'] ?>' class="increase">></button>
+                    <span><?=$displayCart[$i]['price']/100?> €</span>
+                </li>
 
-              <li id='' class="sub-category">
-                <span><?=$specificSubCategories[$i]['titre']?></span>
-                <!-- <button id="<?=$specificSubCategories[$i]['id']?>" class='deletecategory'>Supprimer</button> -->
-              </li>
+                <?php endfor;?>
 
-            <?php endfor;?>
+                </ul>
+                <span>Total Price : <?=$total/100?> €</span>
+                <button>Payer</button>
 
-            </ul>
-
-
-
-            <form  id='subCategoriesForm' action='' method='post' data-category-id='<?= $categoryId ?>'>
-              <div class="input-wrapper">
-                  <label raised for="subcategory">Ajouter une sous-catégorie</label>
-                  <input id="subcategorytitre" class="subcategory" name="subcategoryTitre" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
-                  <span class="input-indicator"><span bar></span><span val></span>
-              </div>
-
-              <div class="input-wrapper">
-                  <label raised for="subcategory">Nom en anglais sans espaces et caractères spéciaux</label>
-                  <input id="subcategoryname" class="subcategory" name="subcategoryName" type="text" value="">                <span class="input-indicator"><span bar></span><span val></span>
-                  <span class="input-indicator"><span bar></span><span val></span>
-              </div>
-              <button type="submit" class="register_form_button" id="envoie" name="envoie" contained>Ajouter une nouvelle sous-catégorie</button>
-            </form>
-
-
-          </div>
-
+            </div>
         </div>
-
-
-   
-
-
+    
+    <!-- Nav Bar -->
+    <!-- PHP: Include the `navBar` component -->
     <?php 
     $_GET['navbar_route'] = 'users'; 
     $_GET['navbar_init'] = 'au'; 
