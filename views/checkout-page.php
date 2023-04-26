@@ -76,7 +76,7 @@
 
     <!-- Some more script for ya! #LOL -->
     <script type='module' src='src/app.js' defer></script>
-    <!-- <script type='module' src='src/scripts/home.js' defer></script> -->
+    <script type='module' src='src/scripts/checkout.js' defer></script>
 
 </head>
 <!-- End of HEAD -->
@@ -100,141 +100,150 @@
 <!-- Main part -->
 <main class='flex-layout vertical'>
 
-
-    <!-- App-Layout of MAIN -->
-    <header>
-        <!-- App Bar -->
-        <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
-        <div class='app-bar'>
-            <!-- Title Wrapper -->
-            <div class='title-wrapper'>
-                <!-- Title -->
-                <h2 class='app-title'>Checkout</h2>
-                <span class='divider horizontal bottom'></span>
-
-            </div>
-        </div>
-        <!-- End of App Bar -->
-
-        <!-- Horizontal Divider -->
-        <span class='divider horizontal bottom'></span>
-    </header>
-    <!-- End of App Bar -->
-
     <div class='app-layout' fit>
         <!-- Header -->
-        <header>...</header>
+        <header> <!-- App Bar -->
+            <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
+            <div class='app-bar'>
+                <!-- Title Wrapper -->
+                <div class='title-wrapper'>
+                    <!-- Title -->
+                    <h2 class='app-title'>Checkout</h2>
+                    <span class='divider horizontal bottom'></span>
+
+                </div>
+            </div>
+            <!-- End of App Bar -->
+
+            <!-- Horizontal Divider -->
+            <span class='divider horizontal bottom'></span></header>
+        <div content="">
+            <div class='container vertical flex-layout deliveryDiv'>
+
+                <form id="deliveryType" class="vertical flex-layout">
+                    <h4>1 / 3</h4>
+
+                    <div class="input-wrapper vertical flex-layout">
+                        <label for='standard'><h3>Standard</h3></label>
+                        <input id='standard' name='deliveryChoice' type='radio' value='standard'>
+                        <p>Livraison entre 3 et <br> 5 jours ouvrés</p>
+                        <small>Prix : Gratuit</small>
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for='express'><h3>Express</h3></label>
+                        <input id='express' name='deliveryChoice' type='radio' value='express'>
+                        <p>Livraison en 1 jour <br> ouvré</p>
+                        <small>Prix : 18€</small>
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for='business'><h3>Business</h3></label>
+                        <input id='business' name='deliveryChoice' type='radio' value='business' checked>
+                        <p>Livraison en 1 semaine<br> (jours non ouvrés)</p>
+                        <small>Prix : 30€</small>
+                    </div>
+
+                    <div class='buttons vertical flex-layout'>
+                        <button id='delivery' type='button' contained=''>
+                            <span>Suivant</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class='container vertical flex-layout addressDiv' hidden>
+                <form id='addressForm' class='vertical flex-layout'>
+                    <h4>2 / 3</h4>
+                    <div class="input-wrapper vertical flex-layout">
+                        <label for="address" raised="">Adresse</label>
+                        <input name="address" type='text' placeholder="">
+                        <span class="input-indicator"><span bar=""></span><span val=""></span></span>
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for="addressComplement" raised="">Complément d'adresse</label>
+                        <input name="addressComplement" type='text' placeholder=''>
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for="city" raised>Ville</label>
+                        <input name="city" type='text' placeholder=''>
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for="postalCode" raised="">Code postal</label>
+                        <input name="postalCode" type='text' placeholder=''>
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for="country" raised=''>Pays</label>
+                        <input name="country" type='text' placeholder=''>
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                    </div>
+                    <div class="buttons vertical flex-layout">
+                        <button id='address' type="button" contained="">
+                            <span>Suivant</span>
+                        </button>
+                    </div>
+                    <div class='buttons vertical flex-layout'>
+                        <button id='addressReturn' type='button' outlined="">
+                            <span>Retour</span>
+                        </button>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <div class='container vertical flex-layout cardDiv' hidden>
+                <form id='deliveryType' class='vertical flex-layout'>
+                    <h4>3 / 3</h4>
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for='standard' raised="">Propriétaire de la carte</label>
+                        <input id='standard' type='text' placeholder="John Doe">
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for='express' raised="">Numéro de la carte</label>
+                        <input id='express' type='text' pattern='[0-9]*' inputmode='numeric'
+                               placeholder="6200 0000 0000 0005">
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for='business' raised="">Date d'expiration</label>
+                        <input id='business' type="text" pattern='[0-9]*' inputmode='numeric' placeholder="11/22">
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for='business' raised=''>CVV</label>
+                        <input id='business' type='text' pattern='[0-9]*' inputmode="numeric" placeholder="000">
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                    </div>
+
+                    <div class='buttons vertical flex-layout'>
+                        <button id='validateCheckout' type='submit' contained=''>
+                            <span>Valider</span>
+                        </button>
+                    </div>
+
+                    <div class='buttons vertical flex-layout'>
+                        <button id="cardReturn" type='button' outlined="">
+                            <span>Retour</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div content="">
-
-        <div class='container vertical flex-layout' hidden>
-            <form method="POST" id="deliveryType" class="vertical flex-layout">
-
-                <div class="input-wrapper vertical flex-layout">
-                    <label for="standard"><h3>Standard</h3></label>
-                    <input id="standard" type="radio">
-                    <p>Livraison entre 3 et <br> 5 jours ouvrés</p>
-                </div>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for='express'><h3>Express</h3></label>
-                    <input id='express' type='radio'>
-                    <p>Livraison en 1 jour <br> ouvré</p>
-                </div>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for='business'><h3>Business</h3></label>
-                    <input id='business' type='radio'>
-                    <p>Livraison en 1 semaine<br> (jours non ouvrés)</p>
-                </div>
-
-                <div class='buttons vertical flex-layout'>
-                    <button type='button' contained=''>
-                        <span>Suivant</span>
-                    </button>
-                </div>
-
-            </form>
-        </div>
-
-        <div class='container vertical flex-layout' hidden>
-            <form method="POST" id='addressForm' class='vertical flex-layout'>
-
-                <div class="input-wrapper vertical flex-layout">
-                    <label for="address" raised="">Adresse</label>
-                    <input name="address"type='text' placeholder="">
-                    <span class="input-indicator"><span bar=""></span><span val=""></span></span>
-                </div>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for="addressComplement" raised="">Complément d'adresse</label>
-                    <input name="addressComplement" type='text' placeholder=''>
-                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
-                </div>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for="city" raised>Ville</label>
-                    <input name="city" type='text' placeholder=''>
-                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
-                </div>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for="postalCode" raised="">Code postal</label>
-                    <input name="postalCode" type='text' placeholder=''>
-                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
-                </div>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for="country" raised=''>Pays</label>
-                    <input name="country" type='text' placeholder=''>
-                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
-                </div>
-                <div class="buttons vertical flex-layout">
-                    <button type="button" contained="">
-                        <span>Suivant</span>
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div class='container vertical flex-layout'>
-            <form method='POST' id='deliveryType' class='vertical flex-layout'>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for='standard' raised="">Propriétaire de la carte</label>
-                    <input id='standard' type='text'>
-                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
-                </div>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for='express' raised="">Numéro de la carte</label>
-                    <input id='express' type='text'>
-                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
-                </div>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for='business' raised="">Date d'expiration</label>
-                    <input id='business' type='date'>
-                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
-                </div>
-
-                <div class='input-wrapper vertical flex-layout'>
-                    <label for='business' raised=''>CVV</label>
-                    <input id='business' type='number'>
-                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
-                </div>
-
-                <div class='buttons vertical flex-layout'>
-                    <button type='button' contained=''>
-                        <span>Suivant</span>
-                    </button>
-                </div>
-
-            </form>
-        </div>
-    </div>
-
 
 
     <!-- Nav Bar -->
