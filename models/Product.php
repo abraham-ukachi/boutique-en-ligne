@@ -286,7 +286,7 @@ class Product extends Database
 
     function getPopularProducts($limit){
         $sql_exe = $this->db->prepare("
-        SELECT products.*, avg(comments.ratings) AS avg_rating 
+        SELECT products.*, avg(comments.ratings) AS avg_rating, COUNT(comments.id) AS nb_comments
         FROM products 
         INNER JOIN comments
         ON products.id = comments.product_id 
