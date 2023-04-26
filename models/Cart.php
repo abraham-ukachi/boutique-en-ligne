@@ -70,8 +70,8 @@ class Cart extends Database
             'product_id' => $product_id
         ]);
         $result = $addQuantity->fetch(PDO::FETCH_ASSOC);
-        var_dump($result);
-        echo "user_id => $user_id ::::: product_id => $product_id"; 
+        //var_dump($result);
+        //echo "user_id => $user_id ::::: product_id => $product_id"; 
         return $result['quantity']; 
     }
 
