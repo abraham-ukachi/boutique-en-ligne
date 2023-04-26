@@ -85,6 +85,7 @@ include __DIR__ . '/routes/shop-route.php'; // <- shop route
 include __DIR__ . '/routes/api-route.php'; // <- api route
 include __DIR__ . '/routes/product-route.php'; // <- product route
 include __DIR__ . '/routes/search-route.php'; // <- search route
+include __DIR__ . '/routes/checkout-route.php'; // <- checkout route
 
 include __DIR__ . '/routes/login-route.php'; //<- login route
 include __DIR__ . '/routes/register-route.php'; //<- register route

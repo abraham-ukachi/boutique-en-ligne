@@ -263,40 +263,37 @@ class Product extends Database
         return $results['deleted_at'];
     }
 
+
     function getLatestProducts($limit){
-      $sql_exe = $this->db->prepare("SELECT * FROM products WHERE deleted_at IS NULL ORDER BY created_at DESC LIMIT $limit");
-      $sql_exe->execute([]);
-      $results = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
-      return $results;
+        $sql_exe = $this->db->prepare("SELECT * FROM products WHERE deleted_at IS NULL ORDER BY created_at DESC LIMIT $limit");
+        $sql_exe->execute([]);
+        $results = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
     }
 
 
-    function getPopularProducts($limit) {
-      $sql_exe = $this->db->prepare("
-        SELECT products.*, AVG(comments.ratings) AS avg_rating, COUNT(comments.id) AS nb_comments
-        FROM products 
-        INNER JOIN comments
-        ON products.id = comments.product_id 
-        GROUP BY products.id
-        ORDER BY avg_rating DESC
-        LIMIT $limit"
-      );
-
-      $sql_exe->execute([]);
-      $results = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
-      return $results;
-    }
-
-
-
-    function getMostPopularProducts($limit){
-        $sql = "SELECT avg(ratings) 
+    function getAvgRatings($productsId){
+        $sql_exe = $this->db->prepare("SELECT * avg(ratings), count(comments.id)
                 FROM comments 
                 INNER JOIN products 
                 ON comments.product_id = products.id 
-                WHERE products.id = 1";
-        $sql->$this->db->execute();
-        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
+                WHERE products.id = $productsId");
+        $sql_exe->execute([]);
+        $results = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
+    function getPopularProducts($limit){
+        $sql_exe = $this->db->prepare("
+        SELECT products.*, avg(comments.ratings) AS avg_rating, COUNT(comments.id) AS nb_comments
+        FROM products 
+        INNER JOIN comments
+        ON products.id = comments.product_id 
+        GROUP BY products.id 
+        ORDER BY avg_rating DESC
+        LIMIT $limit");
+        $sql_exe->execute([]);
+        $results = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
 

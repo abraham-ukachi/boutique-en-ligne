@@ -8,7 +8,6 @@ function autocomplete(inp) {
         let url = `search/${inputValue}`;
         let response = await fetch(url);
         let responseData = await response.json();
-        console.log(responseData)
         let template = `
             <div id="" class="autocomplete-items"> 
               
