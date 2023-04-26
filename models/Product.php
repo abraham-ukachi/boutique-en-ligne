@@ -306,6 +306,36 @@ class Product extends Database
         return $results;
     }
 
+    /**
+     * Method used to get random products from the database
+     *
+     * @param int $limit : number of products to get
+     *
+     * @return array : array of products
+     */
+    public function getRandomProducts(int $limit = 10): array {
+      // create our random sql query with a limit as `$sql`
+      $sql = <<<SQL
+        SELECT * FROM `products`
+        WHERE deleted_at IS NULL
+        AND stock > 0
+        ORDER BY RAND()
+        LIMIT $limit
+      SQL;
+
+      // prepare the query
+      $query = $this->db->prepare($sql);
+
+      // execute the query
+      $query->execute();
+
+      // fetch the results in an associative array
+      $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+      // return the results
+      return $results;
+    }
+
 }
 
 

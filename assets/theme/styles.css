@@ -1317,7 +1317,36 @@ menu > li.menu-item:hover > a {
 
 .menu-item button .icon, .menu-item a[role="button"] .icon {
   margin-right: 12px;
+  max-width: 24px; /* <- HACK ;) */
 }
+
+/* === FOOTER === */
+
+.app-layout > footer {
+  width: 100%;
+  height: auto;
+  min-height: 2.5rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.app-layout > footer > .footer-container {
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.footer-logo {}
+
+.footer-text {
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  color: var(--outline-color);
+  text-align: center;
+}
+
+/** == END of FOOTER == */
+
 
 .menu-item button :not(.icon), .menu-item a[role="button"] :not(.icon){
   white-space: nowrap;

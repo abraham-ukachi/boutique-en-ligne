@@ -70,6 +70,7 @@
 
   "latestProducts": "Latest products",
   "popularProducts": "Popular products",
+  "cheapestProducts": "Cheapest products",
   
   "addToCart": "Add to cart",
   "cartEmpty": "Your cart is empty",
@@ -166,6 +167,9 @@
 
 
   "heroTitle": "Discover your perfect musical instrument",
+  "discoverYour_s": "Discover your %s",
+  "perfectInstrument": "Perfect instrument",
+  "perfectMusicalInstrument": "Perfect musical instrument",
   "heroSubtitle": "Maxaboom is a free, open source, and easy to use web app that allows you to discover and buy your perfect musical instrument.",
 
 
@@ -181,7 +185,38 @@
 
   "changeLanguage": "Change language",
 
-  "aboutMaxaboom": "About Maxaboom"
+  "aboutMaxaboom": "About Maxaboom",
+
+  "buyAProduct": "Buy a product",
+
+  "stepSearchTitle": "Search",
+  "stepTapTitle": "Tap",
+  "stepPlayTitle": "Play",
+
+  "stepSearchDescription": "+200 instruments to choose from",
+  "stepTapDescription": "Checkout in seconds with our blistering fast checkout process",
+  "stepPlayDescription": "Play your new instrument and enjoy your music",
+
+  "ourTopCategories": "Our Top Categories",
+  "topCategories": "Top Categories",
+
+  "pianos": "Pianos",
+  "guitars": "Guitars",
+  "drums": "Drums",
+  "violin": "Violins",
+  "saxophones": "Saxophones",
+  "flutes": "Flutes",
+  "percussions": "Percussions",
+  "trumpets": "Trumpets",
+  "dj": "DJ",
+  "wind-instruments": "Wind instruments",
+  "percussion": "Percussion",
+
+  "addToLikes": "Add to likes",
+
+  "copyrightText": "Maxaboom. All rights reserved.",
+
+  "madeWithLove": "Made with ❤️  by Maxaboom Authors"
 
 
 

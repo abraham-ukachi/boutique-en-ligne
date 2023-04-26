@@ -181,7 +181,7 @@
           <?php else: ?><!-- Else|PHP (0) : user is not connected -->
            
           <!-- ...show the login icon-button with persion material icon  -->
-          <a href="login" role="icon-button" tabindex="0" class="icon-button profile">
+          <a href="login" role="icon-button" tabindex="0" class="icon-button profile" narrow-only>
             <span class="material-icons icon">person</span>
           </a>
             
@@ -212,7 +212,7 @@
           <div class="title-wrapper vertical flex-layout centered">
             <!-- Title -->
             <h2 class="app-title">
-              <span><?= $this->i18n->getString('gm')?></span> 
+              <span><?= $this->getCurrentGreeting()?></span> 
 
               <!-- PHP (1): if the user is connected... -->
               <?php if ($this->user->isConnected()): ?>
@@ -259,12 +259,12 @@
           <section hero>
 
               <!-- Hero Text Container -->
-              <div class="hero-text-container">
-                <h1 class="hero-title"><?= $this->i18n->getString('heroTitle') ?></h1>
+              <div class="hero-text-container vertical flex-layout center">
+                <h1 class="hero-title"><?= sprintf($this->i18n->getString('discoverYour_s'), "<span>" . $this->i18n->getString('perfectMusicalInstrument') . "</span>") ?></h1>
                 <p class="hero-subtitle"><?= $this->i18n->getString('heroSubtitle') ?></p>
                 
                 <!-- Call To Action Buttons -->
-                <div class="call-to-action-buttons horizontal flex-layout">
+                <div class="call-to-action-buttons">
                   <!-- Shop Now - Call To Action Button -->
                   <button id="shopNowButton" class="call-to-action-button" contained>
                     <span><?= $this->i18n->getString('shopNow') ?></span>
@@ -280,35 +280,406 @@
               </div>
               <!-- End of Hero Text Container -->
 
-              <!-- Hero Product Container -->
-              <div class="hero-product-container">
-                <div class="hero-product"></div> 
+              <!-- Hero Products Container -->
+              <div class="hero-products-container vertical flex-layout centered">
+                <!-- Hero Products -->
+                <div class="hero-products vertical flex-layout" fit>
+
+                  <!-- PHP (2): For each hero product in the randomly generated `$heroProducts` array... -->
+                  <?php foreach ($heroProducts as $heroProductIndex => $heroProduct): ?>
+                  <!-- ...PHP (2): display the hero product -->
+
+                  <!-- Hero Product --> 
+                  <a href="product/<?= $heroProduct['id'] ?>" target="_blank" data-product-id="<?= $heroProduct['id'] ?>" class="hero-product fade-in vertical flex-layout centered" fit <?= $heroProductIndex === 0 ? 'active' : ''?>>
+                    <!-- Hero Product Image -->
+                    <img class="hero-product-image"
+                      src="assets/images/products/<?= $heroProduct['image'] ?>" 
+                      alt="Hero Product Image"
+                      title="<?= $heroProduct['name'] ?>"
+                      >
+
+                    <!-- Price Tag -->
+                    <div class="hero-price-tag pop-in horizontal flex-layout">
+                      <div details class="vertical flex-layout flex">
+                        <span class="hero-product-name"><?= $heroProduct['name'] ?></span>
+                        <span class="hero-price-tag-value"><?= number_format($heroProduct['price'] / 100, 2) ?> €</span>
+                      </div>
+
+                      <div icon class="vertical flex-layout centered">
+                        <span class="divider vertical left"></span>
+                        <span class="material-icons icon">shopping_bag</span>
+                      </div>
+
+                    </div>
+                  </a>
+                  <!-- End of Hero Product -->
+
+                  <? endforeach; ?>
+                  <!-- End of PHP (2) -->
+
+
+                </div>
+                <!-- End of Hero Products -->
+                
+                <!-- Hero Products Dots -->
+                <div class="hero-products-dots dots-container horizontal flex-layout centered">
+
+                  <!-- PHP (3): For each hero product in the randomly generated `$heroProducts` array... -->
+                  <?php foreach ($heroProducts as $heroProductIndex => $heroProduct): ?>
+                  <!-- ...PHP (3): display the corresponding hero dot -->
+
+                  <span data-product-id="<?= $heroProduct['id'] ?>" 
+                    class="dot" role="dot" 
+                    tabindex="<?= $heroProductIndex ?>" 
+                    title="<?= $heroProduct['name'] ?>" <?= ($heroProductIndex === 0) ? 'active' : '' ?>
+                    >
+                  </span>
+
+                  <? endforeach; ?>
+                  <!-- End of PHP (3) -->
+
+                </div>
+                <!-- End of Hero Products Dots -->
+
               </div>
-              <!-- End of Hero Product Container -->
+              <!-- End of Hero Products Container -->
 
           </section>
           <!-- End of Hero - Section -->
 
           
           <!-- Steps - Section -->
-          <section steps></section>
+          <section steps class="vertical flex-layout center">
+            <!-- Steps Container -->
+            <ul class="steps-container horizontal flex-layout" naked>
+
+              <!-- PHP (4): For each step in `$steps` array... -->
+              <?php foreach ($steps as $step): ?>
+              <!-- ...PHP (4): display the corresponding step -->
+              <li class="step <?= $step['id'] ?> vertical flex-layout">
+                <span class="step-icon <?= $step['id'] ?>"></span>
+                <h3 class="step-title"><?= $step['title'] ?></h3>
+                <p class="step-description"><?= $step['description'] ?></p>
+              </li>
+
+              <?php endforeach; ?>
+              <!-- End of PHP (4) -->
+
+            </ul>
+            <!-- End of Steps Container -->
+          </section>
           <!-- End of Steps - Section -->
 
 
-          <!-- Categories - Section -->
-          <section categories></section>
-          <!-- End of Categories - Section -->
+          <!-- Top-Categories - Section -->
+          <section id="topCategories" top-categories>
+            <h2><?= $this->i18n->getString('ourTopCategories') ?></h2>
+
+            <div class="top-categories-container horizontal flex-layout">
+
+              <!-- PHP (5): For each topCategory in `$topCategories` array... -->
+              <?php foreach ($topCategories as $topCategory): ?>
+              <!-- ...PHP (5): display the corresponding category -->
+              
+              <!-- Top Category -->
+              <a href="shop/<?= $topCategory['name'] ?>" target="_blank"
+              class="top-category vertical flex-layout centered" 
+              title="<?= $this->i18n->getString($topCategory['name'], $topCategory['titre']) ?>"
+              >
+                <!-- Category Icon -->
+                <span class="top-category-icon vertical flex-layout centered <?= $topCategory['name'] ?>"></span>
+                
+                <!-- Category Name -->
+                <span class="top-category-name"><?= $this->i18n->getString($topCategory['name'], $topCategory['titre']) ?></span>
+              </a>
+              <!-- End of Category -->
+
+              <?php endforeach; ?>
+              <!-- End of PHP (5) -->
+
+            </div>
+            <!-- End of Top Categories Container -->
+
+          </section>
+          <!-- End of Top-Categories - Section -->
 
 
-          <!-- Products - Section -->
-          <section products></section>
-          <!-- End of Products - Section -->
+          <!-- Latest Products - Section -->
+          <section id="latestProducts" latest-products>
+            <h2 class="flex-layout center">
+              <span><?= $this->i18n->getString('latestProducts') ?></span>
+              <span flex></span>
+              <a href="category/latest" role="icon-button" tabindex="0">
+                <span class="material-icons icon">arrow_forward</span>
+              </a>
+            </h2>
+
+            <ul class="products vertical flex-layout" naked>
+
+              <!-- PHP (6): For each product in `$latestProducts` array... -->
+              <?php foreach ($latestProducts as $product): ?>
+              <!-- ...PHP (6): display the corresponding product -->
+
+              <!-- Product Wrapper -->
+              <li class="product-wrapper vertical flex-layout">
+
+                <!-- Product  -->
+                <div tabindex="0" class="product vertical flex-layout"
+                  data-product-id="<?= $product['id'] ?>"
+                  title="<?= $product['name']?>">
+
+                  <!-- Product Image -->
+                  <div class="product-image-container vertical flex-layout centered">
+                    <img class="product-image" 
+                      src="assets/images/products/<?= $product['image'] ?>" 
+                      alt="Product Image">
+
+                    <!-- Like Button -->
+                    <button class="like-btn vertical flex-layout centered" naked 
+                      data-product-id="<?= $product['id'] ?>"
+                      title="<?= $this->i18n->getString('addToLikes') ?>"
+                      >
+                      <span class="material-icons icon">favorite_border</span>
+                    </button>
+                    <!-- End of Like Button -->
+                  </div>
+                  <!-- End of Product Image -->
+
+
+                  <!-- Product Details -->
+                  <div class="product-details-container vertical flex-layout">
+                    <!-- Rating -->
+                    <div class="rating-container horizontal flex-layout center">
+                      <span class="material-icons icon">star</span>
+                      <span class="rating-count"><?= $product['ratingCount'] ?? 4.5 ?></span>
+                      <span class="rating-total">&nbsp;(<?= $product['ratingTotal'] ?? 30 ?>)</span>
+                    </div>
+
+                    <!-- Product Name -->
+                    <div class="product-name"><?= $product['name'] ?></div>
+
+                    <!-- Product Price -->
+                    <div class="product-price"><?= number_format($product['price'] / 100, 2) ?> €</div>
+
+                    <!-- Add to Cart Button -->
+                    <button class="add-to-cart-btn horizontal flex-layout centered" contained expands shrinks 
+                      data-product-id="<?= $product['id'] ?>"
+                      title="<?= $this->i18n->getString('addToCart') ?>"
+                      >
+                      <span class="material-icons icon">add</span>
+                    </button>
+                    
+
+                  </div>
+                  <!-- End of Product Details -->
+
+                </div>
+                <!-- End of Product -->
+
+              </li>
+              <!-- End of Product Wrapper -->
+
+              <?php endforeach; ?>
+              <!-- End of PHP (6) -->
+
+            </ul>
+
+            <!-- Background of Products Section -->
+            <span class="background"></span>
+
+          </section>
+          <!-- End of Latest Products - Section -->
+
+
+
+          <!-- Popular Products - Section -->
+          <section id="popularProducts" popular-products>
+            <h2 class="flex-layout center">
+              <span><?= $this->i18n->getString('popularProducts') ?></span>
+              <span flex></span>
+              <a href="category/popular" role="icon-button" tabindex="0">
+                <span class="material-icons icon">arrow_forward</span>
+              </a>
+            </h2>
+
+            <ul class="products vertical flex-layout" naked>
+
+              <!-- PHP (6): For each product in `$popularProducts` array... -->
+              <?php foreach ($popularProducts as $product): ?>
+              <!-- ...PHP (6): display the corresponding product -->
+
+              <!-- Product Wrapper -->
+              <li class="product-wrapper vertical flex-layout">
+
+                <!-- Product  -->
+                <div tabindex="0" class="product vertical flex-layout"
+                  data-product-id="<?= $product['id'] ?>"
+                  title="<?= $product['name']?>">
+
+                  <!-- Product Image -->
+                  <div class="product-image-container vertical flex-layout centered">
+                    <img class="product-image" 
+                      src="assets/images/products/<?= $product['image'] ?>" 
+                      alt="Product Image">
+
+                    <!-- Like Button -->
+                    <button class="like-btn vertical flex-layout centered" naked 
+                      data-product-id="<?= $product['id'] ?>"
+                      title="<?= $this->i18n->getString('addToLikes') ?>"
+                      >
+                      <span class="material-icons icon">favorite_border</span>
+                    </button>
+                    <!-- End of Like Button -->
+                  </div>
+                  <!-- End of Product Image -->
+
+
+                  <!-- Product Details -->
+                  <div class="product-details-container vertical flex-layout">
+                    <!-- Rating -->
+                    <div class="rating-container horizontal flex-layout center">
+                      <span class="material-icons icon">star</span>
+                      <span class="rating-count"><?= $product['ratingCount'] ?? 4.5 ?></span>
+                      <span class="rating-total">&nbsp;(<?= $product['ratingTotal'] ?? 30 ?>)</span>
+                    </div>
+
+                    <!-- Product Name -->
+                    <div class="product-name"><?= $product['name'] ?></div>
+
+                    <!-- Product Price -->
+                    <div class="product-price"><?= number_format($product['price'] / 100, 2) ?> €</div>
+
+                    <!-- Add to Cart Button -->
+                    <button class="add-to-cart-btn horizontal flex-layout centered" contained expands shrinks 
+                      data-product-id="<?= $product['id'] ?>"
+                      title="<?= $this->i18n->getString('addToCart') ?>"
+                      >
+                      <span class="material-icons icon">add</span>
+                    </button>
+                    
+
+                  </div>
+                  <!-- End of Product Details -->
+
+                </div>
+                <!-- End of Product -->
+
+              </li>
+              <!-- End of Product Wrapper -->
+
+              <?php endforeach; ?>
+              <!-- End of PHP (6) -->
+
+            </ul>
+
+            <!-- Background of Products Section -->
+            <span class="background"></span>
+
+          </section>
+          <!-- End of Popular Products - Section -->
+
+
+
+          <!-- Cheapest Products - Section -->
+          <section id="cheapestProducts" cheapest-products>
+            <h2 class="flex-layout center">
+              <span><?= $this->i18n->getString('cheapestProducts') ?></span>
+              <span flex></span>
+              <a href="category/cheapest" role="icon-button" tabindex="0">
+                <span class="material-icons icon">arrow_forward</span>
+              </a>
+            </h2>
+
+            <ul class="products vertical flex-layout" naked>
+
+              <!-- PHP (6): For each product in `$cheapestProducts` array... -->
+              <?php foreach ($cheapestProducts as $product): ?>
+              <!-- ...PHP (6): display the corresponding product -->
+
+              <!-- Product Wrapper -->
+              <li class="product-wrapper vertical flex-layout">
+
+                <!-- Product  -->
+                <div tabindex="0" class="product vertical flex-layout"
+                  data-product-id="<?= $product['id'] ?>"
+                  title="<?= $product['name']?>">
+
+                  <!-- Product Image -->
+                  <div class="product-image-container vertical flex-layout centered">
+                    <img class="product-image" 
+                      src="assets/images/products/<?= $product['image'] ?>" 
+                      alt="Product Image">
+
+                    <!-- Like Button -->
+                    <button class="like-btn vertical flex-layout centered" naked 
+                      data-product-id="<?= $product['id'] ?>"
+                      title="<?= $this->i18n->getString('addToLikes') ?>"
+                      >
+                      <span class="material-icons icon">favorite_border</span>
+                    </button>
+                    <!-- End of Like Button -->
+                  </div>
+                  <!-- End of Product Image -->
+
+
+                  <!-- Product Details -->
+                  <div class="product-details-container vertical flex-layout">
+                    <!-- Rating -->
+                    <div class="rating-container horizontal flex-layout center">
+                      <span class="material-icons icon">star</span>
+                      <span class="rating-count"><?= $product['ratingCount'] ?? 4.5 ?></span>
+                      <span class="rating-total">&nbsp;(<?= $product['ratingTotal'] ?? 30 ?>)</span>
+                    </div>
+
+                    <!-- Product Name -->
+                    <div class="product-name"><?= $product['name'] ?></div>
+
+                    <!-- Product Price -->
+                    <div class="product-price"><?= number_format($product['price'] / 100, 2) ?> €</div>
+
+                    <!-- Add to Cart Button -->
+                    <button class="add-to-cart-btn horizontal flex-layout centered" contained expands shrinks 
+                      data-product-id="<?= $product['id'] ?>"
+                      title="<?= $this->i18n->getString('addToCart') ?>"
+                      >
+                      <span class="material-icons icon">add</span>
+                    </button>
+                    
+
+                  </div>
+                  <!-- End of Product Details -->
+
+                </div>
+                <!-- End of Product -->
+
+              </li>
+              <!-- End of Product Wrapper -->
+
+              <?php endforeach; ?>
+              <!-- End of PHP (6) -->
+
+            </ul>
+
+            <!-- Background of Products Section -->
+            <span class="background"></span>
+
+          </section>
+          <!-- End of Cheapest Products - Section -->
 
         </div>
         <!-- End of Container -->
 
       </div>
+      <!-- End of [content] -->
+
+      <footer>
+        <div class="footer-container vertical flex-layout centered">
+          <span class="footer-logo"></span>
+          <span class="footer-text horizontal flex-layout centered"><?= $this->i18n->getString('madeWithLove') ?>&nbsp; <br> &nbsp;&copy;&nbsp;<?= date('Y') ?>&nbsp;&bull;&nbsp;<?= $this->i18n->getString('copyrightText') ?></span>
+      </footer>
+
     </div>
+    <!-- End of App Layout - MAIN -->
     
     <!-- Nav Bar -->
     <!-- PHP: Include the `navBar` component -->
@@ -326,7 +697,55 @@
     <div class="backdrop" fit hidden></div>
     
     <!-- Menus of MAIN -->
-    <div class="menus" fit hidden></div>
+    <div class="menus" fit hidden>
+
+        <!-- Home Menu -->
+        <menu data-id="homeMenu" class="menu vertical flex-layout" hidden>
+
+            <!-- Close Menu + Icon Button -->
+            <li role="close-menu">
+                <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
+            </li>
+
+            <!-- Buy -->
+            <li title="<?= $this->i18n->getString('buyAProduct') ?>" class="menu-item">
+              <a role="button" tabindex="0" href="shop">
+                <span class="material-icons icon">store</span>
+                <span><?= $this->i18n->getString('buyAProduct') ?></span>
+              </a>
+            </li>
+
+
+            <!-- Change Language -->
+            <li title="<?= $this->i18n->getString('changeLanguage') ?>" class="menu-item">
+              <a role="button" tabindex="0" href="account/language">
+                <span class="material-icons icon">translate</span>
+                <span><?= $this->i18n->getString('changeLanguage') ?></span>
+              </a>
+            </li>
+
+            <!-- Change Theme -->
+            <li title="<?= $this->i18n->getString('changeTheme') ?>" class="menu-item">
+              <a role="button" tabindex="0" href="account/theme">
+                <span class="material-icons icon">palette</span>
+                <span><?= $this->i18n->getString('changeTheme') ?></span>
+              </a>
+            </li>
+
+
+            <!-- About -->
+            <li title="<?= $this->i18n->getString('aboutMaxaboom') ?>" class="menu-item">
+              <a role="button" tabindex="0" href="account/about">
+                <span class="material-icons icon">info</span>
+                <span><?= $this->i18n->getString('aboutMaxaboom') ?></span>
+              </a>
+            </li>
+
+        </menu>
+        <!-- End of Home Menu -->
+
+    </div>
+    <!-- End of Menus -->
     
     <!-- Dialogs of MAIN -->
     <div class="dialogs" fit hidden></div>
