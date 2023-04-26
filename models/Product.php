@@ -269,9 +269,10 @@ class Product extends Database
                 FROM products 
                 INNER JOIN categories 
                 ON categories_id = categories.id  
+                WHERE created_at = null
                 ORDER BY created_at 
                 DESC 
-                LIMIT 1";
+                LIMIT $limit";
         $sql->$this->db->execute();
         $results = $sql->fetch(PDO::FETCH_ASSOC);
         return $results;

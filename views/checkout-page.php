@@ -127,8 +127,36 @@
     </div>
 
     <div content="">
+
         <div class='container vertical flex-layout'>
-            <form method="POST" id='addressForm' class='vertical flex-layout flex-layout'>
+            <form method="POST" id="deliveryType" class="vertical flex-layout">
+
+                <div class="input-wrapper vertical flex-layout">
+                    <label for="standard">Standard</label>
+                    <input id="standard" type="radio">
+                </div>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for='express'>Express</label>
+                    <input id='express' type='radio'>
+                </div>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for='business'>Business</label>
+                    <input id='business' type='radio'>
+                </div>
+
+                <div class='buttons vertical flex-layout'>
+                    <button type='button' contained=''>
+                        <span>Suivant</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class='container vertical flex-layout' hidden>
+            <form method="POST" id='addressForm' class='vertical flex-layout'>
 
                 <div class="input-wrapper vertical flex-layout">
                     <label for="address" raised="">Adresse</label>
