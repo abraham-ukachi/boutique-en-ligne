@@ -128,4 +128,20 @@ class Category extends Database
         }
     }
 
+
+    public function registerCategory($name, $titre){
+        $sql = "INSERT INTO categories (name, titre)
+                VALUES (:name, :titre)";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'name' => htmlspecialchars($name),
+            'titre' => htmlspecialchars($titre),
+        ]);         
+        if ($sql_exe) {
+            echo json_encode(['response' => 'ok', 'reussite' => 'Nouvelle catégorie enregistrée']);
+        } else {
+            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+        }
+    }
+
 }
