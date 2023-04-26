@@ -56,10 +56,23 @@ class CartController{
           $user_id = $this->userModel->id;
         //   $success = true;
         $success = $this->cartModel->addProductQuantity($user_id, $product_id);
-
       }
-      
       return Array('success' => $success, 'data' => $user_id);
     }
+
+    public function reduceQuantity($product_id){
+        $isUserConnected = $this->userModel->isConnected();
+  
+        $user_id = null;
+        $success = false;
+        
+        if ($isUserConnected) {
+            $user_id = $this->userModel->id;
+          //   $success = true;
+          $success = $this->cartModel->reduceQuantity($user_id, $product_id);
+  
+        }       
+        return Array('success' => $success, 'data' => $user_id);
+      }
 
 }

@@ -134,7 +134,7 @@
 
             <div class='container'>
 
-              <?php  var_dump($displayCart)?>
+              <?php  //var_dump($displayCart)?>
 
               <ul id="items">
 
