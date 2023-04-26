@@ -151,11 +151,13 @@ class I18n {
    * Returns the text value of the given `key` from `$stringsData`
    *
    * @param string $key
+   * @param string $fallback
+   *
    * @return string 
    */
-  public function getString(string $key): string {
+  public function getString(string $key, string $fallback = ''): string {
     // TODO: Use a try/catch statement to handle errors
-    return $this->stringsData[$key];
+    return $this->stringsData[$key] ?? $fallback;
   }
 
 
