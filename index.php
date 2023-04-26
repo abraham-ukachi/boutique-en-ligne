@@ -84,6 +84,7 @@ include __DIR__ . '/routes/home-route.php'; // <- home route
 include __DIR__ . '/routes/shop-route.php'; // <- shop route
 include __DIR__ . '/routes/api-route.php'; // <- api route
 include __DIR__ . '/routes/product-route.php'; // <- product route
+include __DIR__ . '/routes/search-route.php'; // <- search route
 
 include __DIR__ . '/routes/login-route.php'; //<- login route
 include __DIR__ . '/routes/register-route.php'; //<- register route
@@ -94,6 +95,7 @@ include __DIR__ . '/routes/review-route.php'; // <- review route
 include __DIR__ . '/routes/admin-route.php'; // <- admin route
 include __DIR__ . '/routes/account-route.php'; // <- account route
 include __DIR__ . '/routes/component-route.php'; // <- component route
+include __DIR__ . '/routes/cart-route.php'; // <- cart route
 
 
 
