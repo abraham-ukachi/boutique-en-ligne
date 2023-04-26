@@ -67,7 +67,13 @@
 // Let's define some constant variables, shall we ?
 
 
-// Using our lovely null coalescing operator (i.e. ??):
+// Using our lovely null coalescing operator (i.e. ??):i
+
+// use the home controller 
+use Maxaboom\Controllers\HomeController;
+
+// Create a new instance of the home controller as `hc`
+$homeController = new HomeController();
 
 // Get the route of side bar as `navbarRoute`
 $navbarRoute = $_GET['navbar_route'] ?? 'home';
@@ -81,7 +87,7 @@ $navbarIsConnected = $_GET['navbar_connected'] ?? false;
 
 $LogoIsHome = $_GET['logo_is_home'] ?? false;
 
-$cartTotal = $_GET['cart_total'] ?? 0;
+$cartTotal = $_GET['cart_total'] ?? $homeController->getCartCount() ?? 0;
 
 // Create a default array of titles for the nav bar as `defaultNavbarTitles`
 $defaultNavbarTitles = [
@@ -98,13 +104,13 @@ $defaultNavbarTitles = [
 
 // Create a default array of labels for the nav bar as `defaultNavbarLabels`
 $defaultNavbarLabels = [
-  'dashboard' => 'Dashboard',
-  'home' => 'Home',
-  'account' => 'Account',
-  'cart' => 'Cart',
-  'likes' => 'Likes',
-  'users' => 'Users',
-  'products' => 'Products'
+  'dashboard' => $hc->i18n->getString("dashboard"),
+  'home' => $hc->i18n->getString('home'),
+  'account' => $hc->i18n->getString('account'),
+  'cart' => $hc->i18n->getString('cart'),
+  'likes' => $hc->i18n->getString('likes'),
+  'users' => $hc->i18n->getString('users'),
+  'products' => $hc->i18n->getString('products'),
 ];
 
 // Get the titles

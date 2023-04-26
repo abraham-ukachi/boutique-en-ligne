@@ -216,8 +216,29 @@
 
   "copyrightText": "Maxaboom. All rights reserved.",
 
-  "madeWithLove": "Made with ❤️  by Maxaboom Authors"
+  "madeWithLove": "Made with ❤️  by Maxaboom Team",
+  
+  "productAddedToCart": "Product added to cart",
 
+  "failedToAddProductToCart": "Failed to add product to cart",
+
+  "productRemovedFromCart": "Product removed from cart",
+
+  "failedToRemoveProductFromCart": "Failed to remove product from cart",
+
+  "productAddedToYourCart": "Product added to your cart",
+
+  "failedToAddProductToYourCart": "Failed to add product to your cart",
+
+  "productRemovedFromYourCart": "Product removed from your cart",
+
+  "failedToRemoveProductFromYourCart": "Failed to remove product from your cart",
+
+  "goToHome": "Go to home",
+  "account": "Account",
+
+  "likes": "Likes",
+  "users": "Users"
 
 
 }

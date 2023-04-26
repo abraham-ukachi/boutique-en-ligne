@@ -215,10 +215,9 @@ class Product extends Database
     }
 
     
-    function getProductByDate(int $limit = 10){
+    function getProductsByDate(int $limit = 10){
         $allProducts = $this->db->prepare("SELECT * FROM products ORDER BY created_at DESC LIMIT $limit");
-        $allProducts->execute([
-        ]);
+        $allProducts->execute([]);
         $result = $allProducts->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -265,17 +264,30 @@ class Product extends Database
     }
 
     function getLatestProducts($limit){
-        $sql = "SELECT * 
-                FROM products 
-                INNER JOIN categories 
-                ON categories_id = categories.id  
-                ORDER BY created_at 
-                DESC 
-                LIMIT 1";
-        $sql->$this->db->execute();
-        $results = $sql->fetch(PDO::FETCH_ASSOC);
-        return $results;
+      $sql_exe = $this->db->prepare("SELECT * FROM products WHERE deleted_at IS NULL ORDER BY created_at DESC LIMIT $limit");
+      $sql_exe->execute([]);
+      $results = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
+      return $results;
     }
+
+
+    function getPopularProducts($limit) {
+      $sql_exe = $this->db->prepare("
+        SELECT products.*, AVG(comments.ratings) AS avg_rating, COUNT(comments.id) AS nb_comments
+        FROM products 
+        INNER JOIN comments
+        ON products.id = comments.product_id 
+        GROUP BY products.id
+        ORDER BY avg_rating DESC
+        LIMIT $limit"
+      );
+
+      $sql_exe->execute([]);
+      $results = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
+      return $results;
+    }
+
+
 
     function getMostPopularProducts($limit){
         $sql = "SELECT avg(ratings) 
@@ -284,7 +296,7 @@ class Product extends Database
                 ON comments.product_id = products.id 
                 WHERE products.id = 1";
         $sql->$this->db->execute();
-        $results = $sql->fetch(PDO::FETCH_ASSOC);
+        $results = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
 
@@ -297,7 +309,7 @@ class Product extends Database
     }
 
     public function getProductByName($string, int $limite = 10, ?int $category_id = null){
-        $sql = "SELECT id, name FROM products WHERE name LIKE '%{$string}%' LIMIT 10";
+        $sql = "SELECT id, name FROM products WHERE name LIKE '%{$string}%' LIMIT $limite";
 
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([]);
@@ -335,37 +347,6 @@ class Product extends Database
       // return the results
       return $results;
     }
-
-    /**
-     * Method used to get random products from the database
-     *
-     * @param int $limit : number of products to get
-     *
-     * @return array : array of products
-     */
-    public function getRandomProducts(int $limit = 10): array {
-      // create our random sql query with a limit as `$sql`
-      $sql = <<<SQL
-        SELECT * FROM `products`
-        WHERE deleted_at IS NULL
-        AND stock > 0
-        ORDER BY RAND()
-        LIMIT $limit
-      SQL;
-
-      // prepare the query
-      $query = $this->db->prepare($sql);
-
-      // execute the query
-      $query->execute();
-
-      // fetch the results in an associative array
-      $results = $query->fetchAll(PDO::FETCH_ASSOC);
-
-      // return the results
-      return $results;
-    }
-
 }
 
 

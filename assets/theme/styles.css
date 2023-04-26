@@ -1488,7 +1488,7 @@ a.nav-link[active] span[initials] {
 a.nav-link[active] {
   opacity: 1;
   color: var(--nav-icon-color-active, var(--primary-color));
-  pointer-events: none; 
+  /* pointer-events: none; */
 }
 
 /* App Logo in an active Nav Link */

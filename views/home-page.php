@@ -451,8 +451,8 @@
                     <!-- Rating -->
                     <div class="rating-container horizontal flex-layout center">
                       <span class="material-icons icon">star</span>
-                      <span class="rating-count"><?= $product['ratingCount'] ?? 4.5 ?></span>
-                      <span class="rating-total">&nbsp;(<?= $product['ratingTotal'] ?? 30 ?>)</span>
+                      <span class="rating-count"><?= $product['avg_rating'] ?? $this::DEFAULT_AVG_RATING ?></span>
+                      <span class="rating-total">&nbsp;(<?= $product['nb_comments'] ?? $this::DEFAULT_NB_COMMENTS ?>)</span>
                     </div>
 
                     <!-- Product Name -->
@@ -539,8 +539,8 @@
                     <!-- Rating -->
                     <div class="rating-container horizontal flex-layout center">
                       <span class="material-icons icon">star</span>
-                      <span class="rating-count"><?= $product['ratingCount'] ?? 4.5 ?></span>
-                      <span class="rating-total">&nbsp;(<?= $product['ratingTotal'] ?? 30 ?>)</span>
+                      <span class="rating-count"><?= $product['avg_rating'] ?? $this::DEFAULT_AVG_RATING ?></span>
+                      <span class="rating-total">&nbsp;(<?= $product['nb_comments'] ?? $this::DEFAULT_NB_COMMENTS ?>)</span>
                     </div>
 
                     <!-- Product Name -->
@@ -627,8 +627,8 @@
                     <!-- Rating -->
                     <div class="rating-container horizontal flex-layout center">
                       <span class="material-icons icon">star</span>
-                      <span class="rating-count"><?= $product['ratingCount'] ?? 4.5 ?></span>
-                      <span class="rating-total">&nbsp;(<?= $product['ratingTotal'] ?? 30 ?>)</span>
+                      <span class="rating-count"><?= $product['avg_rating'] ?? $this::DEFAULT_AVG_RATING ?></span>
+                      <span class="rating-total" <?= !isset($product['nb_comments']) ? 'hidden' : ''?>>&nbsp;(<?= $product['nb_comment'] ?? $this::DEFAULT_NB_COMMENTS  ?>)</span>
                     </div>
 
                     <!-- Product Name -->

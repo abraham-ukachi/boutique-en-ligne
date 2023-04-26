@@ -169,15 +169,54 @@ export class HomePage {
    * @param { Number } productId - The id of the product to add to the cart
    * @param { Element } productEl - The product element
    * @param { Element } addToCartButtonEl - The add to cart button element
+   *
    */
   addProductToCart(productId, productEl, addToCartButtonEl) {
-    // start loading the product to the cart button
-    addToCartButtonEl.startLoading();
+    return new Promise((resolve, reject) => {
 
-    // DEBUT [4dbsmaster]: tell me about it ;)
-    console.log(`\x1b[30m[addProductToCart] (1): adding the product with the id ${productId} to cart...\x1b[0m`);
-    console.log(`\x1b[30m[addProductToCart] (2): productEl =>  \x1b[0m`, productEl);
-    console.log(`\x1b[30m[addProductToCart] (3): addToCartButtonEl =>  \x1b[0m`, addToCartButtonEl);
+      // start loading the cart button
+      addToCartButtonEl.startLoading();
+
+      // after 1 second ...
+      // Why? Because we want to see the loading animation for at least 1 seconds #LOL
+      setTimeout(async() => {
+
+        // Creating a request to add the product to the cart...
+        
+        const url = `cart/${productId}`;
+         
+        // create a PUT request to add the product to the cart
+        const request = new Request(url, {method: 'PUT'});
+
+        // send the request
+        let response = await fetch(request);
+        // get the response body
+        let responseData = await response.json();
+
+        // DEBUG [4dbsmaster]: tell me about it ;)
+        console.log(`\x1b[30m[addProductToCart] (1): responseData =>  \x1b[0m`, responseData);
+
+        // stop loading the cart button
+        addToCartButtonEl.stopLoading();
+
+        // if the response is successful
+        if (responseData.success) { 
+          // ...resolve the promise
+          resolve(responseData);
+        } else {
+          // ...reject the promise
+          reject(responseData);
+        }
+
+      }, 1000);
+      
+      
+      // DEBUT [4dbsmaster]: tell me about it ;)
+      console.log(`\x1b[30m[addProductToCart] (1): adding the product with the id ${productId} to cart...\x1b[0m`);
+      console.log(`\x1b[30m[addProductToCart] (2): productEl =>  \x1b[0m`, productEl);
+      console.log(`\x1b[30m[addProductToCart] (3): addToCartButtonEl =>  \x1b[0m`, addToCartButtonEl);
+    });
+
   }
 
 
@@ -332,7 +371,13 @@ export class HomePage {
 
     }else if (isAddToCartButton) { // <- else if the user tapped on the add-to-cart button...
       // ...call the `addProductToCart` method ,
-      this.addProductToCart(productId, currentEl, targetEl);
+      this.addProductToCart(productId, currentEl, targetEl).then((responseData) => {
+        // ...toast the message from the response data (for 3 seconds)
+        mbApp.showToast({message: responseData.message, type: SUCCESS_TOAST, part: MAIN_PART}, 3, true);
+        // update the app's cart count
+        mbApp.updateCartCount(responseData.cart_total);
+      });
+
     }else {
       // redirect the user to the product page
       mbApp.navigate(`product/${productId}`);

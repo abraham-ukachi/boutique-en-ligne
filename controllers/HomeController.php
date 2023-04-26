@@ -53,6 +53,8 @@ use Maxaboom\Models\User;
 use Maxaboom\Models\Product;
 // use the `Category` model
 use Maxaboom\Models\Category;
+// use the `Cart` model
+use Maxaboom\Models\Cart;
 
 
 // use the `Controller` & `ResponseHandler` helper classes
@@ -81,10 +83,10 @@ class HomeController extends Controller {
   const PAGE_HOME = 'home';
 
   // sections
-  const HERO_PRODUCTS_COUNT = 5; // <- the number of products to display in the hero section
-  const LATEST_PRODUCTS_COUNT = 8; // <- the number of products to display in the latest products section
-  const POPULAR_PRODUCTS_COUNT = 8; // <- the number of products to display in the popular products section
-  const CHEAPEST_PRODUCTS_COUNT = 8; // <- the number of products to display in the cheapest products section
+  const HERO_PRODUCTS_LIMIT = 5; // <- the number of products to display in the hero section
+  const LATEST_PRODUCTS_LIMIT = 8; // <- the number of products to display in the latest products section
+  const POPULAR_PRODUCTS_LIMIT = 8; // <- the number of products to display in the popular products section
+  const CHEAPEST_PRODUCTS_LIMIT = 8; // <- the number of products to display in the cheapest products section
 
   // top categories
   const TOP_CATEGORY_PIANOS = 'pianos';
@@ -93,14 +95,18 @@ class HomeController extends Controller {
   const TOP_CATEGORY_VIOLINS = 'violin';
   const TOP_CATEGORY_DJ = 'dj';
   const TOP_CATEGORY_WIND_INSTRUMENTS = 'wind-instruments';
-  
-  
+
+  // defaults
+  const DEFAULT_AVG_RATING = 4.5; // <- the default average rating to use when there is no rating
+  const DEFAULT_NB_COMMENTS = 0; // <- the default number of comments to use when there is no comment  
+
   // declare some properties...
 
   // private properties
   private User $user;
   private Product $product;
   private Category $category;
+  private Cart $cart;
 
 
   // public properties
@@ -124,10 +130,11 @@ class HomeController extends Controller {
 
     // TODO: write something awesome code here ;)
     
-    // initialize the `user` property by creating a new `User` object
+    // instantiate some models 
     $this->user = new User();
     $this->product = new Product();
     $this->category = new Category();
+    $this->cart = new Cart();
      
     
     // DEBUG [4dbsmaster]: tell me about the `user` property and display all the users
@@ -224,6 +231,19 @@ class HomeController extends Controller {
 
   // PUBLIC METHODS
 
+  /**
+   * Method used to get the total number of the cart products
+   * NOTE: If the user is connected, the total will be retrieved from the database
+   * NOTE: If the user is not connected, the total will be retrieved from the `cart` session variable
+   *
+   * @return int : the total number of the cart products
+   *
+   * @return int
+   */
+  public function getCartCount(): int {
+    // get the cart count from the cart model
+    return $this->user->isConnected() ? $this->cart->getCartProductsTotal($this->user->id) : count($_SESSION['cart']);
+  }
 
   /**
    * Shows the splash screen
@@ -266,7 +286,7 @@ class HomeController extends Controller {
     // TODO: do something awesome here before showing the home page ;)
 
     // get 5 random products from the database as `$heroProducts`
-    $heroProducts = $this->product->getRandomProducts($this::HERO_PRODUCTS_COUNT);
+    $heroProducts = $this->product->getRandomProducts($this::HERO_PRODUCTS_LIMIT);
 
     // get all steps as `$steps`
     $steps = $this->getSteps();
@@ -275,20 +295,21 @@ class HomeController extends Controller {
     $topCategories = $this->getTopCategories();
 
     // get a list of the latest products as `$latestProducts`
-    // TODO: $latestProducts = $this->product->getLatestProducts($this::LATEST_PRODUCTS_COUNT);
-    $latestProducts = $this->product->getProductByDate($this::LATEST_PRODUCTS_COUNT);
+    $latestProducts = $this->product->getLatestProducts($this::LATEST_PRODUCTS_LIMIT);
+    // $latestProducts = $this->product->getProductsByDate($this::LATEST_PRODUCTS_LIMIT);
 
+    $cartCount = $this->getCartCount();
+    
     // DEBUG [4dbsmaster]: tell me about it ;)
     // var_dump($latestProducts);
 
     // TODO: get a list of the most popular products as `$popularProducts`
-    // $popularProducts = $this->product->getPopularProducts($this::POPULAR_PRODUCTS_COUNT);
-    // $popularProducts = $this->product->getProductByDate($this::LATEST_PRODUCTS_COUNT);
-    $popularProducts = [];
+    $popularProducts = $this->product->getPopularProducts($this::POPULAR_PRODUCTS_LIMIT);
+    // $popularProducts = [];
     
     // TODO: get a list of the cheapest products as `$cheapestProducts`
-    // $cheapestProducts = $this->product->getCheapestProducts($this::CHEAPEST_PRODUCTS_COUNT);
-    $cheapestProducts = $this->product->getProductLowerPrice($this::CHEAPEST_PRODUCTS_COUNT);
+    // $cheapestProducts = $this->product->getCheapestProducts($this::CHEAPEST_PRODUCTS_LIMIT);
+    $cheapestProducts = $this->product->getProductLowerPrice($this::CHEAPEST_PRODUCTS_LIMIT);
     
     // DEBUG [4dbsmaster]: tell me about it ;)
     //var_dump($topCategories);

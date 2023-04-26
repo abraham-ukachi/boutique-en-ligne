@@ -142,7 +142,20 @@ trait ResponseHandler {
   public function getResponseMessage() {
     return $this->response['message'];
   }
-  
+
+
+
+  /**
+   * Returns the response message with the given `key`.
+   *
+   * @param string $key - The key of the data to return
+   * @return string $data
+   */
+  public function getResponseData($key) {
+    return $this->response[$key];
+  }
+
+
   // PUBLIC METHODS
   
   
@@ -187,6 +200,15 @@ trait ResponseHandler {
     $this->response['message'] = $value;
   }
 
+  /**
+   * Sets the 'data' in `$response` array to the given `value`
+   * NOTE: This method merges the given `value` with the current `response` array.
+   *
+   * @param int $value
+   */
+  private function setResponseData($value) {
+    $this->response = array_merge($this->response, $value);
+  }
 
 
   // PRIVATE GETTERS
@@ -222,5 +244,7 @@ trait ResponseHandler {
     $data);
 
   }
+
+
 
 }

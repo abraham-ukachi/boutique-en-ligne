@@ -1,27 +1,298 @@
 <?php
+/**
+* @license MIT
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal, Catherine Tranchand. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @project boutique-en-ligne
+* @name Home - Controller 
+* @file HomeController.php
+* @author: Morgane Marechal <morgane.marechal@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Abraham Ukachi <abraham.ukachi@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
+* @version: 0.0.1
+* 
+* Usage:
+*   1+|> //
+*    -|> 
+*/
 
+
+/*
+* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+* MOTTO: We'll always do more 😜!!!
+* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+*/
+
+
+// declare a namespace to avoid collisions
 namespace Maxaboom\Controllers;
 
-use Maxaboom\Models\Helpers\Database;
+// using our models... ;)
 use Maxaboom\Models\Product;
 use Maxaboom\Models\Review;
 use Maxaboom\Models\User;
 use Maxaboom\Models\Cart;
-use PDO;
 
-class CartController{
+// use the `Controller` & `ResponseHandler` helper classes
+use Maxaboom\Controllers\Helpers\Controller;
+use Maxaboom\Controllers\Helpers\ResponseHandler;
 
+
+
+
+
+
+
+
+// Declare a class that represents the `Cart` controller,
+// which is a child of the `Controller` class
+class CartController extends Controller {
+    // Using some traists (a.k.a. step parents) in this class
+    use ResponseHandler;
 
     public object $productModel;
     public object $productCategory;
     public object $userModel;
     public object $cartModel;
 
-    public function __construct() {
-        $this->productModel = new Product();
-        $this->userModel = new User();
-        $this->cartModel = new Cart();
+    /**
+     * Constructor of the class
+     * This method is executed automatically whenever this class is instantiated
+     *
+     * @param ?string $theme : the theme to use
+     * @param ?string $lang : the language to use
+     * @param bool $useDefaultBrowserLang : whether or not to use the default browser language
+     */
+    public function __construct(?string $theme = null, ?string $lang = null, bool $useDefaultBrowserLang = true) {
+      // call the parent's constructor
+      parent::__construct($theme, $lang, $useDefaultBrowserLang);
+
+      $this->productModel = new Product();
+      $this->userModel = new User();
+      $this->cartModel = new Cart();
     }
+    
+
+    // PUBLIC SETTERS
+    // PUBLIC GETTERS
+    // PUBLIC METHODS
+
+
+
+    /**
+     * Method used to add the product with the given `productId` to the cart
+     * NOTE 1: If the user is not connected, the product will be added to `cart` session variable
+     * NOTE 2: If the user is connected, the product will be added to the database
+     *
+     * @param int $productId : the id of the product to add to the cart
+     *
+     * @return array : an array containing the success status, message and the `user_id` & `user_connected` in data.
+     */
+    public function addToCart($product_id) {
+      // TODO: check if the product exists
+
+      // check if the user is connected
+      $isUserConnected = $this->userModel->isConnected();
+      
+      $user_id = null;
+      $success = false;
+
+      // if the user is connected...
+      if ($isUserConnected) {
+        // ...get the user id
+        $user_id = $this->userModel->id;
+
+        // add the product to the cart
+        $success = $this->cartModel->addProduct($product_id, $user_id);
+         
+        
+        // set the response success
+        $this->setResponseSuccess($success);
+        // set the response status
+        $this->setResponseStatus($success ? self::$STATUS_SUCCESS_CREATED : self::$STATUS_ERROR_INTERNAL_ERROR);
+        // update the response message
+        $this->setResponseMessage($success ? $this->i18n->getString('productAddedToYourCart') : $this->i18n->getString('failedToAddProductToYourCart'));
+    
+
+      } else { // <- user is not connected :(
+
+        // get the `cart` session variable
+        $cart = $_SESSION['cart'];
+
+        // if the cart session variable is not set
+        if (!isset($cart)) {
+          // Well, let's create it, shall we ? ;)
+          $cart = [];
+        }
+
+        // if the product is not already in the cart
+        if (!isset($cart[$product_id])) {
+          // add the product to the cart
+          $cart[$product_id] = 1;
+        } else {
+          // increase the quantity of the product in the cart
+          $cart[$product_id]++;
+        }
+
+        // set the `cart` session variable
+        $_SESSION['cart'] = $cart;
+        
+
+        // set the response success to `true`
+        $success = true;
+
+        // set the response status
+        $this->setResponseStatus(self::$STATUS_SUCCESS_OK);
+
+        // set the response message
+        $this->setResponseMessage($this->i18n->getString('productAddedToCart'));
+      }
+
+      // set the response success
+      $this->setResponseSuccess($success);
+
+      // set the response data to the user id
+      $this->setResponseData([
+        'user_id' => $user_id, 
+        'user_connected' => $isUserConnected,
+        'product_id' => $product_id,
+        'cart_total' => $this->getCartProductsTotal()
+      ]);
+
+      // return our response
+      return $this->getResponse();
+
+      // return the success status, message and the user id (in data)
+      // return Array('success' => $success, 'data' => [ 'user_id' => $user_id ]);
+    }
+
+
+
+    /**
+     * Method used to remove the product with the given `productId` from the cart
+     * NOTE 1: If the user is not connected, the product will be removed from the `cart` session variable
+     * NOTE 2: If the user is connected, the product will be removed from his/her cart in the database
+     *
+     * @param int $productId : the id of the product to remove from the cart
+     *
+     * @return array : an array containing the success status, message and the `user_id` & `user_connected` in data.
+     */
+    public function removeFromCart($product_id) {
+      // TODO: check if the product exists
+
+      // check if the user is connected
+      $isUserConnected = $this->userModel->isConnected();
+      
+      $user_id = null;
+      $success = false;
+      
+
+      // if the user is connected...
+      if ($isUserConnected) {
+        // ...get the user id
+        $user_id = $this->userModel->id;
+
+        // remove the product from the cart,
+        // and get the `success` result
+        // TODO: Rename `deleteProduct` to `removeProduct`
+        $success = $this->cartModel->deleteProduct($product_id, $user_id);
+        
+        // set the response status
+        $this->setResponseStatus($success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_UNPROCESSABLE_ENTITY);
+
+        // set the response message
+        $this->setResponseMessage($sucess ? $this->i18n->getString('productRemovedFromYourCart') : $this->i18n->getString('failedToRemoveProductFromYourCart'));
+    
+
+      } else { // <- user is not connected :(
+
+        // get the `cart` session variable
+        $cart = $_SESSION['cart'];
+
+        // if the cart session variable is not set
+        if (!isset($cart)) {
+          // create the cart session variable
+          $cart = [];
+        }
+
+
+        // if the product is in the cart
+        if (isset($cart[$product_id])) {
+          // remove the product from the cart
+          unset($cart[$product_id]);
+          
+          // set the success status to true
+          $success = true;
+
+          // set the response status
+          $this->setResponseStatus(self::$STATUS_SUCCESS_OK);
+          // set the response message
+          $this->setResponseMessage($this->i18n->getString('productRemoveProductFromCart'));
+
+        }else { // <- no such product in cart
+
+          // set the response status
+          $this->setResponseStatus(self::$STATUS_ERROR_NOT_FOUND);
+          // set the response message
+          $this->setResponseMessage($this->i18n->getString('failedToRemoveProductFromCart'));
+        }
+
+        // set the `cart` session variable
+        $_SESSION['cart'] = $cart;
+
+      }
+
+      // set the response success
+      $this->setResponseSuccess($success);
+
+      // get the total of the cart products
+      $totalCartProducts = $this->getCartProductsTotal();
+
+      // set the response data to the user id
+      $this->setResponseData([
+        'user_id' => $user_id,
+        'user_connected' => $isUserConnected,
+        'product_id' => $product_id,
+        'cart_total' => $this->getCartProductsTotal(), 
+      ]);
+
+      // return our response
+      return $this->getResponse();
+
+      // return the success status, message and the user id (in data)
+      // return Array('success' => $success, 'data' => [ 'user_id' => $user_id ]);
+    }
+
+    /**
+     * Method used to get the total number of the cart products
+     * NOTE: If the user is connected, the total will be retrieved from the database
+     * NOTE: If the user is not connected, the total will be retrieved from the `cart` session variable
+     *
+     * @return int : the total number of the cart products
+     */
+    public function getCartProductsTotal() {
+      return $this->userModel->isConnected() ? $this->cartModel->getCartProductsTotal($this->userModel->id) : count($_SESSION['cart']);
+    } 
+
 
 
     public function registerCart($product_id,$unit_price, $quantity, $user_id){

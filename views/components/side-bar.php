@@ -63,6 +63,12 @@
 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 
+// use the home controller 
+use Maxaboom\Controllers\HomeController;
+
+// Create a new instance of the home controller as `hc`
+$hc = new HomeController();
+
 
 // Let's define some constant variables, shall we ?
 
@@ -81,13 +87,14 @@ $sidebarIsConnected = $_GET['sidebar_connected'] ?? false;
 
 $LogoIsHome = $_GET['logo_is_home'] ?? false;
 
-$cartTotal = $_GET['cart_total'] ?? 0;
+$cartTotal = $_GET['cart_total'] ?? $hc->getCartCount() ?? 0;
 
 // Create a default array of titles for the side bar as `defaultSidebarTitles`
 $defaultSidebarTitles = [
   'maxaboom' => 'Maxaboom ❤️',
   'profile' => 'Your Profile',
   'auth' => 'Login / Register',
+  'login' => $hc->i18n->getString('login'),
   'dashboard' => 'Open your Dashboard',
   'home' => 'Go to Home',
   'account' => 'See your Account',
@@ -101,13 +108,13 @@ $defaultSidebarTitles = [
 
 // Create a default array of labels for the side bar as `defaultSidebarLabels`
 $defaultSidebarLabels = [
-  'dashboard' => 'Dashboard',
-  'home' => 'Home',
-  'account' => 'Account',
-  'cart' => 'Cart',
-  'likes' => 'Likes',
-  'users' => 'Users',
-  'products' => 'Products'
+  'dashboard' => $hc->i18n->getString("dashboard"),
+  'home' => $hc->i18n->getString('home'),
+  'account' => $hc->i18n->getString('account'),
+  'cart' => $hc->i18n->getString('cart'),
+  'likes' => $hc->i18n->getString('likes'),
+  'users' => $hc->i18n->getString('users'),
+  'products' => $hc->i18n->getString('products'),
 ];
 
 // Get the titles
@@ -269,9 +276,9 @@ $sidebarLabels = $_GET['sidebar_labels'] ?? $defaultSidebarLabels;
 
   <!-- + PHP(2): If the side bar *IS NOT CONNECTED* ...-->
   <?php else: ?>
-  <!-- + PHP(2): ...show person icon with link to 'auth' page -->
+  <!-- + PHP(2): ...show person icon with link to 'login' page -->
 
-  <a title="<?= $sidebarTitles['auth'] ?>" href="auth" class="nav-link profile">
+  <a title="<?= $sidebarTitles['auth'] ?>" href="login" class="nav-link profile">
     <span class="material-icons nav-icon">person</span>
   </a>
 

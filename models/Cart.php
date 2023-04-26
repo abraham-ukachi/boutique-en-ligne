@@ -21,6 +21,35 @@ class Cart extends Database
         $this->dbConnect();
     }
 
+
+    /**
+     * Add a product to the cart
+     *
+     * @param int $product_id - the product id
+     * @param int $user_id - the user id
+     *
+     * @return bool - true if the product was added, false otherwise
+     */
+    public function addProduct(int $product_id, int $user_id): bool {
+      // initialize the `result` variable
+      $result = false;
+
+      // check if the product is already in the cart
+      $isProductInCart = $this->checkProduct($product_id, $user_id);
+
+      if ($isProductInCart) {
+        // if the product is already in the cart, update the quantity
+        $result = $this->addProductQuantity($product_id, $user_id);
+      } else {
+        // if the product is not in the cart, add it
+        $result = $this->addProductToCart($product_id, '', 1, $user_id);
+      }
+
+      // return the result
+      return $result; 
+    }
+
+
     //for add in product in shopping-cart
     public function addProductToCart($product_id,$unit_price, $quantity, $user_id){
         $sqlAddProduct = "INSERT INTO cart (product_id, unit_price, quantity, user_id)
@@ -34,9 +63,11 @@ class Cart extends Database
             'user_id' => htmlspecialchars($user_id)
         ]);         
         if ($sql_exe) {
-            echo json_encode(['response' => 'ok', 'reussite' => 'Nouveau produit enregistré']);
+          // echo json_encode(['response' => 'ok', 'reussite' => 'Nouveau produit enregistré']);
+          return true;
         } else {
-            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+          // echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+          return false;
         }
     }
 

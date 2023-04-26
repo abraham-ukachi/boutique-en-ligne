@@ -298,7 +298,30 @@ export class MaxaboomApp {
 
   }
 
-  
+
+  /**
+   * Method used to update the cart count of the app.
+   * NOTE: This method updates the badge in side bar
+   *
+   * @param { Number } count - The new cart count
+   */
+  updateCartCount(count) {
+    // console.info('looooo count => ', count, this.cartBadgeEls);
+    // do nothing if there's no cart badge element or no count
+    //if (!this.cartBadgeEl || typeof count === 'undefined') { return }
+
+    // loop through `cartBadgEls`
+    this.cartBadgeEls.forEach((cartBadgeEl) => {
+      // hide or show the cart badge element depending on the given `count`
+      cartBadgeEl.hidden = (count === 0);
+      
+      // set the cart badge element's text content to the given `count`
+      cartBadgeEl.textContent = count;
+    });
+
+
+    console.log(`\x1b[40m\x1b[33m[updateCartCount]: count => ${count} & cartBadgeEls => \x1b[0m`, this.cartBadgEls);
+  }
 
   /**
    * Method used to show the menu with the given `menuId`
@@ -1183,6 +1206,15 @@ export class MaxaboomApp {
     return document.querySelector('body > aside');
   }
 
+  /**
+   * Returns a the currently visible badge element of the cart
+   *
+   * @returns { NodeList }
+   */
+  get cartBadgeEls() {
+    return document.querySelectorAll('.nav-link .badge');
+  }
+
   // === Checkers ===
 
   /**
@@ -1538,6 +1570,8 @@ export class MaxaboomApp {
       this._notifyInputEl(inputEl);
     });
 
+    // TODO: Install click event on each nav-link scroll to top when the home button is clicked
+    
   }
 
 
