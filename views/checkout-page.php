@@ -124,18 +124,52 @@
     <div class='app-layout' fit>
         <!-- Header -->
         <header>...</header>
+    </div>
 
-        <!-- [content] -->
-        <div content>
-            <!-- [empty] Container -->
-            <div class='container vertical flex-layout centered' empty>
-                <span class='doodle'></span>
-                <h2 title>Empty Cart :(</h2>
-                <p info>To add an instrument to your cart, tap <span class='material-icons icon'>post_add</span> at the
-                    bottom right of your screen</p>
-            </div>
+    <div content="">
+        <div class='container vertical flex-layout'>
+            <form method="POST" id='addressForm' class='vertical flex-layout flex-layout'>
+
+                <div class="input-wrapper vertical flex-layout">
+                    <label for="address" raised="">Adresse</label>
+                    <input name="address"type='text' placeholder="">
+                    <span class="input-indicator"><span bar=""></span><span val=""></span></span>
+                </div>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for="addressComplement" raised="">Complément d'adresse</label>
+                    <input name="addressComplement" type='text' placeholder=''>
+                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                </div>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for="city" raised>Ville</label>
+                    <input name="city" type='text' placeholder=''>
+                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                </div>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for="postalCode" raised="">Code postal</label>
+                    <input name="postalCode" type='text' placeholder=''>
+                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                </div>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for="country" raised=''>Pays</label>
+                    <input name="country" type='text' placeholder=''>
+                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                </div>
+                <div class="buttons vertical flex-layout">
+                    <button type="button" contained="">
+                        <span>Suivant</span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
+
+
+
     <!-- Nav Bar -->
     <nav id='navBar'>
         <!-- Nav Bar -->
@@ -149,10 +183,9 @@
         require __DIR__ . '/components/nav-bar.php';
         ?>
         <!-- End of Nav Bar -->
-    </nav>
+    </nav
 
-
-    <!-- Backdrop of MAIN -->
+        <!-- Backdrop of MAIN -->
     <div class='backdrop' fit hidden></div>
 
     <!-- Menus of MAIN -->
