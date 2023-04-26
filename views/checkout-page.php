@@ -128,22 +128,25 @@
 
     <div content="">
 
-        <div class='container vertical flex-layout'>
+        <div class='container vertical flex-layout' hidden>
             <form method="POST" id="deliveryType" class="vertical flex-layout">
 
                 <div class="input-wrapper vertical flex-layout">
-                    <label for="standard">Standard</label>
+                    <label for="standard"><h3>Standard</h3></label>
                     <input id="standard" type="radio">
+                    <p>Livraison entre 3 et <br> 5 jours ouvrés</p>
                 </div>
 
                 <div class='input-wrapper vertical flex-layout'>
-                    <label for='express'>Express</label>
+                    <label for='express'><h3>Express</h3></label>
                     <input id='express' type='radio'>
+                    <p>Livraison en 1 jour <br> ouvré</p>
                 </div>
 
                 <div class='input-wrapper vertical flex-layout'>
-                    <label for='business'>Business</label>
+                    <label for='business'><h3>Business</h3></label>
                     <input id='business' type='radio'>
+                    <p>Livraison en 1 semaine<br> (jours non ouvrés)</p>
                 </div>
 
                 <div class='buttons vertical flex-layout'>
@@ -192,6 +195,42 @@
                         <span>Suivant</span>
                     </button>
                 </div>
+            </form>
+        </div>
+
+        <div class='container vertical flex-layout'>
+            <form method='POST' id='deliveryType' class='vertical flex-layout'>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for='standard' raised="">Propriétaire de la carte</label>
+                    <input id='standard' type='text'>
+                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                </div>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for='express' raised="">Numéro de la carte</label>
+                    <input id='express' type='text'>
+                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                </div>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for='business' raised="">Date d'expiration</label>
+                    <input id='business' type='date'>
+                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                </div>
+
+                <div class='input-wrapper vertical flex-layout'>
+                    <label for='business' raised=''>CVV</label>
+                    <input id='business' type='number'>
+                    <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                </div>
+
+                <div class='buttons vertical flex-layout'>
+                    <button type='button' contained=''>
+                        <span>Suivant</span>
+                    </button>
+                </div>
+
             </form>
         </div>
     </div>
