@@ -277,12 +277,12 @@ class Product extends Database
         return $results;
     }
 
-    function getMostPopularProducts($limit){
-        $sql = "SELECT avg(ratings) 
+    function getAvgRatings($productsId){
+        $sql = "SELECT avg(ratings), count(comments.id)
                 FROM comments 
                 INNER JOIN products 
                 ON comments.product_id = products.id 
-                WHERE products.id = 1";
+                WHERE products.id = $productsId";
         $sql->$this->db->execute();
         $results = $sql->fetch(PDO::FETCH_ASSOC);
         return $results;

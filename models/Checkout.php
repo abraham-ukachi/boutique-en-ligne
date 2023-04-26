@@ -13,5 +13,6 @@ class Checkout extends Database
         $this->db;
     }
 
-
+    public function getAddresse(){
+    }
 }
