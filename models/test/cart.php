@@ -13,4 +13,6 @@ echo "<br>Check total price : ".$total = $cart->totalPriceByUser(11)."<br>";
 $displayProductUser = $cart->displayProductFromCart(11);
 var_dump($displayProductUser);
 $addQuantity = $cart->addProductQuantity(11, 3);
-//$delete = $cart->deleteProduct(25, 13);
+$delete = $cart->deleteProduct(13, 27);
+$cart->addProductToCart(13,6700, 1, 27);
+

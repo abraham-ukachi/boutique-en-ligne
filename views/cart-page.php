@@ -134,7 +134,7 @@
 
             <div class='container'>
 
-              <?php  var_dump($displayCart)?>
+              <?php  //var_dump($displayCart)?>
 
               <ul id="items">
 
@@ -143,7 +143,7 @@
                 <li id='' class="cart-item">
                     <span><?=$displayCart[$i]['name']?></span>
                     <button id="<?=$displayCart[$i]['id']?>" data-product-id="<?=$displayCart[$i]['id']?>" data-user-id='<?= $displayCart[$i]['user_id'] ?>' class="reduce"><</button>
-                    <span><?=$displayCart[$i]['quantity']?></span>
+                    <span id="product<?=$displayCart[$i]['id']?>" data-product-quantity="<?=$displayCart[$i]['quantity']?>" class="quantity"><?=$displayCart[$i]['quantity']?></span>
                     <button id="<?=$displayCart[$i]['id']?>" data-product-id="<?=$displayCart[$i]['id']?>" data-user-id='<?= $displayCart[$i]['user_id'] ?>' class="increase">></button>
                     <span><?=$displayCart[$i]['price']/100?> €</span>
                 </li>
@@ -151,8 +151,13 @@
                 <?php endfor;?>
 
                 </ul>
-                <span>Total Price : <?=$total/100?> €</span>
-                <button>Payer</button>
+                <div>Total Price : <span id="total"><?=$total/100?></span> €</div>
+                
+                <a href="cart/checkout">
+                    <button>
+                      <span>Payer</span>
+                    </button>
+                </a>   
 
             </div>
         </div>

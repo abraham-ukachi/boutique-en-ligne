@@ -86,8 +86,8 @@ class Cart extends Database
         $newQuantity = $this->getQuantity($user_id, $product_id);
         $newQuantity = $newQuantity - 1;
         $sqlUpdateQuantity = "UPDATE cart SET quantity = '$newQuantity' WHERE user_id = :user_id and product_id = :product_id ";
-        $addProduct = $this->db->prepare($sqlUpdateQuantity);
-        $addProduct->execute([
+        $reduceProduct = $this->db->prepare($sqlUpdateQuantity);
+        return $reduceProduct->execute([
             'product_id' => $product_id,
             'user_id' => htmlspecialchars($user_id)
         ]);       
@@ -101,8 +101,8 @@ class Cart extends Database
             'product_id' => $product_id
         ]);
         $result = $addQuantity->fetch(PDO::FETCH_ASSOC);
-        var_dump($result);
-        echo "user_id => $user_id ::::: product_id => $product_id";
+        //var_dump($result);
+        //echo "user_id => $user_id ::::: product_id => $product_id"; 
         return $result['quantity']; 
     }
 

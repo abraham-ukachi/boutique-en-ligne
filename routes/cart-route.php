@@ -13,6 +13,11 @@ $router->map('GET', '/cart/[increase|reduce:action]/[i:product_id]', function($a
         $response = $cartController->increaseQuantity($product_id);
         echo json_encode($response);
     }
+
+    if($action=='reduce'){
+        $response = $cartController->reduceQuantity($user_id, $product_id);
+        echo json_encode($response);
+    }
 });
 
 

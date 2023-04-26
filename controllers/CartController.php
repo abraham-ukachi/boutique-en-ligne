@@ -325,12 +325,29 @@ class CartController extends Controller {
       
       if ($isUserConnected) {
           $user_id = $this->userModel->id;
+
         //   $success = true;
         $success = $this->cartModel->addProductQuantity($user_id, $product_id);
+        $total = $this->totalPrice($user_id);
 
       }
-      
-      return Array('success' => $success, 'data' => $user_id);
+      return Array('success' => $success, 'data' => $user_id, 'total' => $total);
     }
+
+    public function reduceQuantity($product_id){
+        $isUserConnected = $this->userModel->isConnected();
+  
+        $user_id = null;
+        $success = false;
+        
+        if ($isUserConnected) {
+            $user_id = $this->userModel->id;
+          //   $success = true;
+          $success = $this->cartModel->reduceQuantity($user_id, $product_id);
+          $total = $this->totalPrice($user_id);
+
+        }       
+        return Array('success' => $success, 'data' => $user_id, 'total' => $total);
+      }
 
 }
