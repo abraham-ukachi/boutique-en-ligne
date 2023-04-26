@@ -50,7 +50,6 @@ class Category extends Database
         return $result['titre'];
     }
 
-
     public function getSubcategoriesByCategoryId(int $categoryId) {
         $subCategorie = $this->db->prepare("SELECT id, name, titre FROM sub_categories WHERE category_id=$categoryId");
         $subCategorie->execute([]);

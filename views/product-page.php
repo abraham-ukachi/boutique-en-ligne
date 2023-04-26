@@ -88,7 +88,11 @@
 <!-- PHP: Include the `sideBar` component -->
 <?php
 $_GET['sidebar_route'] = 'home';
+<<<<<<< HEAD
 $_GET['sidebar_init'] = $this->user->getInitials();
+=======
+$_GET['sidebar_init'] = $this->user->getInitials();;
+>>>>>>> c0136e37244428aeb4809e536182a68842985d12
 $_GET['sidebar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
 $_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin
 
