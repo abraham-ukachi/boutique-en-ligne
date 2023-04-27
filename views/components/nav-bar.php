@@ -91,13 +91,14 @@ $cartTotal = $_GET['cart_total'] ?? $homeController->getCartCount() ?? 0;
 
 // Create a default array of titles for the nav bar as `defaultNavbarTitles`
 $defaultNavbarTitles = [
-  'dashboard' => 'Open your Dashboard',
-  'home' => 'Go to Home',
-  'account' => 'See your Account',
-  'cart' => 'View Cart',
-  'likes' => 'Checkout Likes',
-  'users' => 'See all Users',
-  'products' => 'See all Products'
+  'dashboard' => $hc->i18n->getString('dashboardHint'),
+  'home' => $hc->i18n->getString('homeHint'),
+  'account' => $hc->i18n->getString('accountHint'),
+  'cart' => $hc->i18n->getString('cartHint'),
+  'likes' => $hc->i18n->getString('likesHint'),
+  'users' => $hc->i18n->getString('usersHint'),
+  'products' => $hc->i18n->getString('usersHint'),
+  'search' => $hc->i18n->getString('searchHint'),
 ];
 
 
@@ -111,6 +112,7 @@ $defaultNavbarLabels = [
   'likes' => $hc->i18n->getString('likes'),
   'users' => $hc->i18n->getString('users'),
   'products' => $hc->i18n->getString('products'),
+  'search' => $hc->i18n->getString('search'),
 ];
 
 // Get the titles
@@ -187,6 +189,15 @@ $navbarLabels = $_GET['navbar_labels'] ?? $defaultNavbarLabels;
   </a>
   <!-- End of Home Nav-Link -->
   
+ 
+  <!-- Search - Nav-Link -->
+  <a title="<?= $navbarTitles['search'] ?>" href="search" class="nav-link" <?= ($navbarRoute == 'search') ? 'active' : '' ?>>
+    <span class="material-icons nav-icon">search</span>
+    <span class="nav-label"><?= $navbarLabels['search'] ?></span>
+  </a>
+  <!-- End of Search Nav-Link -->
+
+
   <!-- Likes - Nav-Link -->
   <a title="<?= $navbarTitles['likes'] ?>" href="likes" class="nav-link" <?= ($navbarRoute == 'likes') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">favorite_outline</span>

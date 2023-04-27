@@ -1007,6 +1007,7 @@ export class MaxaboomApp {
 
   // PUBLIC GETTERS
 
+  
   /**
    * Returns the current page
    *
@@ -1129,6 +1130,16 @@ export class MaxaboomApp {
    */
   getPartByName(partName) {
     return (partName === 'main') ? MAIN_PART : (partName === 'aside' ? ASIDE_PART : FULL_PART);
+  }
+
+
+  /**
+   * Returns a list of all the nav link elements
+   * 
+   * @returns { NodeList } - A list of all the nav link elements
+   */
+  get navLinkEls() {
+    return document.querySelectorAll('.nav-link');
   }
 
 
@@ -1570,9 +1581,14 @@ export class MaxaboomApp {
       this._notifyInputEl(inputEl);
     });
 
-    // TODO: Install click event on each nav-link scroll to top when the home button is clicked
-    
+
+    // loop through all nav link elements, and install a click event listener on each of them
+    this.navLinkEls.forEach((navLinkEl) => {
+      navLinkEl.addEventListener('click', this._navLinkClickHandler.bind(this));
+    });
+
   }
+
 
 
   // PRIVATE SETTERS
@@ -1603,6 +1619,7 @@ export class MaxaboomApp {
       <!-- End of Toast -->
     `;
   }
+
 
 
   /**
@@ -1748,6 +1765,33 @@ export class MaxaboomApp {
     // DEBUG [4dbsmaster]: tell me about it ;)
     console.log(`\x1b[33m[_notifyInputEl] (1): inputEl => \x1b[0m`, inputEl);
     console.log(`\x1b[33m[_notifyInputEl] (2): labelEl => \x1b[0m`, labelEl);
+  }
+
+
+  /**
+   * Handler that is called whenever a nav-link is clicked
+   *
+   * @param { PointerEvent } event
+   *
+   */
+  _navLinkClickHandler(event) {
+    // get the nav-link element as `navLinkEl`
+    const navLinkEl = event.currentTarget;
+
+    // check if the nav-link is active
+    let isNavLinkActive = navLinkEl.hasAttribute('active');
+
+    // if the nav-link is active...
+    if (isNavLinkActive) {
+      // ...prevent the default behavior of the event
+      event.preventDefault();
+
+      // scroll the main app-layout to the top
+      this.mainAppLayout.scrollTop = 0;
+
+      // ...and do nothing else #forNow ;)
+      return;
+    }
   }
 
 

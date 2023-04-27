@@ -42,7 +42,7 @@ class Cart extends Database
         $result = $this->addProductQuantity($product_id, $user_id);
       } else {
         // if the product is not in the cart, add it
-        $result = $this->addProductToCart($product_id, '', 1, $user_id);
+        $result = $this->addProductToCart($product_id, 0, 1, $user_id);
       }
 
       // return the result
@@ -115,6 +115,33 @@ class Cart extends Database
         return $result;        
     }
 
+
+    /**
+     * Returns all the user's products from his/her cart
+     *
+     * @param int $user_id - the user id
+     * @param int $start - the start index
+     * @param int $limit - the limit
+     *
+     * @return array - the products
+     */
+    public function getAll(int $user_id, int $start = 0, int $limit = 10): array {
+      $sql="
+        SELECT products.*, cart.quantity 
+        FROM products 
+        INNER JOIN cart 
+        ON products.id = cart.product_id 
+        WHERE cart.user_id = $user_id 
+        LIMIT $start, $limit";
+
+      $getProducts = $this->db->prepare($sql);
+      $getProducts->execute([]);
+
+      $result = $getProducts->fetchAll(PDO::FETCH_ASSOC);
+      return $result;        
+    }
+
+
     public function totalPriceByUser($user_id){
         $sql="SELECT SUM(cart.quantity*products.price) as TOTAL FROM cart, products WHERE products.id=cart.product_id AND cart.user_id = $user_id";
         $totalPrice = $this->db->prepare($sql);
@@ -154,5 +181,22 @@ class Cart extends Database
         }
     }
 
+
+    /**
+     * Returns the number of products in the cart
+     *
+     * @param int $user_id - the user id
+     *
+     * @return int - the number of products
+     */
+    public function countAll(int $user_id): int {
+        $sql = "SELECT COUNT(*) FROM cart WHERE user_id = :user_id";
+        $countAll = $this->db->prepare($sql);
+        $countAll->execute([
+            'user_id' => htmlspecialchars($user_id)
+        ]);
+        $result = $countAll->fetch(PDO::FETCH_ASSOC);
+        return $result['COUNT(*)']; 
+    }
 
 }

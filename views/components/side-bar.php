@@ -92,16 +92,17 @@ $cartTotal = $_GET['cart_total'] ?? $hc->getCartCount() ?? 0;
 // Create a default array of titles for the side bar as `defaultSidebarTitles`
 $defaultSidebarTitles = [
   'maxaboom' => 'Maxaboom ❤️',
-  'profile' => 'Your Profile',
-  'auth' => 'Login / Register',
-  'login' => $hc->i18n->getString('login'),
-  'dashboard' => 'Open your Dashboard',
-  'home' => 'Go to Home',
-  'account' => 'See your Account',
-  'cart' => 'View Cart',
-  'likes' => 'Checkout Likes',
-  'users' => 'See all Users',
-  'products' => 'See all Products'
+  'profile' => $hc->i18n->getString('profileHint'),
+  'auth' => $hc->i18n->getString('authHint'),
+  'login' => $hc->i18n->getString('loginHint'),
+  'dashboard' => $hc->i18n->getString('dashboardHint'),
+  'home' => $hc->i18n->getString('homeHint'),
+  'account' => $hc->i18n->getString('accountHint'),
+  'cart' => $hc->i18n->getString('cartHint'),
+  'likes' => $hc->i18n->getString('likesHint'),
+  'users' => $hc->i18n->getString('usersHint'),
+  'products' => $hc->i18n->getString('usersHint'),
+  'search' => $hc->i18n->getString('searchHint'),
 ];
 
 
@@ -115,6 +116,7 @@ $defaultSidebarLabels = [
   'likes' => $hc->i18n->getString('likes'),
   'users' => $hc->i18n->getString('users'),
   'products' => $hc->i18n->getString('products'),
+  'search' => $hc->i18n->getString('search'),
 ];
 
 // Get the titles
@@ -230,13 +232,21 @@ $sidebarLabels = $_GET['sidebar_labels'] ?? $defaultSidebarLabels;
     <span class="nav-label"><?= $sidebarLabels['home'] ?></span>
   </a>
   <!-- End of Home Nav-Link -->
-  
+
+  <!-- Search - Nav-Link -->
+  <a title="<?= $sidebarTitles['search'] ?>" href="search" class="nav-link" <?= ($sidebarRoute == 'search') ? 'active' : '' ?>>
+    <span class="material-icons nav-icon">search</span>
+    <span class="nav-label"><?= $sidebarLabels['search'] ?></span>
+  </a>
+  <!-- End of Search Nav-Link -->
+
   <!-- Likes - Nav-Link -->
   <a title="<?= $sidebarTitles['likes'] ?>" href="likes" class="nav-link" <?= ($sidebarRoute == 'likes') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">favorite_outline</span>
     <span class="nav-label"><?= $sidebarLabels['likes'] ?></span>
   </a>
   <!-- End of Likes Nav-Link -->
+
 
 
   <!-- Cart - Nav-Link -->

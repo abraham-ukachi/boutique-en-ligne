@@ -46,6 +46,19 @@
   "checkout": "Checkout",
   "cart": "Cart",
 
+  "loginHint": "connect to your Maxaboom account",
+  "authHint": "Login / Register",
+  "profileHint": "Your Profile",
+
+  "searchHint": "Search for cool products / intruments",
+  "dashboardHint": "Open your dashboard",
+  "homeHint": "Go to the home page",
+  "accountHint": "Go to your account",
+  "cartHint": "Go to your cart",
+  "likesHint": "Go to your likes",
+  "settingsHint": "Go to the settings page",
+  "usersHint": "Go to the users page",
+  "productsHint": "Go to the products page",
 
   "orders": "Orders",
   "order": "Order",
@@ -165,6 +178,10 @@
 
   "lastNameErrorMessagePatternMismatch": "Please enter a valid last name 😅",
 
+  "deleteCartTitle": "Remove product ?",
+
+  "deleteCartMessage": "Are you sure you want to remove this product from your cart?",
+
 
   "heroTitle": "Discover your perfect musical instrument",
   "discoverYour_s": "Discover your %s",
@@ -238,9 +255,37 @@
   "account": "Account",
 
   "likes": "Likes",
-  "users": "Users"
+  "users": "Users",
 
+  "addAllToCart": "Add all to cart",
 
+  "removeAllFromCart": "Remove all from cart",
+
+  "removeAll": "Remove all",
+
+  "view": "View",
+
+  "seeDetails": "See details",
+
+  "seeMore": "See more",
+
+  "seeLess": "See less",
+
+  "seeAll": "See all",
+
+  "buy": "Buy",
+
+  "likedProducts": "Liked products",
+  "emptyList": "Empty list 😢",
+  "noLikedProducts": "No liked products",
+  "noLikedProductsMessage": "You have no liked products yet. Start adding some now by clicking on the heart icon of a product card.",
+  "checkoutProducts": "Checkout products",
+  "qty": "Qty",
+  "quantity": "Quantity",
+  "removeCart": "Remove Cart",
+  "cancel": "Cancel",
+  "remove": "Remove"
+    
 }
 
 

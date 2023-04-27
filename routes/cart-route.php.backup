@@ -78,24 +78,6 @@ $router->map('PUT', '/cart/[i:product_id]', function($product_id) {
 
 
 
-/**
- * Route used to get the total number of products in the cart
- *
- * @example  `/cart/total` will add the product with id 1 to the cart
- *
- * @param int $product_id - the id of the product to add to the cart
- */
-$router->map('GET', '/cart/total', function() {
-  // create an instance of the CartController
-  $cartController = new CartController();
-  // call the addToCart method and store the response
-  $response = $cartController->getCartProductsTotal();
-  
-  // return the response as JSON
-  echo json_encode($response);
-});
-
-
 
 
 $router->map( 'GET', '/cart/test', function() {

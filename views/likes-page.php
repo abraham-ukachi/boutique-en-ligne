@@ -24,14 +24,14 @@
 * SOFTWARE.
 *
 * @project boutique-en-ligne
-* @name Cart Page - Maxaboom
-* @file cart-page.php
+* @name Likes Page - Maxaboom
+* @file likes-page.php
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
 * @version: 0.0.1
 * 
 * Usage:
-*   1-|> open http://localhost/boutique-en-ligne/cart
+*   1-|> open http://localhost/boutique-en-ligne/likes
 * 
 *
 * ============================
@@ -61,7 +61,7 @@
   <meta name="description" content="Maxaboom is a fun and dynamic online store that offers a wide variety of musical instruments. From guitars and drums to keyboards, microphones and trumpets.">
   
   <!-- Title -->
-  <title>Cart - Maxaboom | The #1 online store for all your musical needs</title>
+  <title>Likes - Maxaboom | The #1 online store for all your musical needs</title>
 
 
   <!-- Fonts -->
@@ -115,7 +115,7 @@
   <!-- <link rel="stylesheet" href="assets/animations/slide-from-down-animation.css"> -->
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/stylesheets/cart-styles.css">
+  <link rel="stylesheet" href="assets/stylesheets/likes-styles.css">
 
 
   <!-- Script -->
@@ -130,7 +130,7 @@
   
   <!-- Some more script for ya! #LOL -->
   <script type="module" src="src/app.js" defer></script>
-  <script type="module" src="src/scripts/cart.js" defer></script>
+  <script type="module" src="src/scripts/likes.js" defer></script>
   
 </head>
 <!-- End of HEAD -->
@@ -141,7 +141,7 @@
   <!-- Side Bar -->
   <!-- PHP: Include the `sideBar` component -->
   <?php 
-    $_GET['sidebar_route'] = 'cart'; 
+    $_GET['sidebar_route'] = 'likes'; 
     $_GET['sidebar_init'] = $this->user->getInitials(); 
     $_GET['sidebar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
     $_GET['sidebar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin 
@@ -164,23 +164,16 @@
           <!-- Title Wrapper -->
           <div class="title-wrapper vertical flex-layout">
             <!-- Title -->
-            <h2 class="app-title"><?= $this->i18n->getString('cart')?></span></h2>
-            <h3 class="app-subtitle products-count" <?= $totalProducts === 0 ? 'hidden' : '' ?>>
-              <?= $totalProducts . ' ' . $this->i18n->getString('products') ?>
+            <h2 class="app-title"><?= $this->i18n->getString('likes')?></span></h2>
+            <h3 class="app-subtitle" <?= $totalLikedProducts === 0 ? 'hidden' : '' ?>>
+              <?= $totalLikedProducts . ' ' . $this->i18n->getString('likedProducts') ?>
             </h3>
           </div>
 
           <span flex></span>
 
-          <div class="title-wrapper total-price vertical flex-layout">
-            <!-- Title -->
-            <h2 class="app-title" <?= $totalProducts === 0 ? 'hidden' : '' ?>>
-              <?= number_format($totalPrice / 100, 2) . ' €' ?>
-            </h2>
-          </div>
-
-          <!-- Cart Menu Button -->
-          <button id="cartMenuButton" class="icon-button">
+          <!-- Likes Menu Button -->
+          <button id="likesMenuButton" class="icon-button">
             <span class="material-icons icons">more_vert</span>
           </button>
 
@@ -200,8 +193,8 @@
         <!-- PHP (1): ... then show the following [not-connected] container -->
         
         <!-- [empty] Container -->
-        <div class="container vertical flex-layout centered" empty <?= $totalProducts !== 0 ? 'hidden' : '' ?>>
-          <span class="cart-doodle doodle" mask></span>
+        <div class="container vertical flex-layout centered" empty <?= $totalLikedProducts !== 0 ? 'hidden' : '' ?>>
+          <span class="likes-doodle doodle" mask></span>
           <h2><?= $this->i18n->getString('emptyList') ?></h2>
           <p><?= $this->i18n->getString('noLikedProductsMessage') ?></p>
 
@@ -209,54 +202,11 @@
         <!-- End of [empty] Container -->
 
         <!-- Container -->
-        <div class="container vertical flex-layout" <?= $totalProducts === 0 ? 'hidden' : '' ?>>
+        <div class="container vertical flex-layout" <?= $totalLikedProducts === 0 ? 'hidden' : '' ?>>
 
-          <!-- Products -->
-          <ul id="products vertical flex-layout" naked>
-
-            <?php foreach ($products as $product): ?>
-
-            <li tabindex="0" role="product" class="product horizontal flex-layout center" data-id="<?= $product['id'] ?>">
-
-              <div class="product-actions-wrapper horizontal flex-layout center">
-                <!-- Delete - Icon Button -->
-                <button class="product-action-button delete-btn icon-button">
-                  <span class="material-icons icons">delete</span>
-                </button>
-              </div>
-
-              <div class="product-image-wrapper">
-                <img class="product-image" src="assets/images/products/<?= $product['image'] ?>" alt="<?= $product['name'] ?>">
-              </div>
-
-              <div class="product-info-wrapper vertical flex-layout flex">
-                <h3 class="product-name"><?= (strlen($product['name']) > 30) ? substr($product['name'], 0, 30) . '...' : $product['name'] ?></h3>
-                <p class="product-price"><?= number_format($product['price'] / 100, 2) ?> €</p>
-                <span class="product-quantity txt caption"><?= $this->i18n->getString('qty') . ' : '. $product['quantity'] ?></span>
-              </div>
-
-              <div class="product-actions-wrapper horizontal flex-layout center">
-                <!-- Quantity - Controls -->
-                <div class="product-action-button quantity-controls vertical flex-layout center">
-                  <!-- Increase Quantity - Icon Button -->
-                  <button class="increase-qty icon-button">
-                    <span class="material-icons icons">add</span>
-                  </button>
-                  
-                  <span class="qty-value"><?= $product['quantity'] ?></span>
-
-                  <!-- Reduce Quantity - Icon Button -->
-                  <button class="increase-qty icon-button">
-                    <span class="material-icons icons">remove</span>
-                  </button>
-                </div>
-                <!-- End of Quantity - Controls -->
-
-              </div>
-            </li>
-
-            <?php endforeach; ?>
-
+          <!-- Liked Products -->
+          <ul id="likedProducts">
+           <li></li>  
           </ul>
           <!-- End of Liked Products -->
 
@@ -281,28 +231,18 @@
         <!-- PHP (1): End of [not-connected] container -->
 
 
+
       </div>
       <!-- End of [content] -->
 
-      
-    
+
     </div>
     <!-- End of App Layout - MAIN -->
-
-    <?php if ($totalProducts > 0): ?> 
     
-    <div class="checkout-btn-wrapper vertical flex-layout centered">
-      <button id="checkoutButton" contained><?= $this->i18n->getString('checkout') ?></button>
-      
-      <span class="divider horizontal top"></span>
-    </div>
-
-    <?php endif; ?>
-
     <!-- Nav Bar -->
     <!-- PHP: Include the `navBar` component -->
     <?php 
-      $_GET['navbar_route'] = 'cart'; 
+      $_GET['navbar_route'] = 'likes'; 
       $_GET['navbar_init'] = $this->user->getInitials(); 
       $_GET['navbar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
       $_GET['navbar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin 
@@ -317,8 +257,8 @@
     <!-- Menus of MAIN -->
     <div class="menus" fit hidden>
 
-        <!-- Cart Menu -->
-        <menu data-id="cartMenu" class="menu vertical flex-layout" hidden>
+        <!-- Likes Menu -->
+        <menu data-id="likesMenu" class="menu vertical flex-layout" hidden>
 
             <!-- Close Menu + Icon Button -->
             <li role="close-menu">
@@ -326,13 +266,14 @@
             </li>
 
             <!-- Add All to Cart -->
-            <li title="<?= $this->i18n->getString('checkoutProducts') ?>" class="menu-item">
-              <button data-action="checkout">
-                <span class="material-icons icon">shopping_cart_checkout</span>
-                <span><?= $this->i18n->getString('checkoutProducts') ?></span>
+            <li title="<?= $this->i18n->getString('addAllToCart') ?>" class="menu-item">
+              <button data-action="add-to-cart">
+                <span class="material-icons icon">add_shopping_cart</span>
+                <span><?= $this->i18n->getString('addAllToCart') ?></span>
               </button>
             </li>
-            
+
+
             <!-- Remove All -->
             <li title="<?= $this->i18n->getString('removeAll') ?>" class="menu-item">
               <button data-action="remove-all">
@@ -342,11 +283,11 @@
             </li>
 
         </menu>
-        <!-- End of Cart Menu -->
+        <!-- End of Likes Menu -->
 
 
-        <!-- Cart Product Menu -->
-        <menu data-id="cartProductMenu" data-product-id="-1" class="menu vertical flex-layout" hidden>
+        <!-- Liked Product Menu -->
+        <menu data-id="likedProductMenu" class="menu vertical flex-layout" hidden>
 
             <!-- Close Menu + Icon Button -->
             <li role="close-menu">
@@ -356,29 +297,30 @@
             <!-- See -->
             <li title="<?= $this->i18n->getString('seeDetails') ?>" class="menu-item">
               <button data-action="see">
-                <span class="material-icons icon">info</span>
+                <span class="material-icons icon">store</span>
                 <span><?= $this->i18n->getString('seeDetails') ?></span>
               </button>
             </li>
-            
-            
+
+
             <!-- Buy  -->
             <li title="<?= $this->i18n->getString('buy') ?>" class="menu-item">
               <button data-action="buy">
-                <span class="material-icons icon">payments</span>
+                <span class="material-icons icon">translate</span>
                 <span><?= $this->i18n->getString('buy') ?></span>
               </button>
             </li>
-            
+
+
             <!-- Delete  -->
             <li title="<?= $this->i18n->getString('delete') ?>" class="menu-item">
               <button data-action="delete">
-                <span class="material-icons icon">delete_outline</span>
+                <span class="material-icons icon">translate</span>
                 <span><?= $this->i18n->getString('delete') ?></span>
               </button>
             </li>
         </menu>
-        <!-- End of Cart Product Menu -->
+        <!-- End of Liked Product Menu -->
     </div>
     <!-- End of Menus -->
     
@@ -402,7 +344,7 @@
 
         <!-- [empty] Container -->
         <div class="container vertical flex-layout centered" empty>
-          <span class="cart-ddd ddd"></span>
+          <span class="likes-ddd ddd"></span>
         </div>
         <!-- End of [empty] Container -->
 

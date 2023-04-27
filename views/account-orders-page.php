@@ -24,8 +24,8 @@
 * SOFTWARE.
 *
 * @project boutique-en-ligne
-* @name Account Page - Maxaboom
-* @file account-page.php
+* @name Account Order Page - Maxaboom
+* @file account-order-page.php
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
 * @version: 0.0.1
@@ -71,7 +71,7 @@
     <meta name="description" content="Maxaboom is a fun and dynamic online store that offers a wide variety of musical instruments. From guitars and drums to keyboards, microphones and trumpets.">
     
     <!-- Title -->
-    <title>Account - Maxaboom</title>
+    <title>Orders - Account - Maxaboom</title>
 
 
     <!-- Fonts -->
@@ -149,16 +149,6 @@
   <!-- BODY | Default Theme: light -->
   <body class="theme <?= $this->theme ?>" fullbleed>
 
-    <!-- PHP: Side Bar -->
-    <?php 
-      $_GET['sidebar_page'] = 'home'; 
-      $_GET['sidebar_init'] = 'au'; 
-      $_GET['sidebar_connected'] = false; 
-      $_GET['sidebar_isAdmin'] = false; 
-
-      // include 'components/side-bar.php';
-    ?>
-    <!-- PHP: End of Side Bar -->
 
     <!-- Side Bar -->
     <!-- PHP: Include the `sideBar` component -->
@@ -346,7 +336,7 @@
     
 
     <!-- ASIDE -->
-    <aside class="flex-layout vertical" hidden>
+    <aside class="flex-layout vertical">
       <!-- App Layout - ASIDE -->
       <div class="app-layout" fit>
 

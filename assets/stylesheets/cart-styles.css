@@ -1,0 +1,278 @@
+/* 
+* @license
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software. 
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @name: Cart Styles
+* @type: Stylesheet
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+*
+* Example usage:
+*
+*  1+|> // 
+*   -|>
+*
+*
+*/
+
+/* ==== IMPORTS ==== */
+/* @import 'color.css'; */
+/* @import 'typography.css'; */
+/* @import '../animations/fade-in-animation.css'; */
+/* @import '../animations/slide-from-down-animation.css'; */
+
+
+
+/* ==== CART PAGE STYLES ==== */
+
+:root {}
+
+.theme.light {}
+
+
+.theme.dark {}
+
+
+.cart-doodle {
+  --empty-doodle-image: url('../images/doodles/doodle-likes.svg');
+  --empty-doodle-opacity: 0.1; 
+}
+
+.cart-ddd {
+  --ddd-image-url: url('../images/3d/cart_woman.png');
+
+  --ddd-size-bigger: 500px;
+  --ddd-size-bigger 600px;
+
+  /* opacity: 0.2; */
+}
+
+
+main [content] > .container {
+  padding: 0 !important;
+}
+
+.products {
+  margin-top: 0;
+}
+
+.product {
+  width: var(--product-width, 100%);
+  height: var(--product-height, 100px);
+  margin: 0.5rem 0;
+  position: relative;
+  padding: 1rem 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  cursor: default;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.checkout-btn-wrapper {
+  position: relative;
+  box-sizing: border-box;
+  background: var(--background-color);
+  padding: 1rem;
+}
+
+
+#checkoutButton {}
+
+.total-price {
+  width: 150px;
+  min-width: 150px;
+}
+
+.total-price > .app-title {
+  text-align: right;
+  color: var(--primary-color);
+}
+
+
+.product:active {
+  transform: scale(0.98);
+}
+
+.product:hover::before {
+  background: black;
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+.quantity-controls {
+  --icon-button-size: 24px;
+  --icon-button-padding: 0;
+
+  border: 1px solid var(--outline-color);
+  border-radius: 24px;
+  background: inherit;
+}
+
+.quantity-controls  button:hover {
+  --material-icon-color: var(--primary-color);
+}
+
+button.increase-qty {
+
+}
+
+.decrease-qty {}
+
+.qty-value {}
+
+
+
+.product-image-wrapper {}
+
+.product-image {
+  width: var(--product-image-size, 80px);
+  height: var(--product-image-size, 80px);
+  margin: 0.5rem;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.product-info-wrapper {
+  pointer-events: none;
+  user-select: none;
+}
+
+.product-name {
+  margin-bottom: 0;
+  font-size: 1rem;
+  margin-top: 0;
+  line-height: 1.25rem;
+}
+
+.product-price {
+  margin-top: 0;
+  opacity: var(--opacity-text-inactive);
+  font-size: 0.8rem;
+  font-weight: normal;
+  margin-bottom: 0;
+}
+
+.product-quantity {
+  opacity: var(--opacity-text-inactive);
+  font-weight: bold;
+}
+
+.product-actions-wrapper {}
+
+.product-action-button {}
+
+/* 
+ * --> Narrow - Device <--
+ * Phone: ? (Responsive)
+ * Dimension: ~460px (width)
+ *
+ * ***************************************
+ * when the viewport is lesser than 460px,
+ * layout changes to a narrow-layout.
+ * ***************************************
+ */
+
+
+
+
+/* ===[ {{CSS-RULE}} ]=== */
+
+
+/* ---[ End of {{CSS-RULE}} ]--- */
+
+
+
+
+
+
+/* 
+ * --> Wide - Layout <--
+ * Phone: ? (Responsive)
+ * Dimension: 460px+ (width)
+ *
+ * ***************************************
+ * when the viewport is bigger than 460px,
+ * layout changes to wide-layout.
+ * ***************************************
+ */
+@media (min-width: 460px) {    
+  
+}
+
+
+@media (min-width: 768px) {
+
+  .product {
+    --product-image-size: 100px;
+    --product-height: 120px;
+  }
+
+  .product-name {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  .product-action-button {
+    padding: 0.2rem;
+  }
+
+  .quantity-controls {
+    margin-right: 0.3rem;
+  }
+}
+
+
+
+
+
+/* 
+ * --> Tablet - Device <--
+ * Phone: ? (Responsive)
+ * Width: 768px <-to-> 1024px
+ */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+}
+
+
+/* 
+ * --> Laptop - Device <--
+ * Phone: ? (Responsive)
+ * Width: 1024px <-to-> 2560px
+ */
+@media (min-width: 1024px) and (max-width: 2560px) {
+
+}
+
+
+/* ==== END of {{??}} STYLES ==== */

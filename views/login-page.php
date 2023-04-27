@@ -166,7 +166,9 @@
                         <div class='horizontal flex-layout'>
 
                             <!-- Input -->
-                            <input type='password' id='password' name='password' minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required>
+                            <!-- <input type='password' id='password' name='password' minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required> -->
+
+                            <input type='password' id='password' name='password' required>
 
                             <!-- Toggle Password - Icon Button -->
                             <button type='button' tabindex='-1' class='icon-button'

@@ -13,10 +13,11 @@ let inputPass = document.querySelector('#password');
  */
 async function handleFormSubmit(event) {
     event.preventDefault();
+    /*
     if (!inputMail.validity.valid ||
         !inputPass.validity.valid) {
         return;
-    }
+    }*/
     let form = new FormData(event.currentTarget);
     let url = "login";
     let request = new Request(url, {method: "POST", body: form});
@@ -54,6 +55,7 @@ inputMail.addEventListener('blur', (ev) => {
     }
 })
 
+  /*
 inputPass.addEventListener('input', (ev) => {
     let element = ev.target;
     if (element.validity.valid) {
@@ -70,5 +72,5 @@ inputPass.addEventListener('blur', (ev) => {
     if (element.validity.valueMissing) {
         mbApp.showInputError(element, "Veuillez entrer un mot de passe valide (8 caractères minium, 1 majuscule et 1 chiffre)")
     }
-})
+})*/
 

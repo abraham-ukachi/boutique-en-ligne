@@ -48,6 +48,7 @@ namespace Maxaboom\Controllers;
 
 // using our models... ;)
 use Maxaboom\Models\Product;
+use Maxaboom\Models\Review;
 use Maxaboom\Models\User;
 use Maxaboom\Models\Cart;
 
@@ -68,13 +69,10 @@ class CartController extends Controller {
     // Using some traists (a.k.a. step parents) in this class
     use ResponseHandler;
 
-    // Define some constants...
-
-    const CART_PRODUCTS_LIMIT = 10; 
-    
-    public Product $product;
-    public User $user;
-    public Cart $cart;
+    public object $productModel;
+    public object $productCategory;
+    public object $userModel;
+    public object $cartModel;
 
     /**
      * Constructor of the class
@@ -88,9 +86,9 @@ class CartController extends Controller {
       // call the parent's constructor
       parent::__construct($theme, $lang, $useDefaultBrowserLang);
 
-      $this->product = new Product();
-      $this->user = new User();
-      $this->cart = new Cart();
+      $this->productModel = new Product();
+      $this->userModel = new User();
+      $this->cartModel = new Cart();
     }
     
 
@@ -113,7 +111,7 @@ class CartController extends Controller {
       // TODO: check if the product exists
 
       // check if the user is connected
-      $isUserConnected = $this->user->isConnected();
+      $isUserConnected = $this->userModel->isConnected();
       
       $user_id = null;
       $success = false;
@@ -121,10 +119,10 @@ class CartController extends Controller {
       // if the user is connected...
       if ($isUserConnected) {
         // ...get the user id
-        $user_id = $this->user->id;
+        $user_id = $this->userModel->id;
 
         // add the product to the cart
-        $success = $this->cart->addProduct($product_id, $user_id);
+        $success = $this->cartModel->addProduct($product_id, $user_id);
          
         
         // set the response success
@@ -172,17 +170,12 @@ class CartController extends Controller {
       // set the response success
       $this->setResponseSuccess($success);
 
-      // get the total price 
-      $totalPrice = $this->cart->totalPriceByUser($user_id);
-
-
       // set the response data to the user id
       $this->setResponseData([
         'user_id' => $user_id, 
         'user_connected' => $isUserConnected,
         'product_id' => $product_id,
-        'cart_total' => $this->getCartProductsTotal(),
-        'total_price' => number_format($totalPrice / 100, 2) . '€'
+        'cart_total' => $this->getCartProductsTotal()
       ]);
 
       // return our response
@@ -207,7 +200,7 @@ class CartController extends Controller {
       // TODO: check if the product exists
 
       // check if the user is connected
-      $isUserConnected = $this->user->isConnected();
+      $isUserConnected = $this->userModel->isConnected();
       
       $user_id = null;
       $success = false;
@@ -216,18 +209,18 @@ class CartController extends Controller {
       // if the user is connected...
       if ($isUserConnected) {
         // ...get the user id
-        $user_id = $this->user->id;
+        $user_id = $this->userModel->id;
 
         // remove the product from the cart,
         // and get the `success` result
         // TODO: Rename `deleteProduct` to `removeProduct`
-        $success = $this->cart->deleteProduct($product_id, $user_id);
+        $success = $this->cartModel->deleteProduct($product_id, $user_id);
         
         // set the response status
         $this->setResponseStatus($success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_UNPROCESSABLE_ENTITY);
 
         // set the response message
-        $this->setResponseMessage($success ? $this->i18n->getString('productRemovedFromYourCart') : $this->i18n->getString('failedToRemoveProductFromYourCart'));
+        $this->setResponseMessage($sucess ? $this->i18n->getString('productRemovedFromYourCart') : $this->i18n->getString('failedToRemoveProductFromYourCart'));
     
 
       } else { // <- user is not connected :(
@@ -274,16 +267,12 @@ class CartController extends Controller {
       // get the total of the cart products
       $totalCartProducts = $this->getCartProductsTotal();
 
-      // get the total price 
-      $totalPrice = $this->cart->totalPriceByUser($user_id);
-
       // set the response data to the user id
       $this->setResponseData([
         'user_id' => $user_id,
         'user_connected' => $isUserConnected,
         'product_id' => $product_id,
-        'cart_total' => $this->getCartProductsTotal(),
-        'total_price' => number_format($totalPrice / 100, 2) . '€'
+        'cart_total' => $this->getCartProductsTotal(), 
       ]);
 
       // return our response
@@ -293,50 +282,6 @@ class CartController extends Controller {
       // return Array('success' => $success, 'data' => [ 'user_id' => $user_id ]);
     }
 
-
-
-
-  /**
-   * Shows the cart page
-   *
-   * @return void
-   */
-  public function showPage(): void {
-    // TODO: do something awesome here before showing the home page ;)
-    
-    // Initialize some variables
-    $products = [];
-    $totalProducts = 0;
-    $totalPrice = 0;
-
-    // get the user id as `$userId`
-    $userId = $this->user->id;
-
-    // check if the user is connected
-    $isUserConnected = $this->user->isConnected();
-
-
-    // if the user is connected ...
-    if ($isUserConnected) {
-      // ...get a limited list of the user's products in cart as `$products`
-      $products = $this->cart->getAll($userId, 0, $this::CART_PRODUCTS_LIMIT);
-      
-      // get the total number of products in the cart as `$totalProducts` 
-      $totalProducts = $this->cart->countAll($userId);
-      
-      // get the total price 
-      $totalPrice = $this->cart->totalPriceByUser($userId);
-      
-    } 
-    
-    // require [once] the home page from the `views` folder
-    require_once __DIR__ . '/../views/cart-page.php';
-  }
-
-
-
-
-
     /**
      * Method used to get the total number of the cart products
      * NOTE: If the user is connected, the total will be retrieved from the database
@@ -345,28 +290,24 @@ class CartController extends Controller {
      * @return int : the total number of the cart products
      */
     public function getCartProductsTotal() {
-      return $this->user->isConnected() ? $this->cart->countAll($this->user->id) : count($_SESSION['cart']);
+      return $this->userModel->isConnected() ? $this->cartModel->countAll($this->userModel->id) : count($_SESSION['cart']);
     } 
 
 
 
     public function registerCart($product_id,$unit_price, $quantity, $user_id){
-        $success = $this->cart->addProductToCart($product_id,$unit_price, $quantity, $user_id);
+        $success = $this->cartModel->addProductToCart($product_id,$unit_price, $quantity, $user_id);
     }
 
     public function infoCart($user_id){
-        return $this->cart->displayProductFromCart($user_id);
+        return $this->cartModel->displayProductFromCart($user_id);
        //require_once __DIR__ . '/../models/test/cart.php';
     }
 
     public function totalPrice($user_id){
-        return $this->cart->totalPriceByUser($user_id);
+        return $this->cartModel->totalPriceByUser($user_id);
     }
 
-
-
-
-  /*
     public function showPage($user_id){
         $displayCart = $this->infoCart($user_id);
         $total = $this->totalPrice($user_id);
@@ -374,21 +315,19 @@ class CartController extends Controller {
         require_once __DIR__ . '/../views/cart-page.php';
 
     }
-   */
-
 
     public function increaseQuantity($product_id){
-      $isUserConnected = $this->user->isConnected();
+      $isUserConnected = $this->userModel->isConnected();
 
       $user_id = null;
       $success = false;
 
       
       if ($isUserConnected) {
-          $user_id = $this->user->id;
+          $user_id = $this->userModel->id;
 
         //   $success = true;
-        $success = $this->cart->addProductQuantity($user_id, $product_id);
+        $success = $this->cartModel->addProductQuantity($user_id, $product_id);
         $total = $this->totalPrice($user_id);
 
       }
@@ -396,15 +335,15 @@ class CartController extends Controller {
     }
 
     public function reduceQuantity($product_id){
-        $isUserConnected = $this->user->isConnected();
+        $isUserConnected = $this->userModel->isConnected();
   
         $user_id = null;
         $success = false;
         
         if ($isUserConnected) {
-            $user_id = $this->user->id;
+            $user_id = $this->userModel->id;
           //   $success = true;
-          $success = $this->cart->reduceQuantity($user_id, $product_id);
+          $success = $this->cartModel->reduceQuantity($user_id, $product_id);
           $total = $this->totalPrice($user_id);
 
         }       

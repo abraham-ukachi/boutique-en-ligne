@@ -97,6 +97,7 @@ include __DIR__ . '/routes/admin-route.php'; // <- admin route
 include __DIR__ . '/routes/account-route.php'; // <- account route
 include __DIR__ . '/routes/component-route.php'; // <- component route
 include __DIR__ . '/routes/cart-route.php'; // <- cart route
+include __DIR__ . '/routes/likes-route.php'; // <- likes route
 
 
 

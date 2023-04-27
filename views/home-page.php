@@ -687,7 +687,8 @@
       $_GET['navbar_route'] = 'home'; 
       $_GET['navbar_init'] = $this->user->getInitials(); 
       $_GET['navbar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
-      $_GET['navbar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin 
+      $_GET['navbar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin
+      
 
       require __DIR__ . '/components/nav-bar.php';
     ?>

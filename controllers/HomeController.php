@@ -242,8 +242,10 @@ class HomeController extends Controller {
    */
   public function getCartCount(): int {
     // get the cart count from the cart model
-    return $this->user->isConnected() ? $this->cart->getCartProductsTotal($this->user->id) : count($_SESSION['cart']);
+    return $this->user->isConnected() ? $this->cart->countAll($this->user->id) : count($_SESSION['cart'] ?? []);
   }
+
+  
 
   /**
    * Shows the splash screen
