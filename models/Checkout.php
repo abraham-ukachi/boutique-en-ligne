@@ -13,23 +13,6 @@ class Checkout extends Database
         $this->dbConnect();
     }
 
-    public function registerCard($user_id, $nbCard, $expiration, $cvv){
-        $sql = "INSERT INTO cards (user_id, card_no, expiration, CVV)
-                VALUES (:user_id, :card_no, :expiration, :cvv)";
-        $sql_exe = $this->db->prepare($sql);
-        $sql_exe->execute([
-            'user_id' => htmlspecialchars($user_id),
-            'card_no' => htmlspecialchars($nbCard),
-            'expiration' => htmlspecialchars($expiration),
-            'cvv' => htmlspecialchars($cvv)
-        ]);
-        if ($sql_exe) {
-           return true;
-        } else {
-           return false;
-        }
-    }
-
     public function newAddress($titre, $address, $complement, $postal_code, $city, $country, $user_id, $type)
     {
         $sql = 'INSERT INTO addresses (titre, address, address_complement, postal_code, city, country, user_id, type)
@@ -46,18 +29,27 @@ class Checkout extends Database
             'type' => htmlspecialchars($type)
         ]);
         if ($sql_exe) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function registerCard($user_id, $nbCard, $expiration, $cvv){
+        $sql = "INSERT INTO cards (user_id, card_no, expiration, CVV)
+                VALUES (:user_id, :card_no, :expiration, :cvv)";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+            'user_id' => htmlspecialchars($user_id),
+            'card_no' => htmlspecialchars($nbCard),
+            'expiration' => htmlspecialchars($expiration),
+            'cvv' => htmlspecialchars($cvv)
+        ]);
+        if ($sql_exe) {
            return true;
         } else {
            return false;
         }
-    }
-
-    public function getAddressByUser(int $userId){
-        $addressUser = $this->db->prepare("SELECT * FROM addresses WHERE user_id=$userId");
-        $addressUser->execute([
-        ]);
-        $result = $addressUser->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
     }
 
 }

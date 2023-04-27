@@ -31,17 +31,12 @@ class CheckoutController extends Controller
         require_once __DIR__ . '/../views/checkout-page.php';
     }
 
-    public function registerAllInformations($delivery, $address, $addressComplement, $city, $postalCode, $country, $nbCard, $expiration, $cvv){
+    public function registerAllInformations($delivery, $address, $addressComplement, $city, $postalCode, $country,
+                                            $nbCard, $expiration, $cvv){
         $titre = "nouvelle adresse";
         $user_id = $this->user->id;
         $this->checkout->newAddress($titre, $address, $addressComplement, $postalCode, $city, $country, $user_id, $delivery);
         $this->checkout->registerCard($user_id, $nbCard, $expiration, $cvv);
-
-    }
-
-    public function getAddressUser(int $userId){
-        $userId = $this->user->id;
-        $this->checkout->getAddressByUser($userId);
 
     }
 

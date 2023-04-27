@@ -24,10 +24,8 @@ $router->map('POST', '/checkout', function(){
     $expiration = htmlspecialchars($_POST['expiration'], ENT_QUOTES);
     $cvv = htmlspecialchars($_POST['cvv'], ENT_QUOTES);
 
-    $checkoutController->registerAllInformations($delivery, $address, $addressComplement, $city, $postalCode, $country, $nbCard, $expiration, $cvv);
+    $checkoutController->registerAllInformations($delivery, $address, $addressComplement, $city,
+        $postalCode, $country, $nbCard, $expiration, $cvv);
     $userId = $this->user->id;
-    $checkoutController->getAddressUser($userId);
     echo json_encode($response);
-
-
 });
