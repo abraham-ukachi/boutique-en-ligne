@@ -137,7 +137,7 @@ $navbarLabels = $_GET['navbar_labels'] ?? $defaultNavbarLabels;
 <nav id="navBar" class="admin nav-bar flex-layout horizontal">
 
   <!-- Dashboard - Nav-Link [disabled] -->
-  <a title="<?= $navbarTitles['dashboard'] ?>" href="dashboard" class="nav-link" <?= ($navbarRoute == 'dashboard') ? 'active' : '' ?>>
+  <a title="<?= $navbarTitles['dashboard'] ?>" href="admin" class="nav-link" <?= ($navbarRoute == 'dashboard') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">dashboard</span>
     <span class="nav-label"><?= $navbarLabels['dashboard'] ?></span>
   </a>

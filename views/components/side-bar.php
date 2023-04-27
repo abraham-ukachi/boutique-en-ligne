@@ -142,7 +142,7 @@ $sidebarLabels = $_GET['sidebar_labels'] ?? $defaultSidebarLabels;
 <nav id="sideBar" class="admin flex-layout vertical">
   <!-- Icon-Wrapper -->
   <a title="Dashboard" 
-    href="admin/dashboard"
+    href="admin"
     class="nav-link icon-wrapper" <?= ($LogoIsHome && (($sidebarRoute == 'home') || ($sidebarRoute == 'dashboard')))  ? 'active' : '' ?>>
 
     <!-- App-Logo -->
@@ -155,7 +155,7 @@ $sidebarLabels = $_GET['sidebar_labels'] ?? $defaultSidebarLabels;
   <span flex></span>
 
   <!-- Dashboard - Nav-Link [disabled] -->
-  <a title="<?= $sidebarTitles['dashboard'] ?>" href="dashboard" class="nav-link" <?= ($sidebarRoute == 'dashboard') ? 'active' : '' ?>>
+  <a title="<?= $sidebarTitles['dashboard'] ?>" href="admin" class="nav-link" <?= ($sidebarRoute == 'dashboard') ? 'active' : '' ?>>
     <span class="material-icons nav-icon">dashboard</span>
     <span class="nav-label"><?= $sidebarLabels['dashboard'] ?></span>
   </a>
