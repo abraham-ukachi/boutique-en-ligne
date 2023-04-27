@@ -160,30 +160,50 @@
                         <label for="address" raised="">Adresse</label>
                         <input name="address" id='addressValue' type='text' placeholder="">
                         <span class="input-indicator"><span bar=""></span><span val=""></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="addressComplement" raised="">Complément d'adresse</label>
                         <input name="addressComplement" id="addressComplementValue" type='text' placeholder=''>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="city" raised>Ville</label>
                         <input name="city" id="cityValue" type='text' placeholder=''>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="postalCode" raised="">Code postal</label>
                         <input name="postalCode" id="postalCodeValue" type='text' placeholder=''>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="country" raised=''>Pays</label>
                         <input name="country" id="countryValue" type='text' placeholder=''>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
                     <div class="buttons vertical flex-layout">
                         <button id='address' type="button" contained="">
@@ -208,18 +228,30 @@
                         <input id='nbCardValue' name='nbCard' type='text' inputmode='numeric'
                                placeholder="6200 0000 0000 0005">
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for='expiration' raised="">Date d'expiration</label>
                         <input id='expirationValue' name="expiration" type="text" pattern='[0-9]*' inputmode='numeric' placeholder="11/22">
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for='cvv' raised=''>CVV</label>
                         <input id='cvvValue' name="cvv" type='text' pattern='[0-9]*' inputmode="numeric" placeholder="000">
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='buttons vertical flex-layout'>

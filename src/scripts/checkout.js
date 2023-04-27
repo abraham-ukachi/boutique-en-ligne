@@ -1,3 +1,6 @@
+import { MAIN_PART, ASIDE_PART, FULL_PART } from "../app.js";
+import { SUCCESS_TOAST, GOOD_TOAST, BAD_TOAST, ERROR_TOAST } from "../app.js";
+
 let deliveryBtn = document.getElementById('delivery');
 let addressBtn = document.getElementById('address');
 let cardBtn = document.getElementById('card');
@@ -7,9 +10,34 @@ let cardReturnBtn = document.getElementById('cardReturn');
 
 let validateBtn = document.getElementById('validateCheckout');
 
+// Inputs second form
+
+let address = document.getElementById('addressValue');
+let complement = document.getElementById('addressComplementValue');
+let city = document.getElementById('cityValue');
+let postalCode = document.getElementById('postalCodeValue');
+let country = document.getElementById('countryValue');
+console.log(address)
+
+// Inputs third form
+let nbCard = document.getElementById('nbCardValue');
+let expiration = document.getElementById('expirationValue');
+let cvv = document.getElementById('cvvValue');
+
+/** ERRORS GESTION **/
+
+address.addEventListener('blur', (ev) => {
+    let element = ev.target;
+    if(element.validity.valueMissing){
+        mbApp.showInputError(element, "Veuillez renseigner votre prénom ! ")
+        console.log("lol")
+    }
+})
+
 /*
     Tag delivery form then listening it for stock value of radio input
  */
+
 let deliveryForm = document.getElementById('deliveryForm');
 deliveryForm.addEventListener('input', (ev) => {
     let deliveryCost = ev.target.value;
@@ -17,18 +45,18 @@ deliveryForm.addEventListener('input', (ev) => {
 
 let addressForm = document.getElementById('addressForm');
 addressForm.addEventListener('input', (ev) => {
-    let address = document.getElementById('addressValue').value;
-    let complement = document.getElementById('addressComplementValue').value;
-    let city = document.getElementById('cityValue').value;
-    let postalCode = document.getElementById('postalCodeValue').value;
-    let country = document.getElementById('countryValue').value;
+    address.value;
+    complement.value;
+    city.value;
+    postalCode.value;
+    country.value;
 })
 
 let cardForm = document.getElementById('cardForm');
 cardForm.addEventListener('input', (ev) => {
-    let nbCard = document.getElementById('nbCardValue').value;
-    let expiration = document.getElementById('expirationValue').value;
-    let cvv = document.getElementById('cvvValue').value;
+    nbCard.value;
+    expiration.value;
+    cvv.value;
 })
 
 
@@ -100,8 +128,9 @@ validateBtn.addEventListener('click', async (ev) => {
     let request = new Request(url, {method: 'POST', body: completeForm})
     let response = await fetch(request);
     let responseData = await response.json();
-    console.log(responseData);
+    if(responseData.success){
+        mbApp.showToast({message: "Vos informations ont été enregitrées!", type: SUCCESS_TOAST},  3);
 
+    }
 })
-
 
