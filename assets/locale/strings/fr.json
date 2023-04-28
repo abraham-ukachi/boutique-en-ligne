@@ -1,20 +1,19 @@
 {
-"{
   "appName": "Maxaboom",
   "appDescription": "Maxaboom est une application web gratuite, open source et facile à utiliser qui vous permet de découvrir et d'acheter votre instrument de musique parfait.",
   "abrahamUkachi": "Abraham Ukachi",
   "axelVair": "Axel Vair",
   "morganeMarechal": "Morgane Marechal",
   "catherineTranchand": "Catherine Tranchand",
- 
-  "en": "Anglais", 
+
+  "en": "Anglais",
   "fr": "Français",
   "ru": "Russe",
   "es": "Espagnol",
 
   "hello": "Bonjour",
   "gm": "Bonjour",
-  "ga": "Bon après-midi",
+  "ga": "Bonjour",
   "ge": "Bonsoir",
   "gn": "Bonne nuit",
 
@@ -35,7 +34,7 @@
   "contact": "Contact",
   "admin": "Admin",
   "dashboard": "Tableau de bord",
-  "contactUs": "Nous contacter",
+  "contactUs": "Contactez-nous",
   "about": "À propos",
   "aboutUs": "À propos de nous",
   "login": "Se connecter",
@@ -43,21 +42,20 @@
   "register": "S'inscrire",
   "myAccount": "Mon compte",
   "categories": "Catégories",
-  "search": "Rechercher",
-  "checkout": "Payer",
+  "search": "Recherche",
+  "checkout": "Commander",
   "cart": "Panier",
-
-  "loginHint": "connectez-vous à votre compte Maxaboom",
+"loginHint": "connectez-vous à votre compte Maxaboom",
   "authHint": "Connexion / Inscription",
   "profileHint": "Votre profil",
 
-  "searchHint": "Recherchez des produits / instruments sympas",
+  "searchHint": "Recherchez des produits / instruments intéressants",
   "dashboardHint": "Ouvrez votre tableau de bord",
   "homeHint": "Aller à la page d'accueil",
   "accountHint": "Aller à votre compte",
   "cartHint": "Aller à votre panier",
   "likesHint": "Aller à vos favoris",
-  "settingsHint": "Aller à la page de paramètres",
+  "settingsHint": "Aller à la page des paramètres",
   "usersHint": "Aller à la page des utilisateurs",
   "productsHint": "Aller à la page des produits",
 
@@ -74,32 +72,27 @@
   "orderDiscount": "Réduction de la commande",
   "orderPaymentMethod": "Méthode de paiement de la commande",
   "orderShippingMethod": "Méthode d'expédition de la commande",
-  "orderShippingAddress": "Adresse de livraison",
-
-  "orderBillingAddress": "Adresse de facturation",
-
-
-  {
-  "orderItems": "Articles de commande",
-  "orderItem": "Article de commande",
-  "orderItemName": "Nom de l'article de commande",
-  "orderItemPrice": "Prix de l'article de commande",
-  "orderItemQuantity": "Quantité de l'article de commande",
+  "orderShippingAddress": "Adresse de livraison de la commande",
+  "orderBillingAddress": "Adresse de facturation de la commande",
+  "orderItems": "Articles de la commande",
+  "orderItem": "Article de la commande",
+  "orderItemName": "Nom de l'article de la commande",
+  "orderItemPrice": "Prix de l'article de la commande",
+  "orderItemQuantity": "Quantité de l'article de la commande",
 
   "latestProducts": "Derniers produits",
   "popularProducts": "Produits populaires",
   "cheapestProducts": "Produits les moins chers",
-  
+
   "addToCart": "Ajouter au panier",
   "cartEmpty": "Votre panier est vide",
-  "cartEmptyMessage": "Vous n'avez aucun article dans votre panier d'achat.",
+  "cartEmptyMessage": "Vous n'avez aucun article dans votre panier d'achats.",
   "dontHaveAccount": "Vous n'avez pas de compte?",
   "alreadyHaveAccount": "Vous avez déjà un compte?",
 
   "log_out": "Se déconnecter",
   "log_in": "Se connecter",
   "logoutConfirmMessage": "Êtes-vous sûr de vouloir vous déconnecter?",
-
 
   "deleteYourAccount": "Supprimer votre compte",
 
@@ -111,40 +104,40 @@
   "delete": "Supprimer",
   "cancel": "Annuler",
 
-  "errorLogout": "Impossible de se déconnecter",
-  "successLogout": "Déconnecté avec succès",
+  "errorLogout": "La déconnexion a échoué",
+  "successLogout": "Déconnexion réussie",
 
-  "errorDeleteAccount": "Impossible de supprimer le compte",
+  "errorDeleteAccount": "La suppression du compte a échoué",
   "successDeleteAccount": "Compte supprimé avec succès",
 
   "yourInformation": "Vos informations",
   "changeYourEmailAddress": "Modifier votre adresse e-mail",
-  "changePassword": "Changer le mot de passe",
+  "changePassword": "Changer de mot de passe",
 
   "firstName": "Prénom",
   "lastName": "Nom de famille",
   "email": "E-mail",
 
   "youAreNotConnected": "Vous n'êtes pas connecté",
-  "youAreNotConnectedMessage": "Vous devez être connecté pour accéder à cette page. Si vous pensez que ce message est incorrect, veuillez nous contacter.",
+  "youAreNotConnectedMessage": "Vous devez être connecté pour accéder à cette page. Si vous pensez que ce message est erroné, veuillez nous contacter.",
   "identity": "Identité",
   "password": "Mot de passe",
   "mandatoryField": "Champ obligatoire",
 
   "newEmail": "Nouvel e-mail",
-  "confirmNewEmail": "Confirmer le nouveau courriel",
-  "changeEmail": "Modifier l'adresse e-mail",
+  "confirmNewEmail": "Confirmez le nouveau e-mail",
+  "changeEmail": "Modifier l'e-mail",
 
   "oldPassword": "Ancien mot de passe",
   "newPassword": "Nouveau mot de passe",
   "confirmNewPassword": "Confirmer le nouveau mot de passe",
-  "changePassword": "Changer le mot de passe",
+  "changePassword": "Modifier le mot de passe",
 
   "placeholderFirstName": "Entrez votre prénom",
   "placeholderLastName": "Entrez votre nom de famille",
   "placeholderEmail": "Entrez votre adresse e-mail",
-  "placeholderNewEmail": "Entrez votre nouvel e-mail",
-  "placeholderConfirmNewEmail": "Confirmez votre nouvel e-mail",
+  "placeholderNewEmail": "Entrez votre nouveau e-mail",
+  "placeholderConfirmNewEmail": "Confirmez votre nouveau e-mail",
 
   "placeholderOldPassword": "Entrez votre ancien mot de passe",
 
@@ -153,144 +146,141 @@
   "dateOfBirth": "Date de naissance",
   "dobFormat": "JJ/MM/AAAA",
 
-  "oldPasswordIsVisible": "L'ancien mot de passe est visible",
-  "newPasswordIsVisible": "Le nouveau mot de passe est visible",
+  "oldPasswordIsVisible": "Ancien mot de passe est visible",
+  "newPasswordIsVisible": "Nouveau mot de passe est visible",
+  "confirmNewPasswordIsVisible": "Confirmer le nouveau mot de passe est visible",
 
-  "confirmNewPasswordIsVisible": "Le nouveau mot de passe est visible",
+  "oldPasswordIsHidden": "Ancien mot de passe est masqué",
+  "newPasswordIsHidden": "Nouveau mot de passe est masqué",
+  "confirmNewPasswordIsHidden": "Confirmer le nouveau mot de passe est masqué",
 
-  "confirmNewPasswordIsVisible": "Le nouveau mot de passe est visible",
-
-"oldPasswordIsHidden": "L'ancien mot de passe est caché",
-"newPasswordIsHidden": "Le nouveau mot de passe est caché",
-"confirmNewPasswordIsHidden": "La confirmation du nouveau mot de passe est cachée",
-
-"save": "Enregistrer",
-
-"firstNameErrorMessageValueMissing": "Votre prénom est requis 😜",
-
-"firstNameErrorMessageTooShort": "Votre prénom est trop court 🤔",
-
-"firstNameErrorMessageTooLong": "Votre prénom est trop long 😱",
-
-"firstNameErrorMessagePatternMismatch": "Veuillez entrer un prénom valide 😅",
-
-"lastNameErrorMessageValueMissing": "Votre nom de famille est requis 😜",
-
-"lastNameErrorMessageTooShort": "Votre nom de famille est trop court 🤔",
-
-"lastNameErrorMessageTooLong": "Votre nom de famille est trop long 😱",
-
-"lastNameErrorMessagePatternMismatch": "Veuillez entrer un nom de famille valide 😅",
-
-"deleteCartTitle": "Supprimer le produit ?",
-
-"deleteCartMessage": "Êtes-vous sûr de vouloir supprimer ce produit de votre panier ?",
-
-"heroTitle": "Découvrez votre instrument de musique parfait",
-"discoverYour_s": "Découvrez votre %s",
-"perfectInstrument": "Instrument parfait",
-"perfectMusicalInstrument": "Instrument de musique parfait",
-"heroSubtitle": "Maxaboom est une application web gratuite, open source et facile à utiliser qui vous permet de découvrir et d'acheter votre instrument de musique parfait.",
-
-"shopNow": "Acheter maintenant",
-"exploreMore": "Explorer plus",
-
-"theme": "Thème",
-"changeTheme": "Changer de thème",
-
-"language": "Langue",
-"languages": "Langues",
-
-"changeLanguage": "Changer de langue",
-
-"aboutMaxaboom": "À propos de Maxaboom",
-
-"buyAProduct": "Acheter un produit",
-
-"stepSearchTitle": "Rechercher",
-"stepTapTitle": "Appuyer",
-"stepPlayTitle": "Jouer",
-
-"stepSearchDescription": "+200 instruments au choix",
-"stepTapDescription": "Payez en quelques secondes avec notre processus de paiement ultra-rapide",
-"stepPlayDescription": "Jouez de votre nouvel instrument et profitez de votre musique",
-
-"ourTopCategories": "Nos meilleures catégories",
-"topCategories": "Meilleures catégories",
-
-"pianos": "Pianos",
-"guitars": "Guitares",
-"drums": "Batteries",
-"violin": "Violons",
-"saxophones": "Saxophones",
-"flutes": "Flûtes",
-"percussions": "Percussions",
-"trumpets": "Trompettes",
-"dj": "DJ",
-"wind-instruments": "Instruments à vent",
-"percussion": "Percussion",
-
-"addToLikes": "Ajouter aux favoris",
-
-"copyrightText": "Maxaboom. Tous droits réservés.",
-
-"madeWithLove": "Fait avec ❤️ par l'équipe de Maxaboom",
-
-"productAddedToCart": "Produit ajouté au panier",
-
-"productAddedToCart": "Produit ajouté au panier",
-
-"failedToAddProductToCart": "Échec de l'ajout du produit au panier",
-
-"productRemovedFromCart": "Produit retiré du panier",
-
-"failedToRemoveProductFromCart": "Échec de la suppression du produit du panier",
-
-"productAddedToYourCart": "Produit ajouté à votre panier",
-
-"failedToAddProductToYourCart": "Échec de l'ajout du produit à votre panier",
-
-"productRemovedFromYourCart": "Produit retiré de votre panier",
-
-"failedToRemoveProductFromYourCart": "Échec de la suppression du produit de votre panier",
-
-"goToHome": "Aller à l'accueil",
-"account": "Compte",
-
-"likes": "J'aime",
-"users": "Utilisateurs",
-
-"addAllToCart": "Ajouter tout au panier",
-
-"removeAllFromCart": "Retirer tout du panier",
-
-"removeAll": "Tout supprimer",
-
-"view": "Voir",
-
-"seeDetails": "Voir les détails",
-
-"seeMore": "Voir plus",
-
-"seeLess": "Voir moins",
-
-"seeAll": "Voir tout",
-
-"buy": "Acheter",
-
-"likedProducts": "Produits aimés",
-"emptyList": "Liste vide 😢",
-"noLikedProducts": "Pas de produits aimés",
-"noLikedProductsMessage": "Vous n'avez pas encore de produits aimés. Commencez à en ajouter en cliquant sur l'icône en forme de cœur d'une fiche produit.",
-"checkoutProducts": "Valider la commande",
-"qty": "Qté",
-"quantity": "Quantité",
-"removeCart": "Retirer le panier",
-"cancel": "Annuler",
-"remove": "Supprimer"
+  "save": "Sauvegarder",
 
 
 
-   
+  "firstNameErrorMessageValueMissing": "Votre prénom est requis 😜",
+
+  "firstNameErrorMessageTooShort": "Votre prénom est trop court 🤔",
+
+  "firstNameErrorMessageTooLong": "Votre prénom est trop long 😱",
+
+  "firstNameErrorMessagePatternMismatch": "Veuillez entrer un prénom valide 😅",
+
+  "lastNameErrorMessageValueMissing": "Votre nom de famille est requis 😜",
+  
+  "lastNameErrorMessageTooShort": "Votre nom de famille est trop court 🤔",
+  
+  "lastNameErrorMessageTooLong": "Votre nom de famille est trop long 😱",
+  
+  "lastNameErrorMessagePatternMismatch": "Veuillez entrer un nom de famille valide 😅",
+  
+  "deleteCartTitle": "Supprimer le produit ?",
+  
+  "deleteCartMessage": "Êtes-vous sûr de vouloir supprimer ce produit de votre panier ?",
+  
+  "heroTitle": "Découvrez votre instrument de musique parfait",
+  "discoverYour_s": "Découvrez votre %s",
+  "perfectInstrument": "Instrument parfait",
+  "perfectMusicalInstrument": "Instrument de musique parfait",
+  "heroSubtitle": "Maxaboom est une application Web gratuite, open source et facile à utiliser qui vous permet de découvrir et d'acheter votre instrument de musique parfait.",
+  
+  "shopNow": "Acheter maintenant",
+  "exploreMore": "Explorer plus",
+  
+  "theme": "Thème",
+  "changeTheme": "Changer le thème",
+  
+  "language": "Langue",
+  "languages": "Langues",
+  
+  "changeLanguage": "Changer de langue",
+  
+  "aboutMaxaboom": "À propos de Maxaboom",
+  
+  "buyAProduct": "Acheter un produit",
+  
+  "stepSearchTitle": "Rechercher",
+  "stepTapTitle": "Appuyer",
+  "stepPlayTitle": "Jouer",
+  
+  "stepSearchDescription": "+200 instruments au choix",
+  "stepTapDescription": "Effectuez votre paiement en quelques secondes avec notre processus de paiement ultra-rapide",
+  "stepPlayDescription": "Jouez de votre nouvel instrument et profitez de votre musique",
+  
+  "ourTopCategories": "Nos meilleures catégories",
+  "topCategories": "Meilleures catégories",
+  
+  "pianos": "Pianos",
+  "guitars": "Guitares",
+  "drums": "Batteries",
+  "violin": "Violons",
+  "saxophones": "Saxophones",
+  "flutes": "Flûtes",
+  "percussions": "Percussions",
+  "trumpets": "Trompettes",
+  "dj": "DJ",
+  "wind-instruments": "Instruments à vent",
+  "percussion": "Percussion",
+  
+  "addToLikes": "Ajouter aux favoris",
+  
+  "copyrightText": "Maxaboom. Tous droits réservés.",
+  
+  "madeWithLove": "Fait avec ❤️  par l'équipe Maxaboom",
+  
+  "productAddedToCart": "Produit ajouté au panier",
+  
+  "failedToAddProductToCart": "Échec de l'ajout du produit au panier",
+  
+  "productRemovedFromCart": "Produit retiré du panier",
+  
+  "failedToRemoveProductFromCart": "Échec du retrait du produit du panier",
+  
+  "productAddedToYourCart": "Produit ajouté à votre panier",
+  
+  "failedToAddProductToYourCart": "Échec de l'ajout du produit à votre panier",
+  
+  "productRemovedFromYourCart": "Produit retiré de votre panier",
+ 
+  "failedToAddProductToYourCart": "Échec de l'ajout du produit à votre panier",
+
+  "productRemovedFromYourCart": "Produit retiré de votre panier",
+
+  "failedToRemoveProductFromYourCart": "Échec du retrait du produit de votre panier",
+
+  "goToHome": "Aller à la page d'accueil",
+  "account": "Compte",
+
+  "likes": "Favoris",
+  "users": "Utilisateurs",
+
+  "addAllToCart": "Ajouter tout au panier",
+
+  "removeAllFromCart": "Retirer tout du panier",
+
+  "removeAll": "Tout retirer",
+
+  "view": "Voir",
+
+  "seeDetails": "Voir les détails",
+
+  "seeMore": "Voir plus",
+
+  "seeLess": "Voir moins",
+
+  "seeAll": "Tout voir",
+
+  "buy": "Acheter",
+
+  "likedProducts": "Produits favoris",
+  "emptyList": "Liste vide 😢",
+  "noLikedProducts": "Aucun produit favori",
+  "noLikedProductsMessage": "Vous n'avez encore aucun produit favori. Commencez à en ajouter en cliquant sur l'icône en forme de cœur sur une carte produit.",
+  "checkoutProducts": "Payer les produits",
+  "qty": "Qté",
+  "quantity": "Quantité",
+  "removeCart": "Retirer le panier",
+  "cancel": "Annuler",
+  "remove": "Retirer"
 
 }
