@@ -97,46 +97,49 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 1 | *`Splash Screen - View`* | **splash-screen.php** | Pending |
 | 2 | *`Welcome Screen - View`* | **welcome-screen.php** | Pending |
 | 3 | *`Home Page - View`* | **home-page.php** | *_In progress_* |
-| 4 | *`Maxaboom Database - SQL`* | **db_maxaboom.sql** | Pending |
-| 5 | *`Shop Page - View`* | **shop-page.php** | Pending |
-| 6 | *`Product Page - View`* | **product-page.php** | Pending |
+| 4 | *`Maxaboom Database - SQL`* | **db_maxaboom.sql** | [Done](./db_maxaboom.sql) |
+| 5 | *`Shop Page - View`* | **shop-page.php** | *_In progress_* |
+| 6 | *`Product Page - View`* | **product-page.php** | *_In progress_* |
 | 7 | *`Color - Theme`* | **color.css** | [Done](./assets/theme/color.css)\* |
 | 8 | *`Typography - Theme`* | **typography.css** | [Done](./assets/theme/typography.css)\* |
 | 9 | *`Styles - Theme`* | **styles.css** | *_In progress_* |
-| 10 | *`Home - Controller`* | **HomeController.php** | *_In progress_* | 
-| 11 | *`Admin - Controller`* | **AdminController.php** | Pending | 
-| 12 | *`Shop - Controller`* | **ShopController.php** | Pending | 
-| 13 | *`Product - Controller`* | **ProductController.php** | Pending | 
-| 14 | *`Order - Controller`* | **OrderController.php** | Pending | 
-| 15 | *`Cart - Controller`* | **CartController.php** | Pending | 
+| 10 | *`Home - Controller`* | **HomeController.php** | [Done](./controllers/HomeController.php)\* | 
+| 11 | *`Admin - Controller`* | **AdminController.php** | [Done](./controllers/AdminController.php)\* | 
+| 12 | *`Shop - Controller`* | **ShopController.php** | [Done](./controllers/ShopController.php)\* | 
+| 13 | *`Product - Controller`* | **ProductController.php** | [Done](./controllers/ProductController.php)\* | 
+| 14 | *`Order - Controller`* | **OrderController.php** | *_In progress_* | 
+| 15 | *`Cart - Controller`* | **CartController.php** | [Done](./controllers/CartController.php)\* | 
 | 16 | *`Category - Controller`* | **CategoryController.php** | Pending | 
-| 17 | *`Checkout - Controller`* | **CheckoutController.php** | Pending | 
+| 17 | *`Checkout - Controller`* | **CheckoutController.php** | *_In progress_* | 
 | 18 | *`Profile - Controller`* | **ProfileController.php** | Pending | 
-| 19 | *`Product - Controller`* | **ProductController.php** | Pending | 
-| 20 | *`Settings - Controller`* | **SettingsController.php** | Pending | 
+| 19 | *`Product - Controller`* | **ProductController.php** | ~~Pending~~ | 
+| 20 | *`Settings - Controller`* | **SettingsController.php** | ~~Pending~~ | 
 | 21 | *`Payment - Controller`* | **PaymentController.php** | Pending | 
 | 22 | *`Address - Controller`* | **AddressController.php** | Pending | 
-| 23 | *`User - Model`* | **User.php** | Pending | 
-| 24 | *`Order - Model`* | **Order.php** | Pending | 
-| 25 | *`Review - Model`* | **Review.php** | Pending | 
-| 26 | *`Product - Model`* | **Product.php** | Pending | 
-| 27 | *`Cart - Model`* | **Cart.php** | Pending | 
-| 28 | *`Image - Model`* | **Image.php** | Pending | 
-| 29 | *`Category - Model`* | **Category.php** | Pending | 
-| 30 | *`Address - Model`* | **Address.php** | Pending | 
-| 31 | *`Tag - Model`* | **Tag.php** | Pending | 
+| 23 | *`User - Model`* | **User.php** | [Done](./models/User.php)\* | 
+| 24 | *`Order - Model`* | **Order.php** | *_In progress_* | 
+| 25 | *`Review - Model`* | **Review.php** | [Done](./models/Review.php)\* | 
+| 26 | *`Product - Model`* | **Product.php** | [Done](./models/Product.php)\* | 
+| 27 | *`Cart - Model`* | **Cart.php** | [Done](./models/Cart.php)\* | 
+| 28 | *`Image - Model`* | **Image.php** | ~~Pending~~ | 
+| 29 | *`Category - Model`* | **Category.php** | [Done](./models/Category.php)\* | 
+| 30 | *`Address - Model`* | **Address.php** | [Done](./models/Address.php)\* | 
+| 31 | *`Tag - Model`* | **Tag.php** | ~~Pending~~ | 
 | 32 | *`Account - Controller`* | **AccountController.php** | *_In progress_* | 
-| 33 | *`API - Controller`* | **APIController.php** | Pending | 
+| 33 | *`API - Controller`* | **APIController.php** | *_In progress_* | 
 | 34 | *`Nav Bar - View Component`* | **nav-bar.php** | [Done](./views/components/nav-bar.php)\* | 
 | 35 | *`Footer - View Component`* | **footer.php** | Pending | 
 | 36 | *`App Bar - View Component`* | **app-bar.php** | ~~Pending~~ | 
 | 37 | *`Database - Model Helper`* | **Database.php** | [Done](./models/helpers/Database.php)\* | 
-| 38 | *`Response - Model Helper`* | **ResponseHandler.php** | Pending | 
-| 39 | *`Home - Route`* | **home-route.php** | Pending | 
-| 40 | *`Shop - Route`* | **shop-route.php** | *_In progress_* | 
-| 41 | *`Order - Route`* | **order-route.php** | Pending | 
-| 42 | *`Product - Route`* | **product-route.php** | Pending | 
+| 38 | *`Response - Controller Helper`* | **ResponseHandler.php** | [Done](./contollers/helpers/ResponseHandler.php)\* | 
+| 39 | *`Home - Route`* | **home-route.php** | [Done](./routes/home-route.php)\* | 
+| 40 | *`Shop - Route`* | **shop-route.php** | [Done](./routes/shop-route.php)\* | 
+| 41 | *`Order - Route`* | **order-route.php** | *_In progress_* | 
+| 42 | *`Product - Route`* | **product-route.php** | [Done](./routes/product-route.php)\* | 
 | 43 | *`Side Bar - View Component`* | **side-bar.php** | [Done](./views/components/side-bar.php)\* | 
+| 44 | *`Admin - Route`* | **admin-route.php** | [Done](./routes/admin-route.php)\* | 
+| 45 | *`Account - Route`* | **account-route.php** | [Done](./routes/account-route.php)\* | 
+| 46 | *`Cart - Route`* | **cart-route.php** | [Done](./routes/cart-route.php)\* | 
 
 > WARNING: This list is a working progress and will change soon
 
@@ -150,7 +153,6 @@ The **`MVC`** folder & file structure of this project:
 - [**models**](./models/)
 - - [**helpers**](./models/helpers/)
 - - * *Database.php*
-- - * *ResponseHandler.php*
 - - * ...
 - - *User.php*
 - - *Product.php*
@@ -163,17 +165,21 @@ The **`MVC`** folder & file structure of this project:
 - - * *app-bar.php*
 - - * *footer.php*
 - - * ... 
-- - *splash.php*
-- - *welcome.php*
-- - *home.php*
-- - *shop.php*
-- - *cart.php*
-- - *checkout.php*
-- - *product.php*
-- - *admin.php*
+- - *splash-screen.php*
+- - *welcome-screen.php*
+- - *home-page.php*
+- - *shop-page.php*
+- - *cart-page.php*
+- - *checkout-page.php*
+- - *product-page.php*
+- - *admin-page.php*
 - - ...
 - [**controllers**](./controllers/)
 - - [**helpers**](./controllers/helpers/)
+- - * *Controller.php*
+- - * *I18n.php*
+- - * *ResponseHandler.php*
+- - * ...
 - - *UserController.php*
 - - *HomeController.php*
 - - *ShopController.php*
@@ -208,6 +214,7 @@ The **`MVC`** folder & file structure of this project:
 - - [**scripts**](./src/scripts/)
 - - * *home.js*
 - - * *checkout.js*
+- - * *shop.js*
 - - ...
 - LICENSE
 - README.md
@@ -216,6 +223,7 @@ The **`MVC`** folder & file structure of this project:
 - ...
 - **index.php**
 - **db_maxaboom.sql**
+- *mb_translator.mjs*
 
 
 > NOTE: This is just a looong snippet ;)
@@ -240,6 +248,7 @@ These are some of the things we did or plan to do, in addition to this project's
 | 11 | *`Fade Out - Animation`* | **fade-out-animation.css** | [Done](./assets/animations/slide-out-animation.css) |
 | 12 | *`Slide Down - Animation`* | **slide-down-animation.css** | [Done](./assets/animations/slide-down-animations.css) |
 | 13 | *`Slide Up - Animation`* | **slide-up-animation.css** | [Done](./assets/animations/slide-up-animations.css) |
+| 14 | *`Translator - Script`* | **mb_translator.mjs** | [Done](./mb_translator.mjs) |
 
 
 
