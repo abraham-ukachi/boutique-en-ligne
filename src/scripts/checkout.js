@@ -24,17 +24,28 @@ String.prototype.toCardString = function () {
 }
 
 String.prototype.toExpirationString = function () {
+
+
     let arr = this.replaceAll('/', '').split('');
     let list = [];
     let count = 0;
-    for (let num of arr){
+    for (let num of arr) {
         list.push(num);
         count += 1;
-        if(count === 2){
+        if (count === 2) {
             list.push('/');
             count = 0;
         }
     }
+
+    let lastChar = list[list.length - 1];
+
+    console.log(lastChar);
+
+    if (lastChar === '/') {
+        list.pop();
+    }
+
     return list.join('').trim();
 }
 
@@ -172,13 +183,29 @@ expiration.addEventListener('blur', (ev) => {
 
 expiration.addEventListener('input', (ev) => {
     let element = ev.target;
-    element.value = element.value.toExpirationString();
-    if (element.validity.valid) {
+
+    let expValue = element.value.toExpirationString();
+
+    console.log(expValue);
+    element.value = expValue;
+
+    let date = element.value.split('/');
+    let month = Number(date[0]);
+    let year = Number(date[1]);
+    console.log('month = ', month)
+    console.log('year = ', year)
+
+    let currentYear = Number((new Date()).getFullYear().toString().substring(2));
+    let dateInvalid = (month > 12) || (year < currentYear) || (year > currentYear + 5);
+    console.log('dateInvalid ? ',dateInvalid)
+    if (dateInvalid) {
+        mbApp.showInputError(element, "La date est invalide !")
+    } else if (element.validity.valid) {
         mbApp.clearInputError(element);
     } else if (element.validity.tooShort) {
         mbApp.showInputError(element, "La date d'expiration doit contenir au minimum 4 chiffres!")
-    }else if (element.validity.tooLong) {
-            mbApp.showInputError(element, "La date d'expiration doit contenir au maximum 4 chiffres!")
+    } else if (element.validity.tooLong) {
+        mbApp.showInputError(element, "La date d'expiration doit contenir au maximum 4 chiffres!")
     } else if (element.validity.patternMismatch) {
         mbApp.showInputError(element, "Le numéro de la carte ne peut contenir que des chiffres !")
     }
@@ -284,7 +311,7 @@ validateBtn.addEventListener('click', async (ev) => {
         !nbCard.validity.valid ||
         !expiration.validity.valid ||
         !cvv.validity.valid) {
-        mbApp.showToast({message:"Tous les champs doivent être remplis !", type: ERROR_TOAST});
+        mbApp.showToast({message: "Tous les champs doivent être remplis !", type: ERROR_TOAST});
         return;
     }
 
