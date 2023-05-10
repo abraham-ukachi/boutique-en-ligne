@@ -54,6 +54,7 @@ let complement = document.getElementById('addressComplementValue');
 let city = document.getElementById('cityValue');
 let postalCode = document.getElementById('postalCodeValue');
 let country = document.getElementById('countryValue');
+console.log(address)
 
 // Inputs third form
 let nbCard = document.getElementById('nbCardValue');

@@ -314,7 +314,7 @@
                   </a>
                   <!-- End of Hero Product -->
 
-                  <? endforeach; ?>
+                  <?php endforeach; ?>
                   <!-- End of PHP (2) -->
 
 
@@ -335,7 +335,7 @@
                     >
                   </span>
 
-                  <? endforeach; ?>
+                  <?php endforeach; ?>
                   <!-- End of PHP (3) -->
 
                 </div>
