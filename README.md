@@ -414,6 +414,7 @@ open http://localhost/boutique-en-ligne
 
 | Browser | Version | Status | Date | Time
 |:--------|:--------|:-------|:-----|:-----
+| *`Arc`* | **0.98.2** | [Tested](http://localhost/boutique-en-ligne/cart) | 11/05/2023 | 19:34:05
 | *`Brave`* | **1.47.186** | - | - | -
 | *`Chrome`* | **-** | *Pending* | - | -
 | *`Firefox`* | **-** | *Pending* | - | -
@@ -429,7 +430,7 @@ open http://localhost/boutique-en-ligne
 
 - [ ] Create a navigation flow diagram with FigJam.
 - [x] Create a project-specific logo 
-- [ ] Add localization / internationalization (at least: **english** & **french**)
+- [x] Add localization / internationalization (at least: **english** & **french**)
 - [ ] Add mobile compatibility to all pages (i.e. make it responsive)
 - [ ] Optimize `.svg` doodles
 - [ ] Optimize all `.php` files

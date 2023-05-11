@@ -23,7 +23,7 @@
   "shop": "Comercio",
   "profile": "Perfil",
   "settings": "Ajustes",
-  "products": "productos",
+  "products": "Productos",
   "contact": "Contacto",
   "admin": "Administración",
   "dashboard": "Panel",
@@ -200,5 +200,12 @@
   "qty": "Cantidad",
   "quantity": "Cantidad",
   "removeCart": "Eliminar carrito",
-  "remove": "Eliminar"
+  "remove": "Eliminar",
+  "startShopping": "Empieza a comprar",
+  "productQtyIncreased": "Cantidad de producto aumentada",
+  "failedToIncreaseProductQty": "Error al aumentar la cantidad del producto",
+  "productQtyDecreased": "Cantidad de producto disminuida",
+  "failedToDecreaseProductQty": "Error al disminuir la cantidad del producto",
+  "maxQtyReached": "Cantidad máxima alcanzada",
+  "minQtyReached": "Cantidad mínima alcanzada"
 }
