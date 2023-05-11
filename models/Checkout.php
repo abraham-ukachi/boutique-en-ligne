@@ -18,7 +18,7 @@ class Checkout extends Database
                 VALUES (:user_id, :card_no, :expiration, :cvv)";
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([
-            'user_id' => htmlspecialchars($user_id),
+            'user_id' => $user_id,
             'card_no' => htmlspecialchars($nbCard),
             'expiration' => htmlspecialchars($expiration),
             'cvv' => htmlspecialchars($cvv)

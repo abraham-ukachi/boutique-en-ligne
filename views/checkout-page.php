@@ -174,7 +174,7 @@
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="city" raised>Ville</label>
-                        <input name="city" id='cityValue' type='text' pattern="^[a-zA-Z]$" minlength="1" required>
+                        <input name="city" id='cityValue' type='text' pattern="^[A-Za-z\s]*$" minlength="1" required>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                         <!-- Input Message -->
                         <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
@@ -194,7 +194,7 @@
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="country" raised=''>Pays</label>
-                        <input name="country" id='countryValue' type='text' pattern="^[a-zA-Z]$" minlength="4" required>
+                        <input name="country" id='countryValue' type='text' pattern="^[A-Za-z\s]*$" minlength="4" required>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                         <!-- Input Message -->
                         <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
@@ -222,7 +222,7 @@
                     <div class='input-wrapper vertical flex-layout'>
                         <label for='nbCard' raised="">Numéro de la carte</label>
                         <input id='nbCardValue' name='nbCard' type='text' inputmode='numeric'
-                               placeholder="6200 0000 0000 0005" pattern='^[0-9]*$' minlength="19" maxlength="19" required>
+                               placeholder="6200 0000 0000 0005" pattern='^[\d\s]+$' minlength="19" maxlength="19" required>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                         <!-- Input Message -->
                         <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->

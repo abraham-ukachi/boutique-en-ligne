@@ -2,6 +2,7 @@
 
 namespace  Maxaboom\Routes;
 use Maxaboom\Controllers\CheckoutController;
+use Maxaboom\Models\User;
 
 $router->map('GET', '/checkout', function(){
     $checkoutController = new CheckoutController();
@@ -25,7 +26,8 @@ $router->map('POST', '/checkout', function(){
     $cvv = htmlspecialchars($_POST['cvv'], ENT_QUOTES);
 
     $checkoutController->registerAllInformations($delivery, $address, $addressComplement, $city, $postalCode, $country, $nbCard, $expiration, $cvv);
-    $userId = $this->user->id;
+    $user = new User();
+    $userId = $user->id;
     $checkoutController->getAddressUser($userId);
     echo json_encode($response);
 
