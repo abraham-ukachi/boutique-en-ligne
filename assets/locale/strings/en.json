@@ -284,7 +284,18 @@
   "quantity": "Quantity",
   "removeCart": "Remove Cart",
   "cancel": "Cancel",
-  "remove": "Remove"
+  "remove": "Remove",
+  "startShopping": "Start shopping",
+  "productQtyIncreased": "Product quantity increased",
+  "failedToIncreaseProductQty": "Failed to increase product quantity",
+
+  "productQtyDecreased": "Product quantity decreased",
+  "failedToDecreaseProductQty": "Failed to decrease product quantity",
+
+  "maxQtyReached": "Maximum quantity reached",
+
+  "minQtyReached": "Minimum quantity reached"
+
     
 }
 

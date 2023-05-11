@@ -170,7 +170,7 @@
             </h3>
           </div>
 
-          <span flex></span>
+          <span flex hidden></span>
 
           <div class="title-wrapper total-price vertical flex-layout">
             <!-- Title -->
@@ -180,7 +180,7 @@
           </div>
 
           <!-- Cart Menu Button -->
-          <button id="cartMenuButton" class="icon-button">
+          <button id="cartMenuButton" class="icon-button" <?= $totalProducts === 0 ? 'hidden' : '' ?>>
             <span class="material-icons icons">more_vert</span>
           </button>
 
@@ -194,25 +194,22 @@
 
       <!-- [content] -->
       <div content>
-
-        <!-- PHP (1): If the user is connected ... -->
-        <?php if ($this->user->isConnected()): ?>
-        <!-- PHP (1): ... then show the following [not-connected] container -->
         
         <!-- [empty] Container -->
         <div class="container vertical flex-layout centered" empty <?= $totalProducts !== 0 ? 'hidden' : '' ?>>
           <span class="cart-doodle doodle" mask></span>
-          <h2><?= $this->i18n->getString('emptyList') ?></h2>
-          <p><?= $this->i18n->getString('noLikedProductsMessage') ?></p>
-
+          <h2><?= $this->i18n->getString('cartEmpty') ?></h2>
+          <p><?= $this->i18n->getString('cartEmptyMessage') ?></p>
+          <!-- Start Shopping Button -->
+          <a href="shop" role="button" tabindex="0" contained><?= $this->i18n->getString('startShopping') ?></a>
         </div>
         <!-- End of [empty] Container -->
 
-        <!-- Container -->
-        <div class="container vertical flex-layout" <?= $totalProducts === 0 ? 'hidden' : '' ?>>
+        <!-- [list] Container -->
+        <div class="container vertical flex-layout" list <?= $totalProducts === 0 ? 'hidden' : '' ?>>
 
           <!-- Products -->
-          <ul id="products vertical flex-layout" naked>
+          <ul id="products" class="vertical flex-layout" data-total="<?= $totalProducts ?>" naked>
 
             <?php foreach ($products as $product): ?>
 
@@ -239,14 +236,16 @@
                 <!-- Quantity - Controls -->
                 <div class="product-action-button quantity-controls vertical flex-layout center">
                   <!-- Increase Quantity - Icon Button -->
-                  <button class="increase-qty icon-button">
+                  <button class="increase-qty icon-button"
+                    data-product-id="<?= $product['id'] ?>">
                     <span class="material-icons icons">add</span>
                   </button>
                   
                   <span class="qty-value"><?= $product['quantity'] ?></span>
 
-                  <!-- Reduce Quantity - Icon Button -->
-                  <button class="increase-qty icon-button">
+                  <!-- Decrease/Reduce Quantity - Icon Button -->
+                  <button class="decrease-qty icon-button"
+                    data-product-id="<?= $product['id'] ?>">
                     <span class="material-icons icons">remove</span>
                   </button>
                 </div>
@@ -257,28 +256,18 @@
 
             <?php endforeach; ?>
 
+            <!-- Spinner Wrapper -->
+            <li class="spinner-wrapper horizontal flex-layout centered">
+                <span class="spinner dots-3"></span>
+            </li>
+            
           </ul>
           <!-- End of Liked Products -->
-
+           
+           
         </div>
-        <!-- End of Container -->
+        <!-- End of [list] Container -->
 
-        <?php else: ?> <!-- PHP (1): Else, if the user is not connected ... -->
-        
-        <!-- [not-connected] Container -->
-        <div class="container vertical flex-layout centered" not-connected empty>
-          <span class="not-connected-doodle doodle"></span>
-          <h2 title><?= $this->i18n->getString('youAreNotConnected') ?></h2>
-          <p info><?= $this->i18n->getString('youAreNotConnectedMessage') ?></p>
-
-          <a href="login" class="button" tabindex="0" role="button" contained>
-            <?= $this->i18n->getString('login') ?>
-          </a>
-        </div>
-        <!-- End of [not-connected] Container -->
-
-        <?php endif; ?>
-        <!-- PHP (1): End of [not-connected] container -->
 
 
       </div>

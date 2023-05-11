@@ -76,6 +76,16 @@ class CartController extends Controller {
     public User $user;
     public Cart $cart;
 
+
+
+
+
+
+
+
+
+
+
     /**
      * Constructor of the class
      * This method is executed automatically whenever this class is instantiated
@@ -124,9 +134,12 @@ class CartController extends Controller {
         $user_id = $this->user->id;
 
         // add the product to the cart
+        // TODO: `addProduct()` should return the quantity of the product in the cart
         $success = $this->cart->addProduct($product_id, $user_id);
-         
         
+        // get the total price
+        $totalPrice = $this->cart->totalPriceByUser($user_id);
+
         // set the response success
         $this->setResponseSuccess($success);
         // set the response status
@@ -136,44 +149,24 @@ class CartController extends Controller {
     
 
       } else { // <- user is not connected :(
-
-        // get the `cart` session variable
-        $cart = $_SESSION['cart'];
-
-        // if the cart session variable is not set
-        if (!isset($cart)) {
-          // Well, let's create it, shall we ? ;)
-          $cart = [];
-        }
-
-        // if the product is not already in the cart
-        if (!isset($cart[$product_id])) {
-          // add the product to the cart
-          $cart[$product_id] = 1;
-        } else {
-          // increase the quantity of the product in the cart
-          $cart[$product_id]++;
-        }
-
-        // set the `cart` session variable
-        $_SESSION['cart'] = $cart;
         
+        // add the product to the session cart
+        $quantity = $this->cart->addProductToSession($product_id);        
 
         // set the response success to `true`
-        $success = true;
+        $success = $quantity > 0 ? true : false;
 
+        // get the total price from session
+        $totalPrice = $this->cart->totalPriceFromSession();
+
+        // set the response success
+        $this->setResponseSuccess($success);
         // set the response status
-        $this->setResponseStatus(self::$STATUS_SUCCESS_OK);
-
+        $this->setResponseStatus($success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_INTERNAL_ERROR);
         // set the response message
-        $this->setResponseMessage($this->i18n->getString('productAddedToCart'));
+        $this->setResponseMessage($success ? $this->i18n->getString('productAddedToCart') : $this->i18n->getString('failedToAddProductToCart'));
+
       }
-
-      // set the response success
-      $this->setResponseSuccess($success);
-
-      // get the total price 
-      $totalPrice = $this->cart->totalPriceByUser($user_id);
 
 
       // set the response data to the user id
@@ -208,7 +201,8 @@ class CartController extends Controller {
 
       // check if the user is connected
       $isUserConnected = $this->user->isConnected();
-      
+
+      // Initialize the `user_id` & `success` variables 
       $user_id = null;
       $success = false;
       
@@ -222,60 +216,34 @@ class CartController extends Controller {
         // and get the `success` result
         // TODO: Rename `deleteProduct` to `removeProduct`
         $success = $this->cart->deleteProduct($product_id, $user_id);
-        
+
+        // get the total price 
+        $totalPrice = $this->cart->totalPriceByUser($user_id);
+
+        // set the response success
+        $this->setResponseSuccess($success);
         // set the response status
         $this->setResponseStatus($success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_UNPROCESSABLE_ENTITY);
-
         // set the response message
         $this->setResponseMessage($success ? $this->i18n->getString('productRemovedFromYourCart') : $this->i18n->getString('failedToRemoveProductFromYourCart'));
-    
+
 
       } else { // <- user is not connected :(
+        
+        // remove the product from the session cart
+        $success = $this->cart->deleteProductFromSession($product_id);
+        
+        // get the total price from session
+        $totalPrice = $this->cart->totalPriceFromSession();
 
-        // get the `cart` session variable
-        $cart = $_SESSION['cart'];
-
-        // if the cart session variable is not set
-        if (!isset($cart)) {
-          // create the cart session variable
-          $cart = [];
-        }
-
-
-        // if the product is in the cart
-        if (isset($cart[$product_id])) {
-          // remove the product from the cart
-          unset($cart[$product_id]);
-          
-          // set the success status to true
-          $success = true;
-
-          // set the response status
-          $this->setResponseStatus(self::$STATUS_SUCCESS_OK);
-          // set the response message
-          $this->setResponseMessage($this->i18n->getString('productRemoveProductFromCart'));
-
-        }else { // <- no such product in cart
-
-          // set the response status
-          $this->setResponseStatus(self::$STATUS_ERROR_NOT_FOUND);
-          // set the response message
-          $this->setResponseMessage($this->i18n->getString('failedToRemoveProductFromCart'));
-        }
-
-        // set the `cart` session variable
-        $_SESSION['cart'] = $cart;
+        // set the response success
+        $this->setResponseSuccess($success);
+        // set the response status
+        $this->setResponseStatus($success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_NOT_FOUND);
+        // set the response message
+        $this->setResponseMessage($success ? $this->i18n->getString('productRemovedFromCart') : $this->i18n->getString('failedToRemoveProductFromCart'));
 
       }
-
-      // set the response success
-      $this->setResponseSuccess($success);
-
-      // get the total of the cart products
-      $totalCartProducts = $this->getCartProductsTotal();
-
-      // get the total price 
-      $totalPrice = $this->cart->totalPriceByUser($user_id);
 
       // set the response data to the user id
       $this->setResponseData([
@@ -294,6 +262,35 @@ class CartController extends Controller {
     }
 
 
+
+  /**
+   * Method used to get a list of products from the cart or session
+   *
+   * @param int $start : the start index
+   * @param int $limit : the limit of products to get
+   *
+   * @return array : an array containing the list of products
+   */
+  public function getProducts(int $start, int $limit): array {
+    // Initialize the `products` array variable
+    $products = [];
+    
+    // If the user is connected...
+    if ($this->user->isConnected()) {
+      // ...get the user id
+      $user_id = $this->user->id;
+
+      // ...get the products from the database
+      $products = $this->cart->getAll($user_id, $start, $limit);
+
+    } else { // <- user is not connected :(
+      // ...get the products from the session
+      $products = $this->cart->getAllFromSession($start, $limit);
+    }
+
+    // return `products` array
+    return $products;
+  }
 
 
   /**
@@ -316,6 +313,8 @@ class CartController extends Controller {
     $isUserConnected = $this->user->isConnected();
 
 
+    // TODO: Use our beloved ternary statement to clean up the mess below ;)
+
     // if the user is connected ...
     if ($isUserConnected) {
       // ...get a limited list of the user's products in cart as `$products`
@@ -327,6 +326,15 @@ class CartController extends Controller {
       // get the total price 
       $totalPrice = $this->cart->totalPriceByUser($userId);
       
+    }else { // <- user is not connected
+      // ...get a limited list of the user's products from the `cart` session variable as `$products`
+      $products = $this->cart->getAllFromSession(0, $this::CART_PRODUCTS_LIMIT);
+
+      // get the total number of products from the `cart` session variable as `$totalProducts`
+      $totalProducts = $this->cart->countAllFromSession();
+
+      // get the total price from the `cart` session variable as `$totalPrice`
+      $totalPrice = $this->cart->totalPriceFromSession();
     } 
     
     // require [once] the home page from the `views` folder
@@ -345,7 +353,8 @@ class CartController extends Controller {
      * @return int : the total number of the cart products
      */
     public function getCartProductsTotal() {
-      return $this->user->isConnected() ? $this->cart->countAll($this->user->id) : count($_SESSION['cart']);
+      // return $this->user->isConnected() ? $this->cart->countAll($this->user->id) : count($_SESSION['cart']);
+      return $this->user->isConnected() ? $this->cart->countAll($this->user->id) : $this->cart->countAllFromSession();
     } 
 
 
@@ -394,6 +403,169 @@ class CartController extends Controller {
       }
       return Array('success' => $success, 'data' => $user_id, 'total' => $total);
     }
+
+
+  /**
+   * Method used to increase the quantity of a product in the cart
+   * NOTE: If the user is connected, the quantity will be increased from the database
+   * NOTE: If the user is not connected, the quantity will be increased from the session 
+   *
+   * @param int $product_id : the product id
+   * @param int $increment : the quantity increment
+   *
+   * @return array : a response which contains the success status, message, quantity and other data
+   */
+  public function increaseProductQuantity(int $product_id, int $increment = 1): array {
+    // Check if the user is connected as `$isUserConnected`
+    $isUserConnected = $this->user->isConnected();
+
+    // Initialize the `user_id` and `success` variables
+    $user_id = null;
+    $success = false;
+
+
+    // if the user is connected ...
+    if ($isUserConnected) {
+      // ...get the user id as `$user_id`
+      $user_id = $this->user->id;
+
+      // increase the quantity of the given product in the cart
+      $quantity = $this->cart->increaseQuantity($user_id, $product_id, $increment);
+      
+      // update the `success` variable,
+      // NOTE: the action is successful, if the returned quantity is not -1
+      $success = $quantity !== -1;
+
+      // get the total price 
+      $totalPrice = $this->cart->totalPriceByUser($user_id);
+      
+
+    } else { // <- 
+
+      // increase the quantity of the given product in the `cart` session variable
+      $quantity = $this->cart->increaseSessionQuantity($product_id, $increment);
+
+      // update the `success` variable,
+      // NOTE: the action is successful, if the returned quantity is not -1
+      $success = $quantity !== -1;
+      
+      // get the total price from session
+      $totalPrice = $this->cart->totalPriceFromSession();
+
+    }
+
+
+    // set the response success
+    $this->setResponseSuccess($success);
+    // set the response status
+    $this->setResponseStatus($success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_INTERNAL_ERROR);
+    // set the response message
+    $this->setResponseMessage($success ? $this->i18n->getString('productQtyIncreased') : $this->i18n->getString('failedToIncreaseProductQty'));
+
+
+    // set the response data to the user id
+    $this->setResponseData([
+      'user_id' => $user_id,
+      'user_connected' => $isUserConnected,
+      'product_id' => $product_id,
+      'quantity' => $quantity,
+      'cart_total' => $this->getCartProductsTotal(),
+      'total_price' => number_format($totalPrice / 100, 2) . '€'
+    ]);
+
+    // return our response
+    return $this->getResponse();
+
+  }
+
+
+  /**
+   * Method used to decrease the quantity of a product in the cart
+   * NOTE: If the user is connected, the quantity will be decreased from the database
+   * NOTE: If the user is not connected, the quantity will be decreased from the session
+   *
+   * @param int $product_id : the product id
+   * @param int $decrement : the quantity to decrease
+   *
+   * @return array : a response which contains the success status, message, quantity and other data
+   */
+  public function decreaseProductQuantity(int $product_id, int $decrement = 1): array {
+    // Check if the user is connected as `$isUserConnected`
+    $isUserConnected = $this->user->isConnected();
+
+    // Initialize the `user_id` and `success` variables
+    $user_id = null;
+    $success = false;
+
+
+    // if the user is connected ...
+    if ($isUserConnected) {
+      // ...get the user id as `$user_id`
+      $user_id = $this->user->id;
+
+      // decrease the quantity of the given product in the cart
+      $quantity = $this->cart->decreaseQuantity($user_id, $product_id, $decrement);
+      
+      // update the `success` variable,
+      // NOTE: the action is successful, if the returned quantity is not -1
+      $success = $quantity !== -1;
+
+      // get the total price 
+      $totalPrice = $this->cart->totalPriceByUser($user_id);
+      
+
+    } else { // <- 
+
+      // decrease the quantity of the given product in the session
+      $quantity = $this->cart->decreaseSessionQuantity($product_id, $decrement);
+
+      // update the `success` variable,
+      // NOTE: the action is successful, if the returned quantity is not -1
+      $success = $quantity !== -1;
+      
+      // get the total price from session
+      $totalPrice = $this->cart->totalPriceFromSession();
+
+    }
+
+
+    // set the response success
+    $this->setResponseSuccess($success);
+    // set the response status
+    $this->setResponseStatus($success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_INTERNAL_ERROR);
+    // set the response message
+    $this->setResponseMessage($success ? $this->i18n->getString('productQtyDecreased') : $this->i18n->getString('failedToDecreaseProductQty'));
+
+
+    // set the response data to the user id
+    $this->setResponseData([
+      'user_id' => $user_id,
+      'user_connected' => $isUserConnected,
+      'product_id' => $product_id,
+      'quantity' => $quantity,
+      'cart_total' => $this->getCartProductsTotal(),
+      'total_price' => number_format($totalPrice / 100, 2) . '€'
+    ]);
+
+    // return our response
+    return $this->getResponse();
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function reduceQuantity($product_id){
         $isUserConnected = $this->user->isConnected();

@@ -106,6 +106,8 @@ dist
 # Vim files
 *.swp
 *.swo
+*.swn
+*.swm
 
 # DS_Store
 .DS_Store
