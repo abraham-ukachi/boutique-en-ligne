@@ -96,7 +96,7 @@ address.addEventListener('input', (ev) => {
 city.addEventListener('blur', (ev) => {
     let element = ev.target;
     if (element.validity.valueMissing) {
-        mbApp.showInputError(element, "Veuillez renseigner une ville! ")
+        mbApp.showInputError(element, "Veuillez renseigner une ville ! ")
     }
 })
 
@@ -135,7 +135,7 @@ postalCode.addEventListener('input', (ev) => {
 country.addEventListener('blur', (ev) => {
     let element = ev.target;
     if (element.validity.valueMissing) {
-        mbApp.showInputError(element, "Veuillez renseigner un pays! ")
+        mbApp.showInputError(element, "Veuillez renseigner un pays ! ")
     }
 })
 
