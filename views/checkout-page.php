@@ -158,32 +158,48 @@
                     <h4>2 / 3</h4>
                     <div class="input-wrapper vertical flex-layout">
                         <label for="address" raised="">Adresse</label>
-                        <input name="address" id='addressValue' type='text' placeholder="">
+                        <input name="address" id='addressValue' type='text' required>
                         <span class="input-indicator"><span bar=""></span><span val=""></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden></p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="addressComplement" raised="">Complément d'adresse</label>
-                        <input name="addressComplement" id="addressComplementValue" type='text' placeholder=''>
+                        <input name="addressComplement" id='addressComplementValue' type='text'>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="city" raised>Ville</label>
-                        <input name="city" id="cityValue" type='text' placeholder=''>
+                        <input name="city" id='cityValue' type='text' pattern="^[A-Za-z\s]*$" minlength="1" required>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden></p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="postalCode" raised="">Code postal</label>
-                        <input name="postalCode" id="postalCodeValue" type='text' placeholder=''>
+                        <input name="postalCode" id='postalCodeValue' type="text" minlength="5" maxlength="5" pattern="^[0-9]*$" required>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden></p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for="country" raised=''>Pays</label>
-                        <input name="country" id="countryValue" type='text' placeholder=''>
+                        <input name="country" id='countryValue' type='text' pattern="^[A-Za-z\s]*$" minlength="4" required>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden></p>
+                        <!-- End of Input Message -->
                     </div>
                     <div class="buttons vertical flex-layout">
                         <button id='address' type="button" contained="">
@@ -206,20 +222,32 @@
                     <div class='input-wrapper vertical flex-layout'>
                         <label for='nbCard' raised="">Numéro de la carte</label>
                         <input id='nbCardValue' name='nbCard' type='text' inputmode='numeric'
-                               placeholder="6200 0000 0000 0005">
+                               placeholder="6200 0000 0000 0005" pattern='^[\d\s]+$' minlength="19" maxlength="19" required>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden>Incorrect password</p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for='expiration' raised="">Date d'expiration</label>
-                        <input id='expirationValue' name="expiration" type="text" pattern='[0-9]*' inputmode='numeric' placeholder="11/22">
+                        <input id='expirationValue' name="expiration" type="text" pattern='^[0-9\.\-\/]+$' minlength="5" maxlength="5" inputmode='numeric' placeholder="11/22" required>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden></p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='input-wrapper vertical flex-layout'>
                         <label for='cvv' raised=''>CVV</label>
-                        <input id='cvvValue' name="cvv" type='text' pattern='[0-9]*' inputmode="numeric" placeholder="000">
+                        <input id='cvvValue' name="cvv" type='text' pattern='[0-9]*'  minlength="3" maxlength="3" inputmode="numeric" placeholder="000" required>
                         <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden></p>
+                        <!-- End of Input Message -->
                     </div>
 
                     <div class='buttons vertical flex-layout'>

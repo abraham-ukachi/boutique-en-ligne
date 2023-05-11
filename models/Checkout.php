@@ -18,15 +18,15 @@ class Checkout extends Database
                 VALUES (:user_id, :card_no, :expiration, :cvv)";
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([
-            'user_id' => htmlspecialchars($user_id),
+            'user_id' => $user_id,
             'card_no' => htmlspecialchars($nbCard),
             'expiration' => htmlspecialchars($expiration),
             'cvv' => htmlspecialchars($cvv)
         ]);
         if ($sql_exe) {
-            echo json_encode(['response' => 'ok', 'reussite' => 'Nouvelle carte enregistrée']);
+           return true;
         } else {
-            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+           return false;
         }
     }
 
@@ -46,9 +46,18 @@ class Checkout extends Database
             'type' => htmlspecialchars($type)
         ]);
         if ($sql_exe) {
-            echo json_encode(['response' => 'ok', 'reussite' => 'Nouvelle adresse enregistrée']);
+           return true;
         } else {
-            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+           return false;
         }
     }
+
+    public function getAddressByUser(int $userId){
+        $addressUser = $this->db->prepare("SELECT * FROM addresses WHERE user_id=$userId");
+        $addressUser->execute([
+        ]);
+        $result = $addressUser->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 }

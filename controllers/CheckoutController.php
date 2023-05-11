@@ -38,6 +38,13 @@ class CheckoutController extends Controller
         $this->checkout->registerCard($user_id, $nbCard, $expiration, $cvv);
 
     }
+
+    public function getAddressUser(int $userId){
+        $userId = $this->user->id;
+        $this->checkout->getAddressByUser($userId);
+
+    }
+
 }
 
 ?>
