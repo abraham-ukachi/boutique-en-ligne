@@ -860,6 +860,11 @@ a[active] .icon-button, a[role="icon-button"][active] {
   top: 6px;
 }
 
+.container[empty] button, .container[empty] a[role="button"] {
+  padding: 0.5rem 3rem;
+  text-transform: capitalize;
+}
+
 /* ===<<< Form ..+.. Input Default Styles >>>=== */
 
 /* Form Styles */
@@ -874,6 +879,7 @@ form {
   max-width: var(--form-max-width, 450px);
   margin: 24px auto;
 }
+
 
 
 /* All the children of form */
@@ -1281,6 +1287,41 @@ a.dialog-button:focus, a[role="button"].dialog-button:focus {
   padding: 24px;
   margin: 0;
 }
+
+
+/* ==== SPINNERS ==== */
+
+span.spinner {
+  display: block;
+  position: relative;
+  width: var(--spinner-size, 48px);
+  height: var(--spinner-size, 48px);
+
+  background-color: var(--spinner-color, var(--on-background-color));
+  opacity: var(--spinner-opacity, inherit);
+
+  -webkit-mask: var(--spinner-url, url(../spinners/3-dots-scale.svg)) no-repeat 50% 50%;
+  -moz-mask: var(--spinner-url, url(../spinners/3-dots-scale.svg)) no-repeat 50% 50%;
+  mask: var(--spinner-url, url(../spinners/3-dots-scale.svg)) no-repeat 50% 50%;
+
+  -webkit-mask-size: cover;
+  -moz-mask-size: cover;
+  mask-size: cover;
+}
+
+span.spinner.dots-3 {
+  --spinner-url: url(../spinners/3-dots-scale.svg);
+}
+
+span.spinner.dots-12 {
+  --spinner-url: url(../spinners/12-dots-scale-rotate.svg);
+}
+
+
+/* === END of SPINNERS === */
+
+
+
 
 /* All Menu */
 #menus > menu, .menus > menu {
