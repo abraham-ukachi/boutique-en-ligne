@@ -7,6 +7,7 @@ use Maxaboom\Models\User;
 $router->map('GET', '/checkout', function(){
     $checkoutController = new CheckoutController();
     $checkoutController->showCheckoutPage();
+
 });
 
 $router->map('POST', '/checkout', function(){

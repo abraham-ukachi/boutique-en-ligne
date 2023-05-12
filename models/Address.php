@@ -23,9 +23,10 @@ class Address extends Database
         return $result;
     }
 
-    public function newAddress($titre,$address, $complement, $postal_code, $city, $country, $user_id, $type){
-        $sql = "INSERT INTO addresses (titre, address, address_complement, postal_code, city, country, user_id, type)
-                VALUES (:titre, :address, :address_complement, :postal_code, :city, :country, :user_id, :type)";
+    public function newAddress($titre,$address, $complement, $postal_code, $city, $country, $user_id){
+        $created_at = date('Y-m-d H:i:s');
+        $sql = "INSERT INTO addresses (titre, address, address_complement, postal_code, city, country, user_id, created_at)
+                VALUES (:titre, :address, :address_complement, :postal_code, :city, :country, :user_id, :created_at)";
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([
             'titre' => htmlspecialchars($titre),
@@ -35,12 +36,12 @@ class Address extends Database
             'city' => htmlspecialchars($city),
             'country' => htmlspecialchars($country),
             'user_id' => $user_id,
-            'type' => htmlspecialchars($type)
+            'created_at' => $created_at
         ]);         
         if ($sql_exe) {
-            echo json_encode(['response' => 'ok', 'reussite' => 'Nouvelle adresse enregistrée']);
+           return true;
         } else {
-            echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
+           return false;
         }
     }
 

@@ -122,7 +122,7 @@
 
                 <form id="deliveryForm" class="vertical flex-layout">
                     <h4>1 / 3</h4>
-
+                    <?php var_dump($card)?>
                     <div class="input-wrapper vertical flex-layout">
                         <label for='standard'><h3>Standard</h3></label>
                         <input id='standard' name='deliveryChoice' type='radio' value='standard'>

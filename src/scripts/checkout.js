@@ -319,6 +319,9 @@ validateBtn.addEventListener('click', async (ev) => {
     let form2 = new FormData(addressForm);
     let form3 = new FormData(cardForm);
 
+    let cardNumber = parseInt(form3.get('nbCard').replaceAll(' ', ''));
+    form3.set('nbCard', cardNumber);
+
     let completeForm = new FormData();
 
     for (let part1 of form1.entries()) {
