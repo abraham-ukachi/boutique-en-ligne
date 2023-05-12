@@ -6,7 +6,15 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitcd9cee35d4cac8ba06ff52673eafa9a0
 {
+    public static $files = array (
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\Container\\' => 14,
+        ),
         'M' => 
         array (
             'Maxaboom\\Views\\Components\\' => 26,
@@ -17,9 +25,17 @@ class ComposerStaticInitcd9cee35d4cac8ba06ff52673eafa9a0
             'Maxaboom\\Controllers\\Helpers\\' => 29,
             'Maxaboom\\Controllers\\' => 21,
         ),
+        'F' => 
+        array (
+            'Faker\\' => 6,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
         'Maxaboom\\Views\\Components\\' => 
         array (
             0 => __DIR__ . '/../..' . '/views/components',
@@ -47,6 +63,10 @@ class ComposerStaticInitcd9cee35d4cac8ba06ff52673eafa9a0
         'Maxaboom\\Controllers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/controllers',
+        ),
+        'Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
     );
 
