@@ -9,9 +9,14 @@ $router->map( 'GET', '/product', function() {
 
 
 $router->map('GET', '/product/[i:productId]', function($productId){
-    $showProduct = new ProductController($productId);
-    $showProduct->showPageOneProduct();
+  // Instantiate the ProductController class
+  $productController = new ProductController();
+
+  // Call the showPageOneProduct() method to display the product page
+  $productController->showPageOneProduct($productId);
+
 });
+
 
 $router->map( 'GET', '/product', function() {
     require __DIR__ . '/../views/product-page.php';
