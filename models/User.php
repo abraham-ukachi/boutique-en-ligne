@@ -53,14 +53,21 @@ use PDOException;
 // create a User class that extends the Database class
 class User extends Database
 {
-    public ?int $id = null;
-    public ?string $firstname = null;
-    public ?string $lastname = null;
-    public ?string $mail = null;
-    public ?string $password = null;
-    public ?string $dob = null;
-    public ?string $created_at = null;
-    public ?string $user_role = null;
+  // Define some constants
+  const SESSION_NAME = 'user';
+
+
+  // Define some properties
+  public ?int $id = null;
+  public ?string $firstname = null;
+  public ?string $lastname = null;
+  public ?string $mail = null;
+  public ?string $password = null;
+  public ?string $dob = null;
+  public ?string $created_at = null;
+  public ?string $user_role = null;
+
+
 
     public function __construct()
     {
@@ -72,11 +79,17 @@ class User extends Database
         // connect to the database
         $this->dbConnect();
 
+        
         if($this->isConnected()){
             $this->populateUserInfo($_SESSION['id']);
         }
     }
 
+
+    // PUBLIC SETTERS
+    // PUBLIC GETTERS
+    // PUBLIC METHODS
+  
     //method for register user
     public function register($firstname, $lastname, $mail, $password)
     {
@@ -246,13 +259,25 @@ class User extends Database
         $sql_exe->execute([
             'mail' => $mail,
         ]);
-        $results = $sql_exe->fetch(PDO::FETCH_ASSOC);
-        if ($results) {
-            $hashed_password = $results['password'];
+
+        // fetch the result as `user`
+        $user = $sql_exe->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $hashed_password = $user['password'];
             if (password_verify($password, $hashed_password)) {
-                $userId = $results['id'];
-                $_SESSION['id'] = $userId;
-                $this->populateUserInfo($userId);
+
+              // create session
+              $this->createSession([
+                'id' => $user['id'],
+                'firstname' => $user['firstname'],
+                'lastname' => $user['lastname'],
+                'mail' => $user['mail']
+              ]);
+
+                // $userId = $results['id'];
+                // $_SESSION['id'] = $userId;
+                $this->populateUserInfo($user['id']);
                 return true;
             } else {
                 return false;
@@ -266,26 +291,50 @@ class User extends Database
     public function disconnect() {
       $result = false;
 
-      if(isset($_SESSION['id'])){
-        session_destroy();
+      // Check the session
+      
+      // If there's a session..
+      if ($this->checkSession()) {
+        // .. destroy it
+        $this->destroySession();
+        // set the result to true
         $result = true;
       }
 
       return $result;
     }
 
-    public function isConnected(){
-        $result = false;
 
-        if(isset($_SESSION['id'])){
-            $id = $_SESSION['id'];
-            $result = $this->verifUserById($id);
-            if(!$result){
-                session_destroy();
-            }
-        };
-        return $result;
+
+  /**
+   * Checks if the user is connected
+   *
+   * @return bool
+   */
+  public function isConnected(): bool {
+    // initialize the `result` variable
+    $result = false;
+    
+    // Check the session 
+    
+    // If there's a session..
+    if($this->checkSession()){
+      // get the user id from session as `userId`
+      $userId = $this->getSession('id');
+      // vertify the user id
+      $result = $this->verifUserById($userId);
+
+      // if the user id is not valid
+      if(!$result){
+        // destroy the session
+        $this->destroySession();
+      }
+
     }
+
+    // return the result
+    return $result;
+  }
 
 
     public function populateUserInfo($id){
@@ -325,14 +374,22 @@ class User extends Database
             return "Vous avez changer votre prénom et mis à jour votre profil.<br>";
         } 
 
-        public function updateMail($newmail){
-            $mail=$_SESSION['mail'];
-            $sqlupdate = $this -> db -> prepare("UPDATE users SET mail = '$newmail' WHERE mail = :mail ");
-            $sqlupdate->execute([
-                'mail' => $mail,
+        public function updateMail(string $newmail, int $userId){
+            //$mail=$_SESSION['mail'];
+            $sqlupdate = $this->db->prepare("UPDATE users SET mail = :newmail WHERE id = :userId ");
+            $result = $sqlupdate->execute([
+              'newmail' => $newMail,
+              'userId' => $userId
             ]);
-            $_SESSION['mail'] = $newmail;
-            return "Vous avez changer votre email et mis à jour votre profil.<br>";
+            //$_SESSION['mail'] = $newmail;
+
+            // update session
+            $this->setSession('mail', $newmail);
+
+            // return "Vous avez changer votre email et mis à jour votre profil.<br>";
+            // return the `$result`
+            return $result;
+
         }
 
 
@@ -482,6 +539,92 @@ class User extends Database
         $result = $displayUsers->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+
+
+  // PRIVATE SETTERS
+
+  /**
+   * Sets the user's session data
+   *
+   * @param string $key - The key of the session variable to set (eg. `id`)
+   * @param mixed $value - The value of the session variable to set (eg. `3`)
+   *
+   * @return void
+   */
+  private function setSession(string $key, mixed $value): void {
+    // If the session does not exist, create it
+    if ($this->checkSession() === false) { $this->createSession(); }
+
+    // Set the given `$key` session variable to the given `$value`
+    $_SESSION[self::SESSION_NAME][$key] = $value;
+  }
+
+
+  // PRIVATE GETTERS
+  
+  /**
+   * Returns the user's session data if the `$key` parameter is NULL, 
+   * or the value of the session variable corresponding to the `$key` parameter if not
+   *
+   * @param string|null $key - The key of the session variable to return
+   *
+   * @return mixed 
+   */
+  private function getSession(?string $key = null): mixed {
+    return is_null($key) ? ($_SESSION[self::SESSION_NAME] ?? []) : ($_SESSION[self::SESSION_NAME][$key] ?? null);
+  }
+
+
+  // PRIVATE METHODS
+
+  /**
+   * Creates a session for the current user
+   * NOTE: This method creates a `user` session variable
+   *
+   * @param array $user - The user data to store in the session (eg. `['id' => 1, 'firstname' => 'John']`)
+   *
+   * @return void
+   */
+  private function createSession(array $user): void {
+    // If there is no `user` session variable
+    if (!isset($_SESSION[self::SESSION_NAME])) {
+      // Create the `user` session variable
+      $_SESSION[self::SESSION_NAME] = [];
+    }
+
+    // Set the `user` session variable to the `$user` value
+    $_SESSION[self::SESSION_NAME] = $user;
+  }
+
+  /**
+   * Checks if the current user has a session
+   * NOTE: This method checks if the `user` session variable exists,
+   *       or if the `user` session variable has a specific `key`
+   *
+   * @param string|null $key - The key of the session variable to check
+   *
+   * @return bool - Returns TRUE if the session or specified `key` exists, FALSE otherwise, 
+   */
+  private function checkSession(?string $key = null): bool {
+    return is_null($key) ? isset($_SESSION[self::SESSION_NAME]) : isset($_SESSION[self::SESSION_NAME][$key]);
+  }
+
+
+  /**
+   * Destroys the session of the current user
+   * NOTE: This method only destroys the `user` session variable
+   *
+   * @return void
+   */
+  private function destroySession(): void {
+    // Destroy the session
+    // session_destroy();
+
+    // Unset the `user` session variable
+    unset($_SESSION[self::SESSION_NAME]);
+  }
+
 
 }
 
