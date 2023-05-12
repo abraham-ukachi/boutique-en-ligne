@@ -40,7 +40,6 @@ String.prototype.toExpirationString = function () {
 
     let lastChar = list[list.length - 1];
 
-    console.log(lastChar);
 
     if (lastChar === '/') {
         list.pop();
@@ -48,6 +47,9 @@ String.prototype.toExpirationString = function () {
 
     return list.join('').trim();
 }
+let addressForm = document.getElementById('addressForm');
+let cardForm = document.getElementById('cardForm');
+
 
 let deliveryBtn = document.getElementById('delivery');
 let addressBtn = document.getElementById('address');
@@ -59,7 +61,10 @@ let cardReturnBtn = document.getElementById('cardReturn');
 let validateBtn = document.getElementById('validateCheckout');
 
 // Inputs second form
+let id_address = addressForm.querySelector('input[name="id_address"]');
+let id_card = cardForm.querySelector('input[name="id_card"]');
 
+let title = document.getElementById('titleInput');
 let address = document.getElementById('addressValue');
 let complement = document.getElementById('addressComplementValue');
 let city = document.getElementById('cityValue');
@@ -74,6 +79,12 @@ let cvv = document.getElementById('cvvValue');
 
 /** ERRORS GESTION **/
 
+address.addEventListener('blur', (ev) => {
+    let element = ev.target;
+    if (element.validity.valueMissing) {
+        mbApp.showInputError(element, "Veuillez renseigner un titre ! ")
+    }
+})
 address.addEventListener('blur', (ev) => {
     let element = ev.target;
     if (element.validity.valueMissing) {
@@ -192,8 +203,6 @@ expiration.addEventListener('input', (ev) => {
     let date = element.value.split('/');
     let month = Number(date[0]);
     let year = Number(date[1]);
-    console.log('month = ', month)
-    console.log('year = ', year)
 
     let currentYear = Number((new Date()).getFullYear().toString().substring(2));
     let dateInvalid = (month > 12) || (year < currentYear) || (year > currentYear + 5);
@@ -242,7 +251,6 @@ deliveryForm.addEventListener('input', (ev) => {
     let deliveryCost = ev.target.value;
 });
 
-let addressForm = document.getElementById('addressForm');
 addressForm.addEventListener('input', (ev) => {
     address.value;
     complement.value;
@@ -251,7 +259,7 @@ addressForm.addEventListener('input', (ev) => {
     country.value;
 })
 
-let cardForm = document.getElementById('cardForm');
+
 cardForm.addEventListener('input', (ev) => {
     nbCard.value;
     expiration.value;
@@ -345,3 +353,51 @@ validateBtn.addEventListener('click', async (ev) => {
     }
 })
 
+let addressBtnEls = document.querySelectorAll('.address-list button');
+addressBtnEls.forEach(btnEl => {
+    btnEl.addEventListener('click', async (ev) => {
+        let addressId = ev.currentTarget.dataset.id;
+        let url = `address/${addressId}`;
+        let headers = new Headers();
+        headers.append('Creator', 'axel');
+
+        let request = new Request(url, {method: 'GET', headers: headers});
+        let response = await fetch(request);
+        let responseData =  await response.json();
+
+        console.log(responseData);
+        id_address.value = responseData.id;
+        title.value = responseData.title;
+        address.value = responseData.address;
+        complement.value = responseData.address_complement;
+        city.value = responseData.city;
+        postalCode.value = responseData.postal_code;
+        country.value = responseData.country;
+
+
+    })
+});
+
+let cardBtnEls = document.querySelectorAll('.card-list button');
+cardBtnEls.forEach(btnEl => {
+    btnEl.addEventListener('click', async (ev) => {
+        let cardId = ev.currentTarget.dataset.id;
+        let url = `cards/${cardId}`;
+        let headers = new Headers();
+        headers.append('Creator', 'axel');
+
+        let request = new Request(url, {method: 'GET', headers: headers});
+        let response = await fetch(request);
+        let responseData =  await response.json();
+
+        console.log(responseData)
+
+        id_card.value = responseData.id;
+        nbCard.value = responseData.card_no;
+        expiration.value = `${responseData.expiry_month}/${responseData.expiry_year}`;
+        cvv.value = responseData.CVV;
+
+        nbCard.dispatchEvent(new CustomEvent('input'));
+
+    })
+});

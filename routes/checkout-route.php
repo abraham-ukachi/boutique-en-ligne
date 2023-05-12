@@ -13,24 +13,29 @@ $router->map('GET', '/checkout', function(){
 $router->map('POST', '/checkout', function(){
     $checkoutController = new CheckoutController();
 
+    $address_id = $_POST['id_address'];
+    $card_id = $_POST['id_card'];
+    $title = $_POST['title'];
+    $type = 'mastercard';
+    $delivery = $_POST['deliveryChoice'];
+    $address = $_POST['address'];
+    $address_complement = $_POST['addressComplement'];
+    $city = $_POST['city'];
+    $postal_code = $_POST['postalCode'];
+    $country = $_POST['country'];
+    $nb_card = $_POST['nbCard'];
+    $expiration = $_POST['expiration'];
+    $cvv = $_POST['cvv'];
+
+    $checkoutController->registerAddress($address_id, $title, $address, $address_complement, $postal_code, $city, $country);
+    $checkoutController->registerCard($card_id, $type, $nb_card, $expiration, $cvv);
+
+    //$checkoutController->getAddressUser($userId);
     $response = ['success' => true];
     $response['data'] = $_POST;
-
-    $delivery = htmlspecialchars($_POST['deliveryChoice'], ENT_QUOTES);
-    $address = htmlspecialchars($_POST['address'], ENT_QUOTES);
-    $addressComplement = htmlspecialchars($_POST['addressComplement'], ENT_QUOTES);
-    $city = htmlspecialchars($_POST['city'], ENT_QUOTES);
-    $postalCode = htmlspecialchars($_POST['postalCode'], ENT_QUOTES);
-    $country = htmlspecialchars($_POST['country'], ENT_QUOTES);
-    $nbCard = htmlspecialchars($_POST['nbCard'], ENT_QUOTES);
-    $expiration = htmlspecialchars($_POST['expiration'], ENT_QUOTES);
-    $cvv = htmlspecialchars($_POST['cvv'], ENT_QUOTES);
-
-    $checkoutController->registerAllInformations($delivery, $address, $addressComplement, $city, $postalCode, $country, $nbCard, $expiration, $cvv);
-    $user = new User();
-    $userId = $user->id;
-    $checkoutController->getAddressUser($userId);
     echo json_encode($response);
 
 
 });
+
+

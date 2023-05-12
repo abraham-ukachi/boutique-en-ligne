@@ -35,7 +35,33 @@ class Card extends Database
         }
     }
 
-    public function getCards($user_id){
+    public function updateCard($card_id, $type, $card_no, $expiration, $cvv, $user_id)
+    {
+        $expiry_month = (int) explode('/', $expiration)[0];
+        $expiry_year = (int) explode('/', $expiration)[1];
+        $sql = "
+            UPDATE cards 
+            SET type = :type, card_no =  :card_no, expiry_month = :expiry_month, expiry_year = :expiry_year, cvv = :cvv 
+            WHERE user_id = $user_id AND id = $card_id
+            ";
+
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+
+            'type' => $type,
+            'card_no' => $card_no,
+            'expiry_month' => $expiry_month,
+            'expiry_year' => $expiry_year,
+            'cvv' => $cvv
+        ]);
+
+        if ($sql_exe) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getAll($user_id){
         $sql = "SELECT * FROM cards where user_id = $user_id";
         $sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([]);
@@ -43,4 +69,13 @@ class Card extends Database
         return $result;
     }
 
+
+    public function getOne(int $userId, int $cardId){
+        $sql = "SELECT * FROM cards WHERE user_id=$userId AND id = $cardId";
+        $sql_exe = $this->db->prepare($sql);
+        $sql_exe->execute([
+        ]);
+        $result = $sql_exe->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
