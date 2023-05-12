@@ -92,6 +92,7 @@ include __DIR__ . '/routes/register-route.php'; //<- register route
 
 include __DIR__ . '/routes/address-route.php'; // <- address route
 include __DIR__ . '/routes/review-route.php'; // <- review route
+include __DIR__ . '/routes/cards-route.php'; // <- address route
 
 include __DIR__ . '/routes/admin-route.php'; // <- admin route
 include __DIR__ . '/routes/account-route.php'; // <- account route

@@ -67,6 +67,7 @@
     <!-- Script -->
     <script>
 
+
         // Let's do some stuff when this page loads...
         window.addEventListener('load', (event) => {
             // ...do something awesome here ;)
@@ -122,7 +123,6 @@
 
                 <form id="deliveryForm" class="vertical flex-layout">
                     <h4>1 / 3</h4>
-
                     <div class="input-wrapper vertical flex-layout">
                         <label for='standard'><h3>Standard</h3></label>
                         <input id='standard' name='deliveryChoice' type='radio' value='standard'>
@@ -156,10 +156,21 @@
             <div class='container vertical flex-layout addressDiv' hidden>
                 <form id='addressForm' class='vertical flex-layout'>
                     <h4>2 / 3</h4>
-                    <div class="input-wrapper vertical flex-layout">
-                        <label for="address" raised="">Adresse</label>
-                        <input name="address" id='addressValue' type='text' required>
-                        <span class="input-indicator"><span bar=""></span><span val=""></span></span>
+                    <input type="number" name="id_address" hidden>
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for='title' raised=''>Title</label>
+                        <input name='title' id='titleInput' type='text' required>
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
+                        <!-- Input Message -->
+                        <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
+                        <p class='input-message fade-in error' hidden></p>
+                        <!-- End of Input Message -->
+                    </div>
+
+                    <div class='input-wrapper vertical flex-layout'>
+                        <label for='address' raised=''>Adresse</label>
+                        <input name='address' id='addressValue' type='text' required>
+                        <span class='input-indicator'><span bar=''></span><span val=''></span></span>
                         <!-- Input Message -->
                         <!-- NOTE: Add `error` class, to make this `.input-message` an error message -->
                         <p class='input-message fade-in error' hidden></p>
@@ -211,15 +222,28 @@
                             <span>Retour</span>
                         </button>
                     </div>
-
-
                 </form>
+                <div class='address-list'>
+                    <h3>Toutes vos adresses enregistrées</h3>
+                    <ul>
+                        <?php foreach ($addresses as $address) : ?>
+                            <li class='input-wrapper vertical flex-layout'>
+
+                                <button data-id="<?= $address['id'] ?>">
+                                    <?= $address['title'] ?>
+                                </button>
+                            </li>
+
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
 
             <div class='container vertical flex-layout cardDiv' hidden>
                 <form id='cardForm' class='vertical flex-layout'>
                     <h4>3 / 3</h4>
                     <div class='input-wrapper vertical flex-layout'>
+                        <input type="number" name="id_card" hidden>
                         <label for='nbCard' raised="">Numéro de la carte</label>
                         <input id='nbCardValue' name='nbCard' type='text' inputmode='numeric'
                                placeholder="6200 0000 0000 0005" pattern='^[\d\s]+$' minlength="19" maxlength="19" required>
@@ -263,6 +287,23 @@
                     </div>
 
                 </form>
+
+                <div class='card-list'>
+                    <h3>Toutes vos cartes</h3>
+                    <ul>
+                        <?php foreach ($cards  as $card) : ?>
+                            <li class='input-wrapper vertical flex-layout'>
+
+                                <button data-id="<?= $card['id'] ?>">
+                                    <span><?= $card['type'] ?></span>
+                                    <span>
+                                    <?= str_pad(substr(strval($card['card_no']), 12, 16), 16, "x", STR_PAD_LEFT)  ?></span>
+                                </button>
+                            </li>
+
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
