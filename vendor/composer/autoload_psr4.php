@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Maxaboom\\Views\\Components\\' => array($baseDir . '/views/components'),
     'Maxaboom\\Views\\' => array($baseDir . '/views'),
     'Maxaboom\\Routes\\' => array($baseDir . '/routes'),
@@ -13,4 +14,5 @@ return array(
     'Maxaboom\\Models\\' => array($baseDir . '/models'),
     'Maxaboom\\Controllers\\Helpers\\' => array($baseDir . '/controllers/helpers'),
     'Maxaboom\\Controllers\\' => array($baseDir . '/controllers'),
+    'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
 );
