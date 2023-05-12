@@ -104,7 +104,7 @@ class Database {
   private int $db_port = -1;
 
   // protected properties
-  protected string $db_name = 'db_maxaboom2';
+  protected string $db_name = 'db_maxaboom3';
 
   // initialize some  properties with `null`
   public ?object $pdo = null;
