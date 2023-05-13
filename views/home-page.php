@@ -384,13 +384,13 @@
               <!-- Top Category -->
               <a href="shop/<?= $topCategory['name'] ?>" target="_blank"
               class="top-category vertical flex-layout centered" 
-              title="<?= $this->i18n->getString($topCategory['name'], $topCategory['titre']) ?>"
+              title="<?= $this->i18n->getString($topCategory['name'], $topCategory['title']) ?>"
               >
                 <!-- Category Icon -->
                 <span class="top-category-icon vertical flex-layout centered <?= $topCategory['name'] ?>"></span>
                 
                 <!-- Category Name -->
-                <span class="top-category-name"><?= $this->i18n->getString($topCategory['name'], $topCategory['titre']) ?></span>
+                <span class="top-category-name"><?= $this->i18n->getString($topCategory['name'], $topCategory['title']) ?></span>
               </a>
               <!-- End of Category -->
 
