@@ -79,10 +79,15 @@ class User extends Database
         // connect to the database
         $this->dbConnect();
 
-        
+        // check if the user is connected
         if($this->isConnected()){
-            $this->populateUserInfo($_SESSION['id']);
+          // get the user id from session as `userId`
+          $userId = $this->getSession('id');
+
+          // populate the user info with `userId`
+          $this->populateUserInfo($userId);
         }
+
     }
 
 
