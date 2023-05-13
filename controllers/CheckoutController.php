@@ -26,6 +26,12 @@ class CheckoutController extends Controller
 
     }
     public function showCheckoutPage(){
+      // If the user is not connected...,
+      if(!$this->user->isConnected()) {
+        // ...redirect him/her to the login page
+        $this->redirect('/login');
+      }
+
         $cards = $this->card->getAll($this->user->id);
         $addresses = $this->address->getAll($this->user->id);
         require_once __DIR__ . '/../views/checkout-page.php';
@@ -64,5 +70,3 @@ class CheckoutController extends Controller
     }
 
 }
-
-?>
