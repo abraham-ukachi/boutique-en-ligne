@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `titre` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `address` varchar(100) NOT NULL,
   `address_complement` varchar(100) DEFAULT NULL,
   `postal_code` int(11) NOT NULL,
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `cards` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `type` varchar(100) NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
-  `card_no` int(11) NOT NULL,
+  `card_no` bigint(11) NOT NULL,
   `expiry_month` int(11) NOT NULL,
   `expiry_year` int(11) NOT NULL,
   `CVV` int(11) NOT NULL,
@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `titre` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
 
   PRIMARY KEY (`id`)
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 CREATE TABLE IF NOT EXISTS `sub_categories` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `titre` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `category_id` int(11) UNSIGNED NOT NULL,
 
@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `orders_items` (
 
 
 
- INSERT INTO categories (titre, name)
+ INSERT INTO categories (title, name)
  VALUES
  ('pianos', 'pianos'),
  ('guitares', 'guitars'),
@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `orders_items` (
  ('vents', 'wind-instruments');
 
 
- INSERT INTO sub_categories (titre, name, category_id)
+ INSERT INTO sub_categories (title, name, category_id)
  VALUES
  ('pianos droits', 'upright-piano', 1),
  ('pianos à queue', 'grand-piano', 1),
