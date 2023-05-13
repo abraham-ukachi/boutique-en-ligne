@@ -61,12 +61,33 @@ class Card extends Database
             return false;
         }
     }
-    public function getAll($user_id){
-        $sql = "SELECT * FROM cards where user_id = $user_id";
-        $sql_exe = $this->db->prepare($sql);
-        $sql_exe->execute([]);
-        $result = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+
+    /**
+     * Returns all the cards of the given `user_id`
+     *
+     * @param int $user_id - The user id
+     *
+     * @return array - The cards of the user
+     */
+    public function getAll(int $user_id): array {
+      // create an sql query string as `sql`
+      $sql = "SELECT * FROM cards where user_id = :user_id";
+
+      // prepare the sql query string, and assign it to a `sql_exe` variable
+      $sql_exe = $this->db->prepare($sql);
+
+      // execut the sql query
+      $sql_exe->execute([
+        'user_id' => $user_id
+      ]);
+
+      // fetch all the results from the sql query as `cards`
+      $cards = $sql_exe->fetchAll(PDO::FETCH_ASSOC);
+
+      // TODO: Do something awesome with `cards` here ;)
+
+      // return the `cards`
+      return $cards;
     }
 
 
