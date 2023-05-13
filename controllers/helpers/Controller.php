@@ -176,7 +176,27 @@ abstract class Controller {
 
 
 
+  // PRIVATE SETTERS
+  // PRIVATE GETTERS
+
   // PRIVATE METHODS
+
+  /**
+   * Redirects the user to the specified `url`
+   *
+   * @param ?string $url : the url to redirect to
+   *
+   * @return void
+   * @protected
+   */
+  protected function redirect(?string $url = null) {
+    // Modify the `url`
+    $url = is_null($url) ? _NAME : APP_NAME . $url;
+
+    // redirect the user to the given `url`
+    header('Location: /' . $url);
+    exit;
+  }
 
   /**
    * Method used to create the `config` session array if it doesn't exist
@@ -202,9 +222,6 @@ abstract class Controller {
       
     }
   }
-
-  // PRIVATE SETTERS
-  // PRIVATE GETTERS
 
 
 }
