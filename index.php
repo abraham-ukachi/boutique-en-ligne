@@ -58,8 +58,9 @@ session_start();
 
 // defining some constants...
 
+const APP_NAME = 'boutique-en-ligne';
 // home or base directory of Maxaboom
-const MAXABOOM_HOME_DIR = '/boutique-en-ligne';
+const MAXABOOM_HOME_DIR = '/' . APP_NAME;
 
 
 
