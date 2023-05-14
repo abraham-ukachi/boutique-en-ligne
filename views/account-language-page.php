@@ -24,14 +24,14 @@
 * SOFTWARE.
 *
 * @project boutique-en-ligne
-* @name Account Page - Maxaboom
-* @file account-page.php
+* @name Language - Account Page - Maxaboom
+* @file account-language-page.php
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
-* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
 * @version: 0.0.1
 * 
 * Usage:
-*   1-|> open http://localhost/boutique-en-ligne/index.php
+*   1-|> open http://localhost/boutique-en-ligne/account/language
 * 
 *
 * ============================
@@ -71,7 +71,7 @@
     <meta name="description" content="Maxaboom is a fun and dynamic online store that offers a wide variety of musical instruments. From guitars and drums to keyboards, microphones and trumpets.">
     
     <!-- Title -->
-    <title>Account - Maxaboom</title>
+    <title><?= $this->i18n->getString('pickALanguage') . ' - ' . $this->i18n->getString('myAccount')  ?> - Maxaboom</title>
 
 
     <!-- Fonts -->
@@ -126,6 +126,7 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="assets/stylesheets/account-styles.css">
+    <link rel="stylesheet" href="assets/stylesheets/account-language-styles.css">
 
 
     <!-- Script -->
@@ -141,6 +142,7 @@
     <!-- Some more script for ya! #LOL -->
     <script src="src/app.js" type="module" defer></script>
     <script src="src/scripts/account.js" type="module" defer></script>
+    <script src="src/scripts/account-language.js" type="module" defer></script>
     
   </head>
   <!-- End of HEAD -->
@@ -148,17 +150,6 @@
   
   <!-- BODY | Default Theme: light -->
   <body class="theme <?= $this->theme ?>" fullbleed>
-
-    <!-- PHP: Side Bar -->
-    <?php 
-      $_GET['sidebar_page'] = 'home'; 
-      $_GET['sidebar_init'] = 'au'; 
-      $_GET['sidebar_connected'] = false; 
-      $_GET['sidebar_isAdmin'] = false; 
-
-      // include 'components/side-bar.php';
-    ?>
-    <!-- PHP: End of Side Bar -->
 
     <!-- Side Bar -->
     <!-- PHP: Include the `sideBar` component -->
@@ -186,7 +177,7 @@
             <!-- Title Wrapper -->
             <div class="title-wrapper">
               <!-- Title -->
-              <h2 class="app-title">My Account</h2>
+              <h2 class="app-title"><?= $this->i18n->getString('myAccount') ?></h2>
             </div>
 
             <!-- Like - Icon Button -->
@@ -231,7 +222,8 @@
 
                 <?php foreach ($listItemData['items'] as $accountListItemId => $accountListItemData): ?>
 
-                <li id="<?= $accountListItemId?>" class="account-list-item link-item">
+                <li id="<?= $accountListItemId?>" class="account-list-item link-item"
+                  <?= ($accountListItemId === $this::PAGE_LANGUAGE) ? 'active' : ''?>>
                   <a href="<?= $accountListItemData['link']?>" 
                      role="button" 
                      tabindex="0" 
@@ -346,14 +338,55 @@
     
 
     <!-- ASIDE -->
-    <aside class="flex-layout vertical" hidden>
+    <aside class="flex-layout vertical" opened>
       <!-- App Layout - ASIDE -->
       <div class="app-layout" fit>
+        <!-- Header -->
+        <header>
+          <!-- App Bar -->
+          <div class="app-bar">
+            <!-- Back Icon Button -->
+            <a href="account" role="icon-button" tabindex="0" class="icon-button" narrow-and-tablet-only>
+              <span class="material-icons icon">arrow_back_ios</span>
+            </a>
+            
+            <button role="icon-button" tabindex="0" class="icon-button" disabled desktop-only>
+              <span class="material-icons icon">translate</span>
+            </button>
+
+            <!-- Title Wrapper -->
+            <div class="title-wrapper">
+              <!-- Title -->
+              <h2 class="app-title"><?= $this->i18n->getString('pickALanguage') ?></h2>
+            </div>
+          </div>
+        </header>
+        <!-- End of Header -->
 
         <!-- [content] -->
         <div content>
           <!-- Container -->
-          <div class="container vertical flex-layout centered">
+          <div class="container vertical flex-layout">
+            
+            <!-- Select-List -->
+            <ul naked class="select-list">
+              
+              <!-- PHP (3): For each lang... -->
+              <?php foreach ($languages as $lang): ?>
+              <!-- ...PHP (3): Show a corresponding lang list item : -->
+
+              <li <?= ($currentLanguage === $lang) ? 'selected' : '' ?> 
+                tabindex="0" data-id="<?= $lang ?>" class="lang">
+                <span class="label"><?= $this->i18n->getString($lang) ?></span>
+                <span class="material-icons icon">done</span>
+               </li>
+
+              <?php endforeach; ?>
+              <!-- End of PHP (3) -->
+            </ul>
+            <!-- End of Select-List -->
+
+
           </div>
           <!-- End of Container -->
         </div>

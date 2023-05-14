@@ -22,7 +22,7 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
-* @name: Account Theme Styles
+* @name: Account Language Styles
 * @type: Stylesheet
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
@@ -39,6 +39,7 @@
 @import 'account-styles.css';
 @import '../animations/fade-in-animation.css'; /* <- fade in animation */
 @import '../animations/slide-from-down-animation.css'; /* <- fade in animation */
+@import '../animations/pop-in-animation.css'; /* <- Pop in animation */
 
 
 
@@ -46,6 +47,7 @@
 .theme.dark {}
 
 .theme, .theme.light {}
+
 
 
 
@@ -105,6 +107,7 @@
   aside [content] > .container {
     max-width: initial;
   }
+
 
 }
 

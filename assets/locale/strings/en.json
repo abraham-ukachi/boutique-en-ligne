@@ -62,6 +62,7 @@
 
   "orders": "Orders",
   "order": "Order",
+  "wallet": "Wallet",
   "orderDetails": "Order details",
   "orderNumber": "Order number",
   "orderDate": "Order date",
@@ -113,7 +114,12 @@
   "successDeleteAccount": "Account deleted successfully",
 
   "yourInformation": "Your information",
+  "yourAddress": "Your address",
+  "yourAddresses": "Your addresses",
+  "editRemoveSetAddress": "Edit, remove, or set default address",
+
   "changeYourEmailAddress": "Change your email address",
+  "purchases": "Purchases",
   "changePassword": "Change password",
 
   "firstName": "First name",
@@ -193,6 +199,7 @@
   "shopNow": "Shop now",
   "exploreMore": "Explore more",
 
+  "help": "Help",
 
   "theme": "Theme",
   "changeTheme": "Change theme",
@@ -299,7 +306,8 @@
   "dark": "Dark",
   "classic": "Classic",
 
-  "themeChangedTo": "Theme changed to %s"
+  "themeChangedTo": "Theme changed to %s",
+  "langChangedTo": "Language changed to %s"
 
     
 }
