@@ -298,6 +298,22 @@ export class MaxaboomApp {
 
   }
 
+  /**
+   * Method used to update the theme of the app.
+   * NOTE: This method changes the class of the body element to include the given `theme`
+   *
+   * @param { String } theme
+   */
+  updateTheme(theme) {
+    // Remove all themes from body
+    document.body.classList.remove('light', 'dark');
+    // add the `theme` to the body's class list
+    document.body.classList.add(theme);
+    // update the `theme` property
+    this.theme = theme;
+  }
+
+
 
   /**
    * Method used to update the cart count of the app.
