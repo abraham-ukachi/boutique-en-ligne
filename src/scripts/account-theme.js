@@ -21,8 +21,8 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
-* @name: Account Info Page
-* @codename: accountInfoPage 
+* @name: Account Theme Page
+* @codename: accountThemePage 
 * @type: Script
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
@@ -45,9 +45,9 @@ import { accountPage } from './account.js'; // <- account page
 
 
 /**
- * Class representing the account info page
+ * Class representing the account theme page
  */
-class AccountInfoPage  {
+class AccountThemePage  {
 
   /**
    * The constructor of the class
@@ -63,12 +63,82 @@ class AccountInfoPage  {
   // PUBLIC GETTERS
 
 
+  /**
+   * Returns all the theme elements
+   *
+   * @returns { NodeList<Element> }
+   */
+  get themeEls() {
+    return document.querySelectorAll('li.theme');
+  }
 
 
   // PUBLIC METHODS
 
 
+  /**
+   * Method used to update the theme with the given `value`
+   *
+   * @param { String } value
+   *
+   * @returns { Promise }
+   */
+  updateTheme(value) {
+    return new Promise(async(resolve, reject) => {
 
+      // define the logout URL
+      const url = `account/theme/${value}`; // <- the way it is for now ;)
+
+      // create a POST request object with `url`
+      const request = new Request(url, {method: 'PATCH'});
+
+      // send the request and handle the response as `requestResponse`
+      const requestResponse = await fetch(request);
+
+      // get the JSON response from the `requestResponse` as `response
+      const response = await requestResponse.json();
+
+      // DEBUG [4dbsmaster]: tell me about the response ;)
+      console.log(`\x1b[40m;\x1b[33m[updateTheme]: response => \x1b[0m`, response);
+      
+      // If the response or update was successfull...
+      if (response.success) {
+        // ...resolve the promise with the response
+        resolve(response);
+      } else {
+        // ...reject the promise with the response
+        reject(response);
+      }
+
+
+    });
+  }
+
+  /**
+   * Notifies the theme page of a recent update
+   */
+  notifyUpdate() {
+    // Get the current app theme  as `theme`
+    const theme = mbApp.theme;
+
+    // Loop through all the theme elements
+    for (let themeEl of this.themeEls) {
+      // get the theme's id from `themeEl` as `themeId`
+      let themeId = themeEl.dataset.id;
+
+      
+      // If the id of this `themeEl` is the same as the app's theme...
+      if (themeId === mbApp.theme) {
+        // ...select it
+        themeEl.setAttribute('selected', '');
+        continue; // <- go to the next theme element
+      } 
+
+      themeEl.removeAttribute('selected');
+
+    }
+
+  }
 
   // PRIVATE SETTERS
   // PRIVATE GETTERS
@@ -76,92 +146,64 @@ class AccountInfoPage  {
 
 
   /**
-   * Method used to install event listeners on the account page
+   * Method used to install event listeners on the account's theme page
    */
   _installEventListeners() {
-  
-    /*
-    // If there are logout and delete account buttons on the page...
-    if (this.logoutButton && this.deleteAccountButton) {
-      // ...install click event listener on the logout and delete account button,
-      // using / binding `this` to preserve our PointerEvent ;)
-      this.logoutButton.addEventListener('click', this._logoutButtonClickHandler.bind(this));
-      this.deleteAccountButton.addEventListener('click', this._deleteAccountButtonClickHandler.bind(this));
+
+    // loop through all the theme elements
+    for (let themeEl of this.themeEls) {
+      // install a click event listener on each theme element
+      themeEl.addEventListener('click', this._themeClickHandler.bind(this));
     }
 
-    */
-
   }
 
   /**
-   * Handler that is called whenever the logout button is clicked
+   * Handler that is called wheneve a theme is clicked
    *
    * @param { PointerEvent } event - The event that triggered the handler
    *
-   * @returns { void }
-   * @private
    */
-  _logoutButtonClickHandler(event) {
-    // open  a logout dialog in the main part
-    mbApp.openDialog({
-      title: mbApp.i18n.getString('log_out'),
-      message: mbApp.i18n.getString('logoutConfirmMessage'),
-      confirmBtnText: mbApp.i18n.getString('yes'),
-      cancelBtnText: mbApp.i18n.getString('no'),
-      onConfirm: this._logout.bind(this),
-      onCancel: () => { mbApp.closeDialog(); },
-      isCancelable: true
-    }, 0.5);
-  }
+  _themeClickHandler(event) {
+    // Get the theme element from event
+    const themeEl = event.currentTarget;
 
+    // Check if this theme has been selected
+    let selected = themeEl.hasAttribute('selected');
 
+    // Do nothing if this theme has already been selected
+    if (selected) { return }
 
-  /**
-   * Method used to logout the user
-   *
-   * @param { PointerEvent } event - The event that triggered the handler
-   * @returns { void }
-   */
-  async _logout(event) {
-    // define the logout URL
-    // const logoutUrl = `${mbApp.config.apiBaseUrl}/logout`; // <- the way it should be
-    const logoutUrl = `account/logout`; // <- the way it is for now ;)
-
-    // create a POST request object with `logoutUrl`
-    const request = new Request(logoutUrl, {method: 'POST'});
-
-    // send the request and handle the response as `requestResponse`
-    const requestResponse = await fetch(request);
-
-    // get the JSON response from the `requestResponse` as `response
-    const response = await requestResponse.json();
-
-    // DEBUG [4dbsmaster]: tell me about the response ;)
-    console.log(`\x1b[40m;\x1b[33m[_logout]: response => \x1b[0m`, response);
+    // Get the theme from `themeEl`
+    let theme = themeEl.dataset.id;
     
-    // close the dialog
-    mbApp.closeDialog();
+    // Update the theme 
+    this.updateTheme(theme).then((response) => {
+      // Set the app 'theme'
+      mbApp.updateTheme(response.theme);
+      
+      // show a toast for 3 seconds, with the message
+      mbApp.showToast({
+        message: response.message, 
+        type:  SUCCESS_TOAST, 
+        part: ASIDE_PART
+      }, 3, true);
+      
+      // notify the theme page of this update
+      this.notifyUpdate();
 
-    // show a toast for 3 seconds, with the response message
-    mbApp.showToast({
-      message: response.message, 
-      type: response.success ? SUCCESS_TOAST : ERROR_TOAST
-    }, 3, FULL_PART)
-      .then(() => {
-        // if the response was successful, redirect the user to the home page
-        if (response.success) {
-          location.replace('home');
-        }
     });
 
-  }
+    // DEBUG [4dbsmaster]: tell me about it ;)
+    console.log(`\x1b[33[_themeClickHandler]: theme => %s\x1b[0m`, theme);
 
+  }
 
 
 }
 
 
 // Instantiate the class as `account`
-let accountInfoPage = new AccountInfoPage();
-// Export the class as `accountPage`
-export { accountInfoPage };
+let accountThemePage = new AccountThemePage();
+// Export the `accountThemePage`
+export { accountThemePage };
