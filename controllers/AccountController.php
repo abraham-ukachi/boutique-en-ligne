@@ -70,7 +70,7 @@ class AccountController extends Controller {
   const PAGE_INFO = 'info';
   const PAGE_ADDRESSES = 'addresses';
   const PAGE_ORDERS = 'orders';
-  const PAGE_WALLET = 'info';
+  const PAGE_WALLET = 'wallet';
   const PAGE_LANGUAGE = 'language';
   const PAGE_THEME = 'theme';
   const PAGE_CONTACT = 'contact';
@@ -163,6 +163,40 @@ class AccountController extends Controller {
     // update the response
     $this->updateResponse($success, self::$STATUS_SUCCESS_OK, $message, $data);
   }
+
+
+
+
+
+  /**
+   * Updates the lang with the given `languageId`
+   *
+   * @param string $languageId - the id of the language to update (eg. 'en', 'fr', 'ru', 'es')
+   */
+  public function updateLanguage(string $languageId):void {
+    // Get the old language as `oldLanguage`
+    $oldLanguage = $this->getCurrentLang();
+
+    // set the given `languageId` as the current theme
+    $this->setCurrentLang($languageId);
+
+    
+    // Initialize the `success` variable to TRUE
+    $success = true;
+
+    // Create a response message as `message`
+    $message = sprintf($this->i18n->getString('langChangedTo'), $this->i18n->getString($languageId));
+
+    // Create a data with the old and new languages 
+    $data = ['old' => $oldLanguage, 'lang' => $languageId];
+
+    // update the response
+    $this->updateResponse($success, self::$STATUS_SUCCESS_OK, $message, $data);
+  }
+
+
+
+
 
   /**
    * Shows the default account page
@@ -271,6 +305,13 @@ class AccountController extends Controller {
    * @param ?string $view - the view to show
    */
   public function showLanguagePage(?string $view = null): void {
+    // Get a list of all currently supported languages from i18n as `languages`
+    $languages = $this->i18n->getSupportedLanguages();
+
+    // get the current language as `currentLanguage`
+    // NOTE: This is the same as `$this->lang` property's value
+    $currentLanguage = $this->getCurrentLang();
+
     // require [once] the `account-language-page.php` file from `views` folder 
     require_once __DIR__ . '/../views/account-language-page.php';
   }
@@ -329,17 +370,17 @@ class AccountController extends Controller {
       'icon' => '',
       'items' => [
 
-        'info' => [
+        self::PAGE_INFO => [
           'icon' => '',
-          'title' => 'Your information',
-          'description' => 'First name, last name, email',
+          'title' => $this->i18n->getString('yourInformation'),
+          'description' => $this->i18n->getString('firstName') . ', ' . $this->i18n->getString('lastName') . ', ' . $this->i18n->getString('email'), 
           'link' => 'account/info',
         ],
 
-        'addresses' => [
+        self::PAGE_ADDRESSES => [
           'icon' => '',
-          'title' => 'Your addresses',
-          'description' => 'Edit, remove, or set default address',
+          'title' => $this->i18n->getString('yourAddresses'),
+          'description' => $this->i18n->getString('editRemoveSetAddress'),
           'link' => 'account/addresses',
         ],
       ],
@@ -348,20 +389,20 @@ class AccountController extends Controller {
 
     // create the `purchases` list items in `overviewListData`
     $overviewListData['purchases'] = [
-      'title' => 'Purchases',
+      'title' => $this->i18n->getString('purchases'),
       'icon' => '',
       'items' => [
 
-        'orders' => [
+        self::PAGE_ORDERS => [
           'icon' => '',
-          'title' => 'Orders',
+          'title' => $this->i18n->getString('orders'),
           'description' => '',
           'link' => 'account/orders',
         ],
 
-        'wallet' => [
+        self::PAGE_WALLET => [
           'icon' => '',
-          'title' => 'Wallet',
+          'title' => $this->i18n->getString('wallet'),
           'description' => '',
           'link' => 'account/wallet',
         ],
@@ -371,20 +412,20 @@ class AccountController extends Controller {
 
     // create the `settings` list items in `overviewListData`
     $overviewListData['settings'] = [
-      'title' => 'Settings',
+      'title' => $this->i18n->getString('settings'),
       'icon' => '',
       'items' => [
 
-        'lang' => [
+        self::PAGE_LANGUAGE => [
           'icon' => '',
-          'title' => 'Language',
+          'title' => $this->i18n->getString('language'),
           'description' => $this->i18n->getLanguage(true) . " · " . strtoupper($this->i18n->getLanguage()),
           'link' => 'account/language',
         ],
 
-        'theme' => [
+        self::PAGE_THEME => [
           'icon' => '',
-          'title' => 'Theme',
+          'title' => $this->i18n->getString('theme'), 
           'description' => $this->i18n->getString($this->painter->getTheme()),
           'link' => 'account/theme',
         ],
@@ -394,20 +435,20 @@ class AccountController extends Controller {
 
     // create the `help` list items in `overviewListData`
     $overviewListData['help'] = [
-      'title' => 'Help',
+      'title' => $this->i18n->getString('help'),
       'icon' => '',
       'items' => [
 
-        'contact' => [
+        self::PAGE_CONTACT => [
           'icon' => '',
-          'title' => 'Contact',
+          'title' => $this->i18n->getString('contact'),
           'description' => '',
           'link' => 'account/contact',
         ],
 
-        'about' => [
+        self::PAGE_ABOUT => [
           'icon' => '',
-          'title' => 'About',
+          'title' => $this->i18n->getString('about'),
           'description' => '',
           'link' => 'account/about',
         ],
