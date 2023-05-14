@@ -292,9 +292,14 @@
   "productQtyDecreased": "Product quantity decreased",
   "failedToDecreaseProductQty": "Failed to decrease product quantity",
 
-  "maxQtyReached": "Maximum quantity reached",
+  "pickATheme": "Pick a theme",
+  "pickALanguage": "Pick a language",
 
-  "minQtyReached": "Minimum quantity reached"
+  "light": "Light",
+  "dark": "Dark",
+  "classic": "Classic",
+
+  "themeChangedTo": "Theme changed to %s"
 
     
 }
