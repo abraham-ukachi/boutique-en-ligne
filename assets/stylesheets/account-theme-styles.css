@@ -1,0 +1,232 @@
+/* 
+* @license
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software. 
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @name: Account Theme Styles
+* @type: Stylesheet
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+*
+* Example usage:
+*
+*  1+|> // 
+*   -|>
+*
+*
+*/
+
+/* ==== IMPORTS ==== */
+@import 'account-styles.css';
+@import '../animations/fade-in-animation.css'; /* <- fade in animation */
+@import '../animations/slide-from-down-animation.css'; /* <- fade in animation */
+
+
+
+
+.theme.dark {}
+
+.theme, .theme.light {}
+
+
+
+/* === Select-List - UL === */
+
+
+ul.select-list {
+  list-style: none;
+  margin: 1rem 1.5rem;
+  padding: 0;
+  font-size: 1.25rem;
+  line-height: 2.5rem;
+}
+
+
+ul.select-list > *:nth-child(1) > .label {
+  --settings-animation-delay: 0.2s;
+}
+
+ul.select-list > *:nth-child(2) > .label {
+  --settings-animation-delay: 0.3s;
+}
+
+ul.select-list > *:nth-child(3) > .label {
+  --settings-animation-delay: 0.4s;
+}
+
+ul.select-list > *:nth-child(4) > .label {
+  --settings-animation-delay: 0.5s;
+}
+
+ul.select-list > *:nth-child(5) > .label {
+  --settings-animation-delay: 0.6s;
+}
+
+
+ul.select-list li {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  opacity: var(--opacity-text-inactive);
+  
+}
+
+ul.select-list li .label {
+  flex: 1;
+  opacity: 0;
+
+  -webkit-animation: fadeIn ease 0.5s var(--settings-animation-delay, 0.2s) forwards;
+  -moz-animation: fadeIn ease 0.5s var(--settings-animation-delay, 0.2s) forwards;
+  animation: fadeIn ease 0.5s var(--settings-animation-delay, 0.2s) forwards;
+}
+
+
+ul.select-list li .label:focus-visible {
+  outline: none;
+  color: var(--tertiary-color);
+  opacity: var(--opacity-text-active);
+}
+
+ul.select-list li .icon {
+  visibility: hidden;
+}
+
+ul.select-list li[selected] {
+  color: var(--primary-color);
+}
+
+ul.select-list li[selected] > .icon {
+  visibility: visible;
+  opacity: 0;
+  color: inherit;
+
+  -webkit-animation: fadeIn ease 0.5s 0.5s forwards;
+  -moz-animation: fadeIn ease 0.5s 0.5s forwards;
+  animation: fadeIn ease 0.5s 0.5s forwards;
+}
+
+ul.select-list li:hover,
+ul.select-list li[selected] {
+  font-weight: bold;
+  opacity: var(--opacity-text-active);
+}
+
+
+
+
+
+
+/* === End of Select-List - UL === */
+
+
+
+
+
+
+
+
+/* ==== ACCOUNT THEME PAGE STYLES ==== */
+
+
+
+
+/* 
+ * --> Narrow - Device <--
+ * Phone: ? (Responsive)
+ * Dimension: ~460px (width)
+ *
+ * ***************************************
+ * when the viewport is lesser than 460px,
+ * layout changes to a narrow-layout.
+ * ***************************************
+ */
+
+
+
+
+/* ===[ {{CSS-RULE}} ]=== */
+
+
+/* ---[ End of {{CSS-RULE}} ]--- */
+
+
+
+
+
+
+/* 
+ * --> Wide - Layout <--
+ * Phone: ? (Responsive)
+ * Dimension: 460px+ (width)
+ *
+ * ***************************************
+ * when the viewport is bigger than 460px,
+ * layout changes to wide-layout.
+ * ***************************************
+ */
+@media (min-width: 460px) {    
+  
+}
+
+
+
+@media (min-width: 768px) {
+
+
+  aside [content] > .container {
+    max-width: initial;
+  }
+
+  ul.select-list {
+    font-size: 2rem;
+    line-height: 4rem;
+  }
+
+  ul.select-list .icon {
+    font-size: 2rem;
+  }
+
+}
+
+
+/* 
+ * --> Tablet - Device <--
+ * Phone: ? (Responsive)
+ * Width: 768px <-to-> 1024px
+ */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+}
+
+
+/* 
+ * --> Laptop - Device <--
+ * Phone: ? (Responsive)
+ * Width: 1024px <-to-> 2560px
+ */
+@media (min-width: 1024px) and (max-width: 2560px) {}
+
+
+/* ==== END of {{??}} STYLES ==== */
