@@ -1650,8 +1650,12 @@ em {
 }
 
 .link-item[active] > a {
-  --list-item-background-color: var(--primary-container-color);
-  --list-item-color: var(--on-primary-container-color);
+  --list-item-background-color: var(--inverse-surface-color);
+  --list-item-color: var(--inverse-on-surface-color);
+  --link-item-icon-color: var(--primary-inverse-color);
+
+  /* --list-item-background-color: var(--primary-container-color); */
+  /* --list-item-color: var(--on-primary-container-color); */
 
   pointer-events: none;
 }
@@ -1675,6 +1679,8 @@ em {
   font-size: 1rem;
 }
 
+.link-items .divider-wrapper, 
+.list-items .divider-wrapper,
 .link-item .divider-wrapper {
   display: block;
   position: relative;
@@ -1697,7 +1703,7 @@ em {
 }
 
 .link-item .arrow.icon {
-  --material-icon-color: var(--primary-color);
+  --material-icon-color: var(--link-item-icon-color, var(--primary-color));
   z-index: 1;
 }
 

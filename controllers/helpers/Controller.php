@@ -51,6 +51,8 @@ namespace Maxaboom\Controllers\Helpers;
 
 // use the `I18n` helper class
 use Maxaboom\Controllers\Helpers\I18n;
+// use the `Painter` helper class
+use Maxaboom\Controllers\Helpers\Painter;
 
 
 
@@ -77,7 +79,7 @@ abstract class Controller {
   // Defining some public properties...
   
   public I18n $i18n;
-
+  public Painter $painter;
 
   // Defining some private properties...
 
@@ -114,6 +116,7 @@ abstract class Controller {
 
     // Instantiate the `I18n` helper class and assign it to the `$i18n` property
     $this->i18n = new I18n($this->lang);
+    $this->painter = new Painter($this->theme);
 
   }
   

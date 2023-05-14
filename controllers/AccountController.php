@@ -138,7 +138,31 @@ class AccountController extends Controller {
 
   // PUBLIC METHODS
 
+  /**
+   * Updates the theme with the given `themeId`
+   *
+   * @param string $themeId - the id of the theme to update (eg. 'light', 'dark')
+   */
+  public function updateTheme(string $themeId):void {
+    // Get the old theme as `oldTheme`
+    $oldTheme = $this->getCurrentTheme();
 
+    // set the given `themeId` as the current theme
+    $this->setCurrentTheme($themeId);
+
+    
+    // Initialize the `success` variable to TRUE
+    $success = true;
+
+    // Create a response message as `message`
+    $message = sprintf($this->i18n->getString('themeChangedTo'), $this->i18n->getString($themeId));
+
+    // Create a data with the old and new themes
+    $data = ['old' => $oldTheme, 'theme' => $themeId];
+
+    // update the response
+    $this->updateResponse($success, self::$STATUS_SUCCESS_OK, $message, $data);
+  }
 
   /**
    * Shows the default account page
@@ -257,6 +281,11 @@ class AccountController extends Controller {
    * @param ?string $view - the view to show
    */
   public function showThemePage(?string $view = null): void {
+    // Get a list of all currently supported themes from painter as `themes`
+    $themes = $this->painter::SUPPORTED_THEMES;
+    // get the current theme
+    $currentTheme = $this->getCurrentTheme();
+
     // require [once] the `account-theme-page.php` file from `views` folder 
     require_once __DIR__ . '/../views/account-theme-page.php';
   }
@@ -356,7 +385,7 @@ class AccountController extends Controller {
         'theme' => [
           'icon' => '',
           'title' => 'Theme',
-          'description' => $this::DEFAULT_THEME,
+          'description' => $this->i18n->getString($this->painter->getTheme()),
           'link' => 'account/theme',
         ],
       ],

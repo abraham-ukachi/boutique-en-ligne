@@ -164,6 +164,7 @@
   font-size: 1rem;
 }
 
+/*
 .divider-wrapper, .link-item .divider-wrapper {
   display: block;
   position: relative;
@@ -172,6 +173,8 @@
   height: 1px;
   overflow: hidden;
 }
+*/
+
 
 /* H4 in Account List Item */
 .account-list-item h4, .link-item h4 {
@@ -183,11 +186,6 @@
   margin: 0;
   margin-top: -5px;
   opacity: var(--opacity-text-disabled);
-}
-
-.account-list-item .arrow.icon, .link-item .arrow.icon {
-  --material-icon-color: var(--primary-color);
-  z-index: 1;
 }
 
 .settings.list-items h4, .link-item h4 {
