@@ -21,8 +21,9 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 *
-* @name: Account Info Page
-* @codename: accountInfoPage 
+* @name: Account Language Page
+* @codename: accountLanguagePage 
+* @file: account-language-page.js
 * @type: Script
 * @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
 * @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
@@ -45,9 +46,9 @@ import { accountPage } from './account.js'; // <- account page
 
 
 /**
- * Class representing the account info page
+ * Class representing the account language page
  */
-class AccountInfoPage  {
+class AccountLanguagePage  {
 
   /**
    * The constructor of the class
@@ -63,12 +64,82 @@ class AccountInfoPage  {
   // PUBLIC GETTERS
 
 
+  /**
+   * Returns all the lang elements
+   *
+   * @returns { NodeList<Element> }
+   */
+  get langEls() {
+    return document.querySelectorAll('li.lang');
+  }
 
 
   // PUBLIC METHODS
 
 
+  /**
+   * Method used to update the lang with the given `value`
+   *
+   * @param { String } value
+   *
+   * @returns { Promise }
+   */
+  updateLang(value) {
+    return new Promise(async(resolve, reject) => {
 
+      // define the logout URL
+      const url = `account/language/${value}`; // <- the way it is for now ;)
+
+      // create a POST request object with `url`
+      const request = new Request(url, {method: 'PATCH'});
+
+      // send the request and handle the response as `requestResponse`
+      const requestResponse = await fetch(request);
+
+      // get the JSON response from the `requestResponse` as `response
+      const response = await requestResponse.json();
+
+      // DEBUG [4dbsmaster]: tell me about the response ;)
+      console.log(`\x1b[40m;\x1b[33m[updateLang]: response => \x1b[0m`, response);
+      
+      // If the response or update was successfull...
+      if (response.success) {
+        // ...resolve the promise with the response
+        resolve(response);
+      } else {
+        // ...reject the promise with the response
+        reject(response);
+      }
+
+
+    });
+  }
+
+  /**
+   * Notifies the lang page of a recent update
+   */
+  notifyUpdate() {
+    // Get the current app lang  as `lang`
+    const lang = mbApp.lang;
+
+    // Loop through all the lang elements
+    for (let langEl of this.langEls) {
+      // get the lang's id from `langEl` as `langId`
+      let langId = langEl.dataset.id;
+
+      
+      // If the id of this `langEl` is the same as the app's lang...
+      if (langId === mbApp.lang) {
+        // ...select it
+        langEl.setAttribute('selected', '');
+        continue; // <- go to the next lang element
+      } 
+
+      langEl.removeAttribute('selected');
+
+    }
+
+  }
 
   // PRIVATE SETTERS
   // PRIVATE GETTERS
@@ -76,92 +147,66 @@ class AccountInfoPage  {
 
 
   /**
-   * Method used to install event listeners on the account page
+   * Method used to install event listeners on the account's lang page
    */
   _installEventListeners() {
-  
-    /*
-    // If there are logout and delete account buttons on the page...
-    if (this.logoutButton && this.deleteAccountButton) {
-      // ...install click event listener on the logout and delete account button,
-      // using / binding `this` to preserve our PointerEvent ;)
-      this.logoutButton.addEventListener('click', this._logoutButtonClickHandler.bind(this));
-      this.deleteAccountButton.addEventListener('click', this._deleteAccountButtonClickHandler.bind(this));
+
+    // loop through all the lang elements
+    for (let langEl of this.langEls) {
+      // install a click event listener on each lang element
+      langEl.addEventListener('click', this._langClickHandler.bind(this));
     }
 
-    */
-
   }
 
   /**
-   * Handler that is called whenever the logout button is clicked
+   * Handler that is called wheneve a lang is clicked
    *
    * @param { PointerEvent } event - The event that triggered the handler
    *
-   * @returns { void }
-   * @private
    */
-  _logoutButtonClickHandler(event) {
-    // open  a logout dialog in the main part
-    mbApp.openDialog({
-      title: mbApp.i18n.getString('log_out'),
-      message: mbApp.i18n.getString('logoutConfirmMessage'),
-      confirmBtnText: mbApp.i18n.getString('yes'),
-      cancelBtnText: mbApp.i18n.getString('no'),
-      onConfirm: this._logout.bind(this),
-      onCancel: () => { mbApp.closeDialog(); },
-      isCancelable: true
-    }, 0.5);
-  }
+  _langClickHandler(event) {
+    // Get the lang element from event
+    const langEl = event.currentTarget;
 
+    // Check if this lang has been selected
+    let selected = langEl.hasAttribute('selected');
 
+    // Do nothing if this lang has already been selected
+    if (selected) { return }
 
-  /**
-   * Method used to logout the user
-   *
-   * @param { PointerEvent } event - The event that triggered the handler
-   * @returns { void }
-   */
-  async _logout(event) {
-    // define the logout URL
-    // const logoutUrl = `${mbApp.config.apiBaseUrl}/logout`; // <- the way it should be
-    const logoutUrl = `account/logout`; // <- the way it is for now ;)
-
-    // create a POST request object with `logoutUrl`
-    const request = new Request(logoutUrl, {method: 'POST'});
-
-    // send the request and handle the response as `requestResponse`
-    const requestResponse = await fetch(request);
-
-    // get the JSON response from the `requestResponse` as `response
-    const response = await requestResponse.json();
-
-    // DEBUG [4dbsmaster]: tell me about the response ;)
-    console.log(`\x1b[40m;\x1b[33m[_logout]: response => \x1b[0m`, response);
+    // Get the lang from `langEl`
+    let lang = langEl.dataset.id;
     
-    // close the dialog
-    mbApp.closeDialog();
+    // Update the language
+    this.updateLang(lang).then((response) => {
+      // Set the app's language
+      mbApp.updateLanguage(response.lang);
+      
+      // show a toast for 1 second, with the message
+      mbApp.showToast({
+        message: response.message, 
+        type:  SUCCESS_TOAST, 
+        part: ASIDE_PART
+      }, 1, true).then(() => mbApp.reload()); // <- then reload the app
 
-    // show a toast for 3 seconds, with the response message
-    mbApp.showToast({
-      message: response.message, 
-      type: response.success ? SUCCESS_TOAST : ERROR_TOAST
-    }, 3, FULL_PART)
-      .then(() => {
-        // if the response was successful, redirect the user to the home page
-        if (response.success) {
-          location.replace('home');
-        }
+      // TODO: ? navigate to the account page instead of reloading the app ?
+
+      // notify the lang page of this update
+      this.notifyUpdate();
+
     });
 
-  }
+    // DEBUG [4dbsmaster]: tell me about it ;)
+    console.log(`\x1b[33[_langClickHandler]: lang => %s\x1b[0m`, lang);
 
+  }
 
 
 }
 
 
-// Instantiate the class as `account`
-let accountInfoPage = new AccountInfoPage();
-// Export the class as `accountPage`
-export { accountInfoPage };
+// Instantiate the class as `accountLanguagePage`
+let accountLanguagePage = new AccountLanguagePage();
+// Export the `accountLanguagePage`
+export { accountLanguagePage };
