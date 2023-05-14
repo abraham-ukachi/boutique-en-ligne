@@ -73,7 +73,7 @@
 use Maxaboom\Controllers\HomeController;
 
 // Create a new instance of the home controller as `hc`
-$homeController = new HomeController();
+$hc = new HomeController();
 
 // Get the route of side bar as `navbarRoute`
 $navbarRoute = $_GET['navbar_route'] ?? 'home';
@@ -87,7 +87,7 @@ $navbarIsConnected = $_GET['navbar_connected'] ?? false;
 
 $LogoIsHome = $_GET['logo_is_home'] ?? false;
 
-$cartTotal = $_GET['cart_total'] ?? $homeController->getCartCount() ?? 0;
+$cartTotal = $_GET['cart_total'] ?? $hc->getCartCount() ?? 0;
 
 // Create a default array of titles for the nav bar as `defaultNavbarTitles`
 $defaultNavbarTitles = [
@@ -134,7 +134,7 @@ $navbarLabels = $_GET['navbar_labels'] ?? $defaultNavbarLabels;
 <!-- PHP (1): ...show an admin side-bar -->
 
 <!-- Admin Nav Bar -->
-<nav id="navBar" class="admin nav-bar flex-layout horizontal">
+<nav id="navBar" class="admin nav-bar flex-layout horizontal center">
 
   <!-- Dashboard - Nav-Link [disabled] -->
   <a title="<?= $navbarTitles['dashboard'] ?>" href="admin" class="nav-link" <?= ($navbarRoute == 'dashboard') ? 'active' : '' ?>>
@@ -180,7 +180,7 @@ $navbarLabels = $_GET['navbar_labels'] ?? $defaultNavbarLabels;
 
 
 <!-- Default Nav Bar -->
-<nav id="navBar" class="nav-bar flex-layout horizontal" <?= ($navbarIsConnected) ? 'connected' : '' ?>>
+<nav id="navBar" class="nav-bar flex-layout horizontal center" <?= ($navbarIsConnected) ? 'connected' : '' ?>>
 
   <!-- Home - Nav-Link -->
   <a title="<?= $navbarTitles['home'] ?>" href="home" class="nav-link" <?= ($navbarRoute == 'home') ? 'active' : '' ?>>
