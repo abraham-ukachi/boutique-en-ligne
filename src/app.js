@@ -209,6 +209,17 @@ export class MaxaboomApp {
 
   // PUBLIC METHODS
 
+
+  /**
+   * Reloads the app
+   *
+   * @returns { void }
+   */
+  reload() {
+    window.location.reload();
+  }
+
+
   /**
    * Method used to display a toast message with the given `params`
    * NOTE: This method will automatically hide the toast after the given `timeout` (in seconds)
@@ -313,6 +324,20 @@ export class MaxaboomApp {
     this.theme = theme;
   }
 
+
+  /**
+   * Updates the language of the app.
+   * NOTE: This method changes the `lang` attribute/property of the `<html>` element to the given `languageId`
+   *
+   * @param { String } languageId - The language id to update to (eg. 'en', 'fr', 'es', 'de', etc.)
+   */
+  updateLanguage(languageId) {
+    // Set the `lang` property of `html` or documentElement to the given `languageId`
+    document.documentElement.lang = languageId;
+
+    // update the `lang` property 
+    this.lang = languageId;
+  }
 
 
   /**
