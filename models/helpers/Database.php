@@ -96,15 +96,17 @@ use pdoexception;
  * Declare a class named 'Database'.
  */
 class Database {
+  // private constants
+  private const DOTENV_PATH = __DIR__  . '/.env';
 
   // private properties
-  private string $db_host = '127.0.0.1';
-  private string $db_username = 'abraham-ukachi';
-  private string $db_password = 'root';
-  private int $db_port = -1;
+  private string $db_host;
+  private string $db_username;
+  private string $db_password;
+  private int $db_port;
 
   // protected properties
-  protected string $db_name = 'db_maxaboom3';
+  protected string $db_name;
 
   // initialize some  properties with `null`
   public ?object $pdo = null;
@@ -185,11 +187,24 @@ class Database {
   /**
    * Constructor that is automatically called whenever an object of this database gets created.
    *
+   * @param string $connection - the type of connection to be used. Default is `pdo`
    * @param bool $autoConnect - if TRUE, a connection to the database will be attempted automatically or during object instantiation of this class
    */
-  public function __construct(bool $autoConnect = false) {
+  public function __construct(string $connection = 'pdo', bool $autoConnect = false) {
+    // Instantiate the DotEnv class as `$dotEnv`
+    $dotEnv = new DotEnv(self::DOTENV_PATH);
+    // load the environment variables
+    $dotEnv->load();
 
-    // Intializing some properties...
+    // populate the database properties 
+    $this->db_host = $_ENV['DATABASE_HOST'];
+    $this->db_username = $_ENV['DATABASE_USERNAME'];
+    $this->db_password = $_ENV['DATABASE_PASSWORD'];
+    $this->db_port = $_ENV['DATABASE_PORT'];
+    $this->db_name = $_ENV['DATABASE_NAME'];
+
+
+    // Intializing other properties...
     
     // connection errors
     $this->db_connect_errno = 0;
