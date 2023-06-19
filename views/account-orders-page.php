@@ -336,17 +336,62 @@
     
 
     <!-- ASIDE -->
-    <aside class="flex-layout vertical">
+    <aside class="flex-layout vertical" opened>
       <!-- App Layout - ASIDE -->
       <div class="app-layout" fit>
 
+        <!-- Header -->
+        <header>
+          <!-- App Bar -->
+          <div class="app-bar fade-in">
+            <!-- Back Icon Button -->
+            <a href="account" role="icon-button" tabindex="0" class="icon-button" narrow-and-tablet-only>
+              <span class="material-icons icon">arrow_back_ios</span>
+            </a>
+
+            <!-- Title Wrapper -->
+            <div class="title-wrapper">
+              <h2 class="app-title"><?= $this->i18n->getString('orders') ?></h2>
+            </div>
+          </div>
+          <!-- End of App Bar -->
+        </header>
+        <!-- End of Header -->
+
         <!-- [content] -->
         <div content>
-          <!-- Container -->
-          <div class="container vertical flex-layout centered">
+
+          <!-- PHP (3): If the user is connected... -->
+          <?php if ($this->user->isConnected()): ?>
+          <!-- ...PHP (3): Show the [connected] container -->
+
+
+<!-- [connected] Container -->
+          <div class="container vertical flex-layout" connected>
           </div>
-          <!-- End of Container -->
+          <!-- End of [connected] Container -->
+
+          <?php else: ?><!-- PHP (4|else): If the user is not connected... -->
+          <!-- ...PHP (4): Show the [not-connected] container -->
+
+
+          <!-- Container -->
+          <div class="container vertical flex-layout centered" not-connected empty>
+            <span class="not-connected-doodle doodle"></span>
+            <h2 title><?= $this->i18n->getString('youAreNotConnected') ?></h2>
+            <p info><?= $this->i18n->getString('youAreNotConnectedMessage') ?></p>
+
+            <a href="login" class="button" tabindex="0" role="button" contained>
+              <?= $this->i18n->getString('login') ?>
+            </a>
+          </div>
+          <!-- End of [not-connected] Container -->
+
+          <?php endif; ?>
+          <!-- End of PHP (4) -->
+          
         </div>
+        <!-- End of [content] -->
 
       </div>
       <!-- End of App Layout - ASIDE -->
@@ -367,10 +412,10 @@
       <!-- Vertical Left - DIVIDER -->
       <span class="divider vertical left"></span>
     </aside>
-    <!-- End of ASIDE -->
+<!-- End of ASIDE -->
     
 
-    <!-- Backdrop -->
+<!-- Backdrop -->
     <div id="backdrop" fit hidden></div>
 
 
