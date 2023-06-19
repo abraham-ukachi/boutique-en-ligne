@@ -104,7 +104,8 @@ export class MaxaboomTranslator {
       'en': 'english',
       'fr': 'french',
       'es': 'spanish',
-      'ru': 'russian'
+        'ru': 'russian',
+        'it': 'italian'
     };
   }
 
