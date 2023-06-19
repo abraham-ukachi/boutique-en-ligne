@@ -48,8 +48,13 @@
 // declare the namespace of this models test
 namespace Maxaboom\Models\Helpers\Test;
 
+
+// require the autoloader
+require '../../../vendor/autoload.php';
+
+
 // require the `Database.php` file
-require '../Database.php';
+// require '../Database.php';
 
 
 // Create a shortcut of the `Maxaboom\Models\Helpers` namespace as `mmh` (i.e. m = maxaboom & m = models & h = helpers)
