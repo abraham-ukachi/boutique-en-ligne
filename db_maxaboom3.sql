@@ -170,7 +170,6 @@ CREATE TABLE IF NOT EXISTS `cards` (
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(11) UNSIGNED NOT NULL,
-  `created_at` datetime NOT NULL,
   `status` varchar(100) NOT NULL,
   `address_id` int(11) UNSIGNED NOT NULL,
   `card_id` int(11) UNSIGNED NOT NULL,
@@ -183,6 +182,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `delivery_amount` decimal(10,2) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
   `deleted_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL,
 
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
