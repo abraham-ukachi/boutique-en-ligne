@@ -37,15 +37,17 @@ So, we've decided to name our online shop 🥁... "**`MaxaBoom`**" (♾💥), an
 The following tables (including a couple of TRIGGERS) were created in our **`db_maxaboom.sql`** database:
 
 1. [*`users`*](#users---MySQL-Table): All currently registered users.
-2. [*`products`*](#products---MySQL-Table): All producs created by the seller or administrator.
-3. [*`categories`*](#categories---MySQL-Table): All categories of corresponding products.
-4. [*`sub_categories`*](#sub_categories---MySQL-Table): All sub-categories related to product categories.
-5. [*`tags`*](#tags---MySQL-Table): All tags applied to each product.
-6. [*`addresses`*](#addresses---MySQL-Table): All addresses of the registered users.
-7. [*`comments`*](#comments---MySQL-Table): All comments (or reviews) made by users (or reviews) on all products.
-8. [*`orders`*](#orders---MySQL-Table): All orders of users.
-9. [*`likes`*](#likes---MySQL-Table): All likes of corresponding products.
-10. [*`cart`*](#): The customers' cart
+2. [*`tags`*](#tags---MySQL-Table): All tags applied to each product.
+3. [*`addresses`*](#addresses---MySQL-Table): All addresses of registered users.
+4. [*`cards`*](#cards---MySQL-Table): All cards of registered users.
+5. [*`orders`*](#orders---MySQL-Table): All orders of users.
+6. [*`categories`*](#categories---MySQL-Table): All categories of corresponding products.
+7. [*`sub_categories`*](#sub_categories---MySQL-Table): All sub-categories related to product categories.
+8. [*`products`*](#products---MySQL-Table): All producs created by the seller or administrator.
+9. [*`orders_items`*](#orders_items---MySQL-Table): All items or specific orders.
+10. [*`comments`*](#comments---MySQL-Table): All comments (or reviews) made by users (or reviews) on all products.
+11. [*`likes`*](#likes---MySQL-Table): All likes of corresponding products.
+12. [*`cart`*](#): The customers' cart
 
 > NOTE: For more info, [read the Database section](#Database) of this *README*. 
 
@@ -282,24 +284,6 @@ This table has a [**one-to-many**](https://www.metabase.com/learn/databases/tabl
 > NOTE: 
 
 
-### `products` - MySQL Table
-
-This table has a [**many-to-one**](https://www.metabase.com/learn/databases/table-relationships#many-to-one-relationship) relationship with [*`categories`*](#`categories`---MySQL-Table) table.
-
-| No. | Name | Type | Length | Null | Default | Extra |
-|:----|:-----|:-----|:-------|:-----|:--------|:-------|
-| 1 | *`id`* 🔑  | **VARCHAR** | 30 | No | None | - |
-| 2 | *`category_id`* ⨁ | **TINYINT** | 10 | No | None | - |
-| 3 | *`author_id`* ⨁ | **INT** | 255 | No | None | - |
-| 4 | *`cover_image_id`* ⨁ | **INT** | 255 | No | None | - |
-| 5 | *`title`* | **VARCHAR** | 60 | No | None | - |
-| 6 | *`text`* | **TEXT** | 2000 | No | None | - |
-| 7 | *`likes`* | **INT** | 10 | Yes | NULL | - |
-| 8 | *`created_at`*   | **DATETIME** | - | Yes | NULL | - |
-| 9 | *`updated_at`*   | **DATETIME** | - | Yes | NULL | - |
-
-> NOTE:
-
 
 ### `addresses` - MySQL Table
 
@@ -307,14 +291,61 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
-| 1 | *`id`* 🔑 | **INT** | 255 | No | None | **AUTO_INCREMENT** | 
-| 2 | *`type`* | **VARCHAR** | 30 | No | None | - | 
-| 3 | *`address`* | **VARCHAR** | 255 | No | None | - | 
-| 4 | *`address_complement`* | **VARCHAR** | 255 | No | None | - | 
-| 5 | *`postal_code`* | **INT** | 30 | No | None | - | 
-| 6 | *`city`* | **VARCHAR** | 255 | No | None | - | 
-| 7 | *`country`* | **VARCHAR** | 255 | No | None | - | 
-| 8 | *`user_id`* | **INT** | 30 | No | None | - | 
+| 1 | *`id`* 🔑 | **INT** | 11 | No | None | **AUTO_INCREMENT** | 
+| 2 | *`title`* | **VARCHAR** | 100 | No | None | - | 
+| 3 | *`address`* | **VARCHAR** | 100 | No | None | - | 
+| 4 | *`address_complement`* | **VARCHAR** | 100 | Yes | *NULL* | - | 
+| 5 | *`postal_code`* | **INT** | 11 | No | None | - | 
+| 6 | *`city`* | **VARCHAR** | 100 | No | None | - | 
+| 7 | *`country`* | **VARCHAR** | 100 | No | None | - | 
+| 8 | *`user_id`* | **INT** | 11 | No | None | - | 
+| 9 | *`created_at`* | **DATETIME** | - | No | None | - | 
+| 10 | *`deleted_at`* | **DATETIME** | - | Yes | *NULL* | - | 
+
+> NOTE:
+
+
+### `cards` - MySQL Table
+
+| No. | Name | Type | Length | Null | Default | Extra |
+|:----|:-----|:-----|:-------|:-----|:--------|:-------|
+| 1 | *`id`* 🔑 | **INT** | 11 | No | None | **AUTO_INCREMENT** | 
+| 2 | *`type`* | **VARCHAR** | 100 | No | None | - | 
+| 3 | *`user_id`* | **INT** | 11 | No | None | - | 
+| 4 | *`card_no`* | **BIGINT** | 16 | No | None | - | 
+| 5 | *`expiry_month`* | **INT** | 2 | No | None | - | 
+| 6 | *`expiry_year`* | **INT** | 4 | No | None | - | 
+| 7 | *`cvv`* | **INT** | 4 | No | None | - | 
+| 8 | *`created_at`* | **DATETIME** | - | No | None | - | 
+| 9 | *`updated_at`* | **DATETIME** | - | Yes | *NULL* | - | 
+| 10 | *`deleted_at`* | **DATETIME** | - | Yes | *NULL* | - | 
+
+> NOTE: 
+
+
+
+### `orders` - MySQL Table
+
+| No. | Name | Type | Length | Null | Default | Extra |
+|:----|:-----|:-----|:-------|:-----|:--------|:-------|
+| 1 | *`id`* 🔑 | **INT** | 11 | No | None | **AUTO_INCREMENT** | 
+| 2 | *`user_id`* | **INT** | 11 | No | None | - | 
+| 3 | *`status`* | **VARCHAR** | 100 | No | None | - | 
+| 4 | *`address_id`* | **INT** | 11 | No | None | - | 
+| 5 | *`card_id`* | **INT** | 11 | No | None | - | 
+| 6 | *`delivery_method`* | **VARCHAR** | 100 | No | None | - | 
+| 7 | *`payment_method`* | **VARCHAR** | 100 | No | None | - | 
+| 8 | *`total`* | **DECIMAL** | 10,2 | No | None | - | 
+| 9 | *`discount_percentage`* | **INT** | 11 | No | None | - | 
+| 10 | *`total_discounted`* | **DECIMAL** | 10,2 | No | None | - | 
+| 11 | *`tax_amount`* | **DECIMAL** | 10,2 | No | None | - | 
+| 12 | *`delivery_amount`* | **DECIMAL** | 10,2 | No | None | - | 
+| 13 | *`total_price`* | **DECIMAL** | 10,2 | No | None | - | 
+| 14 | *`deleted_at`* | **DATETIME** | - | Yes | *NULL* | - | 
+| 15 | *`updated_at`* | **DATETIME** | - | Yes | *NULL* | - | 
+| 16 | *`created_at`* | **DATETIME** | - | No | None | - | 
+
+> NOTE:
 
 
 
@@ -338,6 +369,42 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 | 2 | *`name`* | **VARCHAR** | 255 | No | None | - |
 
 > NOTE:
+
+
+### `products` - MySQL Table
+
+This table has a [**many-to-one**](https://www.metabase.com/learn/databases/table-relationships#many-to-one-relationship) relationship with [*`categories`*](#`categories`---MySQL-Table) table.
+
+| No. | Name | Type | Length | Null | Default | Extra |
+|:----|:-----|:-----|:-------|:-----|:--------|:-------|
+| 1 | *`id`* 🔑  | **VARCHAR** | 30 | No | None | - |
+| 2 | *`category_id`* ⨁ | **TINYINT** | 10 | No | None | - |
+| 3 | *`author_id`* ⨁ | **INT** | 255 | No | None | - |
+| 4 | *`cover_image_id`* ⨁ | **INT** | 255 | No | None | - |
+| 5 | *`title`* | **VARCHAR** | 60 | No | None | - |
+| 6 | *`text`* | **TEXT** | 2000 | No | None | - |
+| 7 | *`likes`* | **INT** | 10 | Yes | NULL | - |
+| 8 | *`created_at`*   | **DATETIME** | - | Yes | NULL | - |
+| 9 | *`updated_at`*   | **DATETIME** | - | Yes | NULL | - |
+
+> NOTE:
+
+
+
+### `orders_items` - MySQL Table
+
+| No. | Name | Type | Length | Null | Default | Extra |
+|:----|:-----|:-----|:-------|:-----|:--------|:-------|
+| 1 | *`id`* 🔑 | **INT** | 11 | No | None | **AUTO_INCREMENT** | 
+| 2 | *`order_id`* | **INT** | 11 | No | None | - | 
+| 3 | *`product_id`* | **INT** | 11 | No | None | - | 
+| 4 | *`quantity`* | **INT** | 11 | No | None | - | 
+| 5 | *`unit_price`* | **DECIMAL** | 10,2 | No | None | - | 
+
+> NOTE:
+
+
+
 ### `tags` - MySQL Table
 > ⚠️  WARNING: This table may contain one or more TRIGGERs
 
