@@ -33,7 +33,6 @@
 *   1+|> // Insert a new order into `orders` table via PDO
 *    -|> 
 *    -|> $user_id = 1
-*    -|> $created_at = date('Y-m-d H:i:s'); // <- eg.: 2023-01-01 12:12:12
 *    -|> $status = 'pending'; 
 *    -|> $address_id = 2
 *    -|> $card_id = 3
@@ -45,6 +44,7 @@
 *    -|> $tax_amount = 25.00
 *    -|> $delivery_amount = 10.00
 *    -|> $total_price = 125.00
+*    -|> $created_at = date('Y-m-d H:i:s'); // <- eg.: 2023-01-01 12:12:12
 *    -|>
 *    -|> $query = <<<SQL
 *    -|>    INSERT INTO orders (
@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `dob` date DEFAULT NULL,
   `user_role` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
 
   PRIMARY KEY (`id`)
@@ -141,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
 
 /* 
   Example: 
-    INSERT INTO `cards` (type, user_id, card_no, expiry_month, expiry_year, CVV) 
+    INSERT INTO `cards` (type, user_id, card_no, expiry_month, expiry_year, cvv) 
     VALUES ('visa', 1, 123456789, 12, 2022, 123);
 */
 
@@ -149,12 +150,14 @@ CREATE TABLE IF NOT EXISTS `cards` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `type` varchar(100) NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
-  `card_no` bigint(11) NOT NULL,
-  `expiry_month` int(11) NOT NULL,
-  `expiry_year` int(11) NOT NULL,
-  `CVV` int(11) NOT NULL,
+  `card_no` bigint(16) NOT NULL,
+  `expiry_month` int(2) NOT NULL,
+  `expiry_year` int(4) NOT NULL,
+  `cvv` int(4) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
-
+  
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
