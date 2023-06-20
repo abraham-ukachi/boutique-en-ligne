@@ -112,8 +112,8 @@ endif;
 // ===================== TEST #2 ========================
 // ================[ CREATE A NEW ORDER ]================
 // ======================================================
-// example 1: php orders_model.php create <orderId> <userId> <orderStatus> <addressId> <cardId> <paymentMethod> <deliveryMethod>
-// example 2: php orders_model.php create 123456789 1 pending 1 2 visa standard
+// example 1: php order_model.php create <orderId> <userId> <orderStatus> <addressId> <cardId> <paymentMethod> <deliveryMethod>
+// example 2: php order_model.php create 123456789 1 pending 1 2 visa standard
 // ------------------------------------------------------
 
 if ($hasTestArg && in_array($testArg, ['create', 'test2'])) :
@@ -235,8 +235,8 @@ endif;
 // ================== TEST #3 ====================
 // =============[ FIND AN ORDER ]================
 // ===============================================
-// example 1: php orders_model.php find <orderId>
-// example 2: php orders_model.php find 123456789
+// example 1: php order_model.php find <orderId>
+// example 2: php order_model.php find 123456789
 // ------------------------------------------------
 
 if ($hasTestArg && in_array($testArg, ['find', 'test3'])) :
