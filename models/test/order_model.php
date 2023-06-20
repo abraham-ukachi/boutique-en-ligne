@@ -134,15 +134,15 @@ if ($hasTestArg && in_array($testArg, ['create', 'test2'])) :
   $deliveryMethod = isset($argv[8]) ? $argv[8] : 'standard'; // <- other delivery method examples: 'express' | 'premium' | 'standard'
 
   // create the `total` price variable
-  $total = 100.00;
+  $total = $faker->numerify('####.##');
   // create a discount percentage variable
-  $discountPercentage = 10;
+  $discountPercentage = $faker->numerify('##');
   // create a total discounted variable
   $totalDiscounted = round($total - ($total * ($discountPercentage / 100)), 2); // <- eg.: round(100 - (100 * (10 / 100)), 2) = 90.00 
   // create a `taxAmount` variable
-  $taxAmount = 25.00;
+  $taxAmount = $faker->numerify('##.##');
   // create a `deliveryAmount` variable
-  $deliveryAmount = 10.00;
+  $deliveryAmount = $faker->numerify('##.##');
   // create a `totalPrice` variable
   $totalPrice = round($totalDiscounted + $taxAmount + $deliveryAmount, 2); // <- eg.: 90.00 + 25.00 + 10.00 = 125.00
 
