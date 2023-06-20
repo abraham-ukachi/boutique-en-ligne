@@ -130,6 +130,8 @@ class Order extends Model {
     'tax_amount',
     'delivery_amount',
     'total_price',
+    'deleted_at',
+    'updated_at',
     'created_at'
   ];
 
@@ -162,10 +164,6 @@ class Order extends Model {
 
   // private properties
 
-  
-
-
-
 
 
 
@@ -193,8 +191,16 @@ class Order extends Model {
     // convert timestamp from binary to hexadecimal value & stringify the number
     $hexTimestamp = strval(bin2hex($timestamp));
 
-    // IDEA: Use the last 9 numbers from `hexTimestamp` as the randomly generated order id
-    return (int)substr($hexTimestamp, -9, 9);
+    // get the last 9 numbers from the hexadecimal timestamp as `last9`
+    $last9 = (int) substr($hexTimestamp, -9);
+    // pad `last9` with zeros to make it 9 digits long
+    $result = str_pad(strval($last9), 9, '0', STR_PAD_RIGHT);
+
+    // DEBUG [4dbsmaster]: tell me about it ;)
+    // printf("hexTimestamp =>>> %s & result ==> %s", $hexTimestamp, $result);
+
+    // return the result as an integer
+    return (int) $result;
   }
 
 
