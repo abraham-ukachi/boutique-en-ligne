@@ -59,7 +59,7 @@
 *    -|> ]);
 *
 *
- */
+*/
 
 
 // declare the namespace for this `Order` class
@@ -147,7 +147,7 @@ class Order extends Model {
   public ?float $total = null;
   public ?int $discount_percentage = null;
   public ?float $total_discounted = null;
-  public ?int $tax_amount = null;
+  public ?float $tax_amount = null;
   public ?float $delivery_amount = null;
   public ?float $total_price = null;
   public ?string $created_at = null;
