@@ -140,7 +140,7 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 44 | *`Admin - Route`* | **admin-route.php** | [Done](./routes/admin-route.php)\* | 
 | 45 | *`Account - Route`* | **account-route.php** | [Done](./routes/account-route.php)\* | 
 | 46 | *`Cart - Route`* | **cart-route.php** | [Done](./routes/cart-route.php)\* | 
-| 47 | *`Order Item - Model`* | **OrderItem.php** | *_In progress_* | 
+| 47 | *`Order Item - Model`* | **OrderItem.php** | [Done](./models/OrderItem.php)\* | 
 
 > WARNING: This list is a working progress and will change soon
 
