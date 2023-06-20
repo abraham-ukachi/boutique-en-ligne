@@ -42,7 +42,7 @@
 
 
 // declare the namespace of this models test
-namespace App\Model\Test;
+namespace Maxaboom\Models\Test;
 
 
 // ==== Display all PHP errors and warnings ====
@@ -112,43 +112,44 @@ endif;
 // ===================== TEST #2 ========================
 // ================[ CREATE A NEW ORDER ]================
 // ======================================================
-// example 1: php orders_model.php create <userId> <orderStatus> <addressId> <cardId> <paymentMethod> <deliveryMethod>
-// example 2: php orders_model.php create 123456789 pending 1 2 visa standard
+// example 1: php orders_model.php create <orderId> <userId> <orderStatus> <addressId> <cardId> <paymentMethod> <deliveryMethod>
+// example 2: php orders_model.php create 123456789 1 pending 1 2 visa standard
 // ------------------------------------------------------
 
 if ($hasTestArg && in_array($testArg, ['create', 'test2'])) :
-  // get the 2nd argument variable as `userId`
-  $userId = isset($argv[2]) ? $argv[2] : 1;
-  // get the 3rd argument variable as `status`
-  $status = isset($argv[3]) ? $argv[3] : 'pending';
-  // get the 4th argument variable as `addressId`
-  $addressId = isset($argv[4]) ? $argv[4] : 1;
-  // get the 5th argument variable as `cardId`
-  $cardId = isset($argv[5]) ? $argv[5] : 1;
-  // get the 6th argument variable as `paymentMethod`
-  $paymentMethod = isset($argv[6]) ? $argv[6] : 'visa'; // <- other payment method examples: 'paypal' | 'stripe' | 'mastercard'
-  // get the 7th argument variable as `deliveryMethod`
-  $deliveryMethod = isset($argv[7]) ? $argv[7] : 'standard'; // <- other delivery method examples: 'express' | 'premium' | 'standard'
+  // get the 2nd argument variable as `orderId`
+  $orderId = isset($argv[2]) ? $argv[2] : Order::generateId();
+
+  // get the 3rd argument variable as `userId`
+  $userId = isset($argv[3]) ? $argv[3] : 1;
+  // get the 4th argument variable as `status`
+  $status = isset($argv[4]) ? $argv[4] : 'pending';
+  // get the 5th argument variable as `addressId`
+  $addressId = isset($argv[5]) ? $argv[5] : 1;
+  // get the 6th argument variable as `cardId`
+  $cardId = isset($argv[6]) ? $argv[6] : 1;
+  // get the 7th argument variable as `paymentMethod`
+  $paymentMethod = isset($argv[7]) ? $argv[7] : 'visa'; // <- other payment method examples: 'paypal' | 'stripe' | 'mastercard'
+  // get the 8th argument variable as `deliveryMethod`
+  $deliveryMethod = isset($argv[8]) ? $argv[8] : 'standard'; // <- other delivery method examples: 'express' | 'premium' | 'standard'
 
   // create the `total` price variable
   $total = 100.00;
   // create a discount percentage variable
   $discountPercentage = 10;
   // create a total discounted variable
-  $totalDiscounted = $total - ($total * ($discountPercentage / 100)); // <- eg.: round(100 - (100 * (10 / 100)), 2) = 90.00 
+  $totalDiscounted = round($total - ($total * ($discountPercentage / 100)), 2); // <- eg.: round(100 - (100 * (10 / 100)), 2) = 90.00 
   // create a `taxAmount` variable
   $taxAmount = 25.00;
   // create a `deliveryAmount` variable
   $deliveryAmount = 10.00;
   // create a `totalPrice` variable
-  $totalPrice = $totalDiscounted + $taxAmount + $deliveryAmount; // <- eg.: 90.00 + 25.00 + 10.00 = 125.00
+  $totalPrice = round($totalDiscounted + $taxAmount + $deliveryAmount, 2); // <- eg.: 90.00 + 25.00 + 10.00 = 125.00
 
-  // generate a random id
-  $generatedOrderId = Order::generateId();
 
   // create a new order with the fake data
   $newOrder = Order::create([
-    'id' => $generatedOrderId,
+    'id' => $orderId,
     'user_id' => $userId, 
     'status' => $status, 
     'address_id' => $addressId, 
@@ -212,7 +213,7 @@ if ($hasTestArg && in_array($testArg, ['create', 'test2'])) :
     file_put_contents('order_create.log', $log, FILE_APPEND);
 
     // DEBUG [4dbsmaster]: tell me about the new order
-    printf("\n\x1b[2m\x1b[33m[ORDER-MODEL](TEST2|CREATE): order No. (\x1b[0m\x1b[4m\x1b[33m%d\x1b[0m\x1b[2m\x1b[33m) and status (\x1b[0m\x1b[4m\x1b[33m%s\x1b[0m\x1b[2m\x1b[33m) w/ totalPrice: \x1b[0m\x1b[1m%f\x1b[2m\x1b[33m, etc... have been added to the database successfully :) \x1b[0m\n", $orderId, $status, $totalPrice);
+    printf("\n\x1b[2m\x1b[33m[ORDER-MODEL](TEST2|CREATE): order No. (\x1b[0m\x1b[4m\x1b[33m%d\x1b[0m\x1b[2m\x1b[33m) and status (\x1b[0m\x1b[4m\x1b[33m%s\x1b[0m\x1b[2m\x1b[33m) w/ totalPrice: \x1b[0m\x1b[1m%10.2f\x1b[2m\x1b[33m, etc... have been added to the database successfully :) \x1b[0m\n", $orderId, $status, $totalPrice);
 
   } else { // <- error creating new order
 
@@ -304,7 +305,7 @@ if ($hasTestArg && in_array($testArg, ['find', 'test3'])) :
 
 
   // save the `$log` in a `order_find_one.log` file
-  file_put_contents('order_find.log', $log, FILE_APPEND);
+  file_put_contents('order_get.log', $log, FILE_APPEND);
 
 endif; 
 // <- ========[ End of Test #3 ]===========
