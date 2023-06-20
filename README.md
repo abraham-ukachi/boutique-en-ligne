@@ -117,7 +117,7 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 21 | *`Payment - Controller`* | **PaymentController.php** | Pending | 
 | 22 | *`Address - Controller`* | **AddressController.php** | Pending | 
 | 23 | *`User - Model`* | **User.php** | [Done](./models/User.php)\* | 
-| 24 | *`Order - Model`* | **Order.php** | *_In progress_* | 
+| 24 | *`Order - Model`* | **Order.php** | [Done](./models/Order.php)\* | 
 | 25 | *`Review - Model`* | **Review.php** | [Done](./models/Review.php)\* | 
 | 26 | *`Product - Model`* | **Product.php** | [Done](./models/Product.php)\* | 
 | 27 | *`Cart - Model`* | **Cart.php** | [Done](./models/Cart.php)\* | 
@@ -140,6 +140,7 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 44 | *`Admin - Route`* | **admin-route.php** | [Done](./routes/admin-route.php)\* | 
 | 45 | *`Account - Route`* | **account-route.php** | [Done](./routes/account-route.php)\* | 
 | 46 | *`Cart - Route`* | **cart-route.php** | [Done](./routes/cart-route.php)\* | 
+| 47 | *`Order Item - Model`* | **OrderItem.php** | Pending | 
 
 > WARNING: This list is a working progress and will change soon
 
