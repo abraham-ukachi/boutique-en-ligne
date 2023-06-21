@@ -1,36 +1,200 @@
-.input-wrapper small {
-    position: absolute;
-    left: 0;
-    font-family: 'Nunito', sans-serif;
-    visibility: hidden;
+/* 
+* @license
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software. 
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @name: Login Styles
+* @type: Stylesheet
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+*
+* Example usage:
+*
+*  1+|> // 
+*   -|>
+*
+*
+*/
+
+/* ==== IMPORTS ==== */
+/* @import 'color.css'; */
+/* @import 'typography.css'; */
+/* @import '../animations/fade-in-animation.css'; */
+/* @import '../animations/slide-from-down-animation.css'; */
+
+
+
+/* ==== LOGIN PAGE STYLES ==== */
+
+:root {}
+
+.theme.light {}
+
+
+.theme.dark {}
+
+
+.login-doodle {
+  --empty-doodle-image: url('../images/3d/login.png');
+  --empty-doodle-opacity: 0.1; 
+  --empty-doodle-size-bigger: 300px;
 }
 
-.input-wrapper.error small {
-    visibility: visible;
-    color: #e74c3c;
+
+#loginButton {
+  --spinner-size: 32px;
+  --spinner-color: var(--on-primary-container-color);
+
+  margin-top: 24px;
+  min-height: 48px;
 }
 
-.input-wrapper.success input {
-    border-color: #2ecc71;
+#loginButton > .spinner {
+  display: none;
+  margin: 0 auto;
 }
 
-.input-wrapper.error input {
-    border-color: #e74c3c;
+#loginButton.loading {
+  pointer-events: none;
+  opacity: 0.9;
 }
 
-.input-wrapper i {
-    position: absolute;
-    top: 36px;
-    right: 10px;
-    visibility: hidden;
+
+#loginButton.loading > *:not(.spinner) {
+  display: none;
 }
 
-.input-wrapper.success i.fa-check-circle {
-    visibility: visible;
-    color: #2ecc71;
+#loginButton.loading > .spinner {
+  display: block;
 }
 
-.input-wrapper.error i.fa-exclamation-circle {
-    visibility: visible;
-    color: #e74c3c;
+
+.app-bar a.title-wrapper {
+  flex: initial;
+  color: inherit;
+  opacity: var(--opacity-text-disabled);
+  text-decoration-color: var(--primary-color);
+  text-underline-offset: 20px;
 }
+
+.app-bar h2.app-title {
+  overflow: visible;
+}
+
+.app-bar a.title-wrapper:hover {
+  opacity: var(--opacity-text-active);
+}
+
+.app-bar a.title-wrapper[active] {
+  opacity: 1;
+  pointer-events: none;
+  text-decoration: underline;
+}
+
+
+.app-bar .app-logo {
+  --app-logo-color: var(--primary-color);
+}
+
+.app-bar .app-name {
+  --app-name-color: var(--primary-color);
+  align-self: start;
+}
+
+
+
+/* 
+ * --> Narrow - Device <--
+ * Phone: ? (Responsive)
+ * Dimension: ~460px (width)
+ *
+ * ***************************************
+ * when the viewport is lesser than 460px,
+ * layout changes to a narrow-layout.
+ * ***************************************
+ */
+
+
+
+
+/* ===[ {{CSS-RULE}} ]=== */
+
+
+/* ---[ End of {{CSS-RULE}} ]--- */
+
+
+
+
+
+
+/* 
+ * --> Wide - Layout <--
+ * Phone: ? (Responsive)
+ * Dimension: 460px+ (width)
+ *
+ * ***************************************
+ * when the viewport is bigger than 460px,
+ * layout changes to wide-layout.
+ * ***************************************
+ */
+@media (min-width: 460px) {    
+  
+  .login-doodle {
+    --empty-doodle-size-bigger: 400px;
+  }
+
+}
+
+
+@media (min-width: 768px) {
+
+  .login-doodle {
+    --empty-doodle-size-bigger: 512px;
+  }
+}
+
+
+
+
+
+/* 
+ * --> Tablet - Device <--
+ * Phone: ? (Responsive)
+ * Width: 768px <-to-> 1024px
+ */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+}
+
+
+/* 
+ * --> Laptop - Device <--
+ * Phone: ? (Responsive)
+ * Width: 1024px <-to-> 2560px
+ */
+@media (min-width: 1024px) and (max-width: 2560px) {
+
+}
+
+
+/* ==== END of LOGIN STYLES ==== */
+

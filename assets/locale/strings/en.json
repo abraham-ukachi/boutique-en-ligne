@@ -1,6 +1,10 @@
 {
   "appName": "Maxaboom",
   "appDescription": "Maxaboom is a free, open source, and easy to use web app that allows you to discover and buy your perfect musical instrument.",
+  "appDescription2": "Maxaboom is a fun and dynamic online store that offers a wide variety of musical instruments and accessories. From guitars and drums to keyboards, microphones and trumpets.",
+  
+  "welcomeMessage": "Welcome to Maxaboom | The #1 online store for all your musical needs",
+
   "abrahamUkachi": "Abraham Ukachi",
   "axelVair": "Axel Vair",
   "morganeMarechal": "Morgane Marechal",
@@ -47,6 +51,15 @@
   "cart": "Cart",
 
   "loginHint": "connect to your Maxaboom account",
+
+  "loginSuccessful": "Login successful 😃",
+
+  "loginFailed": "Login failed 😢",
+  "loginFailedMessage": "Please recheck your email and password and try again. Note that both fields may be case-sensitive.",
+
+  "tryAgain": "Try again",
+
+  "clearForm": "Clear form",
   "authHint": "Login / Register",
   "profileHint": "Your Profile",
 
@@ -109,7 +122,7 @@
 
   "errorLogout": "Failed to log out",
   "successLogout": "Logged out successfully",
-
+    
   "errorDeleteAccount": "Failed to delete account",
   "successDeleteAccount": "Account deleted successfully",
 
@@ -125,6 +138,46 @@
   "firstName": "First name",
   "lastName": "Last name",
   "email": "Email",
+
+  "emailTooLong": "Email is too long",
+  "emailTooShort": "Email is too short",
+
+  "yourEmailTooLong": "Your email is too long",
+  "yourEmailTooShort": "Your email is too short",
+
+  "emailValid": "Email is valid",
+  "emailInvalid": "Email is invalid",
+  "yourEmailInvalid": "Your email is invalid",
+  "pleaseEnterAValidEmail": "Please enter a valid email address",
+  "pleaseEnterAnEmail": "Please enter an email address",
+
+  "passwordTooShort": "Password is too short",
+  "passwordTooLong": "Password is too long",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "passwordsMatch": "Passwords match",
+
+  "passwordValid": "Password is valid",
+  "passwordInvalid": "Password is invalid",
+  "passwordNoUppercase": "Password must contain at least one uppercase letter",
+
+  "passwordNoLowercase": "Password must contain at least one lowercase letter",
+
+  "passwordNoNumber": "Password must contain at least one number",
+
+  "passwordNoSpecialCharacter": "Password must contain at least one special character",
+
+  "firstNameTooShort": "First name is too short",
+  "firstNameTooLong": "First name is too long",
+  "firstNameValid": "First name is valid",
+  "firstNameInvalid": "First name is invalid",
+    
+  "firstNameSpecialChars": "First name cannot contain special characters",
+
+  "lastNameTooShort": "Last name is too short",
+  "lastNameTooLong": "Last name is too long",
+  "lastNameValid": "Last name is valid",
+  "lastNameInvalid": "Last name is invalid",
+  "lastNameSpecialChars": "Last name cannot contain special characters",
 
   "youAreNotConnected": "You are not connected",
   "youAreNotConnectedMessage": "You must be connected to access this page. If you think this message is wrong, please contact us.",

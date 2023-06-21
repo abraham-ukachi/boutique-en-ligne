@@ -327,15 +327,7 @@ abstract class Model extends Database implements ModelInterface {
     return $instance;
   }
 
-  
-  // PUBLIC STATIC SETTERS
 
-  // PUBLIC STATIC GETTERS
-  
-  
-  
-  // PRIVATE STATIC METHODS
-  
   /**
    * Verifies the given `$params` argument
    * NOTE: This method will throw an exception if the `$params` argument is invalid.
@@ -345,7 +337,7 @@ abstract class Model extends Database implements ModelInterface {
    *
    * @return bool 
    */
-  private static function verifyParams(array $params, self $instance): bool {
+  public static function verifyParams(array $params, self $instance): bool {
     // Initialize the `result` variable 
     $result = true;
     
@@ -370,6 +362,13 @@ abstract class Model extends Database implements ModelInterface {
   }
 
 
+  // PUBLIC STATIC SETTERS
+
+  // PUBLIC STATIC GETTERS
+  
+  
+  
+  // PRIVATE STATIC METHODS
 
   // PRIVATE STATIC SETTERS
 
@@ -653,7 +652,7 @@ abstract class Model extends Database implements ModelInterface {
     // add the where clause to the `$update_sql` query string
     $update_sql .= " WHERE `$this->primaryKey` = :$this->primaryKey";
 
-    var_dump($update_sql);
+    // var_dump($update_sql);
 
     // Prepare the sql query as a PDO statement (i.e. $stmt)
     $stmt = $this->pdo->prepare($update_sql);

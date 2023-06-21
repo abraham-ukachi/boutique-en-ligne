@@ -224,6 +224,12 @@
   display: none !important;
 }
 
+[invisible] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
 /* Disabled */
 [disabled] {
   --nav-link-opacity: var(--opacity-icon-disabled);
@@ -508,7 +514,7 @@ header[sticky-enabled] {
 /* Nav Labels of NavBar */
 #navBar .nav-label, nav-bar .nav-label {
   font-size: var(--nav-bar-label-size, 0.7rem);
-  margin-top: -4px
+  margin-top: -4px;
 }
 
 
@@ -595,6 +601,26 @@ span.app-logo {
   -webkit-mask-size: cover;
   -moz-mask-size: cover;
   mask-size: cover;
+}
+
+
+/* App Name | SPAN */
+span.app-name {
+  display: block;
+  position: relative;
+  width: var(--app-name-width, 100px);
+  height: var(--app-name-height, 24px);
+  background-color: var(--app-name-color, var(--on-background-color));
+  opacity: var(--app-name-opacity, inherit);
+  transform: scale(var(--app-name-scale, 1.25));
+  transform-origin: left;
+  -webkit-mask: url('../../assets/logos/logo-name.svg') no-repeat 50% 50%;
+  -moz-mask: url('../../assets/logos/logo-name.svg') no-repeat 50% 50%;
+  mask: url('../../assets/logos/logo-name.svg') no-repeat 50% 50%;
+
+  -webkit-mask-size: contain;
+  -moz-mask-size: contain;
+  mask-size: contain;
 }
 
 
@@ -786,7 +812,7 @@ a[active] .icon-button, a[role="icon-button"][active] {
   height: var(--empty-doodle-size, 200px);
   background-color: inherit;
   margin-top: -48px;
-  background-image: var(--empty-doodle-image, url('../images/doodles/doodle-todolist-empty.svg'));
+  background-image: var(--empty-doodle-image, url('../images/doodles/doodle.svg'));
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -800,12 +826,12 @@ a[active] .icon-button, a[role="icon-button"][active] {
 
   opacity: var(--empty-doodle-opacity, var(--opacity-md-icon-inactive));
 
-  -webkit-mask-image: var(--empty-doodle-image, url('../images/doodles/doodle-todolist-empty.svg'));
+  -webkit-mask-image: var(--empty-doodle-image, url('../images/doodles/doodle-outline.svg'));
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-size: cover;
 
-  mask-image: var(--empty-doodle-image, url('../images/doodles/doodle-todolist-empty.svg'));
+  mask-image: var(--empty-doodle-image, url('../images/doodles/doodle-outline.svg'));
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: cover;
@@ -1946,6 +1972,13 @@ ul.select-list li[selected] {
   }
 
 }
+
+@media (max-width: 460px) {
+  [tablet-and-wide-only], [tablet-and-desktop-only] {
+    display: none !important;
+  }
+}
+
 
 /* 
  * --> Narrow + Tablet - Layout <--

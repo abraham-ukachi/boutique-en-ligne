@@ -42,7 +42,7 @@
 
 
 // declare the namespace of this models test
-namespace App\Model\Test;
+namespace Maxaboom\Models\Test;
 
 
 // ==== Display all PHP errors and warnings ====
@@ -61,8 +61,8 @@ date_default_timezone_set('Europe/Paris');
 session_start();
 
 
-// use the `User` models as `UsersModel` 
-use Maxaboom\Models\User as UsersModel;
+// use the `User` model
+use Maxaboom\Models\User;
 use Faker\Factory;
 
 // use some PHP core classes
@@ -70,12 +70,12 @@ use Faker\Factory;
 // use pdoexception;
 
 
-// Create an object of the `UsersModel` class as `usersModel`
-$usersModel = new UsersModel();
+// Create an object of the `User` class as `usersModel`
+$usersModel = new User();
 $faker = Factory::create('fr_FR'); // <- use the factory to create a Faker\Generator instance named `$faker`
 
 // DEBUG [4dbsmaster]: tell me about it ;)
-printf("\n\x1b[34m[UsersModel - Test]: Welcome 👋🏽 !!!\x1b[0m\n");
+printf("\n\x1b[34m[User - Test]: Welcome 👋🏽 !!!\x1b[0m\n");
 
 
 
@@ -100,7 +100,7 @@ if ($hasTestArg && in_array($testArg, ['findAll', 'test1'])) :
   $allUsers = $usersModel->displayUsers();
   
   // print the list of all users
-  printf("\n\x1b[33m[UsersModel - Test]: Here's a list of all users:\x1b[0m\n");
+  printf("\n\x1b[33m[User - Test]: Here's a list of all users:\x1b[0m\n");
 
   print_r($allUsers);
     
@@ -111,9 +111,12 @@ endif;
 
 
 
-// ===================== TEST #2 ========================
-// ================[ CREATE A NEW USER ]=================
-// ======================================================
+// =========================== TEST #2 ===============================
+// =====================[ CREATE A NEW USER ]=========================
+// ===================================================================
+// @example 1: php user_model_test create <userRole> <email> <password>
+// @example 2: php user_model_test create customer <email> <password>
+// ------------------------------------------------------
 
 if ($hasTestArg && in_array($testArg, ['create', 'createUser', 'test2'])) :
 
@@ -123,17 +126,26 @@ if ($hasTestArg && in_array($testArg, ['create', 'createUser', 'test2'])) :
   // generate some fake user data with a unique email
   $firstName = $faker->firstName();
   $lastName = $faker->lastName();
-  $email = $faker->email();
-  $password = $faker->password();
+  $email = isset($argv[3]) ? $argv[3] : $faker->email();
+  $password = isset($argv[4]) ? $argv[4] : $faker->password();
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
   
   // create a new user with the fake data
-  $newUser = $usersModel->createUser($firstName, $lastName, $email, $hashedPassword, null, $userRole);
+  // $newUser = $usersModel->createUser($firstName, $lastName, $email, $hashedPassword, null, $userRole);
+
+  $newUser = User::create([
+    'firstname' => $firstName,
+    'lastname' => $lastName,
+    'mail' => $email,
+    'password' => $hashedPassword,
+    'user_role' => $userRole
+  ]);
+  
 
   // If a new user was created...
-  if ($newUser) {
+  if ($newUser->exists()) {
     // ...IDEA: log this user in a `test2.log` file
-
+    
     // Create a `log` string variable
     $log = sprintf(<<<LOG
     
@@ -149,7 +161,7 @@ if ($hasTestArg && in_array($testArg, ['create', 'createUser', 'test2'])) :
 
     LOG,
 
-    -1,
+    $newUser->id,
     $email,
     $firstName,
     $lastName,
@@ -163,7 +175,7 @@ if ($hasTestArg && in_array($testArg, ['create', 'createUser', 'test2'])) :
     file_put_contents('test2.log', $log, FILE_APPEND);
 
     // DEBUG [4dbsmaster]: tell me about the new user
-    printf("\n\x1b[2m\x1b[33m[USERS-MODEL](TEST2|CREATE): email (\x1b[0m\x1b[4m\x1b[33m%s\x1b[0m\x1b[2m\x1b[33m) and password (\x1b[0m\x1b[4m\x1b[33m%s\x1b[0m\x1b[2m\x1b[33m) of \x1b[0m\x1b[1m%s\x1b[2m\x1b[33m have been added to the database successfully :) \x1b[0m\n", $email, $password, $firstName . ' ' . $lastName);
+    printf("\n\x1b[2m\x1b[33m[USERS-MODEL](TEST2|CREATE): newUser->id (\x1b[0;4;33m%d\x1b[0;2;33m) & email (\x1b[0m\x1b[4m\x1b[33m%s\x1b[0m\x1b[2m\x1b[33m) and password (\x1b[0m\x1b[4m\x1b[33m%s\x1b[0m\x1b[2m\x1b[33m) of \x1b[0m\x1b[1m%s\x1b[2m\x1b[33m have been added to the database successfully :) \x1b[0m\n", $newUser->id, $email, $password, $firstName . ' ' . $lastName);
 
   } else { // <- error creating new user
 
@@ -301,7 +313,11 @@ if ($hasTestArg && in_array($testArg, ['connect', 'test4'])) :
     // ...try to connect the user
     try {
       // connect the user
-      $user = $usersModel->connection($userEmail, $userPassword);
+      // $user = $usersModel->connection($userEmail, $userPassword);
+      $user = User::connect([
+        'mail' => $userEmail,
+        'password' => $userPassword
+      ]);
 
       // user is connected if `user` is not FALSE
       $userIsConnected = $user !== false;
@@ -312,7 +328,7 @@ if ($hasTestArg && in_array($testArg, ['connect', 'test4'])) :
         printf("\n\x1b[2m\x1b[33m[USERS-MODEL](TEST4|CONNECT): \x1b[0m\x1b[33mUser with email (\x1b[0m\x1b[4m\x1b[33m%s\x1b[0m\x1b[2m\x1b[33m) is connected :) \x1b[0m\n", $userEmail);
 
         // print the user
-        print_r($user);
+        print_r($user->info());
 
         // update the `$log` 
         $log = sprintf(<<<LOG
@@ -369,6 +385,100 @@ endif;
 
 
 
+
+// ================== TEST #5 =======================
+// ===========[ SAVE USER PROPERTY  ]================
+// ==================================================
+// @example: php user_model.php save 1 mail <new_mail>
+// --------------------------------------------------
+
+// If there's a test argument and get `where` or `test5`...
+if ($hasTestArg && in_array($testArg, ['save', 'test5'])) :
+
+  // get the 2nd argument variable as `userId`
+  $userId = isset($argv[2]) ? $argv[2] : '';
+
+  // get the 3rd argument variable as `propName`
+  $propName = isset($argv[3]) ? $argv[3] : '';
+
+  // get the 4th argument variable as `propValue`
+  $propValue = isset($argv[4]) ? $argv[4] : '';
+
+  
+  // Initialize a `log` variable
+  $log = sprintf(<<<LOG
+  
+  ==== "[ID NOT Provided]" ====
+  id: ???
+  date_time: %s
+  ======================
+  
+  LOG, date('Y-m-d H:i:s'));
+
+
+  // If the `userId` is not empty...
+  if (!empty($userId)) {
+    // ...find the user with the `userId`
+    $user = User::find($userId);
+
+    
+    // if a user was found...
+    if ($user->id) {
+
+      // ...change the `propName` property to `propValue`
+      $user->$propName = $propValue;
+
+      // save the changes
+      $user->save();
+
+      // DEBUG [4dbsmaster]: tell me about the user
+      printf("\n\x1b[2m\x1b[33m[USER-MODEL](TEST5|SAVE): The user with id [%d] has a new $propName: (\x1b[0m\x1b[4m\x1b[33m%s\x1b[0m\x1b[2m\x1b[33m):\x1b[0m\n", $user->id, $user->$propName);
+    
+      // Update the `$log`
+      $log = sprintf(<<<LOG
+      
+      ==== "[User %s Saved]" ====
+      id: %s
+      %s: %s
+      mail: %s
+      date_time: %s
+      ========================
+
+      LOG, $propName, $user->id, $propName, $propValue, $user->mail, date('Y-m-d H:i:s'));
+      
+    } else { // <- no user found with the given `userId`
+      
+      // DEBUG [4dbsmaster]: tell me about the error
+      printf("\n\x1b[2m\x1b[34m[USER-MODEL](TEST5|SAVE): \x1b[0m\x1b[34mNo user found with that id (\x1b[0m\x1b[4m\x1b[34m%s\x1b[0m\x1b[2m\x1b[34m) :( \x1b[0m\n", $userId);
+       
+      // Update the `$log`
+      $log = sprintf(<<<LOG
+      
+      ==== "[User NOT Found]" ====
+      id: %s
+      date_time: %s
+      ======================
+
+      LOG, $userId, date('Y-m-d H:i:s'));
+
+    }
+
+
+  } else { // <- no user id provided
+
+    // TEST [4dbsmaster]: tell me about the error
+    printf("\n\x1b[2m\x1b[31m[USER-MODEL](TEST5|SAVE): \x1b[0m\x1b[31mUser Id not provided :( \x1b[0m\n");
+
+  }
+
+
+  // Append this `log` in a `user_model_find.log` file
+  file_put_contents('logs/user_model_save.log', $log, FILE_APPEND);
+
+
+  
+endif;
+// <- ========[ End of Test #5 / save ]===========
 
 
 

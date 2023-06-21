@@ -25,7 +25,7 @@
 *
 * @project boutique-en-ligne (maxaboom)
 * @name User - Model
-* @test test/user.php
+* @test test/user_model.php
 * @file User.php
 * @author: Morgane Marechal <morgane.marechal@laplateforme.io>
 * @contributors: Abraham Ukachi <abraham.ukachi@laplateforme.io>, Axel Vair <axel.vair@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
@@ -33,10 +33,41 @@
 * 
 * Example usage:
 *   
-*   1+|> // Get all users
+*   1+|> // Create a new user
 *    -|>
-*    -|> 
+*    -|> $user = User::create([
+*    -|>   'firstname' => 'John',
+*    -|>   'lastname' => 'Doe',
+*    -|>   'mail' => 'john.doe@gmail.com',
+*    -|>   'password' => '********',
+*    -|>   'dob' => '1990-01-01',
+*    -|>   'user_role' => 'customer'
+*    -|> ]);
+*    -|>
+*   o=|> echo $user->id; // 69
+*    -|>
+*
+*   2+|> // Find a user by id
+*    -|>
+*    -|> $user = User::find(69);
+*    -|>
+*   o=|> echo $user->firstname; // John
+*    -|>
+*
+*
+*   3+|> // Connect a user
+*    -|>
+*    -|> $user = User::connect([
+*    -|>   'mail' => 'abraham.ukachi@laplateforme.io',
+*    -|>   'password' => '********'
+*    -|> ]);
+*    -|>
+*   o=|> if($user){
+*    -|>   echo $user->firstname; // Abraham
+*    -|> }
+*    -|>
 */
+
 
 
 // declare a namespace for this User class
@@ -44,56 +75,211 @@ namespace Maxaboom\Models;
 
 
 // use these classes
-use Maxaboom\Models\Helpers\Database;
 use datetime;
 use PDO;
 use PDOException;
 
 
-// create a User class that extends the Database class
-class User extends Database
-{
+/**
+ * Class User / User Model
+ * A class that represents the `users` table in the database.
+ */
+class User extends Model {
+  
   // Define some constants
   const SESSION_NAME = 'user';
 
 
-  // Define some properties
+  // Define some properties here ;)
+  
+  // protected properties
+
+  /**
+   * The table associated with this model
+   *
+   * @var string
+   */
+  protected string $table = 'users';
+
+
+  /**
+   * Indicates if the model should automatically connect to the database.
+   *
+   * @var bool
+   */
+  protected bool $autoConnect = true;
+
+
+  /**
+   * All the supported fields in the `users` table
+   * @var array
+   */
+  protected array $fields = [
+    'id',
+    'firstname',
+    'lastname',
+    'mail',
+    'password',
+    'dob',
+    'user_role',
+    'created_at',
+    'updated_at',
+    'deleted_at'
+  ];
+
+  
+  // public properties
+  
   public ?int $id = null;
   public ?string $firstname = null;
   public ?string $lastname = null;
   public ?string $mail = null;
   public ?string $password = null;
   public ?string $dob = null;
-  public ?string $created_at = null;
   public ?string $user_role = null;
+  public ?string $created_at = null;
+  public ?string $updated_at = null;
+  public ?string $deleted_at = null;
 
 
 
-    public function __construct()
-    {
-        parent::__construct();
-        // $this->setDatabaseUsername('root');
-        // $this->setDatabasePassword('root');
-        // $this->setDatabasePort(8888);
+  /**
+   * Indicates if the model should be timestamped.
+   *
+   * @var bool
+   */
+  public bool $timestamps = true;
 
-        // connect to the database
-        $this->dbConnect();
 
-        // check if the user is connected
-        if($this->isConnected()){
-          // get the user id from session as `userId`
-          $userId = $this->getSession('id');
 
-          // populate the user info with `userId`
-          $this->populateUserInfo($userId);
-        }
 
+  /**
+   * OrderItem constructor.
+   * NOTE: This constructor is called automatically when the class is instantiated
+   */
+  public function __construct() {
+    // call the parent Model constructor
+    parent::__construct();
+
+    // check if the user is connected
+    if($this->isConnected()){
+      // get the user id from session as `userId`
+      $userId = $this->getSession('id');
+
+      // populate the user info with `userId`
+      $this->populateUserInfo($userId);
     }
 
+  }
 
-    // PUBLIC SETTERS
-    // PUBLIC GETTERS
-    // PUBLIC METHODS
+
+  // PUBLIC STATIC SETTERS
+
+  // PUBLIC STATIC GETTERS
+
+  // PUBLIC STATIC METHODS
+
+
+  /**
+   * Method used to connect the user
+   *
+   * @example usage
+   *    self::connect([
+   *      'mail' => 'abc@gmail.com',
+   *      'password' => '***'
+   *    ]);
+   *
+   * @param array $params : The parameters to use to connect the user
+   *
+   * @return false|self : Returns the current model instance if the user is connected, otherwise returns false
+   */
+  public static function connect(array $params): false|self {
+    // initialize the `result` boolean variable
+    $result = false;
+
+    // get an instance of the current model
+    $instance = self::getInstance();
+
+    // Do nothing if the user is already connected
+    if ($instance->isConnected()) {
+      return $instance;
+    }
+    
+    // However, if the user is not connected--
+    // --verify the `$params` argument
+    self::verifyParams($params, $instance);
+
+    // if there's a mail and password in the `$params` argument
+    if (isset($params['mail']) && isset($params['password'])) {
+      // get the mail
+      $mail = $params['mail'];
+      // get the password
+      $password = $params['password'];
+
+      // find the user by mail
+      $user = self::where('mail', $mail);
+
+
+      // DEBUG [4dbsmaster]: tell me about it ;)
+      // printf("user->password => %s & password => %s | exists ? %s", $user->password, $password, $user->exists());
+
+      // If the user exists...
+      if ($user->exists()) {
+        // ...check if the password matches
+        $passwordsMatch = password_verify($password, $user->password);
+
+        // DEBUG [4dbsmaster]: tell me about it ;)
+        // printf("passwordsMatch => %s", $passwordsMatch);
+
+        // if the passwords match...
+        if ($passwordsMatch) {
+          // ...create a user session
+          $instance->createSession([
+            'id' => $user->id,
+            'firstname' => $user->firstname,
+            'lastname' => $user->lastname,
+            'mail' => $user->mail
+          ]);
+
+          // update the `result` to the user instance
+          $result = $user;
+        }
+
+      }
+    }
+
+    // return the `result`
+    return $result;
+  }
+  
+
+  // PUBLIC SETTERS
+  
+  // PUBLIC GETTERS
+  
+  // PUBLIC METHODS
+
+
+
+  // PRIVATE STATIC SETTERS
+
+  // PRIVATE STATIC GETTERS
+
+  // PRIVATE STATIC METHODS
+
+
+  // PRIVATE SETTERS
+  
+  // PRIVATE GETTERS
+  
+  // PRIVATE METHODS
+
+
+
+
+
+  // +++++++ `Morgane Marechal` - CODE ++++++++
+  
   
     //method for register user
     public function register($firstname, $lastname, $mail, $password)
@@ -630,6 +816,8 @@ class User extends Database
     unset($_SESSION[self::SESSION_NAME]);
   }
 
+
+  // +++++++ End of `Morgane Marechal` - CODE ++++++++
 
 }
 
