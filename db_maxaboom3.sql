@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `mail` varchar(100) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   `dob` date DEFAULT NULL,
-  `user_role` varchar(100) NOT NULL,
+  `user_role` varchar(100) DEFAULT "guest",
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
