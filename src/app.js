@@ -161,6 +161,8 @@ export class MaxaboomApp {
   // TODO: Define some private properties
 
   #page = 'home';
+  #pageInstance = null;
+  
   #toasting = false;
 
 
@@ -705,6 +707,15 @@ export class MaxaboomApp {
         // add a `opened` property to `dialogEl`
         dialogEl.setAttribute('opened', '');
 
+        // if the `focusOnConfirm` is TRUE
+        if (params.focusOnConfirm) {
+          // focus on the confirm button
+          confirmBtnEl.focus();
+        } else if (params.focusOnCancel) {
+          // focus on the cancel button
+          cancelBtnEl.focus();
+        }
+
         // resolve the promise
         resolve(dialogEl);
 
@@ -1028,9 +1039,11 @@ export class MaxaboomApp {
    * Sets the current page
    *
    * @param { String } page - The page to set
+   * @param { Object } instance - The instance of the page to set
    */
-  setCurrentPage(page) {
+  setCurrentPage(page, instance = null) {
     this.#page = page;
+    this.#pageInstance = instance;
   }
 
 
@@ -1057,6 +1070,16 @@ export class MaxaboomApp {
   getCurrentPage() {
     return this.#page;
   }
+
+  /**
+   * Returns the instance of the current page
+   *
+   * @returns { Object }
+   */
+  getCurrentPageInstance() {
+    return this.#pageInstance;
+  }
+
 
   /**
    * Returns the app's title
@@ -1913,6 +1936,15 @@ mbApp.onReady = (data) => {
   let hello = mbApp.i18n.getString('hello') + '👋🏽';
 
   mbApp.setTitle(hello, true); // <- true = append the app name to the title
+
+  // get the current pages instance as `currentPageInstance`
+  let currentPageInstance = mbApp.getCurrentPageInstance();
+
+  // if a page was seet
+  if (currentPageInstance) {
+    // call the `ready` function of the page
+    currentPageInstance.ready(data);
+  }
 
 }
 
