@@ -50,12 +50,25 @@
   "checkout": "Checkout",
   "cart": "Cart",
 
+  "createAccount": "Create account",
+
   "loginHint": "connect to your Maxaboom account",
+  "registerHint": "create a new Maxaboom account",
 
   "loginSuccessful": "Login successful 😃",
+  "registerSuccessful": "Register successful 😃",
 
   "loginFailed": "Login failed 😢",
   "loginFailedMessage": "Please recheck your email and password and try again. Note that both fields may be case-sensitive.",
+  "registerFailed": "Register failed 😢",
+
+  "registerFailedMessage": "Something went wrong during the registration process. Please try again. Note that all fields are required.",
+
+  "congratulations": "✅ Congratulations 🎉",
+
+  "goHome": "Go home",
+
+  "registerSuccessMessage": "🥇 Your registration was successful. You can now log in, to access your Maxaboom account. 😇",
 
   "tryAgain": "Try again",
 
@@ -132,57 +145,90 @@
   "editRemoveSetAddress": "Edit, remove, or set default address",
 
   "changeYourEmailAddress": "Change your email address",
+  "emailFound": "Email found",
+  "emailNotFound": "Email not found",
   "purchases": "Purchases",
   "changePassword": "Change password",
+
+  "thisEmailIsAlreadyInUse": "This email is already in use",
 
   "firstName": "First name",
   "lastName": "Last name",
   "email": "Email",
 
-  "emailTooLong": "Email is too long",
-  "emailTooShort": "Email is too short",
+  "firstNameRequired": "First name is required 😡",
+  "lastNameRequired": "Last name is required 😡",
+  "passwordRequired": "Password is required 😡",
+  "confirmPasswordRequired": "Confirm password is required 😡",
+  "pleaseEnterYourFirstName": "Please enter your first name 🙏🏽",
+  "pleaseEnterYourLastName": "Please enter your last name 🙏🏽",
+  "pleaseCreateAPassword": "Please create a password 🙏🏽",
+  "pleaseConfirmYourPassword": "Please confirm your password 🙏🏽",
 
-  "yourEmailTooLong": "Your email is too long",
-  "yourEmailTooShort": "Your email is too short",
+  "emailTooLong": "Email is too long 😖",
+  "emailTooShort": "Email is too short 😖",
+
+  "yourEmailTooLong": "Your email is too long 😖",
+  "yourEmailTooShort": "Your email is too short 😖",
 
   "emailValid": "Email is valid",
   "emailInvalid": "Email is invalid",
   "yourEmailInvalid": "Your email is invalid",
-  "pleaseEnterAValidEmail": "Please enter a valid email address",
-  "pleaseEnterAnEmail": "Please enter an email address",
+  "pleaseEnterAValidFirstName": "Please enter a valid first name 🙏🏽",
+  "pleaseEnterAValidLastName": "Please enter a valid last name 🙏🏽",
+  "pleaseEnterAValidEmail": "Please enter a valid email address 🙏🏽",
+  "pleaseEnterAnEmail": "Please enter an email address 🙏🏽",
+  "pleaseEnterAValidPassword": "Please enter a valid password 🙏🏽",
 
   "passwordTooShort": "Password is too short",
   "passwordTooLong": "Password is too long",
-  "passwordsDoNotMatch": "Passwords do not match",
+  "yourPasswordTooShort": "Your password is too short 😖",
+  "yourPasswordTooLong": "Your password is too long 😖",
+  "passwordsDoNotMatch": "Passwords do not match 😡",
   "passwordsMatch": "Passwords match",
+
+  "oops": "Oops 😬",
 
   "passwordValid": "Password is valid",
   "passwordInvalid": "Password is invalid",
-  "passwordNoUppercase": "Password must contain at least one uppercase letter",
+  "passwordNoUppercase": "Password must contain at least one uppercase letter 😜",
 
-  "passwordNoLowercase": "Password must contain at least one lowercase letter",
+  "passwordNoLowercase": "Password must contain at least one lowercase letter 😜",
 
-  "passwordNoNumber": "Password must contain at least one number",
+  "passwordNoNumber": "Password must contain at least 1 number 😜",
 
-  "passwordNoSpecialCharacter": "Password must contain at least one special character",
+  "passwordNoSpecialCharacter": "Password must contain at least one special character (eg.: ! @ # $ \\ % ^ & * ?)",
 
   "firstNameTooShort": "First name is too short",
   "firstNameTooLong": "First name is too long",
+  "yourFirstNameTooShort": "Your first name is too short 😖",
+  "yourFirstNameTooLong": "Your first name is too long 😖",
+  "yourFirstNameMin2Chars": "Your first name must have at least 2 characters 💪",
+
+
   "firstNameValid": "First name is valid",
   "firstNameInvalid": "First name is invalid",
+
+  "yourPasswordMin8Chars": "Your password must have at least 8 characters 💪",
     
   "firstNameSpecialChars": "First name cannot contain special characters",
 
   "lastNameTooShort": "Last name is too short",
   "lastNameTooLong": "Last name is too long",
+  "yourLastNameTooShort": "Your last name is too short 😖",
+  "yourLastNameTooLong": "Your last name is too long 😖",
+  "yourLastNameMin2Chars": "Your last name must have at least 2 characters 💪",
+
   "lastNameValid": "Last name is valid",
   "lastNameInvalid": "Last name is invalid",
-  "lastNameSpecialChars": "Last name cannot contain special characters",
+  "lastNameSpecialChars": "Last name cannot contain special characters 😜",
 
   "youAreNotConnected": "You are not connected",
   "youAreNotConnectedMessage": "You must be connected to access this page. If you think this message is wrong, please contact us.",
   "identity": "Identity",
   "password": "Password",
+  "confirmPassword": "Confirm password",
+
   "mandatoryField": "Mandatory field",
 
   "newEmail": "New email",
@@ -248,6 +294,10 @@
   "perfectMusicalInstrument": "Perfect musical instrument",
   "heroSubtitle": "Maxaboom is a free, open source, and easy to use web app that allows you to discover and buy your perfect musical instrument.",
 
+  "passwordSpaces": "Password cannot contain spaces 😜",
+  "xPasswordIsCommon": "`%s` is a common password, please choose another one 🙏🏽",
+
+  "xHasCommonPassword": "🔐 `%s` contains a common password, please change it to something else 🔑🙏🏽",
 
   "shopNow": "Shop now",
   "exploreMore": "Explore more",
