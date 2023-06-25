@@ -510,6 +510,7 @@ open http://localhost/boutique-en-ligne
 - [ ] Optimize all `.js` files
 - [ ] Remove unnecessary comments
 - [ ] Add screenshots
+- [ ] Create a shake animation (to be applied in eg.: forms during a failed validation process)
 
 ---
 
