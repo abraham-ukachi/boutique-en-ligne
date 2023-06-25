@@ -144,7 +144,7 @@ The official deadline of the jobs below - according to [intra](https://intra.lap
 | 46 | *`Cart - Route`* | **cart-route.php** | [Done](./routes/cart-route.php)\* | 
 | 47 | *`Order Item - Model`* | **OrderItem.php** | [Done](./models/OrderItem.php)\* | 
 | 48 | *`Login Page - View`* | **login-page.php** | [Done](./views/login-page.php)\* |
-| 49 | *`Register Page - View`* | **register-page.php** | *_In progress_* |
+| 49 | *`Register Page - View`* | **register-page.php** | [Done](.views/register-page.php)\* |
 | 50 | *`Validation - Controller Helper`* | **ValidationHandler.php** | [Done](./controllers/helpers/ValidationHandler.php)\* | 
 
 
