@@ -707,6 +707,13 @@ export class MaxaboomApp {
         // add a `opened` property to `dialogEl`
         dialogEl.setAttribute('opened', '');
 
+        // get the confirm and cancel button elements
+        const confirmBtnEl = dialogEl.querySelector('.confirm-btn');
+        const cancelBtnEl = dialogEl.querySelector('.cancel-btn');
+
+        // DEBUG [4dbsmaster]: tell me about it ;)
+        console.log(`\x1b[33m[_openDialogTimer]: confirmBtnEl => \x1b[0m`, confirmBtnEl);
+
         // if the `focusOnConfirm` is TRUE
         if (params.focusOnConfirm) {
           // focus on the confirm button
