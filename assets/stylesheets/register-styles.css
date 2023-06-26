@@ -63,6 +63,11 @@
   --empty-doodle-image: url('../images/3d/register_success.png');
 }
 
+#registerDoodle {
+  background-size: contain;
+}
+
+
 #registerButton {
   --spinner-size: 32px;
   --spinner-color: var(--on-primary-container-color);
