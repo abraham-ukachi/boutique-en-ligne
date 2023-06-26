@@ -24,10 +24,10 @@
 * SOFTWARE.
 *
 * @project boutique-en-ligne
-* @name Register - Route
-* @file register-route.php
-* @author: Axel Vair <axel.vair@laplateforme.io>, 
-* @contributors: Abraham Ukachi <abraham.ukachi@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
+* @name Password - Route
+* @file password-route.php
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>, 
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
 * @version: 0.0.1
 * 
 * Usage:
@@ -46,9 +46,8 @@
 // declare the `routes` namespace
 namespace Maxaboom\Routes;
 
-// use maxaboom's `RegisterController` class
-use Maxaboom\Controllers\RegisterController;
-
+// use maxaboom's `PasswordController` class
+use Maxaboom\Controllers\PasswordController;
 
 
 
@@ -56,60 +55,32 @@ use Maxaboom\Controllers\RegisterController;
 
 /**
  * ============================
- *  Register Routes
+ *  Password Routes
  * ============================
  */
 
 
 
+
 /**
- * Route used to display the 'register' page
+ * Route used to check if the given password is common
  * 
  * @method GET
- * @url /register
+ * @url /password/{value}/common
  *
+ * @return json response
  */
-$router->map('GET', '/register', function() {
-  // create an object of `RegisterController` class
-  $registerController = new RegisterController();
-
-  // if the user is already logged in
-  if ($registerController->isUserLoggedIn()) {
-    // redirect the user to the home page
-    header('Location: ' . MAXABOOM_HOME_DIR);
-    exit();
-  }
-
-  // show the register page
-  $registerController->showPage();
-
-}, 'register-page');
-
-
-
-
-/**
- * Route used to connect a user
- *
- * @method POST
- * @url /register
- */
-$router->map('POST', '/register', function() {
-  // get the user's mail and password
-  $firstname = $_POST['firstname'];
-  $lastname = $_POST['lastname'];
-  $mail = $_POST['mail'];
-  $password = $_POST['password'];
-  $confirmPassword = $_POST['confirmPassword'];
+$router->map('GET', '/password/[*:value]/common', function($value) {
+  // create an object of `PasswordController` class
+  $passwordController = new PasswordController();
   
-  // instantiate the `RegisterController` class
-  $registerController = new RegisterController();
-  // register the user
-  $registerController->register($firstname, $lastname, $mail, $password, $confirmPassword);
-  // get the response
-  $response = $registerController->getResponse();
+  // check if the specified password `value` is common using the `findCommonPassword` method
+  $response = $passwordController->findCommonPassword($value);
 
-  // echo the response as a json object
+  // return the response
   echo json_encode($response);
 
-}, 'register');
+}, 'password-common');
+
+
+

@@ -569,14 +569,25 @@ abstract class Model extends Database implements ModelInterface {
   /**
    * Returns all the info of this model
    *
+   * @param array $acceptedFields - an array of the accepted fields to return
+   *
    * @return array - an associative array of all the field properties.
    */
-  public function info(): array {
+  public function info(array $acceptedFields = []): array {
     // Intialize the `output` associative array
     $output = [];
     
     // loop throught the `fields` property
     foreach ($this->fields as $field) {
+      // If the `$acceptedFields` array is not empty...
+      if (!empty($acceptedFields)) {
+        // ...check if the current `$field` is in the `$acceptedFields` array
+        if (!in_array($field, $acceptedFields)) {
+          // ...if not, continue to the next `$field`
+          continue;
+        }
+      }
+
       // Append the `field` to the `output` associative array
       $output[$field] = isset($this->$field) ? $this->$field : null;
     }

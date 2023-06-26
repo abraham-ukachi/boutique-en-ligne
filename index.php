@@ -101,7 +101,9 @@ include __DIR__ . '/routes/component-route.php'; // <- component route
 include __DIR__ . '/routes/cart-route.php'; // <- cart route
 include __DIR__ . '/routes/likes-route.php'; // <- likes route
 
-
+// include additional routes
+include __DIR__ . '/routes/password-route.php'; // <- password route
+include __DIR__ . '/routes/email-route.php'; // <- email route
 
 // match the current request url
 $match = $router->match();

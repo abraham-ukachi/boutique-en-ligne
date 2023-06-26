@@ -112,6 +112,21 @@ trait ResponseHandler {
     return $this->response;
   }
 
+  /**
+   * Method used to get an error response.
+   *
+   * @param int $statusCode - The status code of the response
+   * @param string $message - The message of the response
+   * @return array $response
+   */
+  public function getErrorResponse(int $statusCode = 404, string $message = "Not found"): array {
+    return array(
+      "success" => false,
+      "status" => $statusCode,
+      "message" => $message
+    );
+  }
+
 
   /**
    * Returns the response success.

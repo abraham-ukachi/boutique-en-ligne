@@ -123,17 +123,17 @@ trait ValidationHandler {
   // public properties
 
   // email - minimum and maximum lengths
-  public int $minEmailLength = 3;
-  public int $maxEmailLength = 60;
+  public int $minEmailLength = 5;
+  public int $maxEmailLength = 50;
   // password - minimum and maximum lengths
   public int $minPasswordLength = 8;
-  public int $maxPasswordLength = 30;
+  public int $maxPasswordLength = 64; // <- recommended by NIST (National Institute of Standards and Technology) https://pages.nist.gov/800-63-3/sp800-63b.html#sec5
   // first name - minimum and maximum lengths
   public int $minFirstNameLength = 2;
-  public int $maxFirstNameLength = 15;
+  public int $maxFirstNameLength = 30;
   // last name - minimum and maximum lengths
   public int $minLastNameLength = 2;
-  public int $maxLastNameLength = 15;
+  public int $maxLastNameLength = 30;
   
 
 
@@ -322,7 +322,7 @@ trait ValidationHandler {
     }
 
     // check if password contains at least one special character
-    if (!preg_match('/[!@#$%^&*()\-_=+{};:,<.>]/', $password)) {
+    if (!preg_match('/[!@#$%^&*()\-_=+{};:,<.>?]/', $password)) {
       // update validation message
       $this->updateValidation(false, self::$STATUS_PASSWORD_NO_SPECIAL_CHAR, $this->i18n->getString('passwordNoSpecialChar'));
       return false;

@@ -24,10 +24,10 @@
 * SOFTWARE.
 *
 * @project boutique-en-ligne
-* @name Register - Route
-* @file register-route.php
-* @author: Axel Vair <axel.vair@laplateforme.io>, 
-* @contributors: Abraham Ukachi <abraham.ukachi@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
+* @name Email - Route
+* @file email-route.php
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>, 
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
 * @version: 0.0.1
 * 
 * Usage:
@@ -46,9 +46,8 @@
 // declare the `routes` namespace
 namespace Maxaboom\Routes;
 
-// use maxaboom's `RegisterController` class
-use Maxaboom\Controllers\RegisterController;
-
+// use maxaboom's `EmailController` class
+use Maxaboom\Controllers\EmailController;
 
 
 
@@ -56,60 +55,48 @@ use Maxaboom\Controllers\RegisterController;
 
 /**
  * ============================
- *  Register Routes
+ *  Email Routes
  * ============================
  */
 
 
 
+
 /**
- * Route used to display the 'register' page
+ * Route used to perform email actions
  * 
  * @method GET
- * @url /register
+ * @url /email/{value}/{action}
  *
+ * @return json response
  */
-$router->map('GET', '/register', function() {
-  // create an object of `RegisterController` class
-  $registerController = new RegisterController();
+$router->map('GET', '/email/[*:value]/[*:action]', function($value, $action) {
+  // create an object of `EmailController` class
+  $emailController = new EmailController();
 
-  // if the user is already logged in
-  if ($registerController->isUserLoggedIn()) {
-    // redirect the user to the home page
-    header('Location: ' . MAXABOOM_HOME_DIR);
-    exit();
+  $response = null; 
+  switch ($action) {
+  case 'customer-check':
+    // check if the customer's email exists
+    $response = $emailController->checkEmail($value, 'customer');
+    break;
+  case 'guest-check':
+    // check if the guest's email exists
+    $response = $emailController->checkEmail($value, 'guest');
+    break;
+  case 'admin-check':
+    // check if the admin's email exists
+    $response = $emailController->checkEmail($value, 'admin');
+    break;
+  default:
+    $response = $emailController->getErrorResponse();
+    break;
   }
 
-  // show the register page
-  $registerController->showPage();
-
-}, 'register-page');
-
-
-
-
-/**
- * Route used to connect a user
- *
- * @method POST
- * @url /register
- */
-$router->map('POST', '/register', function() {
-  // get the user's mail and password
-  $firstname = $_POST['firstname'];
-  $lastname = $_POST['lastname'];
-  $mail = $_POST['mail'];
-  $password = $_POST['password'];
-  $confirmPassword = $_POST['confirmPassword'];
-  
-  // instantiate the `RegisterController` class
-  $registerController = new RegisterController();
-  // register the user
-  $registerController->register($firstname, $lastname, $mail, $password, $confirmPassword);
-  // get the response
-  $response = $registerController->getResponse();
-
-  // echo the response as a json object
+  // return the response
   echo json_encode($response);
 
-}, 'register');
+}, 'email');
+
+
+
