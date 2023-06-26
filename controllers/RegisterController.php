@@ -200,9 +200,9 @@ class RegisterController extends Controller {
 
     // So, create the user with the validated values 
     // NOTE: the password is hashed before being stored in the database
-    $user = new User([
-      'firstName' => $firstName,
-      'lastName' => $lastName,
+    $user = User::create([
+      'firstname' => $firstName,
+      'lastname' => $lastName,
       'mail' => $email,
       'password' => password_hash($password, PASSWORD_DEFAULT),
       'user_role' => 'customer'
@@ -215,8 +215,10 @@ class RegisterController extends Controller {
     // create a response message based on the success of the connection
     $message = $success ? $this->i18n->getString('registerSuccessful') : $this->i18n->getString('registerFailed');
 
+    $data = $success ? $user->info() : [];
+
     // update the response
-    $this->updateResponse($success, $status, $message); 
+    $this->updateResponse($success, $status, $message, $data); 
     // return the `success` variable
     return $success;
   }
