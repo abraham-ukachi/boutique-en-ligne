@@ -677,7 +677,7 @@ mbApp.openDialog({
 
 Show a toast message for **5 seconds**:
 ```js
-mbApp.showToast({message: 'Hello World'}, 10);
+mbApp.showToast({message: 'Hello World'}, 5);
 ```
 > NOTE:  
 
