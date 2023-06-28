@@ -358,8 +358,11 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
-| 1 | *`id`* 🔑  | **INT** | 10 | No | None | **AUTO_INCREMENT** |
-| 2 | *`name`* | **VARCHAR** | 255 | No | None | - |
+| 1 | *`id`* 🔑  | **INT** | 11 | No | None | **AUTO_INCREMENT** |
+| 2 | *`title`* | **VARCHAR** | 100 | No | None | - |
+| 3 | *`name`* | **VARCHAR** | 100 | No | None | **UNIQUE** |
+| 4 | *`is_top`* | **TINYINT** | 1 | No | *0* | - |
+| 5 | *`image`* | **VARCHAR** | 200 | Yes | *NULL* | - |
 
 > NOTE:
 
@@ -370,7 +373,9 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
 | 1 | *`id`* 🔑  | **INT** | 10 | No | None | **AUTO_INCREMENT** |
-| 2 | *`name`* | **VARCHAR** | 255 | No | None | - |
+| 2 | *`title`* | **VARCHAR** | 100 | No | None | - |
+| 3 | *`name`* | **VARCHAR** | 255 | No | None | **UNIQUE** |
+| 4 | *`category_id`* | **INT** | 11 | No | None | - |
 
 > NOTE:
 
