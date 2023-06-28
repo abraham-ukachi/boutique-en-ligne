@@ -631,12 +631,47 @@ mbApp.openDialog({
 }, 0.5, ASIDE_PART);
 ```
 
-Close a dialog: 
+##### Close a dialog
+
 ```js
 mbApp.closeDialog(); // <- without arguments
 
 mbApp.closeDialog('dialog', 0.5, ASIDE_PART); // <- with arguments
 ```
+
+
+##### Open a dialog with a list for 0.5 seconds in the main part of Maxaboom ;)
+
+```js
+import { MAIN_PART } from 'src/app.js';
+
+const list = [
+  {id: 1, name: 'pianos', value: 'Pianos for live'},
+  {id: 2, name: 'guitars', value: 'Awesome Guitars'}
+];
+
+mbApp.openDialog({
+    title: 'Categories', 
+    message: 'Pick a category', 
+    list: list,
+
+    selectedName: '',
+
+    confirmBtnText: 'Open', 
+    cancelBtnText: 'Cancel', 
+    
+    onConfirm: () => console.log('confirm button clicked'), 
+    onCancel: () => console.log('cancel button clicked'),
+    onListItemClick: (event, listItemEl) => console.log('clicked list item element => ', listItemEl),
+
+    noButtons: false,
+    noDivider: false,
+    isCancelable: true
+
+}, 0.5, MAIN_PART);
+```
+> NOTE: 
+
 
 #### Toasts
 
