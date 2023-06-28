@@ -211,8 +211,11 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
+  `is_top` tinyint(1) NOT NULL DEFAULT 0,
+  `image` varchar(100) DEFAULT NULL,
 
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`name`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
 
@@ -234,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `sub_categories` (
   `category_id` int(11) UNSIGNED NOT NULL,
 
   PRIMARY KEY (`id`),
+  UNIQUE KEY (`name`),
   FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
@@ -298,32 +302,42 @@ CREATE TABLE IF NOT EXISTS `orders_items` (
 
 
 
+/* ================================== */
+/* ========== `cart` TABLE ========== */
+/* ================================== */
 
-  /*-------------------table cart----------*/
+CREATE TABLE IF NOT EXISTS `cart` (
+   `product_id` int(11) UNSIGNED NOT NULL,
+   `unit_price` decimal(10,2) NOT NULL,
+   `quantity` int(11) NOT NULL,
+   `user_id` int(11) UNSIGNED NOT NULL,
 
-  CREATE TABLE cart(
-   product_id int,
-   unit_price int,
-   quantity int,
-   user_id int
-  );
+  FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
-
-
-
-
-
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
 
 
- INSERT INTO categories (title, name)
+
+
+
+
+
+
+/* ================================== */
+/* ====== `orders_items` TABLE ====== */
+/* ================================== */
+
+
+ INSERT INTO categories (title, name, is_top, image)
  VALUES
- ('pianos', 'pianos'),
- ('guitares', 'guitars'),
- ('percussions', 'percussion'),
- ('lutherie', 'violin'),
- ('dj', 'dj'),
- ('vents', 'wind-instruments');
+ ('percussions', 'percussions', 1, 'percussions.jpg'),
+ ('guitares', 'guitars', 1, 'guitars.jpg'),
+ ('lutherie', 'violins', 1, 'violins.jpg'),
+ ('vents', 'wind-instruments', 1, 'wind-instruments.jpg'),
+ ('dj', 'dj', 1, 'dj.jpg'),
+ ('pianos', 'pianos', 1, 'pianos.jpg');
+
 
 
  INSERT INTO sub_categories (title, name, category_id)
