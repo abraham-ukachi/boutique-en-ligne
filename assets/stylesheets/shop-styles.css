@@ -1,0 +1,317 @@
+/* 
+* @license
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software. 
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @name: Shop Styles
+* @type: Stylesheet
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+*
+* Example usage:
+*
+*  1+|> // 
+*   -|>
+*
+*
+*/
+
+/* ==== IMPORTS ==== */
+/* @import 'color.css'; */
+/* @import 'typography.css'; */
+/* @import '../animations/fade-in-animation.css'; */
+/* @import '../animations/slide-from-down-animation.css'; */
+
+
+
+/* ==== LOGIN PAGE STYLES ==== */
+
+:root {}
+
+.theme.light {}
+
+
+.theme.dark {}
+
+
+.app-bar .app-logo {
+  --app-logo-color: var(--primary-color);
+}
+
+.app-bar .app-name {
+  --app-name-color: var(--primary-color);
+  align-self: start;
+}
+
+
+
+
+#appBar h2.app-title {
+  color: var(--primary-color);
+}
+
+#appBar h3.app-subtitle {
+  width: 100%;
+  text-align: center;
+}
+
+/* Category Bar */
+#categoryBar {
+  --app-bar-size: 128px;
+}
+
+#categoryBar .app-title {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+#categoryBar .app-subtitle {
+  text-align: center;
+  opacity: var(--opacity-text-inactive);
+}
+
+
+/* Top Categories */
+ul#topCategories {
+  width: var(--top-categories-width, 100%);
+  height: var(--top-categories-height, auto);
+  margin: var(--top-categories-margin, 0 auto);
+  position: relative;
+  background-color: var(--top-categories-background, inherit);
+}
+
+
+
+
+
+/* Top Category */
+
+li.top-category {
+  overflow: hidden;
+  position: relative;
+  border-radius: var(--top-category-border-radius, 1.25rem);
+  width: var(--top-category-width, 100%);
+  height: var(--top-category-height, 400px);
+  min-height: var(--top-category-height, 400px); /* HACK */
+  margin: var(--top-category-margin, 1rem 0);
+  left: var(--top-category-left, 0);
+  top: var(--top-category-top, 0);
+}
+
+li.top-category:focus-visible {
+  outline: 4px solid var(--tertiary-color);
+}
+
+button.category-btn {}
+
+
+button.category-btn img {
+  object-position: center;
+  object-fit: cover;
+}
+
+
+.top-category-label {
+  z-index: 10;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  color: white;
+  font-weight: bold;
+  font-size: 1.25rem;
+  opacity: var(--opacity-text-active);
+  text-shadow: 0 0 0.5rem black;
+  user-select: none;
+  pointer-events: none;
+}
+
+
+#seeAllButton {
+  border-radius: 2rem;
+  width: var(--see-all-button-width, 100%);
+  height: var(--see-all-button-height, 50px);
+  margin: 1rem auto;
+}
+
+
+#seeAllButton .spinner {
+  position: absolute;
+}
+
+
+
+
+/* 
+ * --> Narrow - Device <--
+ * Phone: ? (Responsive)
+ * Dimension: ~460px (width)
+ *
+ * ***************************************
+ * when the viewport is lesser than 460px,
+ * layout changes to a narrow-layout.
+ * ***************************************
+ */
+
+
+
+
+/* ===[ {{CSS-RULE}} ]=== */
+
+
+/* ---[ End of {{CSS-RULE}} ]--- */
+
+
+
+
+
+
+/* 
+ * --> Wide - Layout <--
+ * Phone: ? (Responsive)
+ * Dimension: 460px+ (width)
+ *
+ * ***************************************
+ * when the viewport is bigger than 460px,
+ * layout changes to wide-layout.
+ * ***************************************
+ */
+@media (min-width: 460px) {
+  
+  /* Category Bar */
+  #categoryBar {
+    --app-bar-size: 200px;
+  }
+  
+  .top-category {
+    --see-all-button-width: 256px;
+  }
+
+}
+
+
+/* Preview - Container */
+div#preview {}
+
+
+/* Products - Container */
+div#products {}
+
+
+
+
+
+
+@media (min-width: 768px) {
+
+  /* Top Categories */
+  ul#topCategories {
+    --top-categories-width: 1000px;
+    --top-categories-height: 800px;
+
+  }
+  
+
+  /* Top Category */
+
+  li.top-category {
+    position: absolute;
+  }
+
+  li.top-category:nth-child(1) {
+    --top-category-width: 300px;
+    --top-category-height: 250px;
+    --top-category-left: 0;
+    --top-category-top: 25px;
+  }
+
+
+  li.top-category:nth-child(2) {
+    --top-category-width: 250px;
+    --top-category-height: 350px;
+    --top-category-left: 325px;
+    --top-category-top: 0;
+  }
+
+  
+  li.top-category:nth-child(3) {
+    --top-category-width: 380px;
+    --top-category-height: 250px;
+    --top-category-left: 600px;
+    --top-category-top: 75px;
+  }
+
+
+  li.top-category:nth-child(4) {
+    --top-category-width: 250px;
+    --top-category-height: 400px;
+    --top-category-left: 30px;
+    --top-category-top: 300px;
+  }
+
+  li.top-category:nth-child(5) {
+    --top-category-width: 325px;
+    --top-category-height: 300px;
+    --top-category-left: 300px;
+    --top-category-top: 375px;
+  }
+
+  
+  li.top-category:nth-child(6) {
+    --top-category-width: 350px;
+    --top-category-height: 250px;
+    --top-category-left: 650px;
+    --top-category-top: 350px;
+  }
+
+  #seeAllButton {
+    --see-all-button-width: 200px;
+  }
+
+}
+
+
+
+
+
+/* 
+ * --> Tablet - Device <--
+ * Phone: ? (Responsive)
+ * Width: 768px <-to-> 1024px
+ */
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+}
+
+
+/* 
+ * --> Laptop - Device <--
+ * Phone: ? (Responsive)
+ * Width: 1024px <-to-> 2560px
+ */
+@media (min-width: 1024px) and (max-width: 2560px) {
+  
+}
+
+
+/* ==== END of LOGIN STYLES ==== */
+
