@@ -342,27 +342,31 @@ CREATE TABLE IF NOT EXISTS `cart` (
 
  INSERT INTO sub_categories (title, name, category_id)
  VALUES
- ('pianos droits', 'upright-piano', 1),
- ('pianos à queue', 'grand-piano', 1),
- ('pianos numériques', 'digital-piano', 1),
- ('synthetiseurs', 'synthesizer', 1),
+ ('pianos droits', 'upright-piano', 6),
+ ('pianos à queue', 'grand-piano', 6),
+ ('pianos numériques', 'digital-piano', 6),
+ ('synthetiseurs', 'synthesizer', 5),
  ('guitares', 'guitars', 2),
  ('basse', 'bass-guitar', 2),
  ('guitare electrique', 'electric-guitar', 2),
  ('ampli guitare', 'guitar-amp', 2),
- ('batteries', 'battery', 3),
- ('cymbales', 'cymbals', 3),
- ('tambours et autres', 'drums-and-others', 3),
- ('violon', 'violin', 4),
- ('contrebasse', 'bass', 4),
- ('accessoires de violon', 'violin-accessory', 4),
+ ('batteries', 'battery', 1),
+ ('cymbales', 'cymbals', 1),
+ ('tambours et autres', 'drums-and-others', 1),
+ ('violon', 'violin', 3),
+ ('contrebasse', 'bass', 2),
+ ('accessoires de violon', 'violin-accessory', 3),
  ('platines', 'turntable', 5),
- ('boîte à rythme', 'drum-machines', 5),
+ ('boîte à rythme', 'drum-machines', 1),
  ('accessoires DJ', 'dj-accessories', 5),
- ('saxophones', 'saxophone', 6),
- ('flutes', 'flute', 6),
- ('trompettes', 'trumpet', 6),
- ('gros cuivres','big-brass-instrument', 6);
+ ('saxophones', 'saxophone', 4),
+ ('flutes', 'flute', 4),
+ ('trompettes', 'trumpet', 4),
+ ('gros cuivres','big-brass-instrument', 4),
+ ('petits cuivres', 'small-brass-instrument', 4),
+ ('accessoires vents', 'wind-instrument-accessories', 4); 
+
+
 
  
  INSERT INTO products (name, description, price, category_id,
