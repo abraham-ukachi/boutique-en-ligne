@@ -70,8 +70,83 @@ use Maxaboom\Models\Product;
 
 
 /**
- * API - Route
+ * ============================
+ *  API Routes
+ * ============================
  */
+
+
+
+
+
+
+
+
+// ---
+// --- GET
+// --- 
+
+
+
+/**
+ * Router used to get all categories
+ *
+ * @method GET
+ * @action /api/categories
+ *
+ * @echo json $response - the response in json format
+ */
+$router->map('GET', '/api/categories', function() {
+  // instantiate the APIController
+  $apiController = new APIController();
+
+  // get categories as `response`
+  $response = $apiController->getCategories();
+
+  // echo the response in json format
+  echo json_encode($response);
+
+}, 'get-categories-api');
+
+
+
+
+
+
+
+// ---
+// --- POST
+// ---
+
+
+
+
+// ---
+// --- PUT
+// ---
+
+
+
+
+// ---
+// --- DELETE
+// ---
+
+
+
+// ---
+// --- PATCH
+// ---
+
+
+
+
+
+
+
+
+
+
 
 
 /**
