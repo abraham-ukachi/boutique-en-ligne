@@ -205,6 +205,9 @@ abstract class Model extends Database implements ModelInterface {
     // Fetch the result as an associative array
     $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
+    // converting the result special chars to html entities for security (i.e. XSS attack prevention)
+    $result = self::convertSpecialChars($result);
+
     // set the last result of the model
     $instance->setLatestResult($result);
 
@@ -240,6 +243,9 @@ abstract class Model extends Database implements ModelInterface {
      
     // Fetch the result as an associative array
     $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    // converting the result special chars to html entities for security (i.e. XSS attack prevention)
+    $result = self::convertSpecialChars($result); 
 
     // set the last result of the model
     $instance->setLatestResult($result);
@@ -301,7 +307,9 @@ abstract class Model extends Database implements ModelInterface {
     // Fetch the result as an associative array
     $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
     
-    
+    // converting the result special chars to html entities for security (i.e. XSS attack prevention)
+    $result = self::convertSpecialChars($result);
+
     // Initialize the `instances` variable
     $instances = [];
 
@@ -369,6 +377,42 @@ abstract class Model extends Database implements ModelInterface {
   
   
   // PRIVATE STATIC METHODS
+
+  /**
+   * Method used to convert all html special character of the values,
+   * of the given `$result` array to html entities
+   * NOTE: 🔐 This method is used to prevent XSS attacks (i.e. Cross-Site Scripting) 😜⛑
+   *
+   * @param array $result - eg. ['name' => 'Abraham', 'email' => '<script>alert("Hello")</script>']
+   *
+   * @return array - eg. ['name' => 'Abraham', 'email' => '&lt;script&gt;alert(&quot;Hello&quot;)&lt;/script&gt;']
+   * @private
+   */
+  private static function convertSpecialChars(array $result): array {
+    // Initialize the `convertedResult` variable
+    $convertedResult = [];
+    
+    // loop through all the `result`
+    foreach ($result as $fieldKey => $fieldValue) {
+      // If the `fieldValue` is an array...
+      if (is_array($fieldValue)) {
+        // ...convert the `fieldValue` to html entities
+        $fieldValue = self::convertSpecialChars($fieldValue);
+
+      } else if (is_string($fieldValue)) {
+        // ...update & convert the `fieldValue` to html entities
+        $fieldValue = htmlspecialchars($fieldValue, ENT_QUOTES, 'UTF-8');
+      }
+
+      // append the `filedValue` to the `convertedResult` array
+      $convertedResult[$fieldKey] = $fieldValue;
+
+    }
+    
+    // Return the `convertedResult`
+    return $convertedResult;
+  }
+
 
   // PRIVATE STATIC SETTERS
 
@@ -662,8 +706,6 @@ abstract class Model extends Database implements ModelInterface {
     
     // add the where clause to the `$update_sql` query string
     $update_sql .= " WHERE `$this->primaryKey` = :$this->primaryKey";
-
-    // var_dump($update_sql);
 
     // Prepare the sql query as a PDO statement (i.e. $stmt)
     $stmt = $this->pdo->prepare($update_sql);
