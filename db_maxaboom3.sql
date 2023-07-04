@@ -271,6 +271,40 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 
 
+/* ================================== */
+/* ========= `colors` TABLE ========= */
+/* ================================== */
+
+CREATE TABLE IF NOT EXISTS `colors` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `hex` varchar(6) NOT NULL,
+
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`name`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
+
+
+
+/* =========================================== */
+/* ========= `products_colors` TABLE ========= */
+/* =========================================== */
+
+CREATE TABLE IF NOT EXISTS `products_colors` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) UNSIGNED NOT NULL,
+  `color_id` int(11) UNSIGNED NOT NULL,
+
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`color_id`) REFERENCES `colors`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
+
+
+
+
 
 /* ================================== */
 /* ====== `orders_items` TABLE ====== */
@@ -322,11 +356,26 @@ CREATE TABLE IF NOT EXISTS `cart` (
 
 
 
+/* INSERTING DATA INTO TABLES */
 
+/* --
+ * ----->>> `colors`
+ * --
+ */
 
-/* ================================== */
-/* ====== `orders_items` TABLE ====== */
-/* ================================== */
+INSERT INTO colors (name, hex)
+VALUES
+  ('red', 'ff0000'),
+  ('green', '00FF00'),
+  ('blue', '0000FF'),
+  ('yellow', 'FFFF00'),
+  ('black', '000000'),
+  ('white', 'FFFFFF'),
+  ('purple', 'A020F0'),
+  ('brown', '964B00'),
+  ('orange', 'FFA500'),
+  ('gray', '808080');
+
 
 
  INSERT INTO categories (title, name, is_top, image)
