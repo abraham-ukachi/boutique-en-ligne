@@ -107,7 +107,7 @@
 
     <!-- Animations -->
     <!-- <link rel='stylesheet' href='assets/animations/fade-in-animation.css'> -->
-    <!-- <link rel='stylesheet' href='assets/animations/slide-from-down-animation.css'> -->
+    <link rel='stylesheet' href='assets/animations/slide-from-up-animation.css'>
 
     <!-- Stylesheet -->
     <link rel='stylesheet' href='assets/stylesheets/shop-styles.css'>
@@ -151,7 +151,14 @@
   <main class='flex-layout vertical'>
 
     <!-- App-Layout of MAIN -->
-    <div class='app-layout' fit>
+    <div id="appLayout" class='app-layout' fit>
+
+        <!-- Wallpaper -->
+        <div id="wallpaper" class="wallpaper" <?= !isset($this->categoryName) ? 'hidden' : ''?> fit>
+          <div class="overlay" fit></div>
+          <img src="<?= isset($this->categoryImage) ? 'assets/images/categories/' . $this->categoryImage : ''?>" alt="" fit/>
+        </div>
+
         <!-- Header -->
         <header>
           <!-- App Bar -->
@@ -192,7 +199,7 @@
           <!-- End of Category Bar -->
 
           <!-- Search Bar -->
-          <div id="searchBar" class="app-bar fade-in" <?= !isset($this->categoryName) ? 'hidden' : ''?>>
+          <div id="searchBar" class="app-bar fade-in" busy <?= !isset($this->categoryName) ? 'hidden' : ''?>>
             <!-- Input Wrapper -->
             <div class="input-wrapper horizontal flex-layout center">
 
@@ -204,7 +211,8 @@
               <!-- Search Dropdown - Button -->
               <button id="searchDropdownButton" class="dropdown-button horizontal flex-layout centered"
                 contained shrinks>
-                <span class="value"><?= $this->categoryNameValue ?></span>
+                <span class="spinner dots-3"></span>
+                <span class="value txt capitalize"><?= $this->categoryNameValue ?></span>
                 <span class="material-icons icons">arrow_drop_down</span>
               </button>
 
@@ -218,52 +226,76 @@
                 spellcheck="false" />
 
               <!-- Search Indicator -->
-              <div id="searchIndicator"><span></span></div>
+              <div id="searchIndicator" hidden><span></span></div>
+
+              <!-- Progress Bar -->
+              <div id="progressBar" class="progress-bar" hidden>
+                <span class="progress-bar-value"></span>
+              </div>
+
             </div>
             <!-- End of Input Wrapper -->
           </div>
           <!-- End of Search Bar -->
-
           
-
-          <!-- SubCategory Chips | [sticky] App Bar | Chips Container -->
-          <div id="subCategoryChips" class="app-bar chips-container" scrollpos="start" <?= !isset($this->categoryName) ? 'hidden' : ''?>>
-            <!-- Left Chip - Icon Button -->
-            <button id="leftChipIconBtn" class="icon-button left">
-              <span class="material-icons icon">keyboard_arrow_left</span>
+          
+          <!-- Chips Bar -->
+          <div id="chipsBar" class="app-bar fade-in center horizontal flex-layout" <?= !isset($this->categoryName) ? 'hidden' : ''?>>
+            
+            <!-- Filter Button -->
+            <button id="filterButton" class="horizontal flex-layout centered" outlined tablet-and-desktop-only>
+              <span class="material-icons icons vertical flex-layout centered">filter_list</span>
+              <span><?= $this->i18n->getString('filter') ?></span>
             </button>
 
-            <!-- Chips -->
-            <ul class="chips horizontal flex-layout center flex" role="tabs" noscrollbars>
+            <!-- SubCategory Chips | Chips Container -->
+            <div id="subCategoryChips" class="chips-container flex-layout flex" scrollpos="start">
+              <!-- Left Chip - Icon Button -->
+              <button id="leftChipIconBtn" class="icon-button left">
+                <span class="material-icons icon">keyboard_arrow_left</span>
+              </button>
+              
+              <!-- Chips -->
+              <ul class="chips horizontal flex-layout center flex fade-in" role="tabs" noscrollbars>
 
-              <li data-subcategory-id="-1" data-subcategory-name="all" class="chip" role="tab" tabindex="0" aria-selected="true" selected>
-                <span><?= $this->i18n->getString('all') ?></span>
-              </li>
+                <li data-subcategory-id="-1" data-subcategory-name="all" class="chip" role="tab" tabindex="0" aria-selected="true" selected>
+                  <span><?= $this->i18n->getString('all') ?></span>
+                </li>
 
-              <?php foreach ($subCategories as $subCategory): ?>
-              <li 
-                data-subcategory-id="<?= $subCategory->id ?>" 
-                data-subcategory-name="<?= $subCategory->name ?>" 
-                class="chip" 
-                role="tab" 
-                tabindex="0" 
-                aria-selected="false">
+                <?php foreach ($subCategories as $subCategory): ?>
+                <li 
+                  data-subcategory-id="<?= $subCategory->id ?>" 
+                  data-subcategory-name="<?= $subCategory->name ?>" 
+                  class="chip slide-from-up" 
+                  role="tab" 
+                  tabindex="0" 
+                  aria-selected="false">
 
-                <span><?= $this->i18n->getString($subCategory->name) ?></span>
+                  <span><?= $this->i18n->getString($subCategory->name) ?></span>
 
-              </li>
-              <?php endforeach; ?>
-            </ul>
-            <!-- End of Chips -->
+                </li>
+                <?php endforeach; ?>
+              </ul>
+              <!-- End of Chips -->
+            
+              <!-- Right Chip - Icon Button -->
+              <button id="rightChipIconBtn" class="icon-button right">
+                <span class="material-icons icon">keyboard_arrow_right</span>
+              </button>
 
-            <!-- Right Chip - Icon Button -->
-            <button id="rightChipIconBtn" class="icon-button right">
-              <span class="material-icons icon">keyboard_arrow_right</span>
+              <span class="divider horizontal bottom" hidden></span>
+            </div>
+            <!-- End of SubCategory Chips | [sticky] App Bar | Chips Container -->
+            
+            <span flex></span>
+
+            <!-- Sort Button -->
+            <button id="sortButton" name="default" class="horizontal flex-layout centered" outlined tablet-and-desktop-only>
+              <span class="material-icons icons vertical flex-layout centered">sort</span>
+              <span><?= $this->i18n->getString('sort') ?></span>
             </button>
-
-            <span class="divider horizontal bottom" hidden></span>
           </div>
-          <!-- End of SubCategory Chips | [sticky] App Bar | Chips Container -->
+
 
           <!-- Horizontal Divider -->
           <span class='divider horizontal bottom' hidden></span>
@@ -281,7 +313,12 @@
 
               <li class='top-category vertical flex-layout' tabindex="0">
                 <!-- Category Button -->
-                <button class='category-btn' tabindex="-1" expands contained data-category-id="<?=$category['id'] ?>" data-category-name="<?=$category['name']?>" naked fit>
+                <button 
+                  class='category-btn' expands contained naked fit
+                  tabindex="-1" 
+                  data-category-id="<?= $category['id'] ?>" 
+                  data-category-name="<?= $category['name'] ?>"
+                  data-category-image="<?= $category['image'] ?>">
                   <img src='assets/images/categories/<?=$category['image'] ?>' alt='<?=$category['name'] ?>' fit>
                 </button>
 
@@ -296,13 +333,75 @@
               <span class="spinner dots-3"></span>
               <span class='txt upper'><?= $this->i18n->getString('seeAll') ?></span>
             </button>
-
+            
           </div>
           <!-- End of Preview - Container -->
+
+          <!-- Filter Panel | Section -->
+          <section id="filterPanel">
+            <div class="app-layout">
+              <header narrow-only>
+                <!-- Filter Panel App Bar -->
+                <div class="app-bar">
+                  <!-- Close Filter Button -->
+                  <button id="closeFilterButton" class="icon-button">
+                    <span class="material-icons icons">close</span>
+                  </button>
+             
+                 <!-- Title Wrapper -->
+                 <div class='title-wrapper centered flex-layout'>
+                   <!-- Title -->
+                   <h2 class='app-title'><?= $this->i18n->getString('filter') ?></h2>
+                 </div>
+
+                </div>
+                <!-- End of Filter Panel App Bar -->
+
+              </header>
+
+              <div content>
+                <div class="container vertical flex-layout">
+                  <!-- Filters -->
+                  <ul class="filters list-items links" naked>
+
+                    <!-- Price Filter Item -->
+                    <li id="priceFilterItem" class="filter-item link-item">
+                      <a href="#" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+                        <div class="text-wrapper flex-layout vertical">
+                          <h3>Price</h3>
+                          <h4>$0 - $100</h4>
+                        </div>
+                        <span class="material-icons arrow icon">expand_more</span>
+                      </a>
+                    </li>
+                    <!-- End of Price Filter Item -->
+
+
+                    <!-- Color Filter Item -->
+                    <li id="priceFilterItem" class="filter-item link-item">
+                      <a href="#" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+                        <div class="text-wrapper flex-layout vertical">
+                          <h3>Color</h3>
+                          <h4>red</h4>
+                        </div>
+                        <span class="material-icons arrow icon">expand_more</span>
+                      </a>
+                    </li>
+                    <!-- End of Price Filter Item -->
+                  </ul>
+                  <!-- End of Filters -->
+
+                </div>
+              </div>
+
+            </div>
+          </section>
 
           <!-- Products - Container -->
           <div id="products" <?= !isset($this->categoryName) ? 'hidden' : ''?>
             class="container vertical flex-layout">
+
+
           </div>
           <!-- End of Products - Container -->
 
@@ -355,7 +454,7 @@
         <!-- Filter - Menu Item -->
         <li title="<?= $this->i18n->getString('filter') ?>" class="menu-item">
           <button id="filterMenuItem" data-action="filter">
-            <span class="material-icons icon">filter</span>
+            <span class="material-icons icon">filter_list</span>
             <span><?= $this->i18n->getString('filter') ?></span>
           </button>
         </li>
