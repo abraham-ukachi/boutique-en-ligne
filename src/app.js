@@ -126,7 +126,7 @@ export const html = (strings, ...values) => {
 
   // TEST: Log all the values
   // DEBUG [4dbsmaster]: tell me about all the values
-  values.forEach((value, index) => console.log(`\x1b[42m\x1b[30m[html]: value at ${index} => \x1b[0m`, value));
+  //values.forEach((value, index) => console.log(`\x1b[42m\x1b[30m[html]: value at ${index} => \x1b[0m`, value));
 
 
   // return the raw strings including their values
@@ -180,7 +180,7 @@ export class MaxaboomApp {
     this.lang = lang;
     this.theme = theme;
 
-
+    
     // create a new `I18n` instance with `lang` as the default language
     this.i18n = new I18n(lang);
 
@@ -190,6 +190,9 @@ export class MaxaboomApp {
 
     // install event listeners of the app
     this._installEventListeners();
+
+    // install prototype methods
+    this._installPrototypeMethods();
 
     // Install the Media Query Watcher
     installMediaQueryWatcher(460, 
@@ -210,6 +213,26 @@ export class MaxaboomApp {
   onReady(data) {}
 
   // PUBLIC METHODS
+
+
+  /**
+   * Returns the currently selected dialog list item element
+   *
+   * @param { String } dialogId
+   * @param { String } part
+   *
+   * @returns { Element } selectedDialogListItemEl
+   */
+  getSelectedDialogListItem(dialogId = 'dialog', part = DEFAULT_PART) {
+    // get the dialog element with the given `dialogId`
+    const dialogEl = this.getDialogById(dialogId, part);
+
+    // find the selected dialog list item element in this `dialogEl`
+    const selectedDialogListItemEl = dialogEl.querySelector('.dialog-list-item[selected]');
+
+    // return the `selectedDialogListItemEl`
+    return selectedDialogListItemEl;
+  }
 
 
   /**
@@ -659,6 +682,10 @@ export class MaxaboomApp {
         let dialogHTMLTemplate = this._getDialogHTMLTemplate(params);
         // ...insert 'beforend' the `dialogHTMLTemplate` to `dialogsEl`
         dialogsEl.insertAdjacentHTML('beforeend', dialogHTMLTemplate);
+        
+        // If there's a `list` in the params,
+        // install the `click` events listeners on each list item
+        if (typeof params.list !== 'undefined') this._installDialogListItemEventListeners(dialogsEl, params?.onListItemClick);
 
         // get the confirm button element as `confirmBtnEl`
         let confirmBtnEl = this.getDialogById(dialogId, part).querySelector('.confirm-btn');
@@ -1040,6 +1067,67 @@ export class MaxaboomApp {
   }
 
 
+  /** ====== FETCH / REQUESTS ====== **/
+
+
+  /**
+   * Method used to fetch all the categories from our server / database.
+   *
+   * @example
+   *  // fetch all categories and console log each id and name ;)
+   *  fetchCategories().then((allCategories) => {
+   *
+   *    allCategories.forEach((category) => {
+   *      const categoryId = category.id;
+   *      const categoryName = category.name;
+   *
+   *      console.log(`categoryId => ${category.id} & categoryId => ${categoryName}`);
+   *    });
+   *  
+   *  });
+   *
+   * @returns { Promise }
+   */
+  fetchCategories(categoryId) {
+    return new Promise(async (resolve, reject) => {
+      
+      // create the url / endpoint to fetch from as `url`
+      let url = categoryId ? `api/categories/${categoryId}` : 'api/categories';
+      
+      // create a request with our `url`
+      let request = new Request(url, {method: 'GET'}); // <- 'GET' method here is #NN I know ! #codeReadability ;)
+
+      // fetch the response to this request as `requestResponse`
+      let requestResponse = await fetch(request);
+      // get the JSON object of the `requestResponse` as just `response`
+      let response = await requestResponse.json();
+
+
+      // if the `response` was a success...
+      if (response.success) {
+        // ...get the categories from the results as `categories`
+        let categories = response.results;
+
+        // TODO: Do something awesome with the `categories` here, prob. based on some given params
+
+        // resolve the promise with `categories`
+        resolve(categories);
+
+      } else {
+        // ...reject the promise the response message
+        reject(response.message);
+      }
+
+    });
+  }
+
+
+
+
+
+
+
+
   // PUBLIC SETTERS
 
   /**
@@ -1193,6 +1281,15 @@ export class MaxaboomApp {
     return appLayoutEl.querySelector('.app-bar[sticky]');
   }
 
+
+  /**
+   * Returns TRUE if the current device is mobile, FALSE if desktop
+   *
+   * @returns { Boolean }
+   */
+  get isTouchDevice() {
+    return 'ontouchstart' in document.documentElement;
+  }
 
   /**
    * Returns the app part using the given `partName`
@@ -1508,7 +1605,7 @@ export class MaxaboomApp {
      
     // empty `toastsEl`
     toastsEl.innerHTML = '';
-
+     
     // hide `toastsEl`
     toastsEl.hidden = true;
 
@@ -1660,6 +1757,115 @@ export class MaxaboomApp {
 
   }
 
+  
+  /**
+   * Method used to install prototype methods on some elements
+   */
+  _installPrototypeMethods() {
+    // add the `startLoading` method to the `HTMLButtonElement` prototype
+    HTMLButtonElement.prototype.startLoading = function() {
+      // add the `loading` class to the button
+      this.classList.add('loading');
+    }
+    
+    // add the `start` method to the `HTMLButtonElement` prototype
+    HTMLButtonElement.prototype.stopLoading = function() {
+      // remove the `loading` class to the button
+      this.classList.remove('loading');
+    }
+
+
+    // add the `start` method to the `HTMLSpanElement` prototype
+    HTMLSpanElement.prototype.start = function() {
+      // add the `active` attribute to the span element
+      this.setAttribute('active', '');
+    }
+
+    // add the `start` method to the `HTMLSpanElement` prototype
+    HTMLSpanElement.prototype.stop = function() {
+      // remove the `active` attribute from the span element
+      this.removeAttribute('active');
+    }
+  }
+
+  /**
+   * Installs the click event to all the  list items of the given `dialogEl`
+   *
+   * @param { Element } dialogEl - The dialog element
+   * @param { Function } callback - The function called whenever on item is clicked
+   */
+  _installDialogListItemEventListeners(dialogEl, callback) {
+    // get all the list item elements in the `dialogEl` as `listItemEls`
+    const listItemEls = dialogEl.querySelectorAll('.dialog-list-item');
+
+    // loop throug all list item elements
+    listItemEls.forEach((listItemEl) => {
+      // list to the click event
+      listItemEl.addEventListener('click', (event) => {
+        // if there's a callback...
+        if (callback) {
+          // ...call it w/ the event & list item element! ;)
+          callback(event, listItemEl);
+        }
+
+        // handle the click
+        this._handleDialogListItemClick(event, dialogEl);
+
+      });
+    });
+  }
+
+  /**
+   * Handler that is called whenever a dialog list item is clicked
+   *
+   * @param { PointerEvent } event - the event that triggered this handler
+   * @param { Element } dialogEl - the dialog element 
+   */
+  _handleDialogListItemClick(event, dialogEl) {
+    // get the list item id as `listItemId`
+    const listItemId = event.currentTarget.dataset.id;
+
+    // clear the list selection of this `dialogEl`
+    this._clearDialogListSelection(dialogEl);
+
+    // select the list item from this dialogEl
+    this._selectDialogListItemById(listItemId, dialogEl);
+
+    // DEBUG [4dbsmater]: tell me about this event
+    console.log(`\x1b[33m[_handleDialogListItemClick]: listItemId => ${listItemId} & event => \x1b[0m`, event);
+  }
+
+
+  /**
+   * Method used to remove any `selected` attribute on a list item in the given `dialogEl`
+   *
+   * @param { Element } dialogEl
+   */
+  _clearDialogListSelection(dialogEl) {
+    // get all the list item elements in the `dialogEl` as `listItemEls`
+    const listItemEls = dialogEl.querySelectorAll('.dialog-list-item');
+
+    // loop throug all list item elements,
+    // and remove any `selected` attribute
+    listItemEls.forEach((listItemEl) => listItemEl.removeAttribute('selected'));
+  }
+
+  
+
+  /**
+   * Method used to select a dialog list item with the given `listItemId`
+   *
+   * @param { String | Number } listItemId
+   * @param { Element } dialogEl
+   */
+  _selectDialogListItemById(listItemId, dialogEl) {
+    // get the list item element from the specified `dialogEl`,
+    // using the list item id as `listItemEl`
+    const listItemEl = dialogEl.querySelector(`[data-id="${listItemId}"]`);
+
+    // add a `selected` property to `listItemEl`
+    listItemEl.setAttribute('selected', '');
+  }
 
 
   // PRIVATE SETTERS
@@ -1760,14 +1966,36 @@ export class MaxaboomApp {
   _getDialogHTMLTemplate(data) {
     return html`
       <!-- Dialog -->
-      <div data-id="dialog" class="dialog slide-from-up" hidden>
+      <div data-id="dialog" class="dialog slide-from-up" hidden ${typeof data.list !== 'undefined' ? 'has-list' : ''}>
         <!-- Dialog Title -->
         <h2 class="dialog-title">${data.title}</h2>
         <!-- Dialog Message -->
         <p class="dialog-msg">${data.message}</p>
+        
+        ${typeof data.list !== 'undefined' ? html`
+
+          <!-- Dialog List -->
+          <ul class="dialog-list vertical flex-layout" naked>
+
+            ${data.list.map((listItem, index) => html`
+              <!-- List Item -->
+              <li shrinks
+              tabIndex="${index + 1}" 
+              class="dialog-list-item horizontal flex-layout center"  
+              data-id="${listItem.id}" 
+              data-name="${listItem.name}"
+              ${(data.selectedId == listItem.id || data.selectedName == listItem.name) ? 'selected' : ''}
+              >
+                <span class="radio"></span>
+                <span class="value">${listItem.value}</span>
+              </li>
+            `)}
+          </ul>
+          <!-- End of Dialog List -->
+        ` : ''}
 
         <!-- Dialog Buttons -->
-        <div class="dialog-buttons">
+        <div class="dialog-buttons" ${data.noButtons ? 'hidden' : ''}>
           <!-- Confirm Button -->
           <a role="button" 
              tabindex="0" 
@@ -1914,6 +2142,7 @@ export class MaxaboomApp {
     console.log(`\x1b[36m[handleInputValue](2): inputEl => %s\x1b[0m`, inputEl);
 
   }
+
 
 
 
