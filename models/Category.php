@@ -1,21 +1,164 @@
 <?php
+/**
+* @license MIT
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal, Catherine Tranchand. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @project boutique-en-ligne (maxaboom)
+* @name User - Model
+* @test test/user_model.php
+* @file User.php
+* @author: Morgane Marechal <morgane.marechal@laplateforme.io>
+* @contributors: Abraham Ukachi <abraham.ukachi@laplateforme.io>, Axel Vair <axel.vair@laplateforme.io>, Catherine Tranchand <catherine.tranchand@laplateforme.io>
+* @version: 0.0.1
+* 
+* Example usage:
+*   
+*   1+|> // Create a new category
+*    -|>
+*    -|> $category = Category::create([
+*    -|>   'title' => 'Guitars',
+*    -|>   'name' => 'guitars',
+*    -|>   'is_top' => 1
+*    -|>   'image' => 'guitars.jpg'
+*    -|> ]);
+*    -|>
+*   o=|> echo $category->id; // 2
+*    -|>
+*
+*   2+|> // Find a category by id
+*    -|>
+*    -|> $category = Category::find(2);
+*    -|>
+*   o=|> echo $category->name; // guitars
+*    -|>
+*
+*   3+|> // Get all categories
+*    -|>
+*    -|> $categories = Category::all();
+*    -|>
+*    -|> foreach ($categories as $category) {
+*    -|>   echo $category->name;
+*    -|> }
+*    -|>
+*/
 
+
+
+// declare a namespace for this User class
 namespace Maxaboom\Models;
 
-use Maxaboom\Models\Helpers\Database;
+// use these classes
 use datetime;
 use PDO;
 use PDOException;
 
-class Category extends Database
-{
-    public function __construct()
-    {
-        parent::__construct();
-        $this->dbConnect();
-    }
+/**
+ * Class Category / Category Model
+ * A class that represents the `categories` table in the database.
+ */
+class Category extends Model {
+
+  // Define some properties here ;)
+  
+  // protected properties
+
+  /**
+   * The table associated with this model
+   *
+   * @var string
+   */
+  protected string $table = 'categories';
 
 
+
+  /**
+    * Indicates if the model should automatically connect to the database.
+    *
+    * @var bool
+    */
+  protected bool $autoConnect = true;
+
+
+  /**
+   * All the supported fields in the `categories` table
+   * @var array
+   */
+  protected array $fields = [
+    'id',
+    'title',
+    'name',
+    'is_top',
+    'image'
+  ];
+
+
+  // public properties
+  public ?int $id = null;
+  public ?string $title = null;
+  public ?string $name = null;
+  public ?bool $is_top = null;
+  public ?string $image = null;
+
+
+  /**
+   * Indicates if the model should be timestamped.
+   *
+   * @var bool
+   */
+  public bool $timestamps = false;
+
+
+  
+
+  /**
+   * Category constructor.
+   * NOTE: This constructor is called automatically when the class is instantiated
+   */
+  public function __construct() {
+    // call the parent Model constructor
+    parent::__construct();
+
+  }
+
+
+  // PUBLIC STATIC SETTERS
+
+  // PUBLIC STATIC GETTERS
+
+  // PUBLIC STATIC METHODS
+
+
+  
+  
+  
+  
+  // PUBLIC SETTERS
+  
+  // PUBLIC GETTERS
+  
+  // PUBLIC METHODS
+
+  
     public function getAllCategories(): array {
         $allProducts = $this->db->prepare("SELECT * FROM categories");
         $allProducts->execute([
@@ -28,7 +171,7 @@ class Category extends Database
     public function getCategoryIdByName(string $categoryName): int {
         $allProducts = $this->db->prepare("SELECT id FROM categories WHERE name = '$categoryName'");
         $allProducts->execute([
-        ]);
+]);
         $result = $allProducts->fetch(PDO::FETCH_ASSOC);
         return $result['id'];
     }
@@ -116,7 +259,7 @@ class Category extends Database
 
     public function deleteSubCategory($idSubCategory){
         $sql="DELETE FROM sub_categories WHERE id = :idsubcategory";
-        $sql_exe = $this->db->prepare($sql);
+$sql_exe = $this->db->prepare($sql);
         $sql_exe->execute([
             'idsubcategory' => $idSubCategory
         ]);         
@@ -142,5 +285,24 @@ class Category extends Database
             echo json_encode(['response' => 'not ok', 'echoue' => 'Problème enregistrement']);
         }
     }
+
+
+
+
+  // PRIVATE STATIC SETTERS
+
+  // PRIVATE STATIC GETTERS
+
+  // PRIVATE STATIC METHODS
+
+
+
+
+  // PRIVATE SETTERS
+  
+  // PRIVATE GETTERS
+  
+  // PRIVATE METHODS
+  
 
 }
