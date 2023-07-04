@@ -49,36 +49,51 @@ namespace Maxaboom\Routes;
 
 // use maxaboom's `ShopController` class
 use Maxaboom\Controllers\ShopController;
-//use Maxaboom\Models\Product;
+
+
+
 
 /**
- * Home - Route
+ * ============================
+ *  Shop Routes
+ * ============================
  */
 
 
+
+
+// create a custom pattern for the `categoryName` route parameter as `cat`
+// $router->definePattern('cat', '[a-zA-Z\-_]+');
+
+
+
 /**
- * Route used to display the splash, welcome or home view
+ * Route used to display the shop page based on the category and sub-category
  *
  * @method GET
- * @url /shop
+ * @url /shop/[a:categoryName]?/[a:subCategoryName]?
  *
  * @echo string $shopPage - the shop page
  */
-$router->map('GET', '/shop', function (): void {
-    // instantiate the `ShopController` class as `$shopController`
-    $shopController = new ShopController();
-    // show the shop page
-    $shopController->showPage();
+$router->map('GET', '/shop/[:categoryName]?/[:subCategoryName]?', function (?string $categoryName = null, ?string $subCategoryName = null): void {
+  // instantiate the `ShopController` class as `$shopController`
+  $shopController = new ShopController();
+
+  // show the shop page
+  $shopController->showPage($categoryName, $subCategoryName);
 });
 
-/** Route used for filter products by categories
- *
- *@method GET
- *@url /shop/category
- *
- */
 
 
+
+
+
+
+
+
+
+
+/*
 $router->map('GET', '/shop/[a:categoryName]/[:subCategoryName]', function ($categoryName, $subCategoryName){
     $subCategoryName = str_replace('-', ' ', $subCategoryName);
     $shopController = new ShopController($categoryName, $subCategoryName);
@@ -90,7 +105,7 @@ $router->map('GET', '/shop/[a:categoryName]', function ($categoryName){
     $filterByCategory->showPageByCategory();
 });
 
-
+ */
 
 
 
