@@ -55,7 +55,8 @@
   /* category icons */
   --category-guitars-url: url('../images/categories/icons/guitars.svg');
   --category-violins-url: url('../images/categories/icons/violins.svg');
-  --category-drums-url: url('../images/categories/icons/drums.svg'); /* <- or percussions ;) */
+  --category-drums-url: url('../images/categories/icons/drums.svg');
+  --category-percussions-url: url('../images/categories/icons/percussions.svg'); /* <- or percussions ;) */
   --category-pianos-url: url('../images/categories/icons/pianos.svg');
   --category-dj-url: url('../images/categories/icons/dj.svg');
   --category-wind-url: url('../images/categories/icons/wind.svg');
@@ -571,8 +572,8 @@ a.top-category:hover .top-category-icon {
   --top-category-icon-url: var(--category-guitars-url);
 }
 
-.top-category-icon.percussion {
-  --top-category-icon-url: var(--category-drums-url);
+.top-category-icon.percussions {
+  --top-category-icon-url: var(--category-percussions-url);
 }
 
 .top-category-icon.pianos {
@@ -583,7 +584,7 @@ a.top-category:hover .top-category-icon {
   --top-category-icon-url: var(--category-dj-url);
 }
 
-.top-category-icon.violin {
+.top-category-icon.violins {
   --top-category-icon-url: var(--category-violins-url);
 }
 
@@ -594,11 +595,18 @@ a.top-category:hover .top-category-icon {
 
 
 .top-category-name {
-  font-size: var(--top-category-name-size, 1rem);
+  font-size: var(--top-category-name-size, 0.75rem);
   line-height: var(--top-category-name-line-height, 1.25rem);
+
+  /*
   white-space: nowrap;
   text-overflow: ellipsis;
+  */
+
   overflow: hidden;
+  word-wrap: break-word;
+  white-space: break-spaces;
+  text-align: center;
 }
 
 
@@ -852,6 +860,7 @@ section > h2 {}
   
   a.top-category {
     --top-category-size: 150px;
+    --top-category-name-size: 1rem;
   }
 
 
