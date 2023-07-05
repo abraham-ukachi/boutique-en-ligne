@@ -224,6 +224,17 @@
   display: none !important;
 }
 
+/* NO SCROLLBARS Property */
+[noscrollbars] {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+[noscrollbars]::-webkit-scrollbar {
+  display: none;
+}
+
+
 [invisible] {
   visibility: hidden !important;
   pointer-events: none !important;
@@ -387,7 +398,7 @@ body > aside {
 }
 
 .app-layout > header::before {
-  background-color: var(--background-color);
+  background-color: var(--app-header-background-color, var(--background-color));
   inset: 0;
   content: "";
   position: absolute;
@@ -708,6 +719,29 @@ span.divider.vertical {
   height: 100%;
 }
 
+
+/* Loading Buttons */
+
+button.loading {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.9;
+}
+
+
+button:not(.loading) > .spinner, 
+button.loading > *:not(.spinner) {
+  display: none;
+}
+
+button.loading > .spinner {
+  display: block;
+}
+
+
+
+
+
 /* Icon-Button */
 button.icon-button, a[role="icon-button"] {
   display: block;
@@ -976,6 +1010,11 @@ form > *:nth-child(10) {
 }
 
 
+
+
+
+
+
 /* all labels next to an input */
 label {
   pointer-events: none;
@@ -1216,6 +1255,47 @@ p.input-message {
 }
 
 
+/* Progress Bar */
+div.progress-bar {
+  position: relative;
+  width: var(--progress-bar-width, 100%);
+  height: var(--progress-bar-height, 4px);
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+div.progress-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: inherit;
+  height: inherit;
+  background-color: var(--primary-container-color);
+}
+
+div.progress-bar > span.progress-bar-value {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--progress-bar-value-width, 50%);
+  background-color: var(--primary-color);
+  z-index: 1000;
+}
+
+@keyframes intermediate-horiz {
+  from { left: -50%; }
+  to { left: 100%; }
+}
+
+/* Progress Bar - Intermediate */
+div.progress-bar.intermediate > span.progress-bar-value {
+  animation: intermediate-horiz 2s infinite;
+}
+
+
 /* Dialogs */
 #dialogs, .dialogs {
   display: flex;
@@ -1293,6 +1373,217 @@ a.dialog-button:focus, a[role="button"].dialog-button:focus {
   outline: 3px solid;
   outline-color: var(--tertiary-color);
 }
+
+
+/* dialog-list */
+ul.dialog-list {
+  width: var(--dialog-list-width, 100%);
+  height: var(--dialog-list-height, auto);
+  max-height: var(--dialog-list-max-height, 300px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: var(--dialog-list-margin, 2rem 0);
+}
+
+
+/* dialog-list-item */
+li.dialog-list-item {
+  position: relative;
+  box-sizing: border-box;
+  width: var(--dialog-list-item-width, 100%);
+  height: var(--dialog-list-item-height, auto);
+  padding: var(--dialog-list-item-padding, 0.75rem 1rem);
+  transform: scale(1);
+  transform-origin: left;
+  opacity: var(--opacity-dialog-list-item, 0.68);
+  user-select: none;
+
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+li.dialog-list-item:hover {
+  opacity: var(--opacity-dialog-list-item-hover, 1);
+}
+
+
+li.dialog-list-item[shrinks]:active {
+  transform: scale(0.9);
+} 
+
+
+li.dialog-list-item .checkbox,
+li.dialog-list-item .radio {
+  width: var(--dialog-list-item-checkbox-size, 20px);
+  height: var(--dialog-list-item-checkbox-size, 20px);
+  outline: 2px solid var(--dialog-list-item-checkbox-outline-color, var(--outline-color));
+  margin-right: 1.25rem;
+  outline-offset: 3px;
+}
+
+li.dialog-list-item .checkbox {
+  border-radius: 3px;
+}
+
+li.dialog-list-item .radio {
+  border-radius: 50%;
+}
+
+
+/* ==== Chips (Container + Icon Buttons + Chip) ==== */
+
+.chips-container {
+  width: -webkit-fill-available;
+}
+
+.chips-container > * {}
+
+.chips-container > button.icon-button {
+  display: none;
+}
+
+
+
+.chips-container:not([scrollpos="start"]) > ul.chips::before {
+  position: sticky;
+  content: "";
+  width: calc(var(--chips-size, 32px) * 2);
+  min-width: calc(var(--chips-size, 32px) * 2);
+  height: var(--chips-size, 32px);
+  pointer-events: none;
+  top: 0px;
+  left: -3px;
+  z-index: 1;
+  background: linear-gradient(to right, var(--background-color), transparent);
+}
+
+.chips-container:not([scrollpos="start"]) > ul.chips > li.chip:first-child {
+  margin-left: calc(-2 * var(--chips-size, 32px));
+}
+
+.chips-container:not([scrollpos="end"]) > ul.chips > li.chip:last-child {
+  margin-right: calc(-2 * var(--chips-size, 32px));
+}
+
+
+
+.chips-container:not([scrollpos="end"]) > ul.chips::after {
+  position: sticky;
+  content: "";
+  width: calc(var(--chips-size, 32px) * 2);
+  min-width: calc(var(--chips-size, 32px) * 2);
+  height: var(--chips-size, 32px);
+  pointer-events: none;
+  top: 0px;
+  right: -3px;
+  z-index: 1;
+  background: linear-gradient(to right, transparent, var(--background-color));
+}
+
+
+.chips-container > ul.chips {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  height: var(--chips-size, 32px);
+  overflow-y: hidden;
+  overflow-x: auto;
+  margin: 0.5rem;
+  background: var(--chips-background-color, var(--background-color));
+  scroll-behavior: smooth;
+}
+
+ul.chips > li.chip::before {
+  position: absolute;
+  content: '';
+  background: var(--chip-background-color, var(--surface-variant-color));
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  border-radius: var(--chip-radius, 6px);
+  opacity: var(--chip-background-opacity, 0.2);
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+ul.chips > li.chip {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: auto;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 0.75rem;
+  margin: 0 0.5rem;
+  border-radius: var(--chip-radius, 6px);
+  font-size: 0.95rem;
+  user-select: none;
+  pointer-events: default;
+  white-space: nowrap;
+
+  -webkit-transition: background-color 0.2s ease-in-out;
+  -moz-transition: background-color 0.2s ease-in-out;
+  -ms-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+
+ul.chips > li.chip:hover::before {
+  opacity: var(--chip-background-opacity-hover, 0.6);
+}
+
+
+ul.chips > li.chip[selected] {
+  background: var(--inverse-surface-color);
+  color: var(--inverse-on-surface-color);
+  font-weight: bold;
+}
+
+ul.chips > li.chip[selected]::before {
+  opacity: var(--chip-background-opacity-selected, var(--opacity-md-icon-active, 0.8));
+  z-index: -1;
+  background: inherit;
+}
+
+
+li.chip span {
+  position: relative;
+  /* opacity: var(--opacity-text-inactive, 0.68); */
+  opacity: var(--opacity-text-active);
+}
+
+ul.chips > li.chip:hover span,
+ul.chips > li.chip[selected]:hover span {
+  opacity: 1;
+}
+
+
+/* ==== End of Chips ==== */
+
+
+
+
+/* [selected] dialog list item */
+li.dialog-list-item[selected] {
+  font-weight: bold;
+  opacity: var(--opacity-dialog-list-item-selected, 1);
+}
+
+
+li.dialog-list-item[selected] .checkbox,
+li.dialog-list-item[selected] .radio {
+  outline-color: var(--dialog-list-item-checkbox-selected-border-color, var(--primary-color));
+  background: var(--dialog-list-item-checkbox-selected-background-color, var(--primary-color));
+}
+
+
+/* TODO: dialog-list-item-link */
 
 /* === End of Dialog Styles === */
 
@@ -1640,7 +1931,8 @@ em {
 /* +++++ Links & Link Item ++++++ */
 
 /* Link Item */
-.link-item > a {
+.link-item > a,
+.link-item > button {
   position: relative;
   width: 100%;
   text-align: left;
@@ -1659,23 +1951,27 @@ em {
   transition: all 0.2s ease-in-out;
 }
 
-.link-item > a::before {
+.link-item > a::before,
+.link-item > button::before {
   background: var(--list-item-background-color, var(--on-background-color));
   position: absolute;
   content: "";
   inset: 0;
   opacity: var(--opacity-list-item);
+  pointer-events: none;
 
   -webkit-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
   -moz-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
   transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-.link-item:hover > a::before {
+.link-item:hover > a::before,
+.link-item:hover > button::before {
   opacity: var(--opacity-list-item-hover);
 }
 
-.link-item[active] > a {
+.link-item[active] > a,
+.link-item[active] > button {
   --list-item-background-color: var(--inverse-surface-color);
   --list-item-color: var(--inverse-on-surface-color);
   --link-item-icon-color: var(--primary-inverse-color);
@@ -1686,7 +1982,8 @@ em {
   pointer-events: none;
 }
 
-.link-item[active] > a::before {
+.link-item[active] > a::before,
+.link-item[active] > button::before {
   opacity: var(--opacity-list-item-active) !important;
 }
 
@@ -1846,6 +2143,19 @@ ul.select-list li[selected] {
  * ***************************************
  */
 @media (min-width: 460px) {
+
+  .chips-container > button.icon-button {
+    display: block;
+  }
+
+  .chips-container[scrollpos="start"] > button.icon-button.left {
+    display: none;
+  }
+  
+  .chips-container[scrollpos="end"] > button.icon-button.right {
+    display: none;
+  }
+
   /* === SPECIFIC VIEWPORTS ONLY === */
 
   [narrow-only] {
@@ -2060,6 +2370,10 @@ ul.select-list li[selected] {
 
   ul.select-list .icon {
     font-size: 2rem;
+  }
+
+  .link-item:not([active]):hover {
+    transform: scale(1.05) translateY(5px);
   }
 }
 

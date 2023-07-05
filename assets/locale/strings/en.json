@@ -8,8 +8,20 @@
  "discoverBuyYourPerfectInstrument": "🛍  Discover and buy your perfect musical instrument 😍", 
 
  "ourCategories": "Our categories",
-
+  
  "filter": "Filter",
+ "price": "Price",
+ "brand": "Brand",
+ "color": "Color",
+
+ "colors": "Colors",
+ "prices": "Prices",
+
+ "priceRange": "Price range",
+ "selectAPriceRange": "Select a price range",
+ "selectABrand": "Select a brand",
+ "pickOneOrMoreColors": "Pick one or more colors",
+
  "ourCategoriesMessage": "Because each inspiration is unique, find the instrument you need.",
   "welcomeMessage": "Welcome to Maxaboom | The #1 online store for all your musical needs",
 
@@ -491,7 +503,20 @@
 
   "upright-piano": "Upright Piano",
   "grand-piano": "Grand Piano",
-  "digital-piano": "Digital Piano"
+  "digital-piano": "Digital Piano",
+
+  "extra-cheap": "Extra Cheap",
+  "very-cheap": "Very Cheap",
+  "too-cheap": "Too Cheap",
+  "cheap": "Cheap",
+  "affordable": "Affordable",
+  "expensive": "Expensive",
+  "too-expensive": "Too Expensive",
+  "very-expensive": "Very Expensive",
+  "extra-expensive": "Extra Expensive",
+
+
+  "priceRangeChangedToX": "Price range has changed to `%s`"
 
 }
 
