@@ -87,6 +87,28 @@ use Maxaboom\Models\Product;
 // --- 
 
 
+/**
+ * Router used to get all the colors
+ *
+ * @method GET
+ * @action /api/colors
+ *
+ * @echo json $response - the response in json format
+ */
+$router->map('GET', '/api/colors', function() {
+  // instantiate the APIController
+  $apiController = new APIController();
+
+  // get colors as `response`
+  $response = $apiController->getColors();
+
+  // echo the response in json format
+  echo json_encode($response);
+
+}, 'get-colors-api');
+
+
+
 
 /**
  * Router used to get all categories
