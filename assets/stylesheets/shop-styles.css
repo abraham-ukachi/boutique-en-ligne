@@ -43,7 +43,10 @@
 /* @import '../animations/fade-in-animation.css'; */
 /* @import '../animations/slide-from-up-animation.css'; */
 
-
+@import '../animations/slide-from-left-animation.css';
+@import '../animations/slide-left-animation.css';
+@import '../animations/slide-from-down-animation.css';
+@import '../animations/slide-down-animation.css';
 
 /* ==== LOGIN PAGE STYLES ==== */
 
@@ -55,6 +58,8 @@
   --opacity-filter-item: 0.04;
   --opacity-filter-item-hover: 0.1;
   --opacity-filter-active: 0.3;
+
+  --filter-toggle-button-active-background: rgba(0,0,0,0.2);
 }
 
 
@@ -64,6 +69,8 @@
   --opacity-filter-item: 0.1;
   --opacity-filter-item-hover: 0.2;
   --opacity-filter-active: 0.2;
+
+  --filter-toggle-button-active-background: rgba(255,255,255,0.2);
 }
 
 
@@ -328,8 +335,23 @@ button.category-btn img {
   z-index: 20;
   background: var(--filter-panel-background-color, var(--background-color));
   width: var(--filter-panel-width, 100%);
-  height: var(--filter-panel-height, 100%);
-  padding: var(--filter-panel-padding, 1rem 2rem);
+  height: var(--filter-panel-height, calc(100vh - var(--nav-bar-size, 54px)));
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+#filterPanel[opened] {}
+
+#filterPanel.opening {}
+
+#filterPanel[closed] {}
+
+#filterPanel.closing {}
+
+
+
+#filterPanel [content] > .container {
+  padding: var(--filter-panel-padding, 1rem);
 }
 
 
@@ -399,7 +421,7 @@ button.category-btn img {
   max-height: var(--filter-item-collapsed-height, 73px);
 }
 
-.filter-item[collapsed] button {
+.filter-item[collapsed] > button {
   height: var(--filter-item-collapsed-height, 73px);
 } 
 
@@ -450,6 +472,23 @@ button.category-btn img {
   user-select: none;
 }
 
+
+main > .appLayout > [content] {
+  display: flex;
+  min-height: 100%;
+}
+
+
+#filterToggleButton {
+  --toggle-button-color-active: var(--on-background-color);
+}
+
+#filterToggleButton[active] {
+  background: var(--filter-toggle-button-active-background); 
+}
+
+
+
 /* 
  * --> Narrow - Device <--
  * Phone: ? (Responsive)
@@ -477,12 +516,34 @@ button.category-btn img {
 div#preview {}
 
 
-/* Products - Container */
-div#products {}
+/* Products Wrapper */
+div#productsWrapper {
+  position: relative;
+  width: var(--products-wrapper-width, 100%);
+  height: var(--products-wrapper-height, auto);
+  min-height: 100vh;
+  padding: var(--products-wrapper-padding, 1rem);
+  padding-left: var(--products-wrapper-padding-left, 0);
+  padding-top: var(--products-wrapper-padding-top, 0);
+  background: var(--products-wrapper-background-color, transparent);
+  margin: var(--products-wrapper-margin, 0);
+  margin-top: var(--products-wrapper-margin-top, 0);
+  z-index: 3;
+  box-sizing: border-box;
 
+  transition: padding 0.3s ease-in-out;
+}
+
+#products {
+  position: relative;
+  min-height: inherit;
+  background: transparent;
+  pointer-events: auto;
+}
 
 #chipsBar {
-  padding: 0 1.5rem;
+  padding: 0;
+  z-index: 10;
 }
 
 #chipsBar > button {
@@ -583,6 +644,56 @@ ul.chips > *:nth-child(10) {
 
 
 
+/* No Products Container */
+#noProductsContainer {
+  padding-top: 4rem;
+}
+
+
+/* Busy Products Container */
+#busyProductsContainer {
+  padding-top: 8rem;
+}
+
+
+
+
+body > aside[floats] {
+  --aside-width: 35%;
+
+  position: absolute;
+  z-index: 300;
+  right: 0;
+  top: 0;
+  background: transparent;
+}
+
+
+body > aside[floats]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--aside-background-color, var(--background-color));
+  opacity: 0.9;
+  z-index: -1;
+}
+
+
+/* Color Filters */
+
+/* Color Filter Item */
+#colorFilterItem {}
+
+
+.color-filter .color {
+  width: var(--color-filter-size, 0.5rem);
+  height: var(--color-filter-size, 0.5rem);
+  border-radius: 50%;
+}
+
+
 
 
 
@@ -591,14 +702,108 @@ ul.chips > *:nth-child(10) {
 
 @media (min-width: 768px) {
 
+
+  /* Color Filter Item */
+  #colorFilterItem {
+    --color-filter-size: 0.75rem;
+  }
+
+  /* No Products Container */
+  #noProductsContainer {
+    padding-top: 5rem;
+  }
+
+  
+  /* Busy Products Container */
+  #busyProductsContainer {
+    --spinner-size: 5rem;
+    padding-top: 10rem;
+  }
+
+
+  #chipsBar, #appLayout > header {
+    width: calc(100vw - var(--slide-bar-width, 90px)) !important;
+  }
+
+  #subCategoryChips {
+    overflow: hidden;
+    flex: auto 0;
+    flex-basis: min-content;
+  }
+
+  #subCatgoryChips .chips {
+    width: fit-content;
+    max-width: fit-content;
+  }
+
+
   #filterPanel {
     --filter-panel-background-color: transparent; 
     --filter-panel-width: 400px;
     --filter-panel-height: auto;
 
     position: relative;
-    z-index: 1;
   }
+
+  #filterPanel [content] > .container {
+    padding: var(--filter-panel-padding, 1rem 2rem);
+  }
+
+
+  #filterPanel[sticky] {
+    position: sticky;
+    left: 0;
+    top: var(--app-bar-size, 60px);
+    height: calc(100vh - var(--app-bar-size, 60px));
+  }
+  
+
+  #filterPanel[opened] {
+    pointer-events: auto;
+    user-select: auto;
+    visibility: visible;
+  }
+
+  #filterPanel[opened] > * {
+    display: block;
+  }
+
+  #filterPanel.opening {
+    display: block;
+
+    pointer-events: auto;
+    user-select: auto;
+    visibility: visible;
+
+    animation: slideFromLeft 0.3s ease forwards;
+  }
+
+  #filterPanel.opening ~ #productsWrapper {
+    padding-left: var(--filter-panel-width, 400px);
+  }
+
+  #filterPanel[closed] {
+    pointer-events: none;
+    user-select: none;
+    visibility: hidden;
+  }
+
+  #filterPanel[closed] ~ #productsWrapper {
+    padding-left: 1rem;
+  }
+
+  #filterPanel[closed] > * {
+    display: none;
+  }
+
+  #filterPanel.closing {
+    animation: slideLeft 0.3s ease forwards;
+  }
+
+  #filterPanel.closing ~ #productsWrapper {
+    padding-left: 1rem;
+  }
+
 
   #chipsBar {
     padding: 0 2.5rem;
@@ -609,6 +814,15 @@ ul.chips > *:nth-child(10) {
     font-size: 1.25rem;
     margin-right: 0.25rem;
   }
+
+  /* Products - Container */
+  div#productsWrapper {
+    --products-wrapper-background-color: transparent;
+    --products-wrapper-padding-top: var(--app-bar-size, 60px);
+    --products-wrapper-padding-left: var(--filter-panel-width, 400px);
+    --products-wrapper-margin-top: -100vh;
+  }
+
 
   /* Top Categories */
   ul#topCategories {
@@ -677,6 +891,39 @@ ul.chips > *:nth-child(10) {
 }
 
 
+@media (max-width: 768px) {
+
+  div#productsWrapper {
+    --products-wrapper-padding: 0;
+    --products-wrapper-padding-left: 0;
+    --products-wrapper-padding-top: 0;
+  }
+
+
+  #filterPanel:not([opened]) {
+    display: none;
+  }
+
+  #filterPanel {}
+   
+  #filterPanel, #filterPanel.opening {
+    animation: slideFromDown 0.3s ease forwards;
+  }
+
+  #filterPanel.closing {
+    display: block;
+    animation: slideDown 0.3s ease forwards;
+  }
+
+  #filterPanel, #fliterPanel[opened] {
+    display: block;
+  }
+
+  #fliterPanel[closed] {
+    display: none;
+  }
+
+}
 
 
 /* 
@@ -694,6 +941,10 @@ ul.chips > *:nth-child(10) {
   /* App Bar */
   #appBar {
     --app-bar-size: 72px;
+  }
+
+  #chipsBar, #appLayout > header {
+    width: calc(100vw - var(--slide-bar-width, 78px));
   }
 
   /* Category Bar */
