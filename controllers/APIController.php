@@ -53,6 +53,7 @@ namespace Maxaboom\Controllers;
 // use these models
 use Maxaboom\Models\Category;
 use Maxaboom\Models\SubCategory;
+use Maxaboom\Models\Color;
 
 
 // use the `Controller` & `ResponseHandler` helper classes
@@ -78,7 +79,7 @@ class APIController extends Controller {
   // public properties
   public Category $category;
   public SubCategory $subCategory;
-
+  public Color $color;
 
   /**
    * Constructor of the class
@@ -95,13 +96,51 @@ class APIController extends Controller {
     // instantiate the models
     $this->category = new Category();
     $this->subCategory = new SubCategory();
-
+    $this->color = new Color();
   }
 
 
 
   // PUBLIC SETTERS
   // PUBLIC GETTERS
+
+  /**
+   * Returns a response containing a list of available colors
+   *
+   * @return array $response - eg. ['success' => true, 'status' => 200, 'message' => '...', ['results' => [...]]]
+   */
+  public function getColors(): array {
+    // get all the colors
+    $colors = Color::all();
+
+    // intialize the `results` array
+    $results = [];
+
+    // loop through the colors and get their info
+    foreach ($colors as $color) {
+      // ..get the color's info
+      $colorInfo = $color->info();
+
+      // add the original name of the color
+      $colorInfo['original_name'] = $this->i18n->getString($color->name) ?? $color->name;
+
+      // append the color's info to the `results` array
+      $results[] = $colorInfo;
+    }
+
+    // define the `success`, `status`, `message` and `data` for the response
+    $success = true;
+    $status = self::$STATUS_SUCCESS_OK;
+    $message = 'Colors retrieved successfully';
+    $data = ['results' => $results];
+
+    // update the response
+    $this->updateResponse($success, $status, $message, $data);
+
+    // return the response
+    return $this->response;
+  }
+
 
   /**
    * Returns a response containing a list of available categories
