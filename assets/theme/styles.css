@@ -549,6 +549,7 @@ header[sticky-enabled] {
   justify-content: space-around;
   padding: 0 var(--nav-bar-padding, 0.5rem);
   width: 100%;
+  z-index: 100;
 }
 
 /* Nav Links in a Horizontal Nav Bar */
@@ -556,6 +557,8 @@ header[sticky-enabled] {
 #navBar .nav-link{
   --nav-link-opacity: var(--nav-bar-link-opacity, var(--opacity-text-active));
   width: var(--nav-bar-size, 54px);
+
+  padding-top: var(--nav-bar-link-padding-top, 0.5rem);
 }
 
 .nav-link.profile {
@@ -792,6 +795,18 @@ a[active] .icon-button, a[role="icon-button"][active] {
   --icon-button-opacity: 1;
   --icon-button-color: var(--primary-color);
 }
+
+button[toggles][active] {
+  --icon-button-opacity: 1;
+  opacity: 1;
+}
+
+button[toggles][active][outlined] {
+  --material-icon-color: var(--toggle-button-color-active, var(--secondary-color)) !important;
+  border-color: var(--toggle-button-color-active, var(--secondary-color)) !important;
+  color: var(--toggle-button-color-active, var(--secondary-color)) !important;
+}
+
 
 /* ------ */
 
@@ -1424,7 +1439,7 @@ li.dialog-list-item .radio {
 }
 
 li.dialog-list-item .checkbox {
-  border-radius: 3px;
+  border-radius: 10%;
 }
 
 li.dialog-list-item .radio {
@@ -2144,6 +2159,9 @@ ul.select-list li[selected] {
  */
 @media (min-width: 460px) {
 
+  #navBar {
+    display: none;
+  }
   .chips-container > button.icon-button {
     display: block;
   }
@@ -2287,6 +2305,11 @@ ul.select-list li[selected] {
   [tablet-and-wide-only], [tablet-and-desktop-only] {
     display: none !important;
   }
+
+  #sideBar {
+    display: none;
+  }
+
 }
 
 
@@ -2307,7 +2330,7 @@ ul.select-list li[selected] {
     inset: 0;
     background: var(--aside-background-color, inherit);
     color: var(--aside-text-color, inherit);
-    width: 100%;
+    width: var(--aside-width, 100%);
     height: 100%;
 
 
@@ -2425,7 +2448,7 @@ ul.select-list li[selected] {
 
   /* ASIDE part of BODY */
   body > aside {
-    width: 60%;
+    width: var(--aside-width, 60%);
   }
 
   /* Dialog Container */
