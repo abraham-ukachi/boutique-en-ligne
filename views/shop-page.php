@@ -240,10 +240,10 @@
           
           
           <!-- Chips Bar -->
-          <div id="chipsBar" class="app-bar fade-in center horizontal flex-layout" <?= !isset($this->categoryName) ? 'hidden' : ''?>>
+          <div id="chipsBar" class="app-bar fade-in center horizontal flex-layout" sticky <?= !isset($this->categoryName) ? 'hidden' : ''?>>
             
-            <!-- Filter Button -->
-            <button id="filterButton" class="horizontal flex-layout centered" outlined tablet-and-desktop-only>
+            <!-- Filter Toggle Button -->
+            <button id="filterToggleButton" class="horizontal flex-layout centered" toggles active outlined desktop-only>
               <span class="material-icons icons vertical flex-layout centered">filter_list</span>
               <span><?= $this->i18n->getString('filter') ?></span>
             </button>
@@ -290,7 +290,7 @@
             <span flex></span>
 
             <!-- Sort Button -->
-            <button id="sortButton" name="default" class="horizontal flex-layout centered" outlined tablet-and-desktop-only>
+            <button id="sortButton" name="default" class="horizontal flex-layout centered" outlined desktop-only>
               <span class="material-icons icons vertical flex-layout centered">sort</span>
               <span><?= $this->i18n->getString('sort') ?></span>
             </button>
@@ -302,7 +302,7 @@
         </header>
 
         <!-- [content] -->
-        <div content>
+        <div content class="horizontal flex-layout">
           <!-- Preview - Container -->
           <div id="preview" class='container' <?= isset($this->categoryName) ? 'hidden' : ''?>>
 
@@ -338,9 +338,9 @@
           <!-- End of Preview - Container -->
 
           <!-- Filter Panel | Section -->
-          <section id="filterPanel">
+          <section id="filterPanel" class="slide-from-left" noscrollbars sticky <?= !isset($this->categoryName) ? 'hidden' : ''?>>
             <div class="app-layout">
-              <header narrow-only>
+              <header narrow-and-tablet-only>
                 <!-- Filter Panel App Bar -->
                 <div class="app-bar">
                   <!-- Close Filter Button -->
@@ -352,6 +352,9 @@
                  <div class='title-wrapper centered flex-layout'>
                    <!-- Title -->
                    <h2 class='app-title'><?= $this->i18n->getString('filter') ?></h2>
+
+                   <!-- SubTitle -->
+                   <h3 class='app-subtitle'><?= $this->categoryNameValue ?? '' ?></h3>
                  </div>
 
                 </div>
@@ -361,31 +364,44 @@
 
               <div content>
                 <div class="container vertical flex-layout">
-                  <!-- Filters -->
-                  <ul class="filters list-items links" naked>
+                  <!-- filters -->
+                  <ul id="filters" class="filters list-items links" naked>
 
                     <!-- Price Filter Item -->
-                    <li id="priceFilterItem" class="filter-item link-item">
-                      <a href="#" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+                    <li id="priceFilterItem" class="filter-item link-item collapsible" collapsed>
+                      <button class="horizontal flex-layout center" naked>
                         <div class="text-wrapper flex-layout vertical">
-                          <h3>Price</h3>
-                          <h4>$0 - $100</h4>
+                          <h3 class="filter-title txt capitalize"><?= $this->i18n->getString('prices') ?></h3>
+                          <h4 class="filter-subtitle txt lower"><?= $this->i18n->getString('selectAPriceRange') ?></h4>
                         </div>
-                        <span class="material-icons arrow icon">expand_more</span>
-                      </a>
+                        <!-- TODO: create a reset icon -->
+                        <span class="reset-icon material-icons arrow icon" hidden>not_interested</span>
+
+                        <!-- expand more icon -->
+                        <span class="expand-more-icon material-icons arrow icon">expand_more</span>
+                      </button>
+
+                      <div class="content vertical flex-layout centered" noscrollbars>
+                        <span class="spinner dots-12"></span>
+                      </div>
                     </li>
                     <!-- End of Price Filter Item -->
-
+                    
 
                     <!-- Color Filter Item -->
-                    <li id="priceFilterItem" class="filter-item link-item">
-                      <a href="#" role="button" tabindex="0" class="horizontal flex-layout center" naked>
+                    <li id="colorFilterItem" class="filter-item link-item collapsible" collapsed>
+                      <button class="horizontal flex-layout center" naked>
                         <div class="text-wrapper flex-layout vertical">
-                          <h3>Color</h3>
-                          <h4>red</h4>
+                          <h3 class="filter-title txt capitalize"><?= $this->i18n->getString('colors') ?></h3>
+                          <h4 class="filter-subtitle txt lower"><?= $this->i18n->getString('pickOneOrMoreColors') ?></h4>
                         </div>
-                        <span class="material-icons arrow icon">expand_more</span>
-                      </a>
+                        <!-- expand more icon -->
+                        <span class="expand-more-icon material-icons arrow icon">expand_more</span>
+                      </button>
+
+                      <div class="content vertical flex-layout centered" noscrollbars>
+                        <span class="spinner dots-12"></span>
+                      </div>
                     </li>
                     <!-- End of Price Filter Item -->
                   </ul>
@@ -397,19 +413,38 @@
             </div>
           </section>
 
-          <!-- Products - Container -->
-          <div id="products" <?= !isset($this->categoryName) ? 'hidden' : ''?>
-            class="container vertical flex-layout">
+          <!-- Products-Wrapper -->
+          <div id="productsWrapper" class="wrapper vertical flex-layout" <?= !isset($this->categoryName) ? 'hidden' : ''?>>
 
+            <!-- Products - Container -->
+            <div id="products" class="container vertical flex-layout" content>
+              <!-- No Products Container -->
+              <div id="noProductsContainer" 
+                class="container vertical flex-layout center fade-in" empty fit>
+                <span class="no-products-doodle doodle" mask></span>
+                <h2 class="txt capitalize"><?= $this->i18n->getString('noInstruments') ?></h2>
+                <p info><?= $this->i18n->getString('noInstrumentsMessage') ?></p>
+              </div>
+              <!-- End of No Products Container -->
+              
+              <!-- Busy Products Container -->
+              <div id="busyProductsContainer" 
+                class="container vertical flex-layout center" busy fit hidden>
+                <span class="spinner dots-12"></span>
+              </div>
+              <!-- End of Busy Products Container -->
+
+
+              <!-- Products List -->
+              <ul id="productsList"></ul>
+
+
+            </div>
+            <!-- End of Products - Container -->
 
           </div>
-          <!-- End of Products - Container -->
+          <!-- End of Products Wrapper -->
 
-
-          <!-- Busy Container -->
-          <div id="busyContainer" class="container vertical flex-layout centered center" busy fit hidden>
-            <span class="spinner dots-12"></span>
-          </div>
      </div>
      <!-- End of [content] -->
 
@@ -444,10 +479,10 @@
         </li>
          
         <!-- Search - Menu Item -->
-        <li title="<?= $this->i18n->getString('search') ?>" class="menu-item">
+        <li title="<?= $this->i18n->getString('searchAll') ?>" class="menu-item">
           <a tabindex="0" role="button" href="search" id="searchMenuItem" data-action="search">
             <span class="material-icons icon">search</span>
-            <span><?= $this->i18n->getString('search') ?></span>
+            <span class="value"><?= $this->i18n->getString('searchAll') ?></span>
           </a>
         </li>
         
@@ -455,7 +490,7 @@
         <li title="<?= $this->i18n->getString('filter') ?>" class="menu-item">
           <button id="filterMenuItem" data-action="filter">
             <span class="material-icons icon">filter_list</span>
-            <span><?= $this->i18n->getString('filter') ?></span>
+            <span class="value"><?= $this->i18n->getString('filter') ?></span>
           </button>
         </li>
         
@@ -464,7 +499,7 @@
         <li title="<?= $this->i18n->getString('sort') ?>" class="menu-item">
           <button id="sortMenuItem" data-action="sort">
             <span class="material-icons icon">sort</span>
-            <span><?= $this->i18n->getString('sort') ?></span>
+            <span class="value"><?= $this->i18n->getString('sort') ?></span>
           </button>
         </li>
 
@@ -473,7 +508,7 @@
         <li title="<?= $this->i18n->getString('help') ?>" class="menu-item">
           <a tabindex="0" role="button" id="helpMenuItem" href="account/help" data-action="help">
             <span class="material-icons icon">help_outline</span>
-            <span><?= $this->i18n->getString('help') ?></span>
+            <span class="value"><?= $this->i18n->getString('help') ?></span>
           </a>
         </li>
         
@@ -482,7 +517,7 @@
         <li title="<?= $this->i18n->getString('settings') ?>" class="menu-item">
           <a tabindex="0" role="button" id="settingsMenuItem" href="account" data-action="settings">
             <span class="material-icons icon">settings</span>
-            <span><?= $this->i18n->getString('settings') ?></span>
+            <span class="value"><?= $this->i18n->getString('settings') ?></span>
           </a>
         </li>
 
@@ -501,7 +536,7 @@
 </main>
 
 <!-- Aside part -->
-<aside class='flex-layout vertical' hidden>
+<aside class='flex-layout vertical' floats hidden>
 
     <!-- App-Layout of ASIDE -->
     <div class='app-layout' fit></div>
