@@ -1071,6 +1071,29 @@ export class MaxaboomApp {
 
 
   /**
+   * Method used to fetch / request all available colors from the Maxaboom API
+   *
+   * @example
+   *  fetchColors().then((allColors) => {
+   *    
+   *    allColors.forEach((color) => {
+   *      const colorId = color.id; // <- 1
+   *      const colorName = color.name; // <- red
+   *      const colorHex = color.hex; // <- #ff0000
+   *
+   *      console.log(`colorId => ${color.id} & colorName => ${colorName} & colorHex => ${colorHex}`);
+   *    });
+   *  
+   *  });
+   *
+   * @returns { Promise }
+   */
+  fetchColors() {
+    return this._makeRequest(`colors`);
+  }
+
+
+  /**
    * Method used to fetch all the categories from our server / database.
    *
    * @example
@@ -1090,7 +1113,7 @@ export class MaxaboomApp {
    */
   fetchCategories(categoryId) {
     return new Promise(async (resolve, reject) => {
-      
+       
       // create the url / endpoint to fetch from as `url`
       let url = categoryId ? `api/categories/${categoryId}` : 'api/categories';
       
@@ -1124,6 +1147,7 @@ export class MaxaboomApp {
 
 
 
+   
 
 
 
@@ -1278,7 +1302,7 @@ export class MaxaboomApp {
    * @returns { Element } stickyAppBarEl
    */
   getStickyAppBarElement(appLayoutEl) {
-    return appLayoutEl.querySelector('.app-bar[sticky]');
+    return appLayoutEl.querySelector('.app-bar[sticky]:not([hidden])');
   }
 
 
@@ -1590,6 +1614,45 @@ export class MaxaboomApp {
   
 
   // PRIVATE METHODS
+
+
+  /**
+   * Method used to make a request to the Maxaboom API
+   *
+   * @param { String } endpoint - the endpoint to make the request to
+   * @param { Object } params - the parameters to use for the request
+   *
+   * @returns { Promise } - the promise that will be resolved with the response data
+   */
+  _makeRequest(endpoint, params = {}, baseUrl = 'api') {
+    return new Promise(async (resolve, reject) => {
+      // create the url
+      let url = `${baseUrl}/${endpoint}`;
+
+      // create the request
+      let request = new Request(url, params);
+      
+      
+      try { // <- try to get a response
+
+        // fetch the request promise as `requestPromise`
+        let requestPromise = await fetch(request);
+
+        // get the response as `response`
+        let response = await requestPromise.json();
+        
+        // resolve the promise with the response
+        resolve(response.results, response);
+
+      } catch (error) {
+        // reject the promise with the error
+        reject(error);
+      }
+    });
+
+  }
+
+
 
   /**
    * Clears our toast.
@@ -1915,7 +1978,11 @@ export class MaxaboomApp {
     let stickyAppBarEl = this.getStickyAppBarElement(appLayoutEl);
     
     // do nothing if there's no `stickyAppBarEl`
-    if (!stickyAppBarEl) { return }
+    if (!stickyAppBarEl) { 
+      // HACK: Remove the sticky-enabled property and top style from header
+      appLayoutEl.querySelector('header').removeAttribute('sticky-enabled');
+      return;
+    }
 
     // get the parent header element of `stickyAppBarEl` as `headerEl`
     let headerEl = stickyAppBarEl.parentElement;
