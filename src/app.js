@@ -1094,6 +1094,30 @@ export class MaxaboomApp {
 
 
   /**
+   * Method used fetch all products using the given `queryString` from the Maxaboom API
+   *
+   * @example
+   *  let discoverQueryString = `query=pian&category=pianos`
+   *  fetchProducts(discoverQueryString).then((allProducts, productsResponse) => {
+   *    
+   *    allProducts.forEach((product) => {
+   *      const productId = product.id; // <- 1
+   *      const productTitle = product.title; // <- red
+   *      const productImage = product.image; // <- #ff0000
+   *      ...
+   *      console.log(`productId => ${product.id} & productTitle => ${productTitle}`);
+   *    });
+   *  
+   *  });
+   *
+   * @returns { Promise }
+   */
+  fetchProducts(discoverQueryString) {
+    return this._makeRequest(`discover?${discoverQueryString}`);    
+  }
+
+
+  /**
    * Method used to fetch all the categories from our server / database.
    *
    * @example
