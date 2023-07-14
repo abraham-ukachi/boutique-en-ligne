@@ -132,6 +132,37 @@ $router->map('GET', '/api/categories/[:categoryId]?', function(?int $categoryId 
 
 
 
+/**
+ * Router used to discover or search for new instruments using a query string
+ *
+ * @method GET
+ * @action /api/discover/
+ *
+ * @echo json $response - the response in json format
+ */
+$router->map('GET', 'api/discover', function() {
+  // Instantiate the API Controller 
+  $apiController = new APIController();
+
+  // get the corresponding query paramaeters
+  $search = $_GET['search'] ?? '';
+  $page = $_GET['page'] ?? 1;
+  $category = $_GET['category'] ?? '';
+  $subCategory = $_GET['sub_category'] ?? '';
+  $colors = $_GET['filter_colors'] ?? [];
+  $priceRange = $_GET['filter_price_range'] ?? [];
+  $sortBy = $_GET['sort_by'];
+
+
+
+  // IDEA: call the `discover` method with the above parameters,
+  // and echo the json response
+
+  $response = $apiController->discover($search, $page, $category, $subCategory, $colors, $priceRange, $sortBy);
+
+  echo json_encode($response);
+
+}, 'get-discover-api');
 
 
 

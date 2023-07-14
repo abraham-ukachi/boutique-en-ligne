@@ -175,7 +175,59 @@ class APIController extends Controller {
     return $this->response;
   }
 
-  
+
+  /**
+   * Method used to discover or search for some instruments with specific or no parameters
+   *
+   * @param string $search
+   * @param ?int $page
+   * @param ?string $category
+   * @param ?string $subCategory
+   * @param ?array $colors
+   * @param ?array $priceRange
+   * @param ?string $sortBy
+   *
+   * @return array $response
+   */
+  public function discover(string $search, ?int $page = 1, ?string $category = null, ?string $subCategory = null, ?array $colors = null, ?array $priceRange = null, ?string $sortBy = null): array {
+    
+    // initialize the `results` array variable
+    $results = [];
+
+    // search for the products with the given parameters
+    /*
+    $products = Product::search($search, [
+      'page' => $page,
+      'category' => $category
+    ]);
+     */
+
+    $products = '';
+
+    // define the `success`, `status`, `message` and `data` for the response
+    $success = is_array($products) ? true : false;
+    $status = $success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_BAD_REQUEST;
+    $message = $success ? 'new products discovered successfully' : 'no products discovered';
+
+
+    if ($success) {
+      // update the `results` array with the sub-categories
+      $results = $products;
+    }
+
+
+    // update the data 
+    $data = $success ? ['results' => $results] : [];
+    
+    // update the response
+    $this->updateResponse($success, $status, $message, $data);
+
+    // return the response
+    return $this->response;
+
+  }
+
+
   /**
    * Returns a response containing a list of available sub-categories of the given `categoryId`
    *

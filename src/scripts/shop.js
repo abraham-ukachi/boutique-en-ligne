@@ -83,6 +83,8 @@ class ShopPage  {
   prices = [];
   colors = [];
 
+
+
   /**
    * Current supported sorting options
    *
@@ -106,6 +108,12 @@ class ShopPage  {
   _menuDuration = 0.5;
   _dialogDuration = 0.5;
   _filterDuration = 300;
+
+  _page = 1;
+  _search = ''; // <- eg.: 'pia'
+  _query = ''; // <- eg.: 'category=pianos&sub_category=grand-piano...'
+
+  
 
 
 
@@ -157,7 +165,7 @@ class ShopPage  {
 
   // PUBLIC SETTERS
 
-
+  
   /**
    * Updates the current wallpaper image element with the given `value`
    *
@@ -1959,6 +1967,66 @@ class ShopPage  {
   // PRIVATE GETTERS
 
   /**
+   * Returns the computed search query using the `search`, `category`, `subCategory`, etc..
+   *
+   * @param { String } search - (eg.: "pian")
+   * @param { String } category - (eg.: 'violins')
+   * @param { String } subCategory - (eg.: 'violin-accessory')
+   * @param { String } sortBy - eg.: ('cheapest')
+   * @param { Object } filterParams - (eg.: { priceRange: [min: Number, max: Number], colors: Array })
+   * @param { Number } page - (eg.: 1)
+   *
+   * @returns { String } - Returns eg.: '?search=pian&page=1&category=violins&sub_category=violin-accessory&sort_by=cheapest&filter_price_range=0,50&filter_colors=red,green'
+   */
+  _getComputedSearchQuery(search, category, subCategory, sortBy, filterParams, page = 1) {
+    // Initialize the `result` variable 
+    // by setting it by just the search and page values
+    let result = `search=${search}&page=${page}`;
+    
+    // If there's a category...
+    if (category?.length) {
+      // ...append the `category` key to the result
+      result += `&category=${category}`;
+    }
+
+    // If there's a sub category...
+    if (subCategory?.length) {
+      // ...append the `sub_category` key to the result
+      result += `&sub_category=${category}`;
+    }
+
+
+    // If there's a `sortBy` value...
+    if (sortBy?.length) {
+      // ...append the `sort_by` key to the result
+      result += `&sort_by=${sortBy}`;
+    }
+    
+    // If there are filter params...
+    if (Object.keys(filterParams).length) {
+      // TODO: Loop throught the filterParams instead #cleanCode ;)
+
+      // ...append the `filter_price_range` key to the result (if it exists)
+      result += (filterParams.priceRange) ? `&filter_price_range=${filterParams.priceRange}` : '';
+
+      // append the `filter_colors` key to the result (if it exists)
+      result += (filterParams.colors) ? `&filter_colors=${filterParams.colors}` : '';
+    }
+
+      /*
+    // if there's a search...
+    if (search?.length) {
+      // ...append it to `result`
+      result += `&${search}`;
+    }*/
+
+    // return the `result`
+    return result;
+
+  }
+
+
+  /**
    * Returns the content of the given `filterElement`
    *
    * @param { Element } filterElement
@@ -2119,7 +2187,7 @@ class ShopPage  {
   }
 
 
-  // private methods
+  // PRIVATE METHODS
 
   /**
    * Method used to create a navigation url with the given `categoryName` and `subCategoryName`
@@ -2220,7 +2288,92 @@ class ShopPage  {
     // Install a click event on the `filterToggleButtonEl` element
     this.filterToggleButtonEl?.addEventListener('click', this._handleFilterToggleBtnClick?.bind(this));
 
+
+    // Install a click event listener on the `searchInputEl` element
+    this.searchInputEl?.addEventListener('input', this._handleSearchInput?.bind(this));
+
+    // Listen to `click` events of the search icon-button element
+    this.searchIconButtonEl?.addEventListener('click', this._handleSearchIconButtonClick?.bind(this));
   }
+
+  /**
+   * Handler that is called whenever the search icon-button element is clicked
+   *
+   * @param { Event } - the event that triggered this handler
+   */
+  _handleSearchIconButtonClick(event) {
+    // get the search value from the search input element as `searchValue`
+    let searchValue = this.searchInputEl.value;
+
+    // TODO: escape any special character or validate `searchValue` here before proceeding
+    
+    // update the `_search` property with `searchValue`
+    
+    this._search = searchValue;
+
+    // notify the search of this recent update
+    this.notifySearchUpdate();
+
+    // DEBUG [4dbsmaster]: tell me about it ;)
+    console.log(`\x1b[33m[_handleSearchIconButtonClick]: searchValue => ${searchValue} event => \x1b[0m`, event);
+  }
+
+
+  /**
+   * Handler that is called whenever the input event is fired or 
+   * content of search input element changes
+   *
+   * @param { SearchEvent } event - the input event that triggered this handler
+   * @private
+   */
+  async _handleSearchInput(event) {
+    // get the search value from event's current target as `value`
+    const value = event.currentTarget.value;
+    
+    // update the private `_search` property with `value`
+    this._search = value;
+
+    // TODO: Fetch the search history
+
+    // notify the search of this update
+    // this.notifySearchUpdate();
+    
+    // DEBUG [4dbsmaster]: tell me about it ;)
+    console.log(`\x1b[30m[_handleSearchInput]: value => ${value} event => \x1b[0m`, event);
+  }
+
+    /**
+     * Notifies the shop of the recent search update
+     * NOTE: This method is called whenever the `_search`, `categoryName`, 
+     * `subCategoryName`, `sortBy` and `filterParams` change or get updated
+     *
+     * @param { String } search 
+     * @param { String } category
+     * @param { String } subCategory
+     * @param { String } sortBy
+     * @param { Object } filterParams
+     */
+  notifySearchUpdate(search = this._search, category = this.categoryName, subCategory = this.subCategoryName, sortBy = this.sortBy, filterParams = this.filterParams) {
+    
+    // compute the discover search search as `discoverSearchQuery`
+    let discoverSearchQuery = this._getComputedSearchQuery(search, category, subCategory, sortBy, filterParams);
+
+    // fetch / discover related products
+    mbApp.fetchProducts(discoverSearchQuery).then((allProducts, productsResponse) => {
+      
+      // DEBUG [4dbsmaster]: tell me about all the products
+      console.log(`\x1b[30m[notifySearchUpdate] (fetchProducts|1): allProducts => \x1b[0m`, allProducts);
+      console.log(`\x1b[30m[notifySearchUpdate] (fetchProducts|2): productsResponse => \x1b[0m`, productsResponse);
+        
+    }).catch((error) => console.log(error));
+
+
+    // DEBUG [4dbsmaster]: tell me about it ;)
+    console.log(`\x1b[30m[notifySearchUpdate]: discoveryQuery =>  value => ${value} event => \x1b[0m`, event);
+
+  }
+
+
 
   /**
    * Handler that is called whenever the close filter button is clicked
