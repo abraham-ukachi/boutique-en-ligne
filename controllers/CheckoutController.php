@@ -31,10 +31,11 @@ class CheckoutController extends Controller
         // ...redirect him/her to the login page
         $this->redirect('/login');
       }
+      
+      $cards = $this->card->getAll($this->user->id);
+      $addresses = $this->address->getAll($this->user->id);
 
-        $cards = $this->card->getAll($this->user->id);
-        $addresses = $this->address->getAll($this->user->id);
-        require_once __DIR__ . '/../views/checkout-page.php';
+      require_once __DIR__ . '/../views/checkout-page.php';
     }
 
     public function registerAddress($address_id, $title, $address, $address_complement, $postal_code, $city, $country){

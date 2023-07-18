@@ -136,7 +136,7 @@
   <!-- Side Bar -->
   <!-- PHP: Include the `sideBar` component -->
   <?php 
-$_GET['sidebar_route'] = 'register'; 
+    $_GET['sidebar_route'] = 'register'; 
     $_GET['sidebar_init'] = $this->user->getInitials(); 
     $_GET['sidebar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
     $_GET['sidebar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin 
@@ -385,10 +385,10 @@ $_GET['sidebar_route'] = 'register';
 
     <!-- Menus of MAIN -->
     <div class='menus' fit hidden>
-
+      
       <!-- Register Menu -->
       <menu data-id="registerMenu" class="menu vertical flex-layout" hidden>
-
+        
         <!-- Close Menu + Icon Button -->
         <li role="close-menu">
           <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
@@ -408,7 +408,7 @@ $_GET['sidebar_route'] = 'register';
           <button id="clearFormMenuItem" data-action="clear-form">
             <span class="material-icons icon">clear</span>
             <span><?= $this->i18n->getString('clearForm') ?></span>
-          </a>
+          </button>
         </li>
 
       </menu>

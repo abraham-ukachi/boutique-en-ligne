@@ -70,8 +70,136 @@ use Maxaboom\Models\Product;
 
 
 /**
- * API - Route
+ * ============================
+ *  API Routes
+ * ============================
  */
+
+
+
+
+
+
+
+
+// ---
+// --- GET
+// --- 
+
+
+/**
+ * Router used to get all the colors
+ *
+ * @method GET
+ * @action /api/colors
+ *
+ * @echo json $response - the response in json format
+ */
+$router->map('GET', '/api/colors', function() {
+  // instantiate the APIController
+  $apiController = new APIController();
+
+  // get colors as `response`
+  $response = $apiController->getColors();
+
+  // echo the response in json format
+  echo json_encode($response);
+
+}, 'get-colors-api');
+
+
+
+
+/**
+ * Router used to get all categories
+ *
+ * @method GET
+ * @action /api/categories/[:categoryId]?
+ *
+ * @echo json $response - the response in json format
+ */
+$router->map('GET', '/api/categories/[:categoryId]?', function(?int $categoryId = null) {
+  // instantiate the APIController
+  $apiController = new APIController();
+
+  // get categories as `response`
+  $response = ($categoryId) ? $apiController->getSubCategories($categoryId) : $apiController->getCategories();
+
+  // echo the response in json format
+  echo json_encode($response);
+
+}, 'get-categories-api');
+
+
+
+/**
+ * Router used to discover or search for new instruments using a query string
+ *
+ * @method GET
+ * @action /api/discover/
+ *
+ * @echo json $response - the response in json format
+ */
+$router->map('GET', 'api/discover', function() {
+  // Instantiate the API Controller 
+  $apiController = new APIController();
+
+  // get the corresponding query paramaeters
+  $search = $_GET['search'] ?? '';
+  $page = $_GET['page'] ?? 1;
+  $category = $_GET['category'] ?? '';
+  $subCategory = $_GET['sub_category'] ?? '';
+  $colors = $_GET['filter_colors'] ?? [];
+  $priceRange = $_GET['filter_price_range'] ?? [];
+  $sortBy = $_GET['sort_by'];
+
+
+
+  // IDEA: call the `discover` method with the above parameters,
+  // and echo the json response
+
+  $response = $apiController->discover($search, $page, $category, $subCategory, $colors, $priceRange, $sortBy);
+
+  echo json_encode($response);
+
+}, 'get-discover-api');
+
+
+
+
+// ---
+// --- POST
+// ---
+
+
+
+
+// ---
+// --- PUT
+// ---
+
+
+
+
+// ---
+// --- DELETE
+// ---
+
+
+
+// ---
+// --- PATCH
+// ---
+
+
+
+
+
+
+
+
+
+
 
 
 /**

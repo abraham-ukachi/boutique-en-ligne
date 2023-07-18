@@ -211,8 +211,11 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
+  `is_top` tinyint(1) NOT NULL DEFAULT 0,
+  `image` varchar(100) DEFAULT NULL,
 
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`name`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
 
@@ -234,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `sub_categories` (
   `category_id` int(11) UNSIGNED NOT NULL,
 
   PRIMARY KEY (`id`),
+  UNIQUE KEY (`name`),
   FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
@@ -264,6 +268,40 @@ CREATE TABLE IF NOT EXISTS `products` (
   FOREIGN KEY (`sub_category_id`) REFERENCES `sub_categories`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
+
+
+
+/* ================================== */
+/* ========= `colors` TABLE ========= */
+/* ================================== */
+
+CREATE TABLE IF NOT EXISTS `colors` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `hex` varchar(6) NOT NULL,
+
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`name`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
+
+
+
+/* =========================================== */
+/* ========= `products_colors` TABLE ========= */
+/* =========================================== */
+
+CREATE TABLE IF NOT EXISTS `products_colors` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) UNSIGNED NOT NULL,
+  `color_id` int(11) UNSIGNED NOT NULL,
+
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`color_id`) REFERENCES `colors`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
+
 
 
 
@@ -298,57 +336,86 @@ CREATE TABLE IF NOT EXISTS `orders_items` (
 
 
 
+/* ================================== */
+/* ========== `cart` TABLE ========== */
+/* ================================== */
 
-  /*-------------------table cart----------*/
+CREATE TABLE IF NOT EXISTS `cart` (
+   `product_id` int(11) UNSIGNED NOT NULL,
+   `unit_price` decimal(10,2) NOT NULL,
+   `quantity` int(11) NOT NULL,
+   `user_id` int(11) UNSIGNED NOT NULL,
 
-  CREATE TABLE cart(
-   product_id int,
-   unit_price int,
-   quantity int,
-   user_id int
-  );
+  FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
-
-
-
-
-
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_520_ci;
 
 
- INSERT INTO categories (title, name)
+
+
+
+
+/* INSERTING DATA INTO TABLES */
+
+/* --
+ * ----->>> `colors`
+ * --
+ */
+
+INSERT INTO colors (name, hex)
+VALUES
+  ('red', 'ff0000'),
+  ('green', '00FF00'),
+  ('blue', '0000FF'),
+  ('yellow', 'FFFF00'),
+  ('black', '000000'),
+  ('white', 'FFFFFF'),
+  ('purple', 'A020F0'),
+  ('brown', '964B00'),
+  ('orange', 'FFA500'),
+  ('gray', '808080');
+
+
+
+ INSERT INTO categories (title, name, is_top, image)
  VALUES
- ('pianos', 'pianos'),
- ('guitares', 'guitars'),
- ('percussions', 'percussion'),
- ('lutherie', 'violin'),
- ('dj', 'dj'),
- ('vents', 'wind-instruments');
+ ('percussions', 'percussions', 1, 'percussions.jpg'),
+ ('guitares', 'guitars', 1, 'guitars.jpg'),
+ ('lutherie', 'violins', 1, 'violins.jpg'),
+ ('vents', 'wind-instruments', 1, 'wind-instruments.jpg'),
+ ('dj', 'dj', 1, 'dj.jpg'),
+ ('pianos', 'pianos', 1, 'pianos.jpg');
+
 
 
  INSERT INTO sub_categories (title, name, category_id)
  VALUES
- ('pianos droits', 'upright-piano', 1),
- ('pianos à queue', 'grand-piano', 1),
- ('pianos numériques', 'digital-piano', 1),
- ('synthetiseurs', 'synthesizer', 1),
+ ('pianos droits', 'upright-piano', 6),
+ ('pianos à queue', 'grand-piano', 6),
+ ('pianos numériques', 'digital-piano', 6),
+ ('synthetiseurs', 'synthesizer', 5),
  ('guitares', 'guitars', 2),
  ('basse', 'bass-guitar', 2),
  ('guitare electrique', 'electric-guitar', 2),
  ('ampli guitare', 'guitar-amp', 2),
- ('batteries', 'battery', 3),
- ('cymbales', 'cymbals', 3),
- ('tambours et autres', 'drums-and-others', 3),
- ('violon', 'violin', 4),
- ('contrebasse', 'bass', 4),
- ('accessoires de violon', 'violin-accessory', 4),
+ ('batteries', 'battery', 1),
+ ('cymbales', 'cymbals', 1),
+ ('tambours et autres', 'drums-and-others', 1),
+ ('violon', 'violin', 3),
+ ('contrebasse', 'bass', 2),
+ ('accessoires de violon', 'violin-accessory', 3),
  ('platines', 'turntable', 5),
- ('boîte à rythme', 'drum-machines', 5),
+ ('boîte à rythme', 'drum-machines', 1),
  ('accessoires DJ', 'dj-accessories', 5),
- ('saxophones', 'saxophone', 6),
- ('flutes', 'flute', 6),
- ('trompettes', 'trumpet', 6),
- ('gros cuivres','big-brass-instrument', 6);
+ ('saxophones', 'saxophone', 4),
+ ('flutes', 'flute', 4),
+ ('trompettes', 'trumpet', 4),
+ ('gros cuivres','big-brass-instrument', 4),
+ ('petits cuivres', 'small-brass-instrument', 4),
+ ('accessoires vents', 'wind-instrument-accessories', 4); 
+
+
 
  
  INSERT INTO products (name, description, price, category_id,

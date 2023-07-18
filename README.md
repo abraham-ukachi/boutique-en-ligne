@@ -44,10 +44,12 @@ The following tables (including a couple of TRIGGERS) were created in our **`db_
 6. [*`categories`*](#categories---MySQL-Table): All categories of corresponding products.
 7. [*`sub_categories`*](#sub_categories---MySQL-Table): All sub-categories related to product categories.
 8. [*`products`*](#products---MySQL-Table): All producs created by the seller or administrator.
-9. [*`orders_items`*](#orders_items---MySQL-Table): All items or specific orders.
-10. [*`comments`*](#comments---MySQL-Table): All comments (or reviews) made by users (or reviews) on all products.
-11. [*`likes`*](#likes---MySQL-Table): All likes of corresponding products.
-12. [*`cart`*](#): The customers' cart
+9. [*`colors`*](#colors---MySQL-Table): All officially supported colors of Maxaboom.
+10. [*`products_colors`*](#products_colors---MySQL-Table): All product colors.
+11. [*`orders_items`*](#orders_items---MySQL-Table): All items or specific orders.
+12. [*`comments`*](#comments---MySQL-Table): All comments (or reviews) made by users (or reviews) on all products.
+13. [*`likes`*](#likes---MySQL-Table): All likes of corresponding products.
+14. [*`cart`*](#): The customers' cart
 
 > NOTE: For more info, [read the Database section](#Database) of this *README*. 
 
@@ -358,8 +360,11 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
-| 1 | *`id`* 🔑  | **INT** | 10 | No | None | **AUTO_INCREMENT** |
-| 2 | *`name`* | **VARCHAR** | 255 | No | None | - |
+| 1 | *`id`* 🔑  | **INT** | 11 | No | None | **AUTO_INCREMENT** |
+| 2 | *`title`* | **VARCHAR** | 100 | No | None | - |
+| 3 | *`name`* | **VARCHAR** | 100 | No | None | **UNIQUE** |
+| 4 | *`is_top`* | **TINYINT** | 1 | No | *0* | - |
+| 5 | *`image`* | **VARCHAR** | 200 | Yes | *NULL* | - |
 
 > NOTE:
 
@@ -369,8 +374,10 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
-| 1 | *`id`* 🔑  | **INT** | 10 | No | None | **AUTO_INCREMENT** |
-| 2 | *`name`* | **VARCHAR** | 255 | No | None | - |
+| 1 | *`id`* 🔑  | **INT** | 11 | No | None | **AUTO_INCREMENT** |
+| 2 | *`title`* | **VARCHAR** | 100 | No | None | - |
+| 3 | *`name`* | **VARCHAR** | 255 | No | None | **UNIQUE** |
+| 4 | *`category_id`* | **INT** | 11 | No | None | - |
 
 > NOTE:
 
@@ -381,7 +388,7 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 
 | No. | Name | Type | Length | Null | Default | Extra |
 |:----|:-----|:-----|:-------|:-----|:--------|:-------|
-| 1 | *`id`* 🔑  | **VARCHAR** | 30 | No | None | - |
+| 1 | *`id`* 🔑  | **VARCHAR** | 11 | No | None | - |
 | 2 | *`category_id`* ⨁ | **TINYINT** | 10 | No | None | - |
 | 3 | *`author_id`* ⨁ | **INT** | 255 | No | None | - |
 | 4 | *`cover_image_id`* ⨁ | **INT** | 255 | No | None | - |
@@ -393,6 +400,30 @@ This table has a [**many-to-one**](https://www.metabase.com/learn/databases/tabl
 
 > NOTE:
 
+
+
+### `colors` - MySQL Table
+
+
+| No. | Name | Type | Length | Null | Default | Extra |
+|:----|:-----|:-----|:-------|:-----|:--------|:-------|
+| 1 | *`id`* 🔑  | **VARCHAR** | 11 | No | None | **AUTO_INCREMENT** |
+| 2 | *`name`* | **VARCHAR** | 60 | No | None | - |
+| 3 | *`hex`* | **VARCHAR** | 6 | No | None | - |
+
+
+> NOTE: 
+
+
+### `products_colors` - MySQL Table
+
+| No. | Name | Type | Length | Null | Default | Extra |
+|:----|:-----|:-----|:-------|:-----|:--------|:-------|
+| 1 | *`id`* 🔑 | **INT** | 11 | No | None | **AUTO_INCREMENT** | 
+| 2 | *`product_id`* ⨁ | **VARCHAR** | 11 | No | None | - |
+| 3 | *`color_id`* ⨁ | **VARCHAR** | 30 | No | None | - |
+
+> NOTE: 
 
 
 ### `orders_items` - MySQL Table

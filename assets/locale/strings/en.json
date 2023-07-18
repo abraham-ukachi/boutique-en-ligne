@@ -2,7 +2,33 @@
   "appName": "Maxaboom",
   "appDescription": "Maxaboom is a free, open source, and easy to use web app that allows you to discover and buy your perfect musical instrument.",
   "appDescription2": "Maxaboom is a fun and dynamic online store that offers a wide variety of musical instruments and accessories. From guitars and drums to keyboards, microphones and trumpets.",
+
+ "shop@Maxaboom": "Shop @ Maxaboom!",
+ "x@Maxaboom": "%s @ Maxaboom!", 
+ "discoverBuyYourPerfectInstrument": "🛍  Discover and buy your perfect musical instrument 😍", 
+
+ "ourCategories": "Our categories",
   
+ "filter": "Filter",
+ "price": "Price",
+ "brand": "Brand",
+ "color": "Color",
+
+ "colors": "Colors",
+ "prices": "Prices",
+
+ "priceRange": "Price range",
+ "selectAPriceRange": "Select a price range",
+ "selectABrand": "Select a brand",
+ "pickOneOrMoreColors": "Pick one or more colors",
+
+ "noProducts": "No products",
+ "noProductsMessage": "No products were found matching your search and/or selection.",
+
+ "noInstruments": "No instruments",
+ "noInstrumentsMessage": "No musical instruments were found matching your search and/or selection.",
+
+ "ourCategoriesMessage": "Because each inspiration is unique, find the instrument you need.",
   "welcomeMessage": "Welcome to Maxaboom | The #1 online store for all your musical needs",
 
   "abrahamUkachi": "Abraham Ukachi",
@@ -15,7 +41,7 @@
   "ru": "Russian",
   "es": "Spanish",
 
-  "hello": "Hello",
+"hello": "Hello",
   "gm": "Good morning",
   "ga": "Good afternoon",
   "ge": "Good evening",
@@ -26,6 +52,14 @@
   "searchProducts": "Search products",
 
   "searchInstruments": "Search instruments",
+
+  "searchX": "Search %s",
+
+  "searchAll": "Search all",
+
+  "searchInX": "Search in %s",
+
+  "searchForX": "Search for %s",
 
   "splashScreen": "Splash screen",
 
@@ -132,6 +166,7 @@
   "no": "No",
   "delete": "Delete",
   "cancel": "Cancel",
+  "open": "Open",
 
   "errorLogout": "Failed to log out",
   "successLogout": "Logged out successfully",
@@ -273,6 +308,7 @@
 
   "firstNameErrorMessagePatternMismatch": "Please enter a valid first name 😅",
 
+  "pleaseSelectACategoryFirst": "Please select a category first 🙏🏽",
 
 
   "lastNameErrorMessageValueMissing": "Your last name is required 😜",
@@ -327,20 +363,45 @@
   "ourTopCategories": "Our Top Categories",
   "topCategories": "Top Categories",
 
+  "allCategories": "All Categories",
+
+  "all": "All",
+  
+  "pickACategory": "Pick a category",
+
+  "pickACategoryToStartShopping": "Pick a category to start shopping",
+
   "pianos": "Pianos",
   "guitars": "Guitars",
   "drums": "Drums",
-  "violin": "Violins",
+  "violins": "Violins",
   "saxophones": "Saxophones",
   "flutes": "Flutes",
   "percussions": "Percussions",
   "trumpets": "Trumpets",
   "dj": "DJ",
   "wind-instruments": "Wind instruments",
+
   "percussion": "Percussion",
+
+  "sort": "Sort",
+  
+  "sortBy": "Sort by",
+
+  "default": "Default",
+  "alphabet": "Alphabet",
+  "names": "Names",
+  "names_az": "Names (A-Z)",
+  "names_za": "Names (Z-A)",
+  "newest": "Newest",
+  "oldest": "Oldest", 
+  "cheapest": "Cheapest",
+  "most_expensive": "Most expensive",
+  "popular": "Popular",
 
   "addToLikes": "Add to likes",
 
+  "sortingChangedToX": "Sorting changed to `%s`",
   "copyrightText": "Maxaboom. All rights reserved.",
 
   "madeWithLove": "Made with ❤️  by Maxaboom Team",
@@ -410,9 +471,82 @@
   "classic": "Classic",
 
   "themeChangedTo": "Theme changed to %s",
-  "langChangedTo": "Language changed to %s"
+  "langChangedTo": "Language changed to %s",
 
-    
+
+  
+  "battery": "Battery",
+  "cymbals": "Cymbals",
+  "drums-and-others": "Drums and others",
+  "drum-machines": "Drum Machines",
+
+
+  "electric-guitar": "Electric Guitar",
+  "acoustic-guitar": "Acoustic Guitar",
+  "bass-guitar": "Bass Guitar",
+  "guitar-effects": "Guitar Effects",
+  "guitar-amp": "Guitar Amplifiers",
+  "guitar-accessories": "Guitar Accessories",
+  "guitar-pedals": "Guitar Pedals",
+  "bass": "Bass Amplifiers",
+ 
+
+  "violin": "violin",
+  "violin-accessory": "Violin Accessory",
+   
+  "saxophone": "Saxophone", 
+  "saxophones": "Saxophones",
+  "saxophone-accessories": "Saxophone Accessories",
+  "flute": "Flute",
+  "trumpet": "Trumpet",
+  "big-brass-instrument": "Big Brass Instrument", "small-brass-instrument": "Small Brass Instrument",
+  "wind-instrument-accessories": "Wind Instrument Accessories",
+
+
+  "synthesizer": "Synthesizer",
+  "turntable": "Turntable",
+  "dj-accessories": "DJ Accessories",
+  "dj-mixer-accessories": "DJ Mixer Accessories",
+
+
+  "upright-piano": "Upright Piano",
+  "grand-piano": "Grand Piano",
+  "digital-piano": "Digital Piano",
+
+  "extra-cheap": "Extra Cheap",
+  "very-cheap": "Very Cheap",
+  "too-cheap": "Too Cheap",
+  "cheap": "Cheap",
+  "affordable": "Affordable",
+  "expensive": "Expensive",
+  "too-expensive": "Too Expensive",
+  "very-expensive": "Very Expensive",
+  "extra-expensive": "Extra Expensive",
+
+  "showFilter": "Show filter",
+  "hideFilter": "Hide filter",
+
+  "priceRangeChangedToX": "Price range has changed to `%s`",
+
+  
+  "red": "Red",
+  "blue": "Blue",
+  "green": "Green",
+  "yellow": "Yellow",
+  "orange": "Orange",
+  "purple": "Purple",
+  "pink": "Pink",
+  "brown": "Brown",
+  "white": "White",
+  "black": "Black",
+  "gray": "Gray",
+  "silver": "Silver",
+  "gold": "Gold",
+
+
+  "filteringInstrumentsByXColor": "Filtering instruments by %s color..."
+  
+
 }
 
 

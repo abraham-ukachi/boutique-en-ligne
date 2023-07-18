@@ -1,19 +1,66 @@
 <?php
-?>
+/**
+* @license MIT
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @project boutique-en-ligne
+* @name Shop Page - Maxaboom
+* @file shop-page.php
+* @author: Axel Vair <axel.vair@laplateforme.io>
+* @contributors: Abraham Ukachi <abraham.ukachi@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+* @version: 0.0.1
+* 
+* Usage:
+*   1-|> open http://localhost/boutique-en-ligne/shop
+* 
+*
+* ============================
+* IMPORTANT: This is a working progress and subject to major changes ;)
+* ============================
+*/
 
-<!doctype html>
-<html lang="fr">
+
+/*
+* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+* MOTTO: We'll always do more 😜!!!
+* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+*/
+
+
+?><!DOCTYPE html>
+
+<html lang="<?= $this->lang ?>">
+
 <!-- HEAD -->
 <head>
     <!-- Our 4 VIP metas -->
     <meta charset='utf-8'>
     <meta http-equiv='x-ua-compatible' content='IE=edge,chrome=1'>
     <meta name='viewport' content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes'>
-    <meta name='description'
-          content='Maxaboom is a fun and dynamic online store that offers a wide variety of musical instruments. From guitars and drums to keyboards, microphones and trumpets.'>
+    <meta name='description' content='<?= $this->i18n->getString('appDescription2') ?>'>
 
     <!-- Title -->
-    <title>Welcome to maxaboom | The #1 online store for all your musical needs</title>
+    <title><?= $this->i18n->getString('welcomeMessage') ?></title>
 
     <!-- Fonts -->
     <link rel='preconnect' href='https://fonts.googleapis.com'>
@@ -60,10 +107,10 @@
 
     <!-- Animations -->
     <!-- <link rel='stylesheet' href='assets/animations/fade-in-animation.css'> -->
-    <!-- <link rel='stylesheet' href='assets/animations/slide-from-down-animation.css'> -->
+    <link rel='stylesheet' href='assets/animations/slide-from-up-animation.css'>
 
     <!-- Stylesheet -->
-    <!-- <link rel='stylesheet' href='assets/stylesheets/home-styles.css'> -->
+    <link rel='stylesheet' href='assets/stylesheets/shop-styles.css'>
 
     <!-- Script -->
     <script>
@@ -77,95 +124,408 @@
 
     <!-- Some more script for ya! #LOL -->
     <script type='module' src='src/app.js' defer></script>
-    <script src='src/scripts/shop.js' defer></script>
+    <script type='module' src='src/scripts/shop.js' defer></script>
 
 </head>
 <!-- End of HEAD -->
-<body class='theme light' fullbleed
-      data-category-name="<?= $this->categoryName?>"
-      data-category-id="<?= $this->categoryId?>"
-      data-sub-category-name="<?= $this->subCategoryName?>"
-      data-sub-category-id="<?= $this->subCategoryId ?>";
->
+<body class='theme <?= $this->theme ?>' fullbleed
+      data-category-name="<?= isset($this->categoryName) ? $this->categoryName : '' ?>"
+      data-category-id="<?= isset($this->categoryId) ? $this->categoryId : 0 ?>"
+      data-sub-category-name="<?= isset($this->subCategoryName) ? $this->subCategoryName : '' ?>"
+      data-sub-category-id="<?= isset($this->subCategoryId) ? $this->subCategoryId : 0 ?>">
 
-<!-- Side Bar -->
-<!-- PHP: Include the `sideBar` component -->
-<?php
-$_GET['sidebar_route'] = 'home';
-$_GET['sidebar_init'] = $this->user->getInitials();
-$_GET['sidebar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
-$_GET['sidebar_for_admin'] = false; // TRUE if the user is an admin
+  <!-- Side Bar -->
+  <!-- PHP: Include the `sideBar` component -->
+  <?php
+    $_GET['sidebar_route'] = 'shop';
+    $_GET['sidebar_init'] = $this->user->getInitials();
+    $_GET['sidebar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
+    $_GET['sidebar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin 
 
-require __DIR__ . '/components/side-bar.php';
-?>
-<!-- End of Side Bar -->
+    require __DIR__ . '/components/side-bar.php';
+  ?>
+  <!-- End of Side Bar -->
 
-<!-- Main part -->
-<main class='flex-layout vertical'>
+
+  <!-- Main part -->
+  <main class='flex-layout vertical'>
 
     <!-- App-Layout of MAIN -->
-    <div class='app-layout' fit>
+    <div id="appLayout" class='app-layout' fit>
+
+        <!-- Wallpaper -->
+        <div id="wallpaper" class="wallpaper" <?= !isset($this->categoryName) ? 'hidden' : ''?> fit>
+          <div class="overlay" fit></div>
+          <img src="<?= isset($this->categoryImage) ? 'assets/images/categories/' . $this->categoryImage : ''?>" alt="" fit/>
+        </div>
+
         <!-- Header -->
         <header>
-            <!-- App Bar -->
-            <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
-            <div class='app-bar'>
-                <!-- Title Wrapper -->
-                <div class='title-wrapper'>
-                    <!-- Title -->
-                    <h2 class='app-title'>Shop</h2>
-                    <!-- Subtitle -->
-                    <h3 class='app-subtitle'>Maxaboom, la référence des instruments de musique !</h3>
-                </div>
-            </div>
-            <!-- End of App Bar -->
+          <!-- App Bar -->
+          <!-- TIP: Add a [sticky] property to the app-bar, to fall in love ;) -->
+          <div id="appBar" class='app-bar'>
 
-            <!-- Horizontal Divider -->
-            <span class='divider horizontal bottom'></span>
+            <!-- Go Back Button -->
+            <button id="goBackButton" class="icon-button" <?= !isset($this->categoryName) ? 'invisible' : ''?>>
+              <span class="material-icons icons">close<!-- arrow_back_ios --></span>
+            </button>
+             
+            <!-- Title Wrapper -->
+            <div class='title-wrapper centered flex-layout'>
+              <!-- Title -->
+              <h2 class='app-title'><?= $this->shopTitle ?></h2>
+              <!-- Subtitle -->
+              <h3 class='app-subtitle fade-in' <?= !isset($this->categoryName) ? 'hidden' : ''?>><?= $this->i18n->getString('discoverBuyYourPerfectInstrument') ?></h3>
+            </div>
+
+            <!-- Menu Button -->
+            <button id="menuButton" class="icon-button">
+              <span class="material-icons icons">more_vert</span>
+            </button>
+
+          </div>
+          <!-- End of App Bar -->
+
+          <!-- Category Bar -->
+          <div id="categoryBar" class='app-bar fade-in' <?= isset($this->categoryName) ? 'hidden' : ''?>>
+            <!-- Title Wrapper -->
+            <div class='title-wrapper centered flex-layout'>
+              <!-- Title -->
+              <h1 class='app-title txt capitalize'><?= $this->i18n->getString('ourTopCategories') ?></h1>
+              <!-- Subtitle -->
+              <p class='app-subtitle'><?= $this->i18n->getString('ourCategoriesMessage') ?></p>
+            </div>
+          </div>
+          <!-- End of Category Bar -->
+
+          <!-- Search Bar -->
+          <div id="searchBar" class="app-bar fade-in" busy <?= !isset($this->categoryName) ? 'hidden' : ''?>>
+            <!-- Input Wrapper -->
+            <div class="input-wrapper horizontal flex-layout center">
+
+              <!-- Search Icon Button -->
+              <button id="searchIconButton" class="icon-button" role="icon-button">
+                <span class="material-icons icons vertical flex-layout centered">search</span>
+              </button>
+              
+              <!-- Search Dropdown - Button -->
+              <button id="searchDropdownButton" class="dropdown-button horizontal flex-layout centered"
+                contained shrinks>
+                <span class="spinner dots-3"></span>
+                <span class="value txt capitalize"><?= $this->categoryNameValue ?></span>
+                <span class="material-icons icons">arrow_drop_down</span>
+              </button>
+
+              <!-- Search Input -->
+              <input id="searchInput" 
+                type="search" 
+                placeholder="<?= str_replace('%s', $this->categoryName, $this->i18n->getString('searchInX')) ?>" 
+                autocomplete="off" 
+                autocorrect="off" 
+                autocapitalize="off" 
+                spellcheck="false" />
+
+              <!-- Search Indicator -->
+              <div id="searchIndicator" hidden><span></span></div>
+
+              <!-- Progress Bar -->
+              <div id="progressBar" class="progress-bar" hidden>
+                <span class="progress-bar-value"></span>
+              </div>
+
+            </div>
+            <!-- End of Input Wrapper -->
+          </div>
+          <!-- End of Search Bar -->
+          
+          
+          <!-- Chips Bar -->
+          <div id="chipsBar" class="app-bar fade-in center horizontal flex-layout" sticky <?= !isset($this->categoryName) ? 'hidden' : ''?>>
+            
+            <!-- Filter Toggle Button -->
+            <button id="filterToggleButton" class="horizontal flex-layout centered" toggles active outlined desktop-only>
+              <span class="material-icons icons vertical flex-layout centered">filter_list</span>
+              <span><?= $this->i18n->getString('filter') ?></span>
+            </button>
+
+            <!-- SubCategory Chips | Chips Container -->
+            <div id="subCategoryChips" class="chips-container flex-layout flex" scrollpos="start">
+              <!-- Left Chip - Icon Button -->
+              <button id="leftChipIconBtn" class="icon-button left">
+                <span class="material-icons icon">keyboard_arrow_left</span>
+              </button>
+              
+              <!-- Chips -->
+              <ul class="chips horizontal flex-layout center flex fade-in" role="tabs" noscrollbars>
+
+                <li data-subcategory-id="-1" data-subcategory-name="all" class="chip" role="tab" tabindex="0" aria-selected="true" selected>
+                  <span><?= $this->i18n->getString('all') ?></span>
+                </li>
+
+                <?php foreach ($subCategories as $subCategory): ?>
+                <li 
+                  data-subcategory-id="<?= $subCategory->id ?>" 
+                  data-subcategory-name="<?= $subCategory->name ?>" 
+                  class="chip slide-from-up" 
+                  role="tab" 
+                  tabindex="0" 
+                  aria-selected="false">
+
+                  <span><?= $this->i18n->getString($subCategory->name) ?></span>
+
+                </li>
+                <?php endforeach; ?>
+              </ul>
+              <!-- End of Chips -->
+            
+              <!-- Right Chip - Icon Button -->
+              <button id="rightChipIconBtn" class="icon-button right">
+                <span class="material-icons icon">keyboard_arrow_right</span>
+              </button>
+
+              <span class="divider horizontal bottom" hidden></span>
+            </div>
+            <!-- End of SubCategory Chips | [sticky] App Bar | Chips Container -->
+            
+            <span flex></span>
+
+            <!-- Sort Button -->
+            <button id="sortButton" name="default" class="horizontal flex-layout centered" outlined desktop-only>
+              <span class="material-icons icons vertical flex-layout centered">sort</span>
+              <span><?= $this->i18n->getString('sort') ?></span>
+            </button>
+          </div>
+
+
+          <!-- Horizontal Divider -->
+          <span class='divider horizontal bottom' hidden></span>
         </header>
 
         <!-- [content] -->
-        <div content>
-            <div class='app-layout'>
-                <h1>Shop @ Maxaboom!</h1>
-                <p>welcome to the shop page of <b>Maxaboom</b> 🛍</p>
-                <a href='home'>Go back to <b>home page</b></a>
+        <div content class="horizontal flex-layout">
+          <!-- Preview - Container -->
+          <div id="preview" class='container' <?= isset($this->categoryName) ? 'hidden' : ''?>>
+
+            <!-- Top Categories -->
+            <ul id="topCategories" class='flex-layout vertical' naked>
+              <!-- Top Category -->
+              <?php foreach ($topCategories as $category): ?>
+
+              <li class='top-category vertical flex-layout' tabindex="0">
+                <!-- Category Button -->
+                <button 
+                  class='category-btn' expands contained naked fit
+                  tabindex="-1" 
+                  data-category-id="<?= $category['id'] ?>" 
+                  data-category-name="<?= $category['name'] ?>"
+                  data-category-image="<?= $category['image'] ?>">
+                  <img src='assets/images/categories/<?=$category['image'] ?>' alt='<?=$category['name'] ?>' fit>
+                </button>
+
+                <p class='top-category-label txt capitalize'><?= $this->i18n->getString($category['name']) ?></p>
+              </li>
+              <?php endforeach; ?>
+            </ul>
+            <!-- End of Top Categories -->
+
+            <!-- See All - Button -->
+            <button id="seeAllButton" class='btn flex-layout centered' outlined shrinks>
+              <span class="spinner dots-3"></span>
+              <span class='txt upper'><?= $this->i18n->getString('seeAll') ?></span>
+            </button>
+            
+          </div>
+          <!-- End of Preview - Container -->
+
+          <!-- Filter Panel | Section -->
+          <section id="filterPanel" class="slide-from-left" noscrollbars sticky <?= !isset($this->categoryName) ? 'hidden' : ''?>>
+            <div class="app-layout">
+              <header narrow-and-tablet-only>
+                <!-- Filter Panel App Bar -->
+                <div class="app-bar">
+                  <!-- Close Filter Button -->
+                  <button id="closeFilterButton" class="icon-button">
+                    <span class="material-icons icons">close</span>
+                  </button>
+             
+                 <!-- Title Wrapper -->
+                 <div class='title-wrapper centered flex-layout'>
+                   <!-- Title -->
+                   <h2 class='app-title'><?= $this->i18n->getString('filter') ?></h2>
+
+                   <!-- SubTitle -->
+                   <h3 class='app-subtitle'><?= $this->categoryNameValue ?? '' ?></h3>
+                 </div>
+
+                </div>
+                <!-- End of Filter Panel App Bar -->
+
+              </header>
+
+              <div content>
+                <div class="container vertical flex-layout">
+                  <!-- filters -->
+                  <ul id="filters" class="filters list-items links" naked>
+
+                    <!-- Price Filter Item -->
+                    <li id="priceFilterItem" class="filter-item link-item collapsible" collapsed>
+                      <button class="horizontal flex-layout center" naked>
+                        <div class="text-wrapper flex-layout vertical">
+                          <h3 class="filter-title txt capitalize"><?= $this->i18n->getString('prices') ?></h3>
+                          <h4 class="filter-subtitle txt lower"><?= $this->i18n->getString('selectAPriceRange') ?></h4>
+                        </div>
+                        <!-- TODO: create a reset icon -->
+                        <span class="reset-icon material-icons arrow icon" hidden>not_interested</span>
+
+                        <!-- expand more icon -->
+                        <span class="expand-more-icon material-icons arrow icon">expand_more</span>
+                      </button>
+
+                      <div class="content vertical flex-layout centered" noscrollbars>
+                        <span class="spinner dots-12"></span>
+                      </div>
+                    </li>
+                    <!-- End of Price Filter Item -->
+                    
+
+                    <!-- Color Filter Item -->
+                    <li id="colorFilterItem" class="filter-item link-item collapsible" collapsed>
+                      <button class="horizontal flex-layout center" naked>
+                        <div class="text-wrapper flex-layout vertical">
+                          <h3 class="filter-title txt capitalize"><?= $this->i18n->getString('colors') ?></h3>
+                          <h4 class="filter-subtitle txt lower"><?= $this->i18n->getString('pickOneOrMoreColors') ?></h4>
+                        </div>
+                        <!-- expand more icon -->
+                        <span class="expand-more-icon material-icons arrow icon">expand_more</span>
+                      </button>
+
+                      <div class="content vertical flex-layout centered" noscrollbars>
+                        <span class="spinner dots-12"></span>
+                      </div>
+                    </li>
+                    <!-- End of Price Filter Item -->
+                  </ul>
+                  <!-- End of Filters -->
+
+                </div>
+              </div>
+
             </div>
-        </div>
+          </section>
+
+          <!-- Products-Wrapper -->
+          <div id="productsWrapper" class="wrapper vertical flex-layout" <?= !isset($this->categoryName) ? 'hidden' : ''?>>
+
+            <!-- Products - Container -->
+            <div id="products" class="container vertical flex-layout" content>
+              <!-- No Products Container -->
+              <div id="noProductsContainer" 
+                class="container vertical flex-layout center fade-in" empty fit>
+                <span class="no-products-doodle doodle" mask></span>
+                <h2 class="txt capitalize"><?= $this->i18n->getString('noInstruments') ?></h2>
+                <p info><?= $this->i18n->getString('noInstrumentsMessage') ?></p>
+              </div>
+              <!-- End of No Products Container -->
+              
+              <!-- Busy Products Container -->
+              <div id="busyProductsContainer" 
+                class="container vertical flex-layout center" busy fit hidden>
+                <span class="spinner dots-12"></span>
+              </div>
+              <!-- End of Busy Products Container -->
+
+
+              <!-- Products List -->
+              <ul id="productsList"></ul>
+
+
+            </div>
+            <!-- End of Products - Container -->
+
+          </div>
+          <!-- End of Products Wrapper -->
+
+     </div>
+     <!-- End of [content] -->
+
     </div>
+    <!-- End of App-Layout of MAIN -->
 
     <!-- Nav Bar -->
     <!-- PHP: Include the `navBar` component -->
-    <?php
-    $_GET['navbar_route'] = 'home';
-    $_GET['navbar_init'] = 'au';
-    $_GET['navbar_connected'] = false; // TRUE if the user is connected
-    $_GET['navbar_for_admin'] = false; // TRUE if the user is an admin
+    <?php 
+      $_GET['navbar_route'] = 'shop'; 
+      $_GET['navbar_init'] = $this->user->getInitials(); 
+      $_GET['navbar_connected'] = $this->user->isConnected(); // TRUE if the user is connected
+      $_GET['navbar_for_admin'] = $this->user->isAdmin(); // TRUE if the user is an admin 
 
-    require __DIR__ . '/components/nav-bar.php';
+      require __DIR__ . '/components/nav-bar.php';
     ?>
     <!-- End of Nav Bar -->
-
-    <ul style='overflow:scroll'>
-        <!--  CATEGORIES LIST HERE -->
-        <?php foreach ($categories as $category): ?>
-            <li>
-                <button class="category-link" onclick="handleCategoryLinkClick(this)" data-category-id="<?=$category['id'] ?>" data-category-name="<?=$category['name']?>" <?= ($category['name'] === $this->categoryName) ? 'active': '' ?>> <?=$category['name'] ?></button>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-
-    <!-- SUBCATEGORY LIST HERE -->
-    <nav id="subCategoriesList"></nav>
-
-    <!-- PRODUCT LIST HERE -->
-    <ul id="productsList" style='overflow:scroll'></ul>
+    
 
     <!-- Backdrop of MAIN -->
     <div class='backdrop' fit hidden></div>
 
     <!-- Menus of MAIN -->
-    <div class='menus' fit hidden></div>
+    <div class='menus' fit hidden>
+
+      <!-- Shop Menu -->
+      <menu data-id="shopMenu" class="menu vertical flex-layout" hidden>
+
+        <!-- Close Menu + Icon Button -->
+        <li role="close-menu">
+          <button class="icon-button"><span class="material-icons icon">arrow_back_ios</span></button>
+        </li>
+         
+        <!-- Search - Menu Item -->
+        <li title="<?= $this->i18n->getString('searchAll') ?>" class="menu-item">
+          <a tabindex="0" role="button" href="search" id="searchMenuItem" data-action="search">
+            <span class="material-icons icon">search</span>
+            <span class="value"><?= $this->i18n->getString('searchAll') ?></span>
+          </a>
+        </li>
+        
+        <!-- Filter - Menu Item -->
+        <li title="<?= $this->i18n->getString('filter') ?>" class="menu-item">
+          <button id="filterMenuItem" data-action="filter">
+            <span class="material-icons icon">filter_list</span>
+            <span class="value"><?= $this->i18n->getString('filter') ?></span>
+          </button>
+        </li>
+        
+
+        <!-- Sort - Menu Item -->
+        <li title="<?= $this->i18n->getString('sort') ?>" class="menu-item">
+          <button id="sortMenuItem" data-action="sort">
+            <span class="material-icons icon">sort</span>
+            <span class="value"><?= $this->i18n->getString('sort') ?></span>
+          </button>
+        </li>
+
+        
+        <!-- Help - Menu Item -->
+        <li title="<?= $this->i18n->getString('help') ?>" class="menu-item">
+          <a tabindex="0" role="button" id="helpMenuItem" href="account/help" data-action="help">
+            <span class="material-icons icon">help_outline</span>
+            <span class="value"><?= $this->i18n->getString('help') ?></span>
+          </a>
+        </li>
+        
+        
+        <!-- Settings - Menu Item -->
+        <li title="<?= $this->i18n->getString('settings') ?>" class="menu-item">
+          <a tabindex="0" role="button" id="settingsMenuItem" href="account" data-action="settings">
+            <span class="material-icons icon">settings</span>
+            <span class="value"><?= $this->i18n->getString('settings') ?></span>
+          </a>
+        </li>
+
+      </menu>
+      <!-- End of Shop Menu -->
+
+
+    </div>
 
     <!-- Dialogs of MAIN -->
     <div class='dialogs' fit hidden></div>
@@ -176,15 +536,16 @@ require __DIR__ . '/components/side-bar.php';
 </main>
 
 <!-- Aside part -->
-<aside class='flex-layout vertical' hidden>
+<aside class='flex-layout vertical' floats hidden>
 
     <!-- App-Layout of ASIDE -->
-    <div class='app-layout' fit>...</div>
+    <div class='app-layout' fit></div>
+
 
     <!-- Backdrop of ASIDE -->
     <div class='backdrop' fit hidden></div>
 
-    <!-- Menus of ASIDE -->s
+    <!-- Menus of ASIDE -->
     <div class='menus' fit hidden></div>
 
     <!-- Dialogs of ASIDE -->
@@ -195,6 +556,7 @@ require __DIR__ . '/components/side-bar.php';
 
     <!-- Vertical Divider -->
     <span class='divider vertical left'></span>
+
 </aside>
 
 <!-- Default Backdrop -->

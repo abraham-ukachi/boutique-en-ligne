@@ -1,0 +1,989 @@
+/* 
+* @license
+* boutique-en-ligne (maxaboom)
+* Copyright (c) 2023 Abraham Ukachi, Axel Vair, Morgane Marechal. The Maxaboom Project Contributors.
+* All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software. 
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* @name: Shop Styles
+* @type: Stylesheet
+* @author: Abraham Ukachi <abraham.ukachi@laplateforme.io>
+* @contributors: Axel Vair <axel.vair@laplateforme.io>, Morgane Marechal <morgane.marechal@laplateforme.io>
+*
+* Example usage:
+*
+*  1+|> // 
+*   -|>
+*
+*
+*/
+
+/* ==== IMPORTS ==== */
+/* @import 'color.css'; */
+/* @import 'typography.css'; */
+/* @import '../animations/slide-from-down-animation.css'; */
+
+/* @import '../animations/fade-in-animation.css'; */
+/* @import '../animations/slide-from-up-animation.css'; */
+
+@import '../animations/slide-from-left-animation.css';
+@import '../animations/slide-left-animation.css';
+@import '../animations/slide-from-down-animation.css';
+@import '../animations/slide-down-animation.css';
+
+/* ==== LOGIN PAGE STYLES ==== */
+
+:root {}
+
+.theme.light {
+
+  /* Opacity List Item */
+  --opacity-filter-item: 0.04;
+  --opacity-filter-item-hover: 0.1;
+  --opacity-filter-active: 0.3;
+
+  --filter-toggle-button-active-background: rgba(0,0,0,0.2);
+}
+
+
+.theme.dark {
+
+  /* Opacity List Item */
+  --opacity-filter-item: 0.1;
+  --opacity-filter-item-hover: 0.2;
+  --opacity-filter-active: 0.2;
+
+  --filter-toggle-button-active-background: rgba(255,255,255,0.2);
+}
+
+
+#appLayout {
+  --app-header-background-color: transparent;
+  --chips-background-color: transparent;
+}
+
+/* App Bar */
+#appBar {
+  --app-bar-size: 64px;
+}
+
+.app-bar .app-logo {
+  --app-logo-color: var(--primary-color);
+}
+
+.app-bar .app-name {
+  --app-name-color: var(--primary-color);
+  align-self: start;
+}
+
+
+
+
+#appBar h2.app-title {
+  color: var(--primary-color);
+}
+
+#appBar h2.app-title, 
+#appBar h3.app-subtitle {
+  width: 100%;
+  text-align: center;
+}
+
+/* Category Bar */
+#categoryBar {
+  --app-bar-size: 128px;
+}
+
+#categoryBar .app-title {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+#categoryBar .app-subtitle {
+  text-align: center;
+  opacity: var(--opacity-text-inactive);
+}
+
+
+/* Top Categories */
+ul#topCategories {
+  width: var(--top-categories-width, 100%);
+  height: var(--top-categories-height, auto);
+  margin: var(--top-categories-margin, 0 auto);
+  position: relative;
+  background-color: var(--top-categories-background, inherit);
+}
+
+
+
+
+
+/* Top Category */
+
+li.top-category {
+  overflow: hidden;
+  position: relative;
+  border-radius: var(--top-category-border-radius, 1.25rem);
+  width: var(--top-category-width, 100%);
+  height: var(--top-category-height, 400px);
+  min-height: var(--top-category-height, 400px); /* HACK */
+  margin: var(--top-category-margin, 1rem 0);
+  left: var(--top-category-left, 0);
+  top: var(--top-category-top, 0);
+}
+
+li.top-category:focus-visible {
+  outline: 4px solid var(--tertiary-color);
+}
+
+button.category-btn {}
+
+
+button.category-btn img {
+  object-position: center;
+  object-fit: cover;
+}
+
+
+.top-category-label {
+  z-index: 10;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  color: white;
+  font-weight: bold;
+  font-size: 1.25rem;
+  opacity: var(--opacity-text-active);
+  text-shadow: 0 0 0.5rem black;
+  user-select: none;
+  pointer-events: none;
+}
+
+
+#seeAllButton {
+  border-radius: 2rem;
+  width: var(--see-all-button-width, 100%);
+  height: var(--see-all-button-height, 50px);
+  margin: 1rem auto;
+}
+
+
+#seeAllButton .spinner,
+#searchDropdownButton .spinner {
+  position: absolute;
+}
+
+
+/** Search Bar Styles **/
+
+#searchBar {
+  width: 100%;
+  height: var(--search-bar-height, 64px);
+  box-sizing: border-box;
+  padding: var(--search-bar-padding, 0.5rem);
+}
+
+#searchBar .input-wrapper {
+  width: var(--search-bar-width, 95%);
+  height: 100%;
+  margin: 0 auto;
+  background: var(--search-bar-background, none);
+  overflow: hidden; 
+  position: relative;
+
+  border-radius: var(--search-bar-border-radius, 2rem);
+}
+
+#searchBar .input-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--search-bar-before-width, 100%);
+  height: var(--search-bar-before-height, 100%);
+  outline: 2px solid var(--outline-color);
+  outline-offset: -0.1rem;
+  border-radius: 2rem;
+  opacity:  var(--opacity-icon-disabled);
+  pointer-events: none;
+
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -ms-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+
+}
+
+
+#searchBar .input-wrapper:hover::before {
+  outline-color: var(--on-surface-color);
+  opacity: var(--opacity-icon-active);
+}
+
+
+#searchBar .input-wrapper:focus-within::before {
+  outline-color: var(--primary-color);
+  opacity: var(--opacity-icon-active);
+}
+
+#searchBar .input-wrapper:focus-within #searchInput {
+  outline: none;
+}
+
+
+#searchIconButton {
+  margin: 0 var(--search-icon-button-margin, 0.5rem);
+}
+
+#searchDropdownButton {
+  --button-height: 75%;
+  --button-padding: 1rem;
+  --button-width: fit-content;
+  --spinner-size: 32px;
+  --spinner-color: var(--on-primary-container-color);
+  min-width: fit-content;
+  border-radius: 2rem;
+  text-transform: lowercase;
+}
+
+#searchDropdownButton:hover {
+  --material-icon-color: var(--on-primary-color);
+}
+
+#searchInput {
+  width: var(--search-input-width, 100%);
+  height: var(--search-input-width, 100%);
+  margin: var(--search-input-margin, 0);
+  padding: 0 var(--search-input-padding, 0.5rem);
+  padding-right: 1.5rem;
+}
+
+
+#searchIndicator {}
+
+#progressBar {
+  --progress-bar-height: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+
+/** End of Search Bar Styles **/
+
+
+#filterButton {}
+
+#sortButton {}
+
+#sortButton b {
+  text-transform: lowercase;
+}
+
+
+#searchDropdownButton.loading > *:not(.spinner) {
+  display: initial !important;
+  visibility: hidden !important;
+}
+
+
+#wallpaper {
+  width: var(--wallpaper-width, 100%);
+  height: var(--wallpaper-height, 90%);
+  overflow: hidden;
+  z-index: -1;
+}
+
+#wallpaper img {
+  z-index: 1;
+  filter: blur(2rem);
+  opacity: 0.3; /* 0.2; */
+  object-position: center;
+  object-fit: cover;
+}
+
+
+#wallpaper .overlay {
+  opacity: var(--wallpaper-overlay-opacity, 1);
+  z-index: 2;
+  background: linear-gradient(transparent, var(--background-color));
+}
+
+
+#filterPanel {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: var(--filter-panel-background-color, var(--background-color));
+  width: var(--filter-panel-width, 100%);
+  height: var(--filter-panel-height, calc(100vh - var(--nav-bar-size, 54px)));
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+#filterPanel[opened] {}
+
+#filterPanel.opening {}
+
+#filterPanel[closed] {}
+
+#filterPanel.closing {}
+
+
+
+#filterPanel [content] > .container {
+  padding: var(--filter-panel-padding, 1rem);
+}
+
+
+/* Filter Items */
+.filter-items {}
+
+.filter-items.collapsible {}
+
+.filter-item {
+  --list-item-background-color: transparent;
+ 
+  position: relative;
+  max-height: var(--filter-item-height, auto);
+  overflow: hidden;
+  margin: var(--filter-item-margin, 1.5rem 0);
+  border-radius: var(--filter-item-border-radius, 12px);
+
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.filter-item > button > .icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.filter-item:not([collapsed]) > button > .icon {
+  transform: rotate(180deg);
+}
+
+.filter-item::before {
+  background: var(--filter-item-background-color, var(--on-background-color));
+  position: absolute;
+  content: "";
+  inset: 0;
+  opacity: var(--opacity-filter-item);
+  pointer-events: none;
+
+  -webkit-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  -moz-transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.filter-item:hover::before {
+  opacity: var(--opacity-filter-item-hover);
+}
+
+
+.filter-item > button {
+  margin: 0;
+}
+.filter-item > button > * {
+  pointer-events: none;
+}
+
+.filter-item .content {
+  position: relative;
+  width: var(--filter-item-content-width, 100%);
+  height: var(--filter-item-content-height, 200px);
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.filter-item[collapsed] {
+  max-height: var(--filter-item-collapsed-height, 73px);
+}
+
+.filter-item[collapsed] > button {
+  height: var(--filter-item-collapsed-height, 73px);
+} 
+
+.filter-item[collapsed] .content {}
+
+.filter-item:not([collapsed]) > button h3 {
+  font-size: 1.25rem;
+} 
+
+
+.filter-item > button h3 {
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.filter-item > button h4 {
+  opacity: 0;
+  margin-bottom: -20px;
+
+  -webkit-transition: opacity 0.2s ease-in-out, margin 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out, margin 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out, margin 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, margin 0.2s ease-in-out;
+}
+
+
+.filter-item[collapsed] > button h4 {
+  opacity: var(--opacity-text-disabled);
+  margin-bottom: 0;
+} 
+
+#prices, #colors {
+  --dialog-list-margin: 0;
+  margin-bottom: 1rem;
+}
+
+.filter-list-item {
+  --dialog-list-item-padding: 0.5rem 0.75rem;
+  --dialog-list-item-checkbox-size: 0.5rem;
+  font-size: 1rem;
+
+}
+
+.filter-list-item > * {
+  pointer-events: none;
+  user-select: none;
+}
+
+
+main > .appLayout > [content] {
+  display: flex;
+  min-height: 100%;
+}
+
+
+#filterToggleButton {
+  --toggle-button-color-active: var(--on-background-color);
+}
+
+#filterToggleButton[active] {
+  background: var(--filter-toggle-button-active-background); 
+}
+
+
+
+/* 
+ * --> Narrow - Device <--
+ * Phone: ? (Responsive)
+ * Dimension: ~460px (width)
+ *
+ * ***************************************
+ * when the viewport is lesser than 460px,
+ * layout changes to a narrow-layout.
+ * ***************************************
+ */
+
+
+
+
+/* ===[ {{CSS-RULE}} ]=== */
+
+
+/* ---[ End of {{CSS-RULE}} ]--- */
+
+
+
+
+
+/* Preview - Container */
+div#preview {}
+
+
+/* Products Wrapper */
+div#productsWrapper {
+  position: relative;
+  width: var(--products-wrapper-width, 100%);
+  height: var(--products-wrapper-height, auto);
+  min-height: 100vh;
+  padding: var(--products-wrapper-padding, 1rem);
+  padding-left: var(--products-wrapper-padding-left, 0);
+  padding-top: var(--products-wrapper-padding-top, 0);
+  background: var(--products-wrapper-background-color, transparent);
+  margin: var(--products-wrapper-margin, 0);
+  margin-top: var(--products-wrapper-margin-top, 0);
+  z-index: 3;
+  box-sizing: border-box;
+
+  transition: padding 0.3s ease-in-out;
+}
+
+#products {
+  position: relative;
+  min-height: inherit;
+  background: transparent;
+  pointer-events: auto;
+}
+
+#chipsBar {
+  padding: 0;
+  z-index: 10;
+}
+
+#chipsBar > button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  height: 32px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+#chipsBar > button:hover {
+  --material-icon-color: var(--primary-color);
+}
+
+#chipsBar > button .material-icons {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+
+#chipsBar > button[active],
+#sortButton:not([name="default"]) {
+  --material-icon-color: var(--primary-color);
+  --outline-color: var(--primary-color);
+  color: var(--primary-color);
+  opacity: 1;
+}
+
+
+
+/* All the children of chips */
+ul.chips > * {
+  opacity: 0;
+  -webkit-animation: fadeIn 0.3s ease var(--chips-animation-delay, 0.2s) forwards, slideFromUp 0.3s ease var(--chips-animation-delay, 0.2s);
+  -moz-animation: fadeIn 0.3s ease var(--chips-animation-delay, 0.2s) forwards, slideFromUp 0.3s ease var(--chips-animation-delay, 0.2s);
+  animation: fadeIn 0.3s ease var(--chips-animation-delay, 0.2s) forwards, slideFromUp 0.3s ease var(--chips-animation-delay, 0.2s);
+}
+
+
+/* Let's gradually assign an animation delay to up to 10 children of `chips` */
+/* TODO: Find a better way to do this :) */
+
+/* First child of chips */
+ul.chips > *:nth-child(1) {
+  --chips-animation-delay: 0.2s;
+}
+
+/* Second child of chips */
+ul.chips > *:nth-child(2) {
+  --chips-animation-delay: 0.3s; /* 0.2 + 0.1 */
+}
+
+
+/* Third child of chips */
+ul.chips > *:nth-child(3) {
+  --chips-animation-delay: 0.4s; /* 0.3 + */
+}
+
+/* Fourth child of chips */
+ul.chips > *:nth-child(4) {
+  --chips-animation-delay: 0.5s;
+}
+
+
+/* Fifth child of chips */
+ul.chips > *:nth-child(5) {
+  --chips-animation-delay: 0.6s;
+}
+
+
+/* First child of chips */
+ul.chips > *:nth-child(6) {
+  --chips-animation-delay: 0.7s;
+}
+
+/* Second child of chips */
+ul.chips > *:nth-child(7) {
+  --chips-animation-delay: 0.8s;
+}
+
+
+/* Third child of chips */
+ul.chips > *:nth-child(8) {
+  --chips-animation-delay: 0.9s;
+}
+
+/* Fourth child of chips */
+ul.chips > *:nth-child(9) {
+  --chips-animation-delay: 1s;
+}
+
+
+/* Fifth child of chips */
+ul.chips > *:nth-child(10) {
+  --chips-animation-delay: 1.1s;
+}
+
+
+
+
+/* No Products Container */
+#noProductsContainer {
+  padding-top: 4rem;
+}
+
+
+/* Busy Products Container */
+#busyProductsContainer {
+  padding-top: 8rem;
+}
+
+
+
+
+body > aside[floats] {
+  --aside-width: 35%;
+
+  position: absolute;
+  z-index: 300;
+  right: 0;
+  top: 0;
+  background: transparent;
+}
+
+
+body > aside[floats]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--aside-background-color, var(--background-color));
+  opacity: 0.9;
+  z-index: -1;
+}
+
+
+/* Color Filters */
+
+/* Color Filter Item */
+#colorFilterItem {}
+
+
+.color-filter .color {
+  width: var(--color-filter-size, 0.5rem);
+  height: var(--color-filter-size, 0.5rem);
+  border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+@media (min-width: 768px) {
+
+
+  /* Color Filter Item */
+  #colorFilterItem {
+    --color-filter-size: 0.75rem;
+  }
+
+  /* No Products Container */
+  #noProductsContainer {
+    padding-top: 5rem;
+  }
+
+  
+  /* Busy Products Container */
+  #busyProductsContainer {
+    --spinner-size: 5rem;
+    padding-top: 10rem;
+  }
+
+
+  #chipsBar, #appLayout > header {
+    width: calc(100vw - var(--slide-bar-width, 90px)) !important;
+  }
+
+  #subCategoryChips {
+    overflow: hidden;
+    flex: auto 0;
+    flex-basis: min-content;
+  }
+
+  #subCatgoryChips .chips {
+    width: fit-content;
+    max-width: fit-content;
+  }
+
+
+  #filterPanel {
+    --filter-panel-background-color: transparent; 
+    --filter-panel-width: 400px;
+    --filter-panel-height: auto;
+
+    position: relative;
+  }
+
+  #filterPanel [content] > .container {
+    padding: var(--filter-panel-padding, 1rem 2rem);
+  }
+
+
+  #filterPanel[sticky] {
+    position: sticky;
+    left: 0;
+    top: var(--app-bar-size, 60px);
+    height: calc(100vh - var(--app-bar-size, 60px));
+  }
+  
+
+  #filterPanel[opened] {
+    pointer-events: auto;
+    user-select: auto;
+    visibility: visible;
+  }
+
+  #filterPanel[opened] > * {
+    display: block;
+  }
+
+  #filterPanel.opening {
+    display: block;
+
+    pointer-events: auto;
+    user-select: auto;
+    visibility: visible;
+
+    animation: slideFromLeft 0.3s ease forwards;
+  }
+
+  #filterPanel.opening ~ #productsWrapper {
+    padding-left: var(--filter-panel-width, 400px);
+  }
+
+  #filterPanel[closed] {
+    pointer-events: none;
+    user-select: none;
+    visibility: hidden;
+  }
+
+  #filterPanel[closed] ~ #productsWrapper {
+    padding-left: 1rem;
+  }
+
+  #filterPanel[closed] > * {
+    display: none;
+  }
+
+  #filterPanel.closing {
+    animation: slideLeft 0.3s ease forwards;
+  }
+
+  #filterPanel.closing ~ #productsWrapper {
+    padding-left: 1rem;
+  }
+
+
+  #chipsBar {
+    padding: 0 2.5rem;
+  }
+
+
+  #chipsBar > button .material-icons {
+    font-size: 1.25rem;
+    margin-right: 0.25rem;
+  }
+
+  /* Products - Container */
+  div#productsWrapper {
+    --products-wrapper-background-color: transparent;
+    --products-wrapper-padding-top: var(--app-bar-size, 60px);
+    --products-wrapper-padding-left: var(--filter-panel-width, 400px);
+    --products-wrapper-margin-top: -100vh;
+  }
+
+
+  /* Top Categories */
+  ul#topCategories {
+    --top-categories-width: 1000px;
+    --top-categories-height: 800px;
+
+  }
+  
+
+  /* Top Category */
+
+  li.top-category {
+    position: absolute;
+  }
+
+  li.top-category:nth-child(1) {
+    --top-category-width: 300px;
+    --top-category-height: 250px;
+    --top-category-left: 0;
+    --top-category-top: 25px;
+  }
+
+
+  li.top-category:nth-child(2) {
+    --top-category-width: 250px;
+    --top-category-height: 350px;
+    --top-category-left: 325px;
+    --top-category-top: 0;
+  }
+
+  
+  li.top-category:nth-child(3) {
+    --top-category-width: 380px;
+    --top-category-height: 250px;
+    --top-category-left: 600px;
+    --top-category-top: 75px;
+  }
+
+
+  li.top-category:nth-child(4) {
+    --top-category-width: 250px;
+    --top-category-height: 400px;
+    --top-category-left: 30px;
+    --top-category-top: 300px;
+  }
+
+  li.top-category:nth-child(5) {
+    --top-category-width: 325px;
+    --top-category-height: 300px;
+    --top-category-left: 300px;
+    --top-category-top: 375px;
+  }
+
+  
+  li.top-category:nth-child(6) {
+    --top-category-width: 350px;
+    --top-category-height: 250px;
+    --top-category-left: 650px;
+    --top-category-top: 350px;
+  }
+
+  #seeAllButton {
+    --see-all-button-width: 200px;
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+  div#productsWrapper {
+    --products-wrapper-padding: 0;
+    --products-wrapper-padding-left: 0;
+    --products-wrapper-padding-top: 0;
+  }
+
+
+  #filterPanel:not([opened]) {
+    display: none;
+  }
+
+  #filterPanel {}
+   
+  #filterPanel, #filterPanel.opening {
+    animation: slideFromDown 0.3s ease forwards;
+  }
+
+  #filterPanel.closing {
+    display: block;
+    animation: slideDown 0.3s ease forwards;
+  }
+
+  #filterPanel, #fliterPanel[opened] {
+    display: block;
+  }
+
+  #fliterPanel[closed] {
+    display: none;
+  }
+
+}
+
+
+/* 
+ * --> Wide - Layout <--
+ * Phone: ? (Responsive)
+ * Dimension: 460px+ (width)
+ *
+ * ***************************************
+ * when the viewport is bigger than 460px,
+ * layout changes to wide-layout.
+ * ***************************************
+ */
+@media (min-width: 460px) {
+    
+  /* App Bar */
+  #appBar {
+    --app-bar-size: 72px;
+  }
+
+  #chipsBar, #appLayout > header {
+    width: calc(100vw - var(--slide-bar-width, 78px));
+  }
+
+  /* Category Bar */
+  #categoryBar {
+    --app-bar-size: 200px;
+  }
+  
+  .top-category {
+    --see-all-button-width: 256px;
+  }
+
+  #searchBar {
+    height: var(--search-bar-height, 72px);
+  }
+
+}
+
+
+
+
+/* 
+ * --> Tablet - Device <--
+ * Phone: ? (Responsive)
+ * Width: 768px <-to-> 1024px
+ */
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+}
+
+
+/* 
+ * --> Laptop - Device <--
+ * Phone: ? (Responsive)
+ * Width: 1024px <-to-> 2560px
+ */
+@media (min-width: 1024px) and (max-width: 2560px) {
+  
+}
+
+
+/* ==== END of LOGIN STYLES ==== */
+

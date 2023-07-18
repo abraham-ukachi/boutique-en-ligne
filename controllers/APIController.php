@@ -50,23 +50,224 @@
 // declare a namespace
 namespace Maxaboom\Controllers;
 
+// use these models
+use Maxaboom\Models\Category;
+use Maxaboom\Models\SubCategory;
+use Maxaboom\Models\Color;
 
-// declare the class
-class APIController {
+
+// use the `Controller` & `ResponseHandler` helper classes
+use Maxaboom\Controllers\Helpers\Controller;
+use Maxaboom\Controllers\Helpers\ResponseHandler;
+
+
+
+/**
+ * Class APIController
+ * NOTE: This class is a controller for Maxaboom's API endpoints
+ */
+class APIController extends Controller {
+  // Using some traists (a.k.a. step parents) in this class
+  use ResponseHandler;
+
+  // declare some constants...
+
+  // declare some properties...
+  
+  // private properties
+
+  // public properties
+  public Category $category;
+  public SubCategory $subCategory;
+  public Color $color;
 
   /**
    * Constructor of the class
    * This method is executed automatically whenever this class is instantiated
+   *
+   * @param ?string $theme : the theme to use
+   * @param ?string $lang : the language to use
+   * @param bool $useDefaultBrowserLang : whether or not to use the default browser language
    */
-  public function __construct() {
-    // TODO: write something awesome code here ;)
+  public function __construct(?string $theme = null, ?string $lang = null, bool $useDefaultBrowserLang = true) {
+    // call the parent's constructor
+    parent::__construct($theme, $lang, $useDefaultBrowserLang);
+
+    // instantiate the models
+    $this->category = new Category();
+    $this->subCategory = new SubCategory();
+    $this->color = new Color();
   }
+
 
 
   // PUBLIC SETTERS
   // PUBLIC GETTERS
+
+  /**
+   * Returns a response containing a list of available colors
+   *
+   * @return array $response - eg. ['success' => true, 'status' => 200, 'message' => '...', ['results' => [...]]]
+   */
+  public function getColors(): array {
+    // get all the colors
+    $colors = Color::all();
+
+    // intialize the `results` array
+    $results = [];
+
+    // loop through the colors and get their info
+    foreach ($colors as $color) {
+      // ..get the color's info
+      $colorInfo = $color->info();
+
+      // add the original name of the color
+      $colorInfo['original_name'] = $this->i18n->getString($color->name) ?? $color->name;
+
+      // append the color's info to the `results` array
+      $results[] = $colorInfo;
+    }
+
+    // define the `success`, `status`, `message` and `data` for the response
+    $success = true;
+    $status = self::$STATUS_SUCCESS_OK;
+    $message = 'Colors retrieved successfully';
+    $data = ['results' => $results];
+
+    // update the response
+    $this->updateResponse($success, $status, $message, $data);
+
+    // return the response
+    return $this->response;
+  }
+
+
+  /**
+   * Returns a response containing a list of available categories
+   *
+   * @return array $response - eg. ['success' => true, 'status' => 200, 'message' => '...', ['results' => [...]]]
+   */
+  public function getCategories(): array {
+    // get all the categories
+    $categories = Category::all();
+
+    // intialize the `results` array
+    $results = [];
+
+
+    // loop through the categories and get their info
+    foreach ($categories as $category) {
+      // ...append the category's info to the `results` array
+      $results[] = $category->info();
+    }
+
+
+    // define the `success`, `status`, `message` and `data` for the response
+    $success = true;
+    $status = self::$STATUS_SUCCESS_OK;
+    $message = 'Categories retrieved successfully';
+    $data = ['results' => $results];
+    
+    // update the response
+    $this->updateResponse($success, $status, $message, $data);
+
+    // return the response
+    return $this->response;
+  }
+
+
+  /**
+   * Method used to discover or search for some instruments with specific or no parameters
+   *
+   * @param string $search
+   * @param ?int $page
+   * @param ?string $category
+   * @param ?string $subCategory
+   * @param ?array $colors
+   * @param ?array $priceRange
+   * @param ?string $sortBy
+   *
+   * @return array $response
+   */
+  public function discover(string $search, ?int $page = 1, ?string $category = null, ?string $subCategory = null, ?array $colors = null, ?array $priceRange = null, ?string $sortBy = null): array {
+    
+    // initialize the `results` array variable
+    $results = [];
+
+    // search for the products with the given parameters
+    /*
+    $products = Product::search($search, [
+      'page' => $page,
+      'category' => $category
+    ]);
+     */
+
+    $products = '';
+
+    // define the `success`, `status`, `message` and `data` for the response
+    $success = is_array($products) ? true : false;
+    $status = $success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_BAD_REQUEST;
+    $message = $success ? 'new products discovered successfully' : 'no products discovered';
+
+
+    if ($success) {
+      // update the `results` array with the sub-categories
+      $results = $products;
+    }
+
+
+    // update the data 
+    $data = $success ? ['results' => $results] : [];
+    
+    // update the response
+    $this->updateResponse($success, $status, $message, $data);
+
+    // return the response
+    return $this->response;
+
+  }
+
+
+  /**
+   * Returns a response containing a list of available sub-categories of the given `categoryId`
+   *
+   * @return array $response - eg. ['success' => true, 'status' => 200, 'message' => '...', ['results' => [...]]]
+   */
+  public function getSubCategories(int $categoryId): array {
+    // initialize the `results` array variable
+    $results = [];
+
+    // get all the sub-categories as `results`
+    $subCategories = SubCategory::where('category_id', $categoryId)->get(true);
+
+    // define the `success`, `status`, `message` and `data` for the response
+    $success = is_array($subCategories) ? true : false;
+    $status = $success ? self::$STATUS_SUCCESS_OK : self::$STATUS_ERROR_BAD_REQUEST;
+    $message = $success ? 'SubCategories retrieved successfully' : 'SubCategories could not be retrieved';
+
+
+    if ($success) {
+      // TODO: Do some stuff with the sub-categories like filtering, sorting, etc...
+      
+      // update the `results` array with the sub-categories
+      $results = $subCategories;
+    }
+
+
+    // update the data 
+    $data = $success ? ['results' => $results] : [];
+    
+    // update the response
+    $this->updateResponse($success, $status, $message, $data);
+
+    // return the response
+    return $this->response;
+  }
+
+
   // PUBLIC METHODS
 
+ 
 
   /**
    * Authenticates a user with the given `email` and `password`

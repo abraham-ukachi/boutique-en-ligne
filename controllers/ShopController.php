@@ -46,120 +46,315 @@
 // declare a namespace
 namespace Maxaboom\Controllers;
 
-use Maxaboom\Models\Helpers\Database;
+// use these models
 use Maxaboom\Models\Product;
 use Maxaboom\Models\Category;
+use Maxaboom\Models\SubCategory;
 use Maxaboom\Models\User;
 use PDO;
 
-
-// declare the class
-class ShopController extends Database
-{
-    // declare some constants...
-
-    const DEFAULT_THEME = 'light';
-
-    // declare some properties...
-    public ?object $productModel;
-    public ?object $categoryModel;
-    public ?object $user;
-    public ?string $categoryName;
-    public ?string $subCategoryName;
-    public ?int $categoryId = null;
-    public ?int $subCategoryId = null;
+// use the `Controller` & `ResponseHandler` helper classes
+use Maxaboom\Controllers\Helpers\Controller;
+use Maxaboom\Controllers\Helpers\ResponseHandler;
 
 
-    /**
-     * Constructor of the class
-     * This method is executed automatically whenever this class is instantiated
+/**
+ * Class ShopController
+ * NOTE: This class is a controller for the shop page 
+ */
+class ShopController extends Controller {
+  // Using some traists (a.k.a. step parents) in this class
+  use ResponseHandler;
+
+  // declare some constants...
+
+  // declare some properties...i
+  
+  // private properties
+
+  // public properties
+  // model objects
+  public Product $product;
+  public Category $category;
+  public SubCategory $subCategory;
+  public User $user;
+
+  public ?string $categoryName = null;
+  public ?string $subCategoryName = null;
+  public ?string $categoryImage = null;
+  public ?int $categoryId = null;
+  public ?int $subCategoryId = null;
+
+  private string $categoryNameValue = '';
+  private string $subCategoryNameValue = '';
+  private ?string $shopTitle = null;
+  
+
+
+  /**
+   * Constructor of the class
+   * This method is executed automatically whenever this class is instantiated
+   *
+   * @param ?string $theme : the theme to use
+   * @param ?string $lang : the language to use
+   * @param bool $useDefaultBrowserLang : whether or not to use the default browser language
+   */
+  public function __construct(?string $theme = null, ?string $lang = null, bool $useDefaultBrowserLang = true) {
+    // call the parent's constructor
+    parent::__construct($theme, $lang, $useDefaultBrowserLang);
+
+
+    // instantiate the models
+    $this->product = new Product();
+    $this->category = new Category();
+    $this->subCategory = new SubCategory();
+    $this->user = new User();
+
+    // initialize the shop title
+    $this->shopTitle = $this->i18n->getString('shop@Maxaboom');
+
+    // $this->categoryId = ($categoryName) ? $this->category->getCategoryIdByName($categoryName) : -1;
+    
+  }
+
+
+  // PUBLIC SETTERS
+
+  // PUBLIC GETTERS
+
+  // PUBLIC METHODS
+
+  
+  /**
+   * Shows the shop page
+   * NOTE: This page dynamically displays the top categories and the products based on the category and sub-category
+   *
+   * @param ?string $categoryName : the name of the category
+   * @param ?string $subCategoryName : the name of the sub-category
+   *
+   * @return void
+   */
+  public function showPage(?string $categoryName = null, ?string $subCategoryName = null): void {
+    
+    // Intialize some variables
+    $categories = [];
+    $subCategories = [];
+
+    $categoryId = null;
+    $subCategoryId = null;
+    $categoryImage = null;
+
+    // get the top categories as `topCategories`
+    $topCategories = $this->getTopCategories(); 
+
+    // if theres a category name...
+    if (isset($categoryName)) {
+      // ...get the category id
+      $categoryId = $this->getCategoryIdByName($categoryName);
+      // get the sub categories of this `categoryId`
+      $subCategories = $this->getSubCategories($categoryId);
+      // get the category image
+      $categoryImage = $this->getCategoryImage($categoryId);
+      
+      /* var_dump($categoryImage); */
+
+    }
+
+    // if theres a sub-category name...
+    if (isset($subCategoryName)) {
+      // ...get the sub-category id
+      $subCategoryId = $this->getSubCategoryIdByName($subCategoryName);
+    }
+
+
+
+    // Update the corresponding properties
+    $this->updateCategoryProps([
+      'categoryName' => $categoryName, 
+      'subCategoryName' => $subCategoryName,
+      'categoryId' => $categoryId,
+      'subCategoryId' => $subCategoryId,
+      'categoryImage' => $categoryImage,
+    ]); 
+
+    // update the shop title
+    $this->updateShopTitle($categoryName, $subCategoryName);
+     
+    // show the shop page
+    require_once __DIR__ . '/../views/shop-page.php';
+  }
+
+
+
+  public function showPageByCategory(): void
+  {
+      $categoryId = $this->category->getCategoryIdByName($this->categoryName); // returns ex: 1
+      $products = $this->product->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
+      $categories = $this->category->getAllCategories();
+      $subCategories = $this->category->getAllSubCategories();
+
+      // show the splash screen
+      require_once __DIR__ . '/../views/shop-page.php';
+  }
+
+
+  public function showPageBySubCategory(): void
+  {
+      $subCategoryId = $this->category->getSubcategoryIdByName($this->subCategoryName);
+      $products = $this->product->getProductsBySubCategoryId($subCategoryId);
+      $categories = $this->category->getAllCategories();
+      $subCategories = $this->getAllSubCategories();
+
+      require_once __DIR__ . '/../views/shop-page.php';
+  }
+
+  public function getAllProducts()
+  {
+      return $this->product->getAllProducts();
+  }
+
+  public function getAllCategories()
+  {
+      return $this->category->getAllCategories();
+  }
+
+  public function getProductByCategory($category)
+  {
+      return $this->category->getCategoryIdByName($category);
+  }
+
+  public function getAllSubCategories()
+  {
+      return $this->category->getAllSubCategories();
+  }
+
+
+  // PRIVATE SETTERS
+
+  // PRIVATE GETTERS
+
+  // PRIVATE METHODS
+
+  /**
+   * Method used to update the category properties
+   *
+   * @param array $categoryProperties : the properties to update (eg. ['categoryName' => '...', 'subCategoryName' => '...', ...])
+   * @return void
+   */
+  private function updateCategoryProps(array $categoryProperties): void {
+    // loop through each category property...
+    foreach ($categoryProperties as $categoryProperty => $categoryPropertyValue) {
+      // ...update the corresponding property
+      $this->$categoryProperty = $categoryPropertyValue;
+    }
+    
+    // update the corresponding properties
+    /*
+    $this->categoryName = $props['categoryName'];
+    $this->subCategoryName = $props['subCategoryName'];
+    $this->categoryId = $props['categoryId'];
+    $this->subCategoryId = $props['subCategoryId'];
+    $this->categoryImage = $props['categoryImage'];
      */
-    public function __construct(?string $categoryName = null, ?string $subCategoryName = null)
-    {
-        $this->categoryName = $categoryName;
-        $this->subCategoryName = $subCategoryName;
+  }
 
 
-        $this->productModel = new Product();
-        $this->categoryModel = new Category();
-        $this->user = new User();
+  /**
+   * Updates the shop title
+   *
+   * @param ?string $categoryName : the name of the category
+   * @param ?string $subCategoryName : the name of the sub-category
+   *
+   * @return void
+   */
+  private function updateShopTitle(?string $categoryName = null, ?string $subCategoryName = null): void {
+    // if theres a category name...
+    if (isset($categoryName)) {
+      // ...update the category name value & shop title
+      $this->categoryNameValue = $this->i18n->getString($categoryName);
+      $this->shopTitle = str_replace('%s', $this->categoryNameValue, $this->i18n->getString('x@Maxaboom'));
 
-        $this->categoryId = ($categoryName) ? $this->categoryModel->getCategoryIdByName($categoryName) : -1;
-
+    } else { // <_ if theres no category name...
+      $this->shopTitle = $this->i18n->getString('shop@Maxaboom');
     }
 
-
-    // PUBLIC SETTERS
-    // PUBLIC GETTERS
-    // PUBLIC METHODS
+  }
 
 
-    /**
-     * Shows the default shop page
-     *
-     * @param string $theme - the default theme of the page
-     *
-     * @return void
-     */
-    public function showPage($theme = self::DEFAULT_THEME): void
-    {
-        $products = !!$this->categoryName ? $this->getProductByCategory($this->categoryName) : $this->getAllProducts(); // if CategoryName is not null then filter products by categoryName, else display all products
-        //$productsBySubCategory = !!$this->subCategory ? $this->getProductByCategory($this->categoryName) : $this->getAllProducts();
-        $subCategories = $this->getAllSubCategories();
-        $categories = $this->getAllCategories();
-        $user = $this->user->getInitials();
-        // show the splash screen
-        require_once __DIR__ . '/../views/shop-page.php';
-    }
+  /**
+   * Method used to get the top categories
+   *
+   * @return array
+   */
+  private function getTopCategories(): array {
+    // retrieve the top categories from the database using the `Category` model as `topCategories`
+    $topCategories = Category::where('is_top', 1)->get(true);
+    
+    // return the `topCategories` array
+    return $topCategories;
+  }
+
+  /**
+   * Method used to get the category id by name
+   *
+   * @param ?string $categoryName : the name of the category
+   * @return int
+   */
+  private function getCategoryIdByName(?string $categoryName = null): int {
+    // return the category id
+    $categoryId = Category::where('name', $categoryName)->get(true)[0]['id'];
+
+    // return the `categoryId`
+    return $categoryId;
+  }
+
+  /**
+   * Method used to get the category image using the `categoryId`
+   *
+   * @param int $categoryId : the id of the category
+   * @return string
+   */
+  private function getCategoryImage(int $categoryId): ?string {
+    // return the category image
+    $categoryImage = Category::find($categoryId)->info()['image'];
+
+    // return the `categoryImage`
+    return $categoryImage;
+  }
 
 
-    public function showPageByCategory($theme = self::DEFAULT_THEME): void
-    {
-        $categoryId = $this->categoryModel->getCategoryIdByName($this->categoryName); // returns ex: 1
-        $products = $this->productModel->getProductsByCategoryId($categoryId); // returns: Array(...['id' => 10, 'name' => 'Piano Yamaha'...])
-        $categories = $this->categoryModel->getAllCategories();
-        $subCategories = $this->categoryModel->getAllSubCategories();
+  /**
+   * Method used to get all the sub-categories of the given `categoryId`
+   *
+   * @param int $categoryId : the id of the category
+   *
+   * @return array
+   * @private
+   */
+  private function getSubCategories(int $categoryId): array {
+    // get all the sub-categories with `categoryId` as `subCategories`
+    $subCategories = SubCategory::where('category_id', $categoryId)->get();
 
-        // show the splash screen
-        require_once __DIR__ . '/../views/shop-page.php';
-    }
+    /* var_dump($subCategories); */
 
+    // return the `subCategories`
+    return $subCategories;
+  }
+  
 
-    public function showPageBySubCategory($theme = self::DEFAULT_THEME): void
-    {
-        $subCategoryId = $this->categoryModel->getSubcategoryIdByName($this->subCategoryName);
-        $products = $this->productModel->getProductsBySubCategoryId($subCategoryId);
-        $categories = $this->categoryModel->getAllCategories();
-        $subCategories = $this->getAllSubCategories();
+  /**
+   * Method used to get the sub-category id by name
+   *
+   * @param string $subCategoryName : the name of the sub-category
+   * @return int
+   */
+  private function getSubCategoryIdByName(string $subCategoryName): int {
+    // return the sub-category id
+    $subCategoryId = SubCategory::where('name', $subCategoryName)->get(true)[0]['id'];
 
-        require_once __DIR__ . '/../views/shop-page.php';
-    }
-
-    public function getAllProducts()
-    {
-        return $this->productModel->getAllProducts();
-    }
-
-    public function getAllCategories()
-    {
-        return $this->categoryModel->getAllCategories();
-    }
-
-    public function getProductByCategory($category)
-    {
-        return $this->categoryModel->getCategoryIdByName($category);
-    }
-
-    public function getAllSubCategories()
-    {
-        return $this->categoryModel->getAllSubCategories();
-    }
-
-
-    // PRIVATE SETTERS
-    // PRIVATE GETTERS
-    // PRIVATE METHODS
-
+    // return the `subCategoryId`
+    return $subCategoryId;
+  }
 
 };
 
